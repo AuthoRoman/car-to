@@ -1,0 +1,24 @@
+
+
+.carBoard{
+
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: fit-content;
+     justify-content: center;
+     align-items: center;
+     border: 2px solid rgb(39, 14, 66);
+     border-radius: 5px;
+     padding: 5px;
+      margin: 15px 0px;
+}
+.carBoard__inner{
+    display:flex ;
+    flex-wrap: wrap;
+    width:300px;
+}
+
+.carBoard__inner__item{
+    margin: 5px 10px;
+}

@@ -1,0 +1,34 @@
+
+
+.createCardPopup{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    min-height: 100%;
+    background-color: #13111def;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    
+}
+
+.form{
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+    border-radius: 5px; 
+    padding: 35px;
+    background-color: #382274;
+    height: fit-content;
+    width: 500px;
+     
+}
+
+.form__footer{
+    display: flex;
+    justify-content: space-around;
+}
+
+ 
