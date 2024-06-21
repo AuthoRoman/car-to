@@ -53,3 +53,31 @@ export interface IPropsCar {
   tel: string;
   problems: IProblems;
 }
+////Service
+
+export enum serviceCarTypesAction{
+  ADD_SERVICE_CAR = 'ADD_SERVICE_CAR'
+}
+
+interface cardService{
+  nameMaster:string,
+  id:number,
+  VIN: string,
+  region: string,
+      country: string,
+      manufacturer: string,
+      vehicleAttributes: string,
+      checkDigit: string,
+      modelYear: string,
+      assemblyPlant: string,
+      serialNumber: string,
+}
+
+export interface ICarserviceState{
+  cars: cardService[]
+}
+
+export interface IServiceAction {
+  type: string;
+  payload: cardService
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FinishCarWorking = () => {
+const FinishCarWorking:React.FC = () => {
     return (
         <div>
             FInish!

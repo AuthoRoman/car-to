@@ -1,0 +1,13 @@
+.carService {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgb(39, 14, 66);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 15px 0px;
+  transition: all 0.8s;
+}

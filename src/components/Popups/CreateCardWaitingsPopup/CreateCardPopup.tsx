@@ -12,8 +12,8 @@ import {
   
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
-import { useTypedDispatch } from "../../state/hooks/hooks";
-import { Color } from '../../state/types';
+import { useTypedDispatch } from "../../../state/hooks/hooks";
+import { Color } from '../../../state/types';
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
 
 
@@ -63,7 +63,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   } = problems;
 
   async function submitForm(){
-   await dispatch({ type: 'ADD_CAR', payload:{accidents:accidents, carMileage:carMileage, color: color, email:email, firstNameOwner:firstNameOwner, id:Math.random()*100, numberOwners:numberOwners, registration:registration, secondNameOwner: secondNameOwner, tel: phone, VIN: VIN, problems: problems }})
+   await dispatch({ type: 'ADD_CAR', payload:{accidents:accidents,  carMileage:carMileage, color: color, email:email, firstNameOwner:firstNameOwner, id:Math.random()*100, numberOwners:numberOwners, registration:registration, secondNameOwner: secondNameOwner, tel: phone, VIN: VIN, problems: problems }})
    closeVisible(false)
 
   }
@@ -206,7 +206,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               />
               <FormControlLabel
                 value="generator"
-                control={<Checkbox checked={generator} name='generator' />}
+                control={<Checkbox checked={generator}  onChange={handleChange} name='generator' />}
                 label="generator"
               />
               <FormControlLabel

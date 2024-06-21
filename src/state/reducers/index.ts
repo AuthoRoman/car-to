@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
 import { carReducer } from "./carReducer";
 import { store } from "../store";
+import { ServiceCarReducer } from "./serviceCarReducer";
 
 
 
 
 export const rootReducer = combineReducers({
-    cars:carReducer
+    cars:carReducer,
+    carsinServ: ServiceCarReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>

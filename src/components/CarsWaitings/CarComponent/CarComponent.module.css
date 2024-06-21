@@ -12,7 +12,13 @@
      border-radius: 5px;
      padding: 5px;
       margin: 15px 0px;
+      transition: all .8s;
 }
+.carBoard:hover{
+    scale: 1.1;
+    cursor: pointer;
+}
+
 .carBoard__inner{
     display:flex ;
     flex-wrap: wrap;
@@ -20,5 +26,8 @@
 }
 
 .carBoard__inner__item{
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 5px 10px;
 }

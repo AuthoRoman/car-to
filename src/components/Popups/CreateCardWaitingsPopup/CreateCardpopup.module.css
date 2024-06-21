@@ -3,7 +3,7 @@
 .createCardPopup{
     position: absolute;
     display: flex;
-    width: 100vw;
+    min-width:   100%;
     min-height: 100%;
     background-color: #13111def;
     z-index: 999;
@@ -11,6 +11,7 @@
     justify-content: center;
     color: white;
     text-align: center;
+    top: 0;
     
 }
 

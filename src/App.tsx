@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WaitingsCarPage from "./pages/WaitingsCarPage";
 import CarinWorking from "./pages/CarInWorking";
 import FinishCarWorking from "./pages/FinishCarWorking";
-import Layout from "./pages/Layout";
+import Layout from "./pages/Layout/Layout";
 
 function App() {
   return (
