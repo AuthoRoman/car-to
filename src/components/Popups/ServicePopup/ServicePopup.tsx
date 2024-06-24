@@ -14,9 +14,12 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
 
   const [nameMaster, setNameMaster] = useState("");
 
-  async function submitForm(VIN: any, name: string) {
+  async function submitForm(    VIN: any, name: string) {
+    
+    console.log('OUR VIN IS: ' + VIN)
     const data = await decodeVIN(VIN);
-    if (data) {
+    console.log('OUR data IS: ' + data)
+    if ( data) {
       await dispatch({
         type: serviceCarTypesAction.ADD_SERVICE_CAR,
         payload: {
@@ -35,12 +38,16 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
       });
       closeVisible(false);
     }
+    if(!data){
+       console.log('no data')
+    }
+   
   }
 
   return (
     <div>
       <div className={styles.createCardPopup}>
-        <form className={styles.form} action="">
+        <form   onSubmit={(e: React.FormEvent<HTMLFormElement>)=> e.preventDefault()} className={styles.form} action="">
           <h1>Имя мастера взявшего автомобиль на обслуживание</h1>
 
           <Input
@@ -55,6 +62,7 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
 
           <div className={styles.form__footer}>
             <Button
+             
               onClick={() => closeVisible(false)}
               sx={{
                 backgroundColor: "#e68d1a",
@@ -67,7 +75,7 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
               Cancel
             </Button>
             <Button
-              onClick={() => submitForm(VIN, nameMaster)}
+              onClick={() => submitForm( VIN, nameMaster)}
               sx={{
                 backgroundColor: "#e68d1a",
                 "&:hover": {

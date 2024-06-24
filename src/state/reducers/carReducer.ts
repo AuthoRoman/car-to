@@ -28,7 +28,7 @@ const initialState: ICarsState = {
     },
     {
       id: 1,
-      VIN: "XTA210930Y2696785",
+      VIN: "XTA210968Y2696785",
       tel: "+7-999-999-99-99",
       email: "gogo@gmail.com",
       firstNameOwner: "Andrey",
@@ -60,7 +60,11 @@ export const carReducer = (
   switch (action.type) {
     case typesOfActionsCar.ADD_CAR:
       return { ...state, cars: [...state.cars, action.payload] };
-
+    case typesOfActionsCar.DELETE_CAR:
+      return {
+        ...state,
+        cars: state.cars.filter((car) => car.VIN !== action.payload.VIN),
+      };
     default:
       return state;
   }

@@ -19,7 +19,24 @@ export interface IProblems {
   alarm: boolean;
   steeringSystem: boolean;
 }
-interface ICar {
+export enum localInRussian {
+  engine = "Двигратель",
+  fuses = "Предохранители",
+  catalyst = "Катализатор",
+  generator = "Генератор",
+  brakeSystem = "Тормозная система",
+  windshieldWashers = "Омыватели лобового стекла",
+  alarm = "аварийная сигнализация",
+  steeringSystem = "рулевая система",
+}
+export type LocalInRussianKeys = keyof typeof localInRussian;
+
+export interface IPropsCar {
+  nameOwner: string;
+  tel: string;
+  problems: Record<LocalInRussianKeys, boolean>;
+}
+export interface ICar {
   id: number;
   VIN: string;
   tel: string;
@@ -46,38 +63,34 @@ export interface IAction {
 
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
+  DELETE_CAR = "DELETE_CAR",
 }
 
-export interface IPropsCar {
-  nameOwner: string;
-  tel: string;
-  problems: IProblems;
-}
 ////Service
 
-export enum serviceCarTypesAction{
-  ADD_SERVICE_CAR = 'ADD_SERVICE_CAR'
+export enum serviceCarTypesAction {
+  ADD_SERVICE_CAR = "ADD_SERVICE_CAR",
 }
 
-interface cardService{
-  nameMaster:string,
-  id:number,
-  VIN: string,
-  region: string,
-      country: string,
-      manufacturer: string,
-      vehicleAttributes: string,
-      checkDigit: string,
-      modelYear: string,
-      assemblyPlant: string,
-      serialNumber: string,
+interface cardService {
+  nameMaster: string;
+  id: number;
+  VIN: string;
+  region: string;
+  country: string;
+  manufacturer: string;
+  vehicleAttributes: string;
+  checkDigit: string;
+  modelYear: string;
+  assemblyPlant: string;
+  serialNumber: string;
 }
 
-export interface ICarserviceState{
-  cars: cardService[]
+export interface ICarserviceState {
+  cars: cardService[];
 }
 
 export interface IServiceAction {
   type: string;
-  payload: cardService
+  payload: cardService;
 }
