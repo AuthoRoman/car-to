@@ -1,8 +1,9 @@
 .createCardPopup {
-  position: absolute;
+  position: fixed;
   display: flex;
   width: 100vw;
-  min-height: 100%;
+ 
+  min-height: 100vh;
   background-color: #13111def;
   z-index: 999;
   align-items: center;

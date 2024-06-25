@@ -1,10 +1,14 @@
-import { ICarserviceState, IServiceAction, serviceCarTypesAction } from "../types";
+import {
+  ICarserviceState,
+  IServiceAction,
+  serviceCarTypesAction,
+} from "../types";
 
 const initialState: ICarserviceState = {
   cars: [
     {
       id: 1,
-      nameMaster:'Petr',
+      nameMaster: "Petr",
       VIN: "SJNFAAJ10Z1229675",
       region: "Европа",
       country: "Германия",
@@ -14,6 +18,16 @@ const initialState: ICarserviceState = {
       modelYear: "asdasd",
       assemblyPlant: "asdasd",
       serialNumber: "asdasd",
+      problems: {
+        engine: false,
+        alarm: false,
+        brakeSystem: true,
+        catalyst: false,
+        fuses: false,
+        generator: true,
+        steeringSystem: false,
+        windshieldWashers: true,
+      },
     },
   ],
 };
@@ -25,7 +39,11 @@ export const ServiceCarReducer = (
   switch (action.type) {
     case serviceCarTypesAction.ADD_SERVICE_CAR:
       return { ...state, cars: [...state.cars, action.payload] };
-
+     case serviceCarTypesAction.DELETE_SERVICE_CAR:
+      return {
+        ...state,
+        cars: state.cars.filter((car) => car.VIN !== action.payload.VIN),
+      };
     default:
       return state;
   }

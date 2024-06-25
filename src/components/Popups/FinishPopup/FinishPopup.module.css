@@ -1,6 +1,5 @@
-
-
-.createCardPopup{
+.finishPopup{
+    
     position: fixed;
     display: flex;
     min-width:   100%;
@@ -15,21 +14,32 @@
     
 }
 
-.form{
+.finishForm{
      display: flex;
      flex-direction: column;
      gap: 15px;
     border-radius: 5px; 
-    padding: 35px;
+     justify-content: center;
+    
     background-color: #382274;
     height: fit-content;
     width: 500px;
+    padding: 30px;
+      
+}
+
+.finishPopup__inner{
+     color: white;
+  
+     font-size: 15px;
+     align-items: center;
+      
      
 }
 
-.form__footer{
-    display: flex;
-    justify-content: space-around;
+.finishPopup__lists{
+     
+        color: white;
+        font-size: 14px;
+   
 }
-
- 

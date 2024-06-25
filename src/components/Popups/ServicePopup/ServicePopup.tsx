@@ -3,19 +3,23 @@ import styles from "./ServicePopup.module.css";
 import { Button, Input } from "@mui/material";
 
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { serviceCarTypesAction } from "../../../state/types";
+import { ICar, IProblems, serviceCarTypesAction } from "../../../state/types";
 import decodeVIN from "../../../api/VinAPI";
 
-const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
-  closeVisible,
-  VIN,
-}) => {
+const ServicePopup: React.FC<{
+  closeVisible: any;
+  VIN: string;
+  problems: IProblems | undefined;
+  closeWithNextStadyCar:any
+}> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
   const dispatch = useTypedDispatch();
 
   const [nameMaster, setNameMaster] = useState("");
 
-  async function submitForm(VIN: any, name: string) {
+  async function submitForm(VIN: any, name: string, problems: IProblems, ) {
+    console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
+    console.log("OUR data IS: " + data);
     if (data) {
       await dispatch({
         type: serviceCarTypesAction.ADD_SERVICE_CAR,
@@ -31,16 +35,24 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
           assemblyPlant: data.assemblyPlant,
           serialNumber: data.serialNumber,
           nameMaster: name,
+          problems: problems,
         },
       });
-      closeVisible(false);
+      closeWithNextStadyCar( );
+    }
+    if (!data) {
+      console.log("no data");
     }
   }
 
   return (
     <div>
       <div className={styles.createCardPopup}>
-        <form className={styles.form} action="">
+        <form
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+          className={styles.form}
+          action=""
+        >
           <h1>Имя мастера взявшего автомобиль на обслуживание</h1>
 
           <Input
@@ -51,11 +63,12 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
               backgroundColor: "white",
             }}
             placeholder="Name"
+            color="warning"
           />
 
           <div className={styles.form__footer}>
             <Button
-              onClick={() => closeVisible(false)}
+              onClick={() =>  closeVisible(false)}
               sx={{
                 backgroundColor: "#e68d1a",
                 "&:hover": {
@@ -67,7 +80,25 @@ const ServicePopup: React.FC<{ closeVisible: any; VIN: string }> = ({
               Cancel
             </Button>
             <Button
-              onClick={() => submitForm(VIN, nameMaster)}
+            disabled={!(nameMaster.trim().length)}
+              onClick={() => 
+                submitForm(
+                  VIN,
+                  nameMaster,
+                  problems
+                    ? problems
+                    : {
+                        alarm: false,
+                        brakeSystem: false,
+                        catalyst: false,
+                        engine: false,
+                        fuses: false,
+                        generator: false,
+                        steeringSystem: false,
+                        windshieldWashers: false,
+                      }
+                )
+              }
               sx={{
                 backgroundColor: "#e68d1a",
                 "&:hover": {

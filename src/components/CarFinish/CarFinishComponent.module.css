@@ -1,0 +1,43 @@
+.carFinishCard {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgb(39, 14, 66);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 31px 0px;
+  transition: all 0.8s;
+}
+
+.carFinishCard:hover {
+  scale: 1.04;
+  cursor: pointer;
+}
+
+.carFinishCard__body{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.carFinishCard__recommTitle{
+    font-size: 18px;
+    font-weight: 600;
+    color: #e68d1a;
+}
+
+.carFinishCard__recommText{
+    max-width: 500px;
+    word-wrap: break-word;
+    height: 100%;
+}
+
+.carFinishCard__recomm{
+    font-size: 15px;
+    text-align: center;
+     
+     
+}
