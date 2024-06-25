@@ -1,28 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTypedSelector } from "../state/hooks/hooks";
 import CarsInService from "../components/CarsService/CarsInService";
 import FinishPopup from "../components/Popups/FinishPopup/FinishPopup";
-import { cardService, ICar } from "../state/types";
+import {
+  cardService,
+  ICar,
+  serviceCarTypesAction,
+  TypeBases,
+} from "../state/types";
 import { useDispatch } from "react-redux";
+import { getStoreData } from "../api/database/db";
 
 const CarinWorking: React.FC = () => {
   const cars = useTypedSelector((state) => state.carsInServ.cars);
-  const dispatch = useDispatch()
-  const [currentCar, setCurrentCar] = useState<cardService >();
+  const dispatch = useDispatch();
+  const [currentCar, setCurrentCar] = useState<cardService>();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      if (cars.length == 0) {
+        const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_SERVICE);
+        carsDB.map((x) =>
+          dispatch({ type: serviceCarTypesAction.ADD_SERVICE_CAR, payload: x })
+        );
+      }
+    })();
+    
+  }, []);
 
   const togglePopup = (booleanValue: boolean) => {
     setIsOpen(booleanValue);
   };
- 
-  const funSetCurrentCar = (car:cardService) => {
-   return  setCurrentCar(car);
+
+  const funSetCurrentCar = (car: cardService) => {
+    return setCurrentCar(car);
   };
   return (
     <div>
       {isOpen && (
         <div>
-          <FinishPopup togglePopup={togglePopup} car = {currentCar   }/>
+          <FinishPopup togglePopup={togglePopup} car={currentCar} />
         </div>
       )}
 
@@ -30,8 +48,8 @@ const CarinWorking: React.FC = () => {
         {cars.map((x) => (
           <div key={x.id}>
             <CarsInService
-            id = {x.id}
-            VIN = {x.VIN}
+              id={x.id}
+              VIN={x.VIN}
               nameMaster={x.nameMaster}
               assemblyPlant={x.assemblyPlant}
               checkDigit={x.checkDigit}
@@ -43,7 +61,7 @@ const CarinWorking: React.FC = () => {
               vehicleAttributes={x.vehicleAttributes}
               problems={x.problems}
               togglePopup={togglePopup}
-              funSetCurrentCar = {funSetCurrentCar}
+              funSetCurrentCar={funSetCurrentCar}
             />
           </div>
         ))}

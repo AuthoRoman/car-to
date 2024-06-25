@@ -4,8 +4,13 @@ import CarComponent from "./CarComponent/CarComponent";
 import CreateCardPopup from "../Popups/CreateCardWaitingsPopup/CreateCardPopup";
 import ServicePopup from "../Popups/ServicePopup/ServicePopup";
 import { Button } from "@mui/material";
-import { ICar, ICarsState, typesOfActionsCar } from "../../state/types";
-import { addData } from "../../api/database/db";
+import {
+  ICar,
+  ICarsState,
+  TypeBases,
+  typesOfActionsCar,
+} from "../../state/types";
+import { addData, deleteData, getStoreData } from "../../api/database/db";
 
 const CarsListWaiting = () => {
   const dispatch = useTypedDispatch();
@@ -15,11 +20,23 @@ const CarsListWaiting = () => {
   const [PopupFixCar, setPopupFixCar] = useState(false);
   const [currentCar, setCurrentCar] = useState<ICar>();
   const [VIN, setVIN] = useState("");
+  useEffect(() => {
+    (async () => {
+      if (cars.length == 0) {
+        const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_WAITING);
+        carsDB.map((x) =>
+          dispatch({ type: typesOfActionsCar.ADD_CAR, payload: x })
+        );
+      }
+    })();
+  }, []);
 
-  const  closeWithNextStadyCar = async() => {
-    await addData('carsInWaitings', currentCar)
-    dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: currentCar! });
-    setPopupFixCar(false);
+  const closeWithNextStadyCar = async () => {
+    if (currentCar) {
+      await deleteData(TypeBases.CARS_IN_WAITING, currentCar.id);
+      dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: currentCar! });
+      setPopupFixCar(false);
+    }
   };
 
   const close = () => {
@@ -27,7 +44,7 @@ const CarsListWaiting = () => {
   };
 
   async function handleServicePop(VIN: string, car: ICar) {
-    setCurrentCar(car);
+    await setCurrentCar(car);
     await setVIN(VIN);
     await setPopupFixCar(true);
   }
@@ -48,8 +65,8 @@ const CarsListWaiting = () => {
           />
         </div>
       )}
-      <div style={{ maxWidth: "1440px", margin:'0 auto'}}>
-        <div style={{ display: "flex", justifyContent: "space-between",   }}>
+      <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div>
             {cars.map((x) => (
               <div onClick={() => handleServicePop(x.VIN, x)} key={x.id}>

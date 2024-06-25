@@ -3,28 +3,48 @@ import styles from "./ServicePopup.module.css";
 import { Button, Input } from "@mui/material";
 
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { ICar, IProblems, serviceCarTypesAction } from "../../../state/types";
+import {
+  ICar,
+  IProblems,
+  serviceCarTypesAction,
+  TypeBases,
+} from "../../../state/types";
 import decodeVIN from "../../../api/VIN/VinAPI";
+import { addData, deleteData } from "../../../api/database/db";
 
 const ServicePopup: React.FC<{
   closeVisible: any;
   VIN: string;
   problems: IProblems | undefined;
-  closeWithNextStadyCar:any
+  closeWithNextStadyCar: any;
 }> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
   const dispatch = useTypedDispatch();
-
+  const randomIdKey = Math.random() * 100;
   const [nameMaster, setNameMaster] = useState("");
 
-  async function submitForm(VIN: any, name: string, problems: IProblems, ) {
+  async function submitForm(VIN: any, name: string, problems: IProblems) {
     console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
     console.log("OUR data IS: " + data);
     if (data) {
+      await addData(TypeBases.CARS_IN_SERVICE, {
+        id: randomIdKey,
+        VIN: VIN,
+        region: data.region,
+        country: data.country,
+        manufacturer: data.manufacturer,
+        vehicleAttributes: data.vehicleAttributes,
+        checkDigit: data.checkDigit,
+        modelYear: data.modelYear,
+        assemblyPlant: data.assemblyPlant,
+        serialNumber: data.serialNumber,
+        nameMaster: name,
+        problems: problems,
+      });
       await dispatch({
         type: serviceCarTypesAction.ADD_SERVICE_CAR,
         payload: {
-          id: Math.random(),
+          id: randomIdKey,
           VIN: VIN,
           region: data.region,
           country: data.country,
@@ -38,7 +58,7 @@ const ServicePopup: React.FC<{
           problems: problems,
         },
       });
-      closeWithNextStadyCar( );
+      closeWithNextStadyCar();
     }
     if (!data) {
       console.log("no data");
@@ -68,7 +88,7 @@ const ServicePopup: React.FC<{
 
           <div className={styles.form__footer}>
             <Button
-              onClick={() =>  closeVisible(false)}
+              onClick={() => closeVisible(false)}
               sx={{
                 backgroundColor: "#e68d1a",
                 "&:hover": {
@@ -80,8 +100,8 @@ const ServicePopup: React.FC<{
               Cancel
             </Button>
             <Button
-            disabled={!(nameMaster.trim().length)}
-              onClick={() => 
+              disabled={!nameMaster.trim().length}
+              onClick={() =>
                 submitForm(
                   VIN,
                   nameMaster,

@@ -6,29 +6,7 @@ import {
 
 const initialState: ICarserviceState = {
   cars: [
-    {
-      id: 1,
-      nameMaster: "Petr",
-      VIN: "SJNFAAJ10Z1229675",
-      region: "Европа",
-      country: "Германия",
-      manufacturer: "asdasd",
-      vehicleAttributes: "asd",
-      checkDigit: "asdasd",
-      modelYear: "asdasd",
-      assemblyPlant: "asdasd",
-      serialNumber: "asdasd",
-      problems: {
-        engine: false,
-        alarm: false,
-        brakeSystem: true,
-        catalyst: false,
-        fuses: false,
-        generator: true,
-        steeringSystem: false,
-        windshieldWashers: true,
-      },
-    },
+     
   ],
 };
 

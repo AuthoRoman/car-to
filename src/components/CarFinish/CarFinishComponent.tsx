@@ -1,10 +1,22 @@
-import React from "react";
-import { useTypedSelector } from "../../state/hooks/hooks";
+import React, { useEffect } from "react";
+import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import styles from "./CarFinishComponent.module.css";
-import { localInRussian, LocalInRussianKeys } from "../../state/types";
+import { finishCarTypesAction, ICar, localInRussian, LocalInRussianKeys, TypeBases } from "../../state/types";
+import { getStoreData } from "../../api/database/db";
 
 export default function CarFinishComponent() {
   const cars = useTypedSelector((state) => state.carsInFinish.cars);
+  const dispatch = useTypedDispatch()
+  useEffect(() => {
+    if(cars.length == 0){
+       (async () =>{
+        const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_FINISH)
+        carsDB.map((car) => dispatch({type:finishCarTypesAction.ADD_FINISH_CAR, payload: car}))
+     })()
+     
+    }
+    
+  }, []);
   return (
     <div>
       <div>

@@ -150,7 +150,7 @@ const modelYears: { [key: string]: string } = {
   "9": "2009",
 };
 
-function decodeVIN(vin: string): VINInfo | null {
+  function decodeVIN(vin: string): VINInfo | null {
   if (vin.length !== 17) {
     return null;
   }

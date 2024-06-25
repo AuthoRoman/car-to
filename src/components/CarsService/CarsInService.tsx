@@ -56,6 +56,7 @@ const CarsInService: React.FC<IProps> = ({
     funSetCurrentCar(carCurr);
     togglePopup(true);
   };
+  
   return (
     <div>
       <div className={styles.carService}>

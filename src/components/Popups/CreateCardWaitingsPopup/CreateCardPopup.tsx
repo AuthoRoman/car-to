@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color } from "../../../state/types";
+import { Color, TypeBases } from "../../../state/types";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
+import { addData } from "../../../api/database/db";
 
 const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const dispatch = useTypedDispatch();
@@ -56,8 +57,22 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
     alarm,
     steeringSystem,
   } = problems;
-
+  const IdKey =Math.random() * 100
   async function submitForm() {
+    await addData(TypeBases.CARS_IN_WAITING,   {
+      accidents: accidents,
+      carMileage: carMileage,
+      color: color,
+      email: email,
+      firstNameOwner: firstNameOwner,
+      id: IdKey,
+      numberOwners: numberOwners,
+      registration: registration,
+      secondNameOwner: secondNameOwner,
+      tel: phone,
+      VIN: VIN,
+      problems: problems,
+    } )
     await dispatch({
       type: "ADD_CAR",
       payload: {
@@ -66,7 +81,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
         color: color,
         email: email,
         firstNameOwner: firstNameOwner,
-        id: Math.random() * 100,
+        id: IdKey,
         numberOwners: numberOwners,
         registration: registration,
         secondNameOwner: secondNameOwner,

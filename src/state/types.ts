@@ -126,3 +126,9 @@ export interface ICarFinishAction {
   type: string;
   payload: cardFinish;
 }
+///IndexedDB
+export enum TypeBases{
+  CARS_IN_WAITING = 'CARS_IN_WAITING',
+  CARS_IN_SERVICE = 'CARS_IN_SERVICE',
+  CARS_IN_FINISH = 'CARS_IN_FINISH',
+}
