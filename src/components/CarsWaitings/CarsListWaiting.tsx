@@ -5,6 +5,7 @@ import CreateCardPopup from "../Popups/CreateCardWaitingsPopup/CreateCardPopup";
 import ServicePopup from "../Popups/ServicePopup/ServicePopup";
 import { Button } from "@mui/material";
 import { ICar, ICarsState, typesOfActionsCar } from "../../state/types";
+import { addData } from "../../api/database/db";
 
 const CarsListWaiting = () => {
   const dispatch = useTypedDispatch();
@@ -15,7 +16,8 @@ const CarsListWaiting = () => {
   const [currentCar, setCurrentCar] = useState<ICar>();
   const [VIN, setVIN] = useState("");
 
-  const closeWithNextStadyCar = () => {
+  const  closeWithNextStadyCar = async() => {
+    await addData('carsInWaitings', currentCar)
     dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: currentCar! });
     setPopupFixCar(false);
   };

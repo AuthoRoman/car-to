@@ -28,7 +28,7 @@ const initialState: ICarsState = {
     },
     {
       id: 1,
-      VIN: "XTA210968Y2696785",
+      VIN: "Z94CB41AACR123456",
       tel: "+7-999-999-99-99",
       email: "gogo@gmail.com",
       firstNameOwner: "Andrey",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
@@ -9,10 +9,21 @@ import WaitingsCarPage from "./pages/WaitingsCarPage";
 import CarinWorking from "./pages/CarInWorking";
 import FinishCarWorking from "./pages/FinishCarWorking";
 import Layout from "./pages/Layout/Layout";
+import { initDB } from "./api/database/db";
 
 function App() {
+  const [isDBReady, setIsDBReady] = useState<boolean>(false);
+    useEffect(() => {
+      const handleInitDB = async () => {
+        const satus = await initDB()
+        setIsDBReady(satus);
+      };
+      handleInitDB();
+    }, []);
+  
   return (
-    <Router>
+    <div>
+       {isDBReady ? <Router>
       <Layout>
         <Routes>
           <Route path="/" element={<WaitingsCarPage />} />
@@ -21,6 +32,10 @@ function App() {
         </Routes>
       </Layout>
     </Router>
+  : "Проблема с базой данных"}
+    </div>
+ 
+    
   );
 }
 

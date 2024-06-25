@@ -9,7 +9,7 @@ export default function CarFinishComponent() {
     <div>
       <div>
         {cars.map((car) => (
-          <div className={styles.carFinishCard}>
+          <div key={car.id} className={styles.carFinishCard}>
             <div>Отремонтирован авто {car.manufacturer} </div>
             <div> Мастером {car.nameMaster}</div>
             <div className={styles.carFinishCard__body}>

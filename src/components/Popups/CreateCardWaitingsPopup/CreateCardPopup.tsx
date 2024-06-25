@@ -133,6 +133,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               backgroundColor: "white",
             }}
             placeholder="VIN number"
+            color="warning"
           />
           <Input
             value={registration}
@@ -182,6 +183,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               backgroundColor: "white",
             }}
             placeholder="accidents"
+            color="warning"
           />
           <Input
             value={email}
@@ -209,30 +211,30 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             >
               <FormControlLabel
                 value="engine"
-                control={<Checkbox checked={engine} onChange={handleChange}  name='engine'/>}
+                control={<Checkbox checked={engine} onChange={handleChange}  name='engine' color="warning"/>}
                 label="engine"
               />
               <FormControlLabel
                 value="fuses"
-                control={<Checkbox checked={fuses} onChange={handleChange}  name='fuses'/>}
+                control={<Checkbox checked={fuses} onChange={handleChange}  name='fuses' color="warning"/>}
                 label="fuses"
               />
               <FormControlLabel
                 value="catalyst"
                 control={
-                  <Checkbox checked={catalyst} onChange={handleChange}  name='catalyst'/>
+                  <Checkbox checked={catalyst} onChange={handleChange}  name='catalyst' color="warning"/>
                 }
                 label="catalyst"
               />
               <FormControlLabel
                 value="generator"
-                control={<Checkbox checked={generator}  onChange={handleChange} name='generator' />}
+                control={<Checkbox checked={generator}  onChange={handleChange} name='generator' color="warning"/>}
                 label="generator"
               />
               <FormControlLabel
                 value="brakeSystem"
                 control={
-                  <Checkbox checked={brakeSystem} onChange={handleChange}  name='brakeSystem'/>
+                  <Checkbox checked={brakeSystem} onChange={handleChange}  name='brakeSystem' color="warning"/>
                 }
                 label="brakeSystem"
               />
@@ -242,6 +244,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
                   <Checkbox
                     checked={windshieldWashers}
                     onChange={handleChange} name='windshieldWashers'
+                    color="warning"
                   />
                 }
                 label="windshieldWashers"
@@ -249,13 +252,13 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
 
               <FormControlLabel
                 value="alarm"
-                control={<Checkbox checked={alarm} onChange={handleChange}  name='alarm'/>}
+                control={<Checkbox checked={alarm} onChange={handleChange}  name='alarm' color="warning"/>}
                 label="alarm"
               />
               <FormControlLabel
                 value="steeringSystem"
                 control={
-                  <Checkbox checked={steeringSystem} onChange={handleChange} name='steeringSystem' />
+                  <Checkbox checked={steeringSystem} onChange={handleChange} name='steeringSystem' color="warning" />
                 }
                 label="steeringSystem"
               />
@@ -271,6 +274,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
                 },
               }}
               variant="contained"
+               
             >
               Cancel
             </Button>

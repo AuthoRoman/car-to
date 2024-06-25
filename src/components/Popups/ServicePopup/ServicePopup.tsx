@@ -4,7 +4,7 @@ import { Button, Input } from "@mui/material";
 
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import { ICar, IProblems, serviceCarTypesAction } from "../../../state/types";
-import decodeVIN from "../../../api/VinAPI";
+import decodeVIN from "../../../api/VIN/VinAPI";
 
 const ServicePopup: React.FC<{
   closeVisible: any;
