@@ -17,27 +17,32 @@
   cursor: pointer;
 }
 
-.carFinishCard__body{
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.carFinishCard__header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.carFinishCard__recommTitle{
-    font-size: 18px;
-    font-weight: 600;
-    color: #e68d1a;
+.carFinishCard__body {
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
 
-.carFinishCard__recommText{
-    max-width: 500px;
-    word-wrap: break-word;
-    height: 100%;
+.carFinishCard__recommTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e68d1a;
 }
 
-.carFinishCard__recomm{
-    font-size: 15px;
-    text-align: center;
-     
-     
+.carFinishCard__recommText {
+  max-width: 500px;
+  word-wrap: break-word;
+  height: 100%;
+}
+
+.carFinishCard__recomm {
+  font-size: 15px;
+  text-align: center;
 }

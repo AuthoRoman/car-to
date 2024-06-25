@@ -99,6 +99,7 @@ export interface IServiceAction {
 ////Finish 
 export enum finishCarTypesAction {
   ADD_FINISH_CAR = "ADD_FINISH_CAR",
+  DELETE_FINISH_CAR = 'DELETE_FINISH_CAR'
 }
 
 export interface cardFinish {

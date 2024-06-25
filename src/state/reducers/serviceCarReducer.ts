@@ -5,9 +5,7 @@ import {
 } from "../types";
 
 const initialState: ICarserviceState = {
-  cars: [
-     
-  ],
+  cars: [],
 };
 
 export const ServiceCarReducer = (
@@ -17,7 +15,7 @@ export const ServiceCarReducer = (
   switch (action.type) {
     case serviceCarTypesAction.ADD_SERVICE_CAR:
       return { ...state, cars: [...state.cars, action.payload] };
-     case serviceCarTypesAction.DELETE_SERVICE_CAR:
+    case serviceCarTypesAction.DELETE_SERVICE_CAR:
       return {
         ...state,
         cars: state.cars.filter((car) => car.VIN !== action.payload.VIN),

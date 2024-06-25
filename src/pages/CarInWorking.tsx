@@ -26,7 +26,6 @@ const CarinWorking: React.FC = () => {
         );
       }
     })();
-    
   }, []);
 
   const togglePopup = (booleanValue: boolean) => {

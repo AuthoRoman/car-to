@@ -32,16 +32,16 @@ const FinishPopup: React.FC<{
       await addData(TypeBases.CARS_IN_FINISH, {
         id: carCurr.id,
         VIN: carCurr.VIN,
-        modelYear:carCurr.modelYear, 
+        modelYear: carCurr.modelYear,
         recomm: carCurr.recomm,
         nameMaster: carCurr.nameMaster,
         region: carCurr.region,
-        country:carCurr.country,
-        problems:carCurr.problems,
+        country: carCurr.country,
+        problems: carCurr.problems,
         manufacturer: carCurr.manufacturer,
         checkDigit: carCurr.checkDigit,
         assemblyPlant: carCurr.assemblyPlant,
-        serialNumber: carCurr.serialNumber
+        serialNumber: carCurr.serialNumber,
       });
 
       dispatch({
