@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => (
     <nav>
       <ul className={styles.navList}>
         <li>
-          <Link className={styles.navList__item} to="/">
+          <Link className={styles.navList__item} to="/car-to">
             Очередь на обслуживание
           </Link>
         </li>

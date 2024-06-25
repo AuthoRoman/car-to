@@ -147,7 +147,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="VIN number"
+            placeholder="VIN number 17 numbers"
             color="warning"
           />
           <Input
