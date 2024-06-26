@@ -110,7 +110,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
         <form className={styles.form} action="">
           <h1>Форма для заполнения заявки</h1>
 
-          <Input
+          <Input className={styles.inputCustom}
             value={firstNameOwner}
             onChange={(e) => setFirstNameOwner(e.target.value)}
             sx={{
@@ -121,7 +121,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             color="warning"
           />
 
-          <Input
+          <Input className={styles.inputCustom}
             value={secondNameOwner}
             onChange={(e) => setSecondNameOwner(e.target.value)}
             sx={{
@@ -131,7 +131,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="SecondName"
             color="warning"
           />
-          <MuiTelInput
+          <MuiTelInput className={styles.inputPhoneCustom}
             value={phone}
             onChange={handlePhone}
             sx={{
@@ -140,7 +140,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="Your phone"
             color="warning"
           />
-          <Input
+          <Input className={styles.inputCustom}
             value={VIN}
             onChange={(e) => setVIN(e.target.value)}
             sx={{
@@ -150,7 +150,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="VIN number 17 numbers"
             color="warning"
           />
-          <Input
+          <Input className={styles.inputCustom}
             value={registration}
             onChange={(e) => setRegistration(e.target.value)}
             sx={{
@@ -160,7 +160,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="registration"
             color="warning"
           />
-          <Input
+          <Input className={styles.inputCustom}
             value={carMileage}
             onChange={(e) => setCarMileage(e.target.value)}
             sx={{
@@ -170,7 +170,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="carMileage"
             color="warning"
           />
-          <Input
+          <Input className={styles.inputCustom}
             value={color}
             onChange={(e) => setColor(e.target.value)}
             sx={{
@@ -181,7 +181,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
              
             placeholder="color"
           />
-          <NumberInput
+          <NumberInput className={styles.inputCustom}
             aria-label="Demo number input"
             value={numberOwners}
             onChange={handleNumberChange}
@@ -190,7 +190,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             color="warning"
           />
 
-          <Input
+          <Input className={styles.inputCustom}
             value={accidents}
             onChange={(e) => setAccidents(e.target.value)}
             sx={{
@@ -200,7 +200,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="accidents"
             color="warning"
           />
-          <Input
+          <Input className={styles.inputCustom}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             sx={{
@@ -224,36 +224,36 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue="female"
             >
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="engine"
                 control={<Checkbox checked={engine} onChange={handleChange}  name='engine' color="warning"/>}
                 label="engine"
               />
-              <FormControlLabel
+              <FormControlLabel  className={styles.checkBoxLabelCustom}
                 value="fuses"
                 control={<Checkbox checked={fuses} onChange={handleChange}  name='fuses' color="warning"/>}
                 label="fuses"
               />
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="catalyst"
                 control={
                   <Checkbox checked={catalyst} onChange={handleChange}  name='catalyst' color="warning"/>
                 }
                 label="catalyst"
               />
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="generator"
                 control={<Checkbox checked={generator}  onChange={handleChange} name='generator' color="warning"/>}
                 label="generator"
               />
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="brakeSystem"
                 control={
                   <Checkbox checked={brakeSystem} onChange={handleChange}  name='brakeSystem' color="warning"/>
                 }
                 label="brakeSystem"
               />
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="windshieldWashers"
                 control={
                   <Checkbox
@@ -265,12 +265,12 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
                 label="windshieldWashers"
               />
 
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="alarm"
                 control={<Checkbox checked={alarm} onChange={handleChange}  name='alarm' color="warning"/>}
                 label="alarm"
               />
-              <FormControlLabel
+              <FormControlLabel className={styles.checkBoxLabelCustom}
                 value="steeringSystem"
                 control={
                   <Checkbox checked={steeringSystem} onChange={handleChange} name='steeringSystem' color="warning" />

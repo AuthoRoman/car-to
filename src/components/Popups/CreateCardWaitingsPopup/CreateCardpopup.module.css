@@ -30,6 +30,43 @@
 .form__footer{
     display: flex;
     justify-content: space-around;
+
 }
 
- 
+@media only screen and (max-height: 876px) {
+    .form {
+        padding: 15px;
+        gap: 10px;
+    }
+    h1{
+        margin: 0
+    }
+  }
+
+
+  @media only screen and (max-height: 700px) { 
+    .form{
+        width: 300px;
+         
+    }
+    h1{
+        font-size: 15px;
+    }
+     .inputCustom {
+        height: 20px;
+        width: 300px;
+    }
+    .inputPhoneCustom{
+        padding: 2px;
+        width: 296px;
+    }
+    .form__footer{
+        max-width: 300px;
+    }
+}
+
+@media only screen and (max-height: 650px) { 
+    .checkBoxLabelCustom{
+        height: 29px;
+    }
+}
