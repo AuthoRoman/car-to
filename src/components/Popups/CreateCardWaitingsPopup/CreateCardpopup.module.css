@@ -44,7 +44,7 @@
   }
 
 
-  @media only screen and (max-height: 700px) { 
+  @media only screen and ((max-height: 700px) or (max-width:600px)) { 
     .form{
         width: 300px;
          
@@ -65,7 +65,7 @@
     }
 }
 
-@media only screen and (max-height: 650px) { 
+@media only screen and (max-height: 650px)   { 
     .checkBoxLabelCustom{
         height: 29px;
     }

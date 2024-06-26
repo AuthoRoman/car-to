@@ -102,19 +102,7 @@ export enum finishCarTypesAction {
   DELETE_FINISH_CAR = 'DELETE_FINISH_CAR'
 }
 
-export interface cardFinish {
-  nameMaster: string;
-  id: number;
-  VIN: string;
-  region: string;
-  country: string;
-  manufacturer: string;
-  vehicleAttributes: string;
-  checkDigit: string;
-  modelYear: string;
-  assemblyPlant: string;
-  serialNumber: string;
-  problems: IProblems;
+export interface cardFinish extends cardService {
   recomm: string
 }
 
