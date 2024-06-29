@@ -78,7 +78,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
     if (
       numberOwners! <= 0 ||
       numberOwners === undefined ||
-      numberOwners === null
+      numberOwners === null || typeof numberOwners!== 'number'
     ) {
       setNumbersOwnersError(true);
     }
@@ -87,9 +87,9 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       VIN.length === 17 &&
       firstNameOwner.trim().length !== 0 &&
       secondNameOwner.trim().length !== 0 &&
-      (numberOwners! > 0 ||
-        numberOwners !== undefined ||
-        numberOwners !== null) &&
+      (numberOwners! > 0 && 
+        numberOwners !== undefined && 
+        numberOwners !== null && typeof numberOwners === "number") &&
       emailError === false
     ) {
       await addData(TypeBases.CARS_IN_WAITING, {
@@ -147,10 +147,11 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
  
   const ValidationNumberOwners = (event: React.ChangeEvent<HTMLInputElement> ) => {
     event.preventDefault();
-    if (event.target.value !== null && typeof event.target.value === "number") {
-      setNumberOwners(event.target.value);
+    if (event.target.value !== null && ( Number(event.target.value) ===   parseInt(event.target.value))) {
+      setNumberOwners(Number(event.target.value));
+      setNumbersOwnersError(false);
     }
-    setNumbersOwnersError(false);
+    
   };
 
   
