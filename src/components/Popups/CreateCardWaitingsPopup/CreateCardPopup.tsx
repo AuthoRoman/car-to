@@ -29,7 +29,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const [email, setEmail] = useState("");
   const [firstNameOwner, setFirstNameOwner] = useState<string>("");
   const [secondNameOwner, setSecondNameOwner] = useState<string>("");
-  const [numberOwners, setNumberOwners] = useState<number>();
+  const [numberOwners, setNumberOwners] = useState<number>(0);
   const [color, setColor] = useState<Color | string>("");
   const [carMileage, setCarMileage] = useState("");
   const [registration, setRegistration] = useState("");
