@@ -143,12 +143,17 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
     setVIN(e.target.value);
     setVINError(false);
   };
-  const ValidationNumberOwners = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setNumberOwners(+event.target.value);
+
+ 
+  const ValidationNumberOwners = (event: React.ChangeEvent<HTMLInputElement> ) => {
+    event.preventDefault();
+    if (event.target.value !== null && typeof event.target.value === "number") {
+      setNumberOwners(event.target.value);
+    }
     setNumbersOwnersError(false);
   };
+
+  
   const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = new RegExp(
       /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
@@ -287,6 +292,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
                 ? "Введите корректное число владельцев"
                 : false
             }
+
             onChange={ValidationNumberOwners}
             placeholder="Количество владельцев"
             variant="standard"
@@ -313,15 +319,15 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
           <TextField
             className={styles.inputPhoneCustom}
             value={email}
-            onChange={ValidationEmail}
+            onChange={(e) => setEmail(e.target.value)}
              variant="standard"
-            error={emailError && email.trim().length !== 0 ? true : false}
+            // error={emailError && email.trim().length !== 0 ? true : false}
            
-            helperText={
-              emailError && email.trim().length !== 0
-                ? "Введите корректную электронную почту"
-                : false                                           //TODO
-            }
+            // helperText={
+            //   emailError && email.trim().length !== 0
+            //     ? "Введите корректную электронную почту"
+            //     : false                                           //TODO
+            // }
             sx={{
               padding: "0px 10px",
               backgroundColor: "white",

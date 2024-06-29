@@ -33,7 +33,9 @@ const CarsListWaiting = () => {
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
+      console.log('сейчай удаляется ' +currentCar)
       await deleteData(TypeBases.CARS_IN_WAITING, currentCar.id);
+      
       dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: currentCar! });
       setPopupFixCar(false);
     }
