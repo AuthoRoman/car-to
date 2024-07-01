@@ -26,6 +26,8 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
 
+  const [successProblem, setSuccessProblem] = useState<boolean>(false)
+
   const[customProblem, setCustomProblem] = useState<string>('')
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -43,7 +45,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
    
 
   const handleCustomProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
-     
+    setSuccessProblem(false)
     setCustomProblem(event.target.value);
    
   }
@@ -54,7 +56,7 @@ const submitProblems  = () =>{
     ...problems, [customProblem] : true
   })
   }
-  
+  setSuccessProblem(true)
     setCustomProblem('')
  }
 
@@ -160,7 +162,7 @@ const submitProblems  = () =>{
   
   const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = new RegExp(
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{1,4}$/g);
     setEmail(e.target.value);
     if (pattern.test(email)) {
 
@@ -371,6 +373,7 @@ const submitProblems  = () =>{
             className={styles.inputPhoneCustom}
             value={customProblem}
             onChange={handleCustomProblem}
+             
              variant="standard"
               
            
@@ -382,7 +385,8 @@ const submitProblems  = () =>{
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
-            color="primary"
+            
+            helperText= { successProblem ? 'Ваша проблема добавлена' : false  }
           />
           <Button
               onClick={submitProblems}
