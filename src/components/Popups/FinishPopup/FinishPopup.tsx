@@ -67,7 +67,7 @@ const FinishPopup: React.FC<{
               <div className={styles.finishPopup__lists} key={problemId}>
                 {car.problems[problemId as LocalInRussianKeys]
                   ? `  Отремонтировано : ${
-                      localInRussian[problemId as LocalInRussianKeys]
+                      localInRussian[problemId as LocalInRussianKeys] ?? problemId
                     }`
                   : " "}
               </div>

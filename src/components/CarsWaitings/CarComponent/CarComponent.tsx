@@ -13,7 +13,7 @@ const CarComponent: React.FC<IPropsCar> = (props) => {
       <div className={style.carBoard__inner}>
         {Object.keys(props.problems).map((problemId) => (
           <div className={style.carBoard__inner__item} key={problemId}>
-            {localInRussian[problemId as LocalInRussianKeys]}:{" "}
+            {localInRussian[problemId as LocalInRussianKeys] ?? problemId }:{" "}
             {props.problems[problemId as LocalInRussianKeys] ? (
               <CloseIcon color="error" />
             ) : (

@@ -10,6 +10,7 @@ export type Color =
   | "orange";
 
 export interface IProblems {
+  [key:string]: boolean
   engine: boolean;
   fuses: boolean;
   catalyst: boolean;
@@ -63,6 +64,7 @@ export interface IAction {
 
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
+  ADD_PROBLEM = "ADD_PROBLEM",
   DELETE_CAR = "DELETE_CAR",
 }
 

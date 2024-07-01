@@ -14,7 +14,9 @@
     top: 0;
     
 }
-
+h1{
+    margin: 5px
+}
 .form{
      display: flex;
      flex-direction: column;
@@ -37,7 +39,7 @@
 
 }
 
-@media only screen and (max-height: 876px) {
+@media only screen and (max-height: 955px) {
     .form {
         padding: 15px;
         gap: 10px;
@@ -48,7 +50,7 @@
   }
 
 
-  @media only screen and ((max-height: 700px) or (max-width:600px)) { 
+  @media only screen and ((max-height: 838px) or (max-width:600px)) { 
     .form{
         width: 300px;
          
@@ -65,7 +67,9 @@
         padding: 1px;
         width: 296px;
     }
-     
+    .checkBoxLabelCustom  {
+        height: 29px;
+    }
     .form__footer{
         max-width: 300px;
     }

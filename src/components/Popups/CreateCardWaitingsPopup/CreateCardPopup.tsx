@@ -11,25 +11,27 @@ import {
   TextField,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
-import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color, TypeBases } from "../../../state/types";
+import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
+import { Color, TypeBases, typesOfActionsCar } from "../../../state/types";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
 import { addData } from "../../../api/database/db";
 import { Height } from "@mui/icons-material";
 
 const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const dispatch = useTypedDispatch();
+               
   const [nameError, setNameError] = useState<boolean>(false);
   const [secondNameError, setSecondnameError] = useState<boolean>(false);
   const [ownerNumbersError, setNumbersOwnersError] = useState<boolean>(false);
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
 
+  const[customProblem, setCustomProblem] = useState<string>('')
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [firstNameOwner, setFirstNameOwner] = useState<string>("");
   const [secondNameOwner, setSecondNameOwner] = useState<string>("");
-  const [numberOwners, setNumberOwners] = useState<number>(0);
+  const [numberOwners, setNumberOwners] = useState<number>();
   const [color, setColor] = useState<Color | string>("");
   const [carMileage, setCarMileage] = useState("");
   const [registration, setRegistration] = useState("");
@@ -51,6 +53,23 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       [event.target.name]: event.target.checked,
     });
   };
+
+  const handleCustomProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
+     
+    setCustomProblem(event.target.value);
+   
+  }
+
+const submitProblems  = () =>{ 
+  if(customProblem.length!==0){
+    setProblems({
+    ...problems, [customProblem] : true
+  })
+  }
+  
+    setCustomProblem('')
+ }
+
   function handlePhone(newValue: any) {
     return setPhone(newValue);
   }
@@ -82,7 +101,10 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
     ) {
       setNumbersOwnersError(true);
     }
-
+    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) || (email.trim().length === 0)) {
+      console.log(emailError)
+      setEmailError(true) 
+    }
     if (
       VIN.length === 17 &&
       firstNameOwner.trim().length !== 0 &&
@@ -90,7 +112,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       (numberOwners! > 0 && 
         numberOwners !== undefined && 
         numberOwners !== null && typeof numberOwners === "number") &&
-      emailError === false
+        email.trim().length !== 0
     ) {
       await addData(TypeBases.CARS_IN_WAITING, {
         accidents: accidents,
@@ -157,10 +179,10 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   
   const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = new RegExp(
-      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
-    );
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     setEmail(e.target.value);
     if (pattern.test(email)) {
+
       setEmailError(false);
     }
   };
@@ -179,7 +201,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             }
             helperText={
               nameError && firstNameOwner.trim().length === 0
-                ? "Введите имя"
+                ? "Введите имя*"
                 : false
             }
             onChange={ValidationFirstNameOwner}
@@ -188,7 +210,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="Имя"
+            placeholder="Имя*"
             color="warning"
           />
 
@@ -202,7 +224,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             }
             helperText={
               secondNameError && secondNameOwner.trim().length === 0
-                ? "Введите фамилию"
+                ? "Введите фамилию*"
                 : false
             }
             onChange={ValidationSecondNameOwner}
@@ -211,7 +233,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="Фамилия"
+            placeholder="Фамилия*"
             color="warning"
           />
           <MuiTelInput
@@ -226,11 +248,12 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
           />
           <TextField
             className={styles.inputPhoneCustom}
+            disabled={VIN.length > 16}
             value={VIN}
             error={VINError && VIN.trim().length !== 17 ? true : false}
             helperText={
               VINError && VIN.trim().length !== 17
-                ? "Введите 17 символов VIN"
+                ? "Введите 17 символов VIN*"
                 : false
             }
             onChange={ValidationVIN}
@@ -239,7 +262,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="VIN 17 символов (обязательно)"
+            placeholder="VIN 17 символов (обязательно)*"
             color="warning"
           />
           <Input
@@ -290,7 +313,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
               (numberOwners === 0 ||
                 numberOwners === undefined ||
                 numberOwners === null)
-                ? "Введите корректное число владельцев"
+                ? "Введите корректное число владельцев*"
                 : false
             }
 
@@ -317,30 +340,60 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             placeholder="Аварии"
             color="warning"
           />
+          
           <TextField
             className={styles.inputPhoneCustom}
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={ValidationEmail}
              variant="standard"
-            // error={emailError && email.trim().length !== 0 ? true : false}
+               error={emailError  ? true : false}
            
-            // helperText={
-            //   emailError && email.trim().length !== 0
-            //     ? "Введите корректную электронную почту"
-            //     : false                                           //TODO
-            // }
+             helperText={
+                emailError  
+                 ? "Введите корректную электронную почту*"
+                 : false                                           
+             }
+            inputProps={{
+              type: "email",
+            }}
             sx={{
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="Электронная почта"
+            placeholder="Электронная почта*"
             color="warning"
           />
-
+           <TextField
+            className={styles.inputPhoneCustom}
+            value={customProblem}
+            onChange={handleCustomProblem}
+             variant="standard"
+              
+           
+             
+            sx={{
+              padding: "0px 10px",
+              backgroundColor: "white",
+            }}
+            placeholder=" Ваша пролема"
+            color="warning"
+          />
+          <Button
+              onClick={submitProblems}
+              sx={{
+                backgroundColor: "#e68d1a",
+                "&:hover": {
+                  background: "#aa670e",
+                },
+              }}
+              variant="contained"
+            >
+              Добавить проблему
+            </Button>
           <FormControl>
             <FormLabel
               color="warning"
-              aria-labelledby="demo-radio-buttons-group-label"
+              focused
             >
               Проблемы вашего авто
             </FormLabel>
