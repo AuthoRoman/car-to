@@ -162,7 +162,7 @@ const submitProblems  = () =>{
   
   const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = new RegExp(
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{1,4}$/g);
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     setEmail(e.target.value);
     if (pattern.test(email)) {
 
@@ -385,7 +385,7 @@ const submitProblems  = () =>{
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
-            
+            multiline
             helperText= { successProblem ? 'Ваша проблема добавлена' : false  }
           />
           <Button

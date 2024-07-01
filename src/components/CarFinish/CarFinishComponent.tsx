@@ -61,10 +61,10 @@ export default function CarFinishComponent() {
                     <li className={styles.finishPopup__lists} key={problemId}>
                       {car.problems[problemId as LocalInRussianKeys]
                         ? `${
-                            localInRussian[problemId as LocalInRussianKeys]
+                            localInRussian[problemId as LocalInRussianKeys] ?? problemId 
                           } :  Отремонтировано`
                         : ` ${
-                            localInRussian[problemId as LocalInRussianKeys]
+                            localInRussian[problemId as LocalInRussianKeys]?? problemId
                           }  : Повреждений не было обнаружено`}
                     </li>
                   ))}
