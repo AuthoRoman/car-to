@@ -28,8 +28,8 @@ const Layout: React.FC<LayoutProps> = ({
         <Tabs
           value={currentTab}
           onChange={handlerChange}
-          textColor="secondary"
-          indicatorColor="secondary"
+          indicatorColor="primary"
+          textColor="primary"
           aria-label="secondary tabs example"
           className={styles.navList }
           centered

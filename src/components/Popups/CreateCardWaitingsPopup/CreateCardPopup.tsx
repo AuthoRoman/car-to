@@ -38,21 +38,9 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const [VIN, setVIN] = useState("");
   const [accidents, setAccidents] = useState("");
   const [problems, setProblems] = React.useState({
-    engine: true,
-    fuses: false,
-    catalyst: false,
-    generator: true,
-    brakeSystem: false,
-    windshieldWashers: false,
-    alarm: true,
-    steeringSystem: false,
+     
   });
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProblems({
-      ...problems,
-      [event.target.name]: event.target.checked,
-    });
-  };
+   
 
   const handleCustomProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
      
@@ -74,14 +62,7 @@ const submitProblems  = () =>{
     return setPhone(newValue);
   }
   const {
-    engine,
-    fuses,
-    catalyst,
-    generator,
-    brakeSystem,
-    windshieldWashers,
-    alarm,
-    steeringSystem,
+     
   } = problems;
   const IdKey = Math.random() * 100;
   async function submitForm() {
@@ -142,7 +123,7 @@ const submitProblems  = () =>{
           secondNameOwner: secondNameOwner,
           tel: phone,
           VIN: VIN,
-          problems: problems,
+          problems: problems!,
         },
       });
       closeVisible(false);
@@ -207,11 +188,13 @@ const submitProblems  = () =>{
             onChange={ValidationFirstNameOwner}
             variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Имя*"
-            color="warning"
+            color="primary"
           />
 
           <TextField
@@ -230,11 +213,13 @@ const submitProblems  = () =>{
             onChange={ValidationSecondNameOwner}
             variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Фамилия*"
-            color="warning"
+            color="primary"
           />
           <MuiTelInput
             className={styles.inputPhoneCustom}
@@ -244,7 +229,7 @@ const submitProblems  = () =>{
               backgroundColor: "white",
             }}
             placeholder="Телефон"
-            color="warning"
+            color="primary"
           />
           <TextField
             className={styles.inputPhoneCustom}
@@ -259,43 +244,54 @@ const submitProblems  = () =>{
             onChange={ValidationVIN}
             variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="VIN 17 символов (обязательно)*"
-            color="warning"
+            color="primary"
           />
-          <Input
-            className={styles.inputCustom}
+          <TextField
+            className={styles.inputPhoneCustom}
+            variant="standard"
             value={registration}
             onChange={(e) => setRegistration(e.target.value)}
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Регистрирована"
-            color="warning"
+            color="primary"
           />
-          <Input
-            className={styles.inputCustom}
+          <TextField
+            className={styles.inputPhoneCustom}
             value={carMileage}
             onChange={(e) => setCarMileage(e.target.value)}
+            variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Пробег автомобиля"
-            color="warning"
+            color="primary"
           />
-          <Input
-            className={styles.inputCustom}
+          <TextField
+            className={styles.inputPhoneCustom}
             value={color}
             onChange={(e) => setColor(e.target.value)}
+            variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            color="warning"
+            color="primary"
             placeholder="Цвет"
           />
           <TextField
@@ -321,24 +317,29 @@ const submitProblems  = () =>{
             placeholder="Количество владельцев"
             variant="standard"
             value={numberOwners}
-            color="warning"
+            color="primary"
             inputProps={{ type: "number" }}
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
           />
 
-          <Input
-            className={styles.inputCustom}
+          <TextField
+            className={styles.inputPhoneCustom}
             value={accidents}
             onChange={(e) => setAccidents(e.target.value)}
+            variant="standard"
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Аварии"
-            color="warning"
+            color="primary"
           />
           
           <TextField
@@ -346,6 +347,7 @@ const submitProblems  = () =>{
             value={email}
             onChange={ValidationEmail}
              variant="standard"
+             
                error={emailError  ? true : false}
            
              helperText={
@@ -357,11 +359,13 @@ const submitProblems  = () =>{
               type: "email",
             }}
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Электронная почта*"
-            color="warning"
+            color="primary"
           />
            <TextField
             className={styles.inputPhoneCustom}
@@ -372,167 +376,45 @@ const submitProblems  = () =>{
            
              
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
-            color="warning"
+            color="primary"
           />
           <Button
               onClick={submitProblems}
               sx={{
-                backgroundColor: "#e68d1a",
+                backgroundColor: "#705AF8",
                 "&:hover": {
-                  background: "#aa670e",
+                  background: "#7975F8",
                 },
               }}
               variant="contained"
             >
               Добавить проблему
             </Button>
-          <FormControl>
-            <FormLabel
-              color="warning"
-              focused
-            >
-              Проблемы вашего авто
-            </FormLabel>
-            <FormGroup
-              className={styles.createCardPopup__radioGroup}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
-            >
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="engine"
-                control={
-                  <Checkbox
-                    checked={engine}
-                    onChange={handleChange}
-                    name="engine"
-                    color="warning"
-                  />
-                }
-                label="Двигатель"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="fuses"
-                control={
-                  <Checkbox
-                    checked={fuses}
-                    onChange={handleChange}
-                    name="fuses"
-                    color="warning"
-                  />
-                }
-                label="Предохранители"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="catalyst"
-                control={
-                  <Checkbox
-                    checked={catalyst}
-                    onChange={handleChange}
-                    name="catalyst"
-                    color="warning"
-                  />
-                }
-                label="Катализатор"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="generator"
-                control={
-                  <Checkbox
-                    checked={generator}
-                    onChange={handleChange}
-                    name="generator"
-                    color="warning"
-                  />
-                }
-                label="Генератор"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="brakeSystem"
-                control={
-                  <Checkbox
-                    checked={brakeSystem}
-                    onChange={handleChange}
-                    name="brakeSystem"
-                    color="warning"
-                  />
-                }
-                label="Тормозная система"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="windshieldWashers"
-                control={
-                  <Checkbox
-                    checked={windshieldWashers}
-                    onChange={handleChange}
-                    name="windshieldWashers"
-                    color="warning"
-                  />
-                }
-                label="Омыватели лобового стекла"
-              />
-
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="alarm"
-                control={
-                  <Checkbox
-                    checked={alarm}
-                    onChange={handleChange}
-                    name="alarm"
-                    color="warning"
-                  />
-                }
-                label="Аварийная сигнализация"
-              />
-              <FormControlLabel
-                className={styles.checkBoxLabelCustom}
-                value="steeringSystem"
-                control={
-                  <Checkbox
-                    checked={steeringSystem}
-                    onChange={handleChange}
-                    name="steeringSystem"
-                    color="warning"
-                  />
-                }
-                label="Рулевая система"
-              />
-            </FormGroup>
-          </FormControl>
+           
           <div className={styles.form__footer}>
             <Button
+             
               onClick={() => closeVisible(false)}
               sx={{
-                backgroundColor: "#e68d1a",
-                "&:hover": {
-                  background: "#aa670e",
-                },
+                color: "#705AF8",
+                
               }}
-              variant="contained"
+               
             >
               Cancel
             </Button>
             <Button
               onClick={submitForm}
               sx={{
-                backgroundColor: "#e68d1a",
+                backgroundColor: "#705AF8",
                 "&:hover": {
-                  background: "#aa670e",
+                  background: "#7975F8",
                 },
               }}
               variant="contained"

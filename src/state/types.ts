@@ -11,14 +11,7 @@ export type Color =
 
 export interface IProblems {
   [key:string]: boolean
-  engine: boolean;
-  fuses: boolean;
-  catalyst: boolean;
-  generator: boolean;
-  brakeSystem: boolean;
-  windshieldWashers: boolean;
-  alarm: boolean;
-  steeringSystem: boolean;
+   
 }
 export enum localInRussian {
   engine = "Двигатель",
@@ -35,7 +28,7 @@ export type LocalInRussianKeys = keyof typeof localInRussian;
 export interface IPropsCar {
   nameOwner: string;
   tel: string;
-  problems: Record<LocalInRussianKeys, boolean>;
+  problems: IProblems;
 }
 export interface ICar {
   id: number;

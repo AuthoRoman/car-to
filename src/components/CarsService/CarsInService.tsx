@@ -73,13 +73,13 @@ const CarsInService: React.FC<IProps> = ({
           <Button
             onClick={() => CurrentCar(car)}
             sx={{
-              backgroundColor: "#382274",
+              backgroundColor: "#705AF8",
               height: `30px`,
               width: `180px`,
               margin: `15px`,
               transition: "all .8s",
               "&:hover": {
-                background: "#e68d1a",
+                background: "#7975F8",
               },
             }}
             variant="contained"

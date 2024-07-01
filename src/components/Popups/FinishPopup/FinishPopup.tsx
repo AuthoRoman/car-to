@@ -74,7 +74,7 @@ const FinishPopup: React.FC<{
             ))}
           <div style={{ margin: "13px 0 0 0" }}>Рекомендации:</div>
           <TextField
-            color="warning"
+            color="primary"
             onChange={(e) => setRecomm(e.target.value)}
             sx={{
               margin: "13px",
@@ -88,29 +88,28 @@ const FinishPopup: React.FC<{
           <Button
             onClick={() => togglePopup(false)}
             sx={{
-              backgroundColor: "#382274",
+              
               height: `30px`,
               width: `180px`,
               margin: `15px`,
               transition: "all .8s",
-              "&:hover": {
-                background: "#e68d1a",
-              },
+              color:'#7975F8',
+               
             }}
-            variant="contained"
+             
           >
             Отмена
           </Button>
           <Button
             onClick={addCarFinish}
             sx={{
-              backgroundColor: "#382274",
+              backgroundColor: '#7975F8',
               height: `30px`,
               width: `180px`,
               margin: `15px`,
               transition: "all .8s",
               "&:hover": {
-                background: "#e68d1a",
+                background: "#7975F8",
               },
             }}
             variant="contained"

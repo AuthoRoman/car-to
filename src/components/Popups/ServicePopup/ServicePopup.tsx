@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./ServicePopup.module.css";
-import { Button, Input } from "@mui/material";
+import { Button, Input, TextField } from "@mui/material";
 
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import {
@@ -75,27 +75,30 @@ const ServicePopup: React.FC<{
         >
           <h1>Имя мастера взявшего автомобиль на обслуживание</h1>
 
-          <Input
+          <TextField
             value={nameMaster}
             onChange={(e) => setNameMaster(e.target.value)}
             sx={{
+              border:  '2px solid #DBDBDB',
+              borderRadius: '5px',
               padding: "0px 10px",
               backgroundColor: "white",
             }}
+            variant="standard"
             placeholder="Name"
-            color="warning"
+            color="primary"
           />
 
           <div className={styles.form__footer}>
             <Button
               onClick={() => closeVisible(false)}
               sx={{
-                backgroundColor: "#e68d1a",
+                color: "#7975F8",
                 "&:hover": {
-                  background: "#aa670e",
+                   
                 },
               }}
-              variant="contained"
+               
             >
               Cancel
             </Button>
@@ -120,9 +123,9 @@ const ServicePopup: React.FC<{
                 )
               }
               sx={{
-                backgroundColor: "#e68d1a",
+                backgroundColor: "#705AF8",
                 "&:hover": {
-                  background: "#aa670e",
+                  background: "#7975F8",
                 },
               }}
               variant="contained"

@@ -5,7 +5,7 @@
   height: fit-content;
   justify-content: center;
   align-items: center;
-  border: 2px solid rgb(39, 14, 66);
+  border: 2px solid #705AF8;
   border-radius: 5px;
   padding: 5px;
   margin: 31px 0px;
@@ -33,7 +33,7 @@
 .carFinishCard__recommTitle {
   font-size: 18px;
   font-weight: 600;
-  color: #e68d1a;
+  color: #705AF8;
 }
 
 .carFinishCard__recommText {

@@ -1,5 +1,5 @@
 import React from "react";
-import { IPropsCar, localInRussian, LocalInRussianKeys } from "../../../state/types";
+import { ICar, IPropsCar, localInRussian, LocalInRussianKeys } from "../../../state/types";
 import style from "./CarComponent.module.css";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,8 +13,8 @@ const CarComponent: React.FC<IPropsCar> = (props) => {
       <div className={style.carBoard__inner}>
         {Object.keys(props.problems).map((problemId) => (
           <div className={style.carBoard__inner__item} key={problemId}>
-            {localInRussian[problemId as LocalInRussianKeys] ?? problemId }:{" "}
-            {props.problems[problemId as LocalInRussianKeys] ? (
+            {  problemId }:{" "}
+            {props.problems   ? (
               <CloseIcon color="error" />
             ) : (
               <TaskAltIcon color="success" />

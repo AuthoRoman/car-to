@@ -76,7 +76,7 @@ const CarsListWaiting = () => {
                 <CarComponent
                   nameOwner={x.firstNameOwner + " " + x.secondNameOwner}
                   tel={x.tel}
-                  problems={x.problems}
+                  problems={x.problems!}
                 />
               </div>
             ))}
@@ -85,11 +85,11 @@ const CarsListWaiting = () => {
             <Button
               onClick={() => setIsVisiblePopup(true)}
               sx={{
-                backgroundColor: "#382274",
+                backgroundColor: "#705AF8",
                 height: `60px`,
                 transition: "all .8s",
                 "&:hover": {
-                  background: "#e68d1a",
+                  background: "#7975F8",
                 },
               }}
               variant="contained"

@@ -46,7 +46,7 @@ export default function CarFinishComponent() {
                 sx={{
                   transition: "all .8s",
                   "&:hover": {
-                    color: "#e68d1a",
+                    color: "#705AF8",
                   },
                 }}
                 onClick={() => deleteHandler(car)}
