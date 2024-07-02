@@ -21,6 +21,7 @@ const FinishPopup: React.FC<{
 }> = ({ togglePopup, car }) => {
   const dispatch = useDispatch();
   const [recomm, setRecomm] = useState("");
+  const [workOncar, setWorkOnCar] = useState('')
   const addCarFinish = async () => {
     if (car) {
       await deleteData(TypeBases.CARS_IN_SERVICE, car.id);
@@ -29,6 +30,7 @@ const FinishPopup: React.FC<{
         VIN: carCurr.VIN,
         modelYear: carCurr.modelYear,
         recomm: carCurr.recomm,
+        workOncar: workOncar,
         nameMaster: carCurr.nameMaster,
         region: carCurr.region,
         country: carCurr.country,
@@ -48,7 +50,7 @@ const FinishPopup: React.FC<{
     }
   };
 
-  const carCurr = { ...car, recomm };
+  const carCurr = { ...car, recomm, workOncar };
 
   return (
     <div className={styles.finishPopup}>
@@ -57,16 +59,18 @@ const FinishPopup: React.FC<{
 
         <div className={styles.finishPopup__inner} id="my-helper-text">
           Были проведены следующие работы:
-          {car &&
-            Object.keys(car.problems).map((problemId) => (
-              <div className={styles.finishPopup__lists} key={problemId}>
-                {car.problems[problemId as LocalInRussianKeys]
-                  ? `  Отремонтировано : ${
-                      localInRussian[problemId as LocalInRussianKeys] ?? problemId
-                    }`
-                  : " "}
-              </div>
-            ))}
+          <TextField
+            color="primary"
+            onChange={(e) => setWorkOnCar(e.target.value)}
+            sx={{
+              margin: "13px",
+              width: "380px",
+
+              backgroundColor: "white",
+            }}
+            placeholder="Рекомендации по дальнейшему использованию авто"
+            multiline
+          />
           <div style={{ margin: "13px 0 0 0" }}>Рекомендации:</div>
           <TextField
             color="primary"

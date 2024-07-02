@@ -19,16 +19,15 @@ import { Height } from "@mui/icons-material";
 
 const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const dispatch = useTypedDispatch();
-               
+
   const [nameError, setNameError] = useState<boolean>(false);
   const [secondNameError, setSecondnameError] = useState<boolean>(false);
   const [ownerNumbersError, setNumbersOwnersError] = useState<boolean>(false);
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
 
-  const [successProblem, setSuccessProblem] = useState<boolean>(false)
+  const [carNumber, setCarNumber] = useState<string>("");
 
-  const[customProblem, setCustomProblem] = useState<string>('')
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [firstNameOwner, setFirstNameOwner] = useState<string>("");
@@ -39,33 +38,12 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const [registration, setRegistration] = useState("");
   const [VIN, setVIN] = useState("");
   const [accidents, setAccidents] = useState("");
-  const [problems, setProblems] = React.useState({
-     
-  });
-   
-
-  const handleCustomProblem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSuccessProblem(false)
-    setCustomProblem(event.target.value);
-   
-  }
-
-const submitProblems  = () =>{ 
-  if(customProblem.length!==0){
-    setProblems({
-    ...problems, [customProblem] : true
-  })
-  }
-  setSuccessProblem(true)
-    setCustomProblem('')
- }
+  const [problems, setProblems] = React.useState("");
 
   function handlePhone(newValue: any) {
     return setPhone(newValue);
   }
-  const {
-     
-  } = problems;
+
   const IdKey = Math.random() * 100;
   async function submitForm() {
     if (VIN.length !== 17) {
@@ -80,26 +58,42 @@ const submitProblems  = () =>{
     if (
       numberOwners! <= 0 ||
       numberOwners === undefined ||
-      numberOwners === null || typeof numberOwners!== 'number'
+      numberOwners === null ||
+      typeof numberOwners !== "number"
     ) {
       setNumbersOwnersError(true);
     }
-    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email)) || (email.trim().length === 0)) {
-      console.log(emailError)
-      setEmailError(true) 
+    if (
+      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) ||
+      email.trim().length === 0
+    ) {
+      console.log(emailError);
+      setEmailError(true);
     }
     if (
       VIN.length === 17 &&
       firstNameOwner.trim().length !== 0 &&
       secondNameOwner.trim().length !== 0 &&
-      (numberOwners! > 0 && 
-        numberOwners !== undefined && 
-        numberOwners !== null && typeof numberOwners === "number") &&
-        email.trim().length !== 0
+      numberOwners! > 0 &&
+      numberOwners !== undefined &&
+      numberOwners !== null &&
+      typeof numberOwners === "number" &&
+      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) &&
+      email.trim().length !== 0
     ) {
+      let currentDate = new Date();
+      const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDay() : currentDate.getDay() }.${
+        currentDate.getMonth() < 10
+          ? "0" + (currentDate.getMonth()+ 1)
+          : currentDate.getMonth() 
+      }.${
+        currentDate.getFullYear()  
+      }`;
       await addData(TypeBases.CARS_IN_WAITING, {
         accidents: accidents,
         carMileage: carMileage,
+        carNumber: carNumber,
+        date: date,
         color: color,
         email: email,
         firstNameOwner: firstNameOwner,
@@ -116,6 +110,8 @@ const submitProblems  = () =>{
         payload: {
           accidents: accidents,
           carMileage: carMileage,
+          carNumber: carNumber,
+          date: date,
           color: color,
           email: email,
           firstNameOwner: firstNameOwner,
@@ -149,23 +145,23 @@ const submitProblems  = () =>{
     setVINError(false);
   };
 
- 
-  const ValidationNumberOwners = (event: React.ChangeEvent<HTMLInputElement> ) => {
+  const ValidationNumberOwners = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     event.preventDefault();
-    if (event.target.value !== null && ( Number(event.target.value) ===   parseInt(event.target.value))) {
+    if (
+      event.target.value !== null &&
+      Number(event.target.value) === parseInt(event.target.value)
+    ) {
       setNumberOwners(Number(event.target.value));
       setNumbersOwnersError(false);
     }
-    
   };
 
-  
   const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pattern = new RegExp(
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+    const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     setEmail(e.target.value);
     if (pattern.test(e.target.value)) {
-
       setEmailError(false);
     }
   };
@@ -174,7 +170,7 @@ const submitProblems  = () =>{
     <div>
       <div className={styles.createCardPopup}>
         <form className={styles.form} action="">
-          <h1>Форма для заполнения заявки</h1>
+          <h1>Заявление на обслуживание</h1>
 
           <TextField
             className={styles.inputPhoneCustom}
@@ -190,8 +186,8 @@ const submitProblems  = () =>{
             onChange={ValidationFirstNameOwner}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -215,8 +211,8 @@ const submitProblems  = () =>{
             onChange={ValidationSecondNameOwner}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -246,8 +242,8 @@ const submitProblems  = () =>{
             onChange={ValidationVIN}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -260,8 +256,8 @@ const submitProblems  = () =>{
             value={registration}
             onChange={(e) => setRegistration(e.target.value)}
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -270,12 +266,27 @@ const submitProblems  = () =>{
           />
           <TextField
             className={styles.inputPhoneCustom}
+            variant="standard"
+            value={carNumber}
+            disabled={carNumber.length > 5}
+            onChange={(e) => setCarNumber(e.target.value)}
+            sx={{
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
+              padding: "0px 10px",
+              backgroundColor: "white",
+            }}
+            placeholder="Номер автомобиля"
+            color="primary"
+          />
+          <TextField
+            className={styles.inputPhoneCustom}
             value={carMileage}
             onChange={(e) => setCarMileage(e.target.value)}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -288,8 +299,8 @@ const submitProblems  = () =>{
             onChange={(e) => setColor(e.target.value)}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -314,16 +325,15 @@ const submitProblems  = () =>{
                 ? "Введите корректное число владельцев*"
                 : false
             }
-
             onChange={ValidationNumberOwners}
-            placeholder="Количество владельцев"
+            placeholder="Количество владельцев*"
             variant="standard"
             value={numberOwners}
             color="primary"
             inputProps={{ type: "number" }}
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
@@ -335,81 +345,57 @@ const submitProblems  = () =>{
             onChange={(e) => setAccidents(e.target.value)}
             variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Аварии"
             color="primary"
           />
-          
+
           <TextField
             className={styles.inputPhoneCustom}
             value={email}
             onChange={ValidationEmail}
-             variant="standard"
-             
-               error={emailError  ? true : false}
-           
-             helperText={
-                emailError  
-                 ? "Введите корректную электронную почту*"
-                 : false                                           
-             }
+            variant="standard"
+            error={emailError ? true : false}
+            helperText={
+              emailError ? "Введите корректную электронную почту*" : false
+            }
             inputProps={{
               type: "email",
             }}
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder="Электронная почта*"
             color="primary"
           />
-           <TextField
+          <TextField
             className={styles.inputPhoneCustom}
-            value={customProblem}
-            onChange={handleCustomProblem}
-             
-             variant="standard"
-              
-           
-             
+            value={problems}
+            onChange={(e) => setProblems(e.target.value)}
+            variant="standard"
             sx={{
-              border:  '2px solid #DBDBDB',
-              borderRadius: '5px',
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
             multiline
-            helperText= { successProblem ? 'Ваша проблема добавлена' : false  }
           />
-          <Button
-              onClick={submitProblems}
-              sx={{
-                backgroundColor: "#705AF8",
-                "&:hover": {
-                  background: "#7975F8",
-                },
-              }}
-              variant="contained"
-            >
-              Добавить проблему
-            </Button>
-           
+
           <div className={styles.form__footer}>
             <Button
-             
               onClick={() => closeVisible(false)}
               sx={{
                 color: "#705AF8",
-                
               }}
-               
             >
               Cancel
             </Button>

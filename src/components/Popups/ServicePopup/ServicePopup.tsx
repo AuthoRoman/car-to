@@ -5,7 +5,7 @@ import { Button, Input, TextField } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import {
   ICar,
-  IProblems,
+   
   serviceCarTypesAction,
   TypeBases,
 } from "../../../state/types";
@@ -15,14 +15,14 @@ import { addData, deleteData } from "../../../api/database/db";
 const ServicePopup: React.FC<{
   closeVisible: any;
   VIN: string;
-  problems: IProblems | undefined;
+  problems: string;
   closeWithNextStadyCar: any;
 }> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
   const dispatch = useTypedDispatch();
   const randomIdKey = Math.random() * 100;
   const [nameMaster, setNameMaster] = useState("");
 
-  async function submitForm(VIN: any, name: string, problems: IProblems) {
+  async function submitForm(VIN: any, name: string, problems: string) {
     console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
     console.log("OUR data IS: " + data);
@@ -110,16 +110,7 @@ const ServicePopup: React.FC<{
                   nameMaster,
                   problems
                     ? problems
-                    : {
-                        alarm: false,
-                        brakeSystem: false,
-                        catalyst: false,
-                        engine: false,
-                        fuses: false,
-                        generator: false,
-                        steeringSystem: false,
-                        windshieldWashers: false,
-                      }
+                    : ''
                 )
               }
               sx={{

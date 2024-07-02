@@ -10,6 +10,16 @@ import {
 } from "../state/types";
 import { useDispatch } from "react-redux";
 import { getStoreData } from "../api/database/db";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 const CarinWorking: React.FC = () => {
   const cars = useTypedSelector((state) => state.carsInServ.cars);
@@ -33,7 +43,8 @@ const CarinWorking: React.FC = () => {
   };
 
   const funSetCurrentCar = (car: cardService) => {
-    return setCurrentCar(car);
+    setCurrentCar(car);
+    togglePopup(true);
   };
   return (
     <div>
@@ -42,29 +53,80 @@ const CarinWorking: React.FC = () => {
           <FinishPopup togglePopup={togglePopup} car={currentCar} />
         </div>
       )}
+      {cars.length === 0 ? (
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            justifyContent: " center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          Заявок в обслуживании нет
+        </div>
+      ) : (
+        <TableContainer
+          component={Paper}
+          sx={{ width: "100%", margin: "0 auto" }}
+        >
+          <Table
+            sx={{ minWidth: 100, width: "100%" }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Имя Мастера взявшего авто</TableCell>
+                <TableCell align="center">Автомобиль</TableCell>
+                <TableCell align="center">Год изготовления </TableCell>
+                <TableCell align="center">Добавлен в обслуживание</TableCell>
+                <TableCell align="center">Действие</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cars.map((car) => (
+                <TableRow
+                  key={car.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center" component="th" scope="row">
+                    {car.nameMaster}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
+                    {car.manufacturer}
+                  </TableCell>
+                  <TableCell align="center">{car.modelYear} </TableCell>
+                  <TableCell align="center">{car.assemblyPlant}</TableCell>
 
-      <div style={{ width: "1440px", margin: "0 auto" }}>
-        {cars.map((x) => (
-          <div key={x.id}>
-            <CarsInService
-              id={x.id}
-              VIN={x.VIN}
-              nameMaster={x.nameMaster}
-              assemblyPlant={x.assemblyPlant}
-              checkDigit={x.checkDigit}
-              country={x.country}
-              manufacturer={x.manufacturer}
-              modelYear={x.modelYear}
-              region={x.region}
-              serialNumber={x.serialNumber}
-              vehicleAttributes={x.vehicleAttributes}
-              problems={x.problems}
-              togglePopup={togglePopup}
-              funSetCurrentCar={funSetCurrentCar}
-            />
-          </div>
-        ))}
-      </div>
+                  <TableCell align="center">
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => funSetCurrentCar(car)}
+                        sx={{
+                          backgroundColor: "#705AF8",
+                          "&:hover": {
+                            background: "#7975F8",
+                          },
+                        }}
+                        variant="contained"
+                      >
+                        Завершить обслуживание
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
 };

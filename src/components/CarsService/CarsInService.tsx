@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CarService.module.css";
 import { Button } from "@mui/material";
-import { cardService, IProblems } from "../../state/types";
+import { cardService,   } from "../../state/types";
 
 interface IProps {
   nameMaster: string;
@@ -15,7 +15,7 @@ interface IProps {
   modelYear: string;
   assemblyPlant: string;
   serialNumber: string;
-  problems: IProblems;
+  problems: string;
   togglePopup: any;
   funSetCurrentCar: any;
 }
@@ -59,6 +59,7 @@ const CarsInService: React.FC<IProps> = ({
   
   return (
     <div>
+      
       <div className={styles.carService}>
         <h5>
           Машину {manufacturer} с сирийным номером {car.serialNumber}{" "}

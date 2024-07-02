@@ -12,9 +12,11 @@ import {
 import { deleteData, getStoreData } from "../../api/database/db";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
+
   const deleteHandler = async (car: cardFinish) => {
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
     dispatch({ type: finishCarTypesAction.DELETE_FINISH_CAR, payload: car });
@@ -35,53 +37,83 @@ export default function CarFinishComponent() {
   return (
     <div>
       <div>
-        {cars.map((car) => (
-          <div key={car.id} className={styles.carFinishCard}>
-            <div className={styles.carFinishCard__header}>
-              <div className={styles.carFinishCard__headerTitle}>
-                <div>Отремонтирован авто {car.manufacturer} </div>
-                <div> Мастером {car.nameMaster} </div>
-              </div>
-              <DeleteIcon
-                sx={{
-                  transition: "all .8s",
-                  "&:hover": {
-                    color: "#705AF8",
-                  },
-                }}
-                onClick={() => deleteHandler(car)}
-              />
-            </div>
+      {cars.length === 0 ? (
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            justifyContent: " center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          Готовых машин нет
+        </div>
+      ) : (
+        <TableContainer
+          component={Paper}
+          sx={{ width: "100%", margin: "0 auto" }}
+        >
+          <Table
+            sx={{ minWidth: 100, width: "100%" }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Имя Мастера обслуживавшего авто</TableCell>
+                <TableCell align="center">Автомобиль</TableCell>
+                <TableCell align="center">Год выпуска авто </TableCell>
+                <TableCell align="center">Работа сделанная на автомобилем</TableCell>
+                <TableCell align="center">Действие</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {cars.map((car) => (
+                <TableRow
+                  key={car.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center" component="th" scope="row">
+                    {car.nameMaster}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
+                    {car.manufacturer}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
+                    {car.modelYear}
+                  </TableCell>
+                  <TableCell align="center">{car.workOncar} </TableCell>
+                  
 
-            <div className={styles.carFinishCard__body}>
-              <span>Проблемы автомобиля:</span>
-              <ul>
-                {car &&
-                  Object.keys(car.problems).map((problemId) => (
-                    <li className={styles.finishPopup__lists} key={problemId}>
-                      {car.problems[problemId as LocalInRussianKeys]
-                        ? `${
-                            localInRussian[problemId as LocalInRussianKeys] ?? problemId 
-                          } :  Отремонтировано`
-                        : ` ${
-                            localInRussian[problemId as LocalInRussianKeys]?? problemId
-                          }  : Повреждений не было обнаружено`}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-
-            <div className={styles.carFinishCard__recomm}>
-              <span className={styles.carFinishCard__recommTitle}>
-                Рекомендации по дальнейшему использованию авто:
-              </span>
-
-              <div className={styles.carFinishCard__recommText}>
-                {car.recomm}
-              </div>
-            </div>
-          </div>
-        ))}
+                  <TableCell align="center">
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => deleteHandler(car)}
+                        sx={{
+                          backgroundColor: "#705AF8",
+                          "&:hover": {
+                            background: "#7975F8",
+                          },
+                        }}
+                        variant="contained"
+                      >
+                        Удалить
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
       </div>
     </div>
   );

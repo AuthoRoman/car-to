@@ -1,4 +1,4 @@
-export type Color =
+export type Color = 
   | "red"
   | "blue"
   | "grey"
@@ -9,10 +9,8 @@ export type Color =
   | "white"
   | "orange";
 
-export interface IProblems {
-  [key:string]: boolean
-   
-}
+ 
+ 
 export enum localInRussian {
   engine = "Двигатель",
   fuses = "Предохранители",
@@ -28,7 +26,7 @@ export type LocalInRussianKeys = keyof typeof localInRussian;
 export interface IPropsCar {
   nameOwner: string;
   tel: string;
-  problems: IProblems;
+  problems: string;
 }
 export interface ICar {
   id: number;
@@ -40,10 +38,11 @@ export interface ICar {
   numberOwners: number;
   color: string;
   carMileage: string;
+  carNumber: string;
   registration: string;
   accidents: string;
-
-  problems: IProblems;
+  date: string;
+  problems: string;
 }
 
 export interface ICarsState {
@@ -80,7 +79,7 @@ export interface cardService {
   modelYear: string;
   assemblyPlant: string;
   serialNumber: string;
-  problems: IProblems;
+  problems: string;
 }
 
 export interface ICarserviceState {
@@ -98,7 +97,8 @@ export enum finishCarTypesAction {
 }
 
 export interface cardFinish extends cardService {
-  recomm: string
+  recomm: string,
+  workOncar:string
 }
 
 export interface ICarFinishState {

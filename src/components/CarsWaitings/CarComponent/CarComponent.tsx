@@ -11,16 +11,7 @@ const CarComponent: React.FC<IPropsCar> = (props) => {
       <div className={style.carBoard__header}>{props.nameOwner}</div>
       <div className={style.carBoard__tel}>{props.tel}</div>
       <div className={style.carBoard__inner}>
-        {Object.keys(props.problems).map((problemId) => (
-          <div className={style.carBoard__inner__item} key={problemId}>
-            {  problemId }:{" "}
-            {props.problems   ? (
-              <CloseIcon color="error" />
-            ) : (
-              <TaskAltIcon color="success" />
-            )}
-          </div>
-        ))}
+         {props.problems}
       </div>
     </div>
   );
