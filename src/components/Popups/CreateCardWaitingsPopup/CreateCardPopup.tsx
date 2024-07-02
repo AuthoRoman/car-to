@@ -84,7 +84,7 @@ const submitProblems  = () =>{
     ) {
       setNumbersOwnersError(true);
     }
-    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)) || (email.trim().length === 0)) {
+    if(!(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email)) || (email.trim().length === 0)) {
       console.log(emailError)
       setEmailError(true) 
     }
@@ -164,7 +164,7 @@ const submitProblems  = () =>{
     const pattern = new RegExp(
       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     setEmail(e.target.value);
-    if (pattern.test(email)) {
+    if (pattern.test(e.target.value)) {
 
       setEmailError(false);
     }
