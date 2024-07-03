@@ -20,12 +20,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import InfoServiceCar from "../components/Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
 
 const CarinWorking: React.FC = () => {
   const cars = useTypedSelector((state) => state.carsInServ.cars);
   const dispatch = useDispatch();
   const [currentCar, setCurrentCar] = useState<cardService>();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenServiceInfo, setIsOpenServiceInfo] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -42,15 +44,29 @@ const CarinWorking: React.FC = () => {
     setIsOpen(booleanValue);
   };
 
-  const funSetCurrentCar = (car: cardService) => {
+  const funSetCurrentCar = (event:React.FormEvent<EventTarget>,car: cardService) => {
+    event.stopPropagation()
     setCurrentCar(car);
     togglePopup(true);
   };
+
+  const getInfoServiceCard =(car:cardService) =>{
+    setIsOpenServiceInfo(true)
+    setCurrentCar(car)
+  }
+  const closeInfoCar = () =>{
+    setIsOpenServiceInfo(false)
+  }
   return (
     <div>
       {isOpen && (
         <div>
           <FinishPopup togglePopup={togglePopup} car={currentCar} />
+        </div>
+      )}
+      {isOpenServiceInfo && (
+        <div>
+          <InfoServiceCar  closeInfoCar={closeInfoCar!} car={currentCar!} />
         </div>
       )}
       {cars.length === 0 ? (
@@ -86,8 +102,10 @@ const CarinWorking: React.FC = () => {
             <TableBody>
               {cars.map((car) => (
                 <TableRow
+                  onClick = {()=>getInfoServiceCard(car)}
                   key={car.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } ,
+                  "&:hover":{cursor: 'pointer'}}}
                 >
                   <TableCell align="center" component="th" scope="row">
                     {car.nameMaster}
@@ -96,7 +114,7 @@ const CarinWorking: React.FC = () => {
                     {car.manufacturer}
                   </TableCell>
                   <TableCell align="center">{car.modelYear} </TableCell>
-                  <TableCell align="center">{car.assemblyPlant}</TableCell>
+                  <TableCell align="center">{car.date}</TableCell>
 
                   <TableCell align="center">
                     <div
@@ -108,7 +126,7 @@ const CarinWorking: React.FC = () => {
                       }}
                     >
                       <Button
-                        onClick={() => funSetCurrentCar(car)}
+                        onClick={(event) => funSetCurrentCar(event,car)}
                         sx={{
                           backgroundColor: "#705AF8",
                           "&:hover": {

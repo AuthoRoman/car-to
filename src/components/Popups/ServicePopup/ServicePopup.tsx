@@ -23,6 +23,14 @@ const ServicePopup: React.FC<{
   const [nameMaster, setNameMaster] = useState("");
 
   async function submitForm(VIN: any, name: string, problems: string) {
+    let currentDate = new Date();
+    const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDay() : currentDate.getDay() }.${
+      currentDate.getMonth() < 10
+        ? "0" + (currentDate.getMonth()+ 1)
+        : currentDate.getMonth() 
+    }.${
+      currentDate.getFullYear()  
+    }`;
     console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
     console.log("OUR data IS: " + data);
@@ -32,6 +40,7 @@ const ServicePopup: React.FC<{
         VIN: VIN,
         region: data.region,
         country: data.country,
+        date:date,
         manufacturer: data.manufacturer,
         vehicleAttributes: data.vehicleAttributes,
         checkDigit: data.checkDigit,
@@ -48,6 +57,7 @@ const ServicePopup: React.FC<{
           VIN: VIN,
           region: data.region,
           country: data.country,
+          date:date,
           manufacturer: data.manufacturer,
           vehicleAttributes: data.vehicleAttributes,
           checkDigit: data.checkDigit,

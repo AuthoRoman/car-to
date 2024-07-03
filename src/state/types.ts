@@ -56,7 +56,7 @@ export interface IAction {
 
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
-  ADD_PROBLEM = "ADD_PROBLEM",
+  EDIT_CAR = "EDIT_CAR",
   DELETE_CAR = "DELETE_CAR",
 }
 
@@ -80,6 +80,7 @@ export interface cardService {
   assemblyPlant: string;
   serialNumber: string;
   problems: string;
+  date:string
 }
 
 export interface ICarserviceState {

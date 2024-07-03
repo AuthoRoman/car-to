@@ -18,6 +18,7 @@ interface IProps {
   problems: string;
   togglePopup: any;
   funSetCurrentCar: any;
+  date:string
 }
 
 const CarsInService: React.FC<IProps> = ({
@@ -35,6 +36,7 @@ const CarsInService: React.FC<IProps> = ({
   problems,
   togglePopup,
   funSetCurrentCar,
+  date,
 }) => {
   const car = {
     nameMaster,
@@ -51,6 +53,8 @@ const CarsInService: React.FC<IProps> = ({
     problems,
     togglePopup,
     funSetCurrentCar,
+    date,
+     
   };
   const CurrentCar = (carCurr: cardService) => {
     funSetCurrentCar(carCurr);
@@ -72,7 +76,7 @@ const CarsInService: React.FC<IProps> = ({
         </div>
         <div>
           <Button
-            onClick={() => CurrentCar(car)}
+            onClick={() => CurrentCar(car  )}
             sx={{
               backgroundColor: "#705AF8",
               height: `30px`,

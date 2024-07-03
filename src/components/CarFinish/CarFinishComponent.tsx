@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import styles from "./CarFinishComponent.module.css";
 import {
@@ -13,9 +13,13 @@ import { deleteData, getStoreData } from "../../api/database/db";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import FinishPopup from "../Popups/FinishPopup/FinishPopup";
+import InfoFinishCar from "../Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
+  const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] = useState<boolean>(false)
+  const [currentCar, setCurrentCar] = useState<cardFinish>()
 
   const deleteHandler = async (car: cardFinish) => {
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
@@ -23,6 +27,14 @@ export default function CarFinishComponent() {
   };
 
   const cars = useTypedSelector((state) => state.carsInFinish.cars);
+  const getInfo = (car:cardFinish) =>{
+    setisPopupInfoFinishCarOpen(true)
+    setCurrentCar(car)
+  }
+
+  const closePopup = () =>{
+    setisPopupInfoFinishCarOpen(false)
+  }
 
   useEffect(() => {
     if (cars.length == 0) {
@@ -37,6 +49,9 @@ export default function CarFinishComponent() {
   return (
     <div>
       <div>
+        {isPopupInfoFinishCarOpen &&(
+          <div><InfoFinishCar car={currentCar!} closeInfoCar={closePopup}/></div>
+        )}
       {cars.length === 0 ? (
         <div
           style={{
@@ -71,7 +86,9 @@ export default function CarFinishComponent() {
               {cars.map((car) => (
                 <TableRow
                   key={car.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  onClick = {()=> getInfo(car)}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } ,
+                "&:hover": {cursor: 'pointer'}}}
                 >
                   <TableCell align="center" component="th" scope="row">
                     {car.nameMaster}

@@ -104,3 +104,29 @@ export const deleteData = (storeName:string, key:number): Promise<boolean> =>{
         }
     })
 }
+
+export const editData = <T>(
+  storeName: string,
+  data: T,
+  key:number
+): Promise<T | string | null|boolean> =>{
+  return new Promise((resolve) => {
+      request = indexedDB.open('carsDB', version)
+
+      request.onsuccess = () => {
+          console.log('request delete - good',data, key)
+          db = request.result
+          const tx = db.transaction(storeName, 'readwrite')
+          const store = tx.objectStore(storeName)
+          const res = store.put(data ) //!TODO
+
+
+          res.onsuccess = ()=>{
+              resolve(true)
+          }
+          res.onerror = ()=>{
+              resolve(false)
+          }
+      }
+  })
+}

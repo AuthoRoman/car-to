@@ -20,15 +20,19 @@ import {
   typesOfActionsCar,
 } from "../../state/types";
 import { addData, deleteData, getStoreData } from "../../api/database/db";
+import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
 
 const CarsListWaiting = () => {
   const dispatch = useTypedDispatch();
 
   const cars = useTypedSelector((state) => state.cars.cars);
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
+  const [isVisiblePopupWaitingsCar, setIsVisiblePopupWaitingsCar] = useState(false);
+  const [isOpenPopupEdit, setisOpenPopupEdit] =useState(false)
   const [PopupFixCar, setPopupFixCar] = useState(false);
   const [currentCar, setCurrentCar] = useState<ICar>();
   const [VIN, setVIN] = useState("");
+  const [CurrentCarId, setCurrentCarId] = useState<number>()
   useEffect(() => {
     (async () => {
       if (cars.length == 0) {
@@ -40,7 +44,8 @@ const CarsListWaiting = () => {
     })();
   }, []);
 
-  const deleteCar = async (car: ICar) => {
+  const deleteCar = async (event:React.FormEvent<EventTarget>, car: ICar) => {
+    event.stopPropagation()
     await dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: car! });
     await deleteData(TypeBases.CARS_IN_WAITING, car.id);
   };
@@ -58,14 +63,35 @@ const CarsListWaiting = () => {
     }
   };
 
+
+
+  const getInfocar = (car:ICar) =>{
+    setCurrentCar(car)
+    setIsVisiblePopupWaitingsCar(true)
+  }
+  const closeInfoCar = () =>{
+    setIsVisiblePopupWaitingsCar(false)
+  }
+
   const close = () => {
     PopupFixCar ? setPopupFixCar(false) : setIsVisiblePopup(false);
   };
+  const closeEditor = () => {
+    setisOpenPopupEdit(false)
+  }
 
-  async function handleServicePop(VIN: string, car: ICar) {
+  async function handleServicePop(event:React.FormEvent<EventTarget>, VIN: string, car: ICar) {
+    event.stopPropagation()
     await setCurrentCar(car);
     await setVIN(VIN);
     await setPopupFixCar(true);
+  }
+
+  const OpenPopupEdit =( VIN:string, id:number) => {
+    setCurrentCarId(id);
+    setVIN(VIN);
+    setisOpenPopupEdit(true)
+    setIsVisiblePopupWaitingsCar(false)
   }
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
@@ -75,6 +101,11 @@ const CarsListWaiting = () => {
             <CreateCardPopup closeVisible={close} />{" "}
           </div>
         )}
+        {isOpenPopupEdit && (
+          <div>
+          <CreateCardPopup idCar={CurrentCarId} VINcar ={VIN} closeVisible={closeEditor} />{" "}
+        </div>
+        )}
         {PopupFixCar && (
           <div>
             <ServicePopup
@@ -83,6 +114,11 @@ const CarsListWaiting = () => {
               VIN={VIN}
               problems={currentCar?.problems!}
             />
+          </div>
+        )}
+        {isVisiblePopupWaitingsCar && (
+          <div>
+            <InfoWaitingsCars closeInfoCar = {closeInfoCar } car ={currentCar!} isOpenPopupEdit = { OpenPopupEdit} />
           </div>
         )}
         {cars.length === 0 ? (
@@ -118,8 +154,10 @@ const CarsListWaiting = () => {
               <TableBody>
                 {cars.map((car) => (
                   <TableRow
+                   onClick ={()=> getInfocar(car)  }
                     key={car.numberOwners}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } ,
+                  "&:hover":{cursor: 'pointer'} }}
                   >
                     <TableCell align="center" component="th" scope="row">
                       {car.firstNameOwner} {car.secondNameOwner}
@@ -136,11 +174,11 @@ const CarsListWaiting = () => {
                           alignItems: "center",
                         }}
                       >
-                        <Button onClick={() => deleteCar(car)} color="warning">
+                        <Button onClick={(event) => deleteCar(event,car)} color="warning">
                           Удалить
                         </Button>
                         <Button
-                          onClick={() => handleServicePop(car.VIN, car)}
+                          onClick={(event) => handleServicePop(event,car.VIN, car)}
                           sx={{
                             backgroundColor: "#705AF8",
                             "&:hover": {

@@ -14,10 +14,12 @@ import { MuiTelInput } from "mui-tel-input";
 import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
 import { Color, TypeBases, typesOfActionsCar } from "../../../state/types";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
-import { addData } from "../../../api/database/db";
+import { addData, editData } from "../../../api/database/db";
 import { Height } from "@mui/icons-material";
 
-const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
+
+
+const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: any }> = ({ closeVisible,VINcar,idCar }) => {
   const dispatch = useTypedDispatch();
 
   const [nameError, setNameError] = useState<boolean>(false);
@@ -25,6 +27,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
   const [ownerNumbersError, setNumbersOwnersError] = useState<boolean>(false);
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
+  const [carNumberError, setCarNumberError] = useState<boolean>(false)
 
   const [carNumber, setCarNumber] = useState<string>("");
 
@@ -46,7 +49,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
 
   const IdKey = Math.random() * 100;
   async function submitForm() {
-    if (VIN.length !== 17) {
+    if (VIN.length !== 17 && !VINcar) {
       setVINError(true);
     }
     if (firstNameOwner.trim().length === 0) {
@@ -70,8 +73,11 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       console.log(emailError);
       setEmailError(true);
     }
+    if(!/^[\w- ]{6,6}$/g.test(carNumber)){
+      setCarNumberError(true)
+    }
     if (
-      VIN.length === 17 &&
+      (VIN.length === 17 || VINcar )&&
       firstNameOwner.trim().length !== 0 &&
       secondNameOwner.trim().length !== 0 &&
       numberOwners! > 0 &&
@@ -80,7 +86,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       typeof numberOwners === "number" &&
       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) &&
       email.trim().length !== 0
-    ) {
+     && /^[\w- ]{6,6}$/g.test(carNumber)){
       let currentDate = new Date();
       const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDay() : currentDate.getDay() }.${
         currentDate.getMonth() < 10
@@ -89,7 +95,8 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
       }.${
         currentDate.getFullYear()  
       }`;
-      await addData(TypeBases.CARS_IN_WAITING, {
+      if(!VINcar){
+         await addData(TypeBases.CARS_IN_WAITING, {
         accidents: accidents,
         carMileage: carMileage,
         carNumber: carNumber,
@@ -102,11 +109,11 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
         registration: registration,
         secondNameOwner: secondNameOwner,
         tel: phone,
-        VIN: VIN,
+        VIN: VINcar ?? VIN,
         problems: problems,
       });
       await dispatch({
-        type: "ADD_CAR",
+        type: typesOfActionsCar.ADD_CAR ,
         payload: {
           accidents: accidents,
           carMileage: carMileage,
@@ -120,10 +127,48 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
           registration: registration,
           secondNameOwner: secondNameOwner,
           tel: phone,
-          VIN: VIN,
+          VIN: VINcar ?? VIN,
           problems: problems!,
         },
       });
+      }else{
+        await editData(TypeBases.CARS_IN_WAITING, {
+          accidents: accidents,
+          carMileage: carMileage,
+          carNumber: carNumber,
+          date: date,
+          color: color,
+          email: email,
+          firstNameOwner: firstNameOwner,
+          id: idCar,
+          numberOwners: numberOwners,
+          registration: registration,
+          secondNameOwner: secondNameOwner,
+          tel: phone,
+          VIN: VINcar ?? VIN,
+          problems: problems,
+        }, idCar! );
+        await dispatch({
+          type: typesOfActionsCar.EDIT_CAR,
+          payload: {
+            accidents: accidents,
+            carMileage: carMileage,
+            carNumber: carNumber,
+            date: date,
+            color: color,
+            email: email,
+            firstNameOwner: firstNameOwner,
+            id: idCar!,
+            numberOwners: numberOwners!,
+            registration: registration,
+            secondNameOwner: secondNameOwner,
+            tel: phone,
+            VIN: VINcar  ,
+            problems: problems!,
+          },
+        });
+      }
+     
       closeVisible(false);
     }
     return 0;
@@ -163,6 +208,14 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
     setEmail(e.target.value);
     if (pattern.test(e.target.value)) {
       setEmailError(false);
+    }
+  };
+
+  const ValidationCarNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const pattern = new RegExp(/^[\w- ]{6,6}$/g);
+    setCarNumber(e.target.value);
+    if (pattern.test(e.target.value)) {
+      setCarNumberError(false);
     }
   };
 
@@ -232,7 +285,7 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
           <TextField
             className={styles.inputPhoneCustom}
             disabled={VIN.length > 16}
-            value={VIN}
+            value={VINcar ?? VIN}
             error={VINError && VIN.trim().length !== 17 ? true : false}
             helperText={
               VINError && VIN.trim().length !== 17
@@ -270,6 +323,11 @@ const CreateCardPopup: React.FC<{ closeVisible: any }> = ({ closeVisible }) => {
             value={carNumber}
             disabled={carNumber.length > 5}
             onChange={(e) => setCarNumber(e.target.value)}
+            error={carNumberError && carNumber.trim().length !== 6 ? true : false}
+            helperText={carNumberError && carNumber.trim().length !== 6 ?
+                  "Введите корректный номер авто"
+                : false
+            }
             sx={{
               border: "2px solid #DBDBDB",
               borderRadius: "5px",
