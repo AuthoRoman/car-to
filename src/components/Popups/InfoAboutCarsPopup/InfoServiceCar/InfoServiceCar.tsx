@@ -12,7 +12,7 @@ const InfoServiceCar:React.FC<{car:cardService, closeInfoCar:any}> = ({car,close
             <li>Завод по сборке данного автомобиля {car.assemblyPlant}</li>
             <li>Номер автомобиля {car.checkDigit}</li>
             <li>Автомобиль собран в стране {car.country}</li>
-            <li>Машина заявлена на обслуживание - {car.date}</li>
+            <li>Машина заявлена на обслуживание - {car.date ?? 'Неизвестно'}</li>
             <li>Марка автомобиля{car.manufacturer}</li>
             <li>ВИН номер автомобиля{car.VIN}</li>
             <li>Год выпуска авто {car.modelYear}</li>

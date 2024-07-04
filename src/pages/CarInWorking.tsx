@@ -114,7 +114,7 @@ const CarinWorking: React.FC = () => {
                     {car.manufacturer}
                   </TableCell>
                   <TableCell align="center">{car.modelYear} </TableCell>
-                  <TableCell align="center">{car.date}</TableCell>
+                  <TableCell align="center">{car.date ?? 'Неизвестно'}</TableCell>
 
                   <TableCell align="center">
                     <div

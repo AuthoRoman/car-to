@@ -2,6 +2,7 @@ import { IAction, ICarsState, typesOfActionsCar } from "../types";
 
 const initialState: ICarsState = {
   cars: [],
+  filteredItems :  []
 };
 
 export const carReducer = (
@@ -10,7 +11,7 @@ export const carReducer = (
 ): ICarsState => {
   switch (action.type) {
     case typesOfActionsCar.ADD_CAR:
-      return { ...state, cars: [...state.cars, action.payload] };
+      return { ...state, cars: [...state.cars , action.payload], };
 
     case typesOfActionsCar.EDIT_CAR:
       return {
@@ -21,7 +22,11 @@ export const carReducer = (
             : car
         ),
       };
-
+    case typesOfActionsCar.FIND_CAR: 
+      return{
+        ...state,  filteredItems: [ ...state.cars ].filter((x) => x.carNumber.includes(action.payload.carNumber)) 
+      }
+   
     case typesOfActionsCar.DELETE_CAR:
       return {
         ...state,

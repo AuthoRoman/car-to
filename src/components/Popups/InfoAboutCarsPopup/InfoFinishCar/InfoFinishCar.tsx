@@ -12,13 +12,14 @@ const InfoFinishCar:React.FC<{car:cardFinish, closeInfoCar:any}> = ({car,closeIn
             <li>Завод по сборке данного автомобиля {car.assemblyPlant}</li>
             <li>Номер автомобиля {car.checkDigit}</li>
             <li>Автомобиль собран в стране {car.country}</li>
-            <li>Машина заявлена на обслуживание - {car.date}</li>
+            <li>Машина заявлена на обслуживание - {car.date ?? 'Неизвестно'}</li>
             <li>Марка автомобиля{car.manufacturer}</li>
             <li>ВИН номер автомобиля{car.VIN}</li>
-            <li>Год выпуска авто {car.modelYear}</li>
+            <li>Год выпуска авто {car.modelYear }</li>
             <li>Имя мастера, который ремонтирует авто {car.nameMaster}</li>
             <li>Атрибуты транспортного средства {car.vehicleAttributes}</li>
             <li>Проблемы авто - {car.problems.length ===0 ? 'приехала на тех обслуживание' : car.problems}</li>
+            <li>Рекомендации по использованию: {car.recomm.trim().length ===0  ? 'Во время приезжайте на тех обслуживание' : car.recomm}</li>
              
           </ul>
            

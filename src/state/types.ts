@@ -41,12 +41,13 @@ export interface ICar {
   carNumber: string;
   registration: string;
   accidents: string;
-  date: string;
+  date?: string;
   problems: string;
 }
 
 export interface ICarsState {
   cars: ICar[]  ;
+  filteredItems?:ICar[]
 }
 
 export interface IAction {
@@ -57,6 +58,7 @@ export interface IAction {
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
   EDIT_CAR = "EDIT_CAR",
+  FIND_CAR = "FIND_CAR",
   DELETE_CAR = "DELETE_CAR",
 }
 
@@ -80,7 +82,7 @@ export interface cardService {
   assemblyPlant: string;
   serialNumber: string;
   problems: string;
-  date:string
+  date?:string
 }
 
 export interface ICarserviceState {

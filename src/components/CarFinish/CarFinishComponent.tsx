@@ -21,7 +21,8 @@ export default function CarFinishComponent() {
   const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] = useState<boolean>(false)
   const [currentCar, setCurrentCar] = useState<cardFinish>()
 
-  const deleteHandler = async (car: cardFinish) => {
+  const deleteHandler = async (event:React.FormEvent<EventTarget>, car: cardFinish) => {
+    event.stopPropagation()
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
     dispatch({ type: finishCarTypesAction.DELETE_FINISH_CAR, payload: car });
   };
@@ -78,7 +79,7 @@ export default function CarFinishComponent() {
                 <TableCell align="center">Имя Мастера обслуживавшего авто</TableCell>
                 <TableCell align="center">Автомобиль</TableCell>
                 <TableCell align="center">Год выпуска авто </TableCell>
-                <TableCell align="center">Работа сделанная на автомобилем</TableCell>
+                <TableCell align="center">Работа сделанная над автомобилем</TableCell>
                 <TableCell align="center">Действие</TableCell>
               </TableRow>
             </TableHead>
@@ -99,7 +100,7 @@ export default function CarFinishComponent() {
                   <TableCell align="center" component="th" scope="row">
                     {car.modelYear}
                   </TableCell>
-                  <TableCell align="center">{car.workOncar} </TableCell>
+                  <TableCell align="center">{car.workOncar.trim().length ===0  ? 'Работа была проведена успешна' : car.workOncar} </TableCell>
                   
 
                   <TableCell align="center">
@@ -112,7 +113,7 @@ export default function CarFinishComponent() {
                       }}
                     >
                       <Button
-                        onClick={() => deleteHandler(car)}
+                        onClick={(event) => deleteHandler(event,car)}
                         sx={{
                           backgroundColor: "#705AF8",
                           "&:hover": {

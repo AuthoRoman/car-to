@@ -12,6 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import {
   ICar,
@@ -25,17 +26,20 @@ import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWa
 const CarsListWaiting = () => {
   const dispatch = useTypedDispatch();
 
-  const cars = useTypedSelector((state) => state.cars.cars);
+  const filteredCars = useTypedSelector((state) => state.cars.cars);
+  const cars = useTypedSelector((state) =>state.cars.cars )
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
-  const [isVisiblePopupWaitingsCar, setIsVisiblePopupWaitingsCar] = useState(false);
-  const [isOpenPopupEdit, setisOpenPopupEdit] =useState(false)
+  const [isVisiblePopupWaitingsCar, setIsVisiblePopupWaitingsCar] =
+    useState(false);
+  const [isOpenPopupEdit, setisOpenPopupEdit] = useState(false);
   const [PopupFixCar, setPopupFixCar] = useState(false);
   const [currentCar, setCurrentCar] = useState<ICar>();
   const [VIN, setVIN] = useState("");
-  const [CurrentCarId, setCurrentCarId] = useState<number>()
+  const [CurrentCarId, setCurrentCarId] = useState<number>();
+
   useEffect(() => {
     (async () => {
-      if (cars.length == 0) {
+      if (cars?.length == 0) {
         const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_WAITING);
         carsDB.map((x) =>
           dispatch({ type: typesOfActionsCar.ADD_CAR, payload: x })
@@ -44,8 +48,8 @@ const CarsListWaiting = () => {
     })();
   }, []);
 
-  const deleteCar = async (event:React.FormEvent<EventTarget>, car: ICar) => {
-    event.stopPropagation()
+  const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
+    event.stopPropagation();
     await dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: car! });
     await deleteData(TypeBases.CARS_IN_WAITING, car.id);
   };
@@ -63,36 +67,62 @@ const CarsListWaiting = () => {
     }
   };
 
-
-
-  const getInfocar = (car:ICar) =>{
-    setCurrentCar(car)
-    setIsVisiblePopupWaitingsCar(true)
-  }
-  const closeInfoCar = () =>{
-    setIsVisiblePopupWaitingsCar(false)
-  }
+  const getInfocar = (car: ICar) => {
+    setCurrentCar(car);
+    setIsVisiblePopupWaitingsCar(true);
+  };
+  const closeInfoCar = () => {
+    setIsVisiblePopupWaitingsCar(false);
+  };
 
   const close = () => {
     PopupFixCar ? setPopupFixCar(false) : setIsVisiblePopup(false);
   };
   const closeEditor = () => {
-    setisOpenPopupEdit(false)
-  }
+    setisOpenPopupEdit(false);
+  };
 
-  async function handleServicePop(event:React.FormEvent<EventTarget>, VIN: string, car: ICar) {
-    event.stopPropagation()
+  async function handleServicePop(
+    event: React.FormEvent<EventTarget>,
+    VIN: string,
+    car: ICar
+  ) {
+    event.stopPropagation();
     await setCurrentCar(car);
     await setVIN(VIN);
     await setPopupFixCar(true);
   }
 
-  const OpenPopupEdit =( VIN:string, id:number) => {
+  const OpenPopupEdit = (VIN: string, id: number) => {
     setCurrentCarId(id);
     setVIN(VIN);
-    setisOpenPopupEdit(true)
-    setIsVisiblePopupWaitingsCar(false)
-  }
+    setisOpenPopupEdit(true);
+    setIsVisiblePopupWaitingsCar(false);
+  };
+  const findCar = (numberOfCar:any) => {
+    console.log('as')
+    dispatch({
+      type: typesOfActionsCar.FIND_CAR,
+      payload: {
+        id: 0,
+        VIN: "",
+        tel: "",
+        email: "",
+        firstNameOwner: "",
+        secondNameOwner: "",
+        numberOwners: 0,
+        color: "string",
+        carMileage: "string",
+        carNumber: numberOfCar,
+        registration: "string",
+        accidents: "string",
+        date: "string",
+        problems: "string",
+      },
+    })
+ 
+  };
+
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -103,8 +133,12 @@ const CarsListWaiting = () => {
         )}
         {isOpenPopupEdit && (
           <div>
-          <CreateCardPopup idCar={CurrentCarId} VINcar ={VIN} closeVisible={closeEditor} />{" "}
-        </div>
+            <CreateCardPopup
+              idCar={CurrentCarId}
+              VINcar={VIN}
+              closeVisible={closeEditor}
+            />{" "}
+          </div>
         )}
         {PopupFixCar && (
           <div>
@@ -118,10 +152,14 @@ const CarsListWaiting = () => {
         )}
         {isVisiblePopupWaitingsCar && (
           <div>
-            <InfoWaitingsCars closeInfoCar = {closeInfoCar } car ={currentCar!} isOpenPopupEdit = { OpenPopupEdit} />
+            <InfoWaitingsCars
+              closeInfoCar={closeInfoCar}
+              car={currentCar!}
+              isOpenPopupEdit={OpenPopupEdit}
+            />
           </div>
         )}
-        {cars.length === 0 ? (
+        {cars?.length === 0 ? (
           <div
             style={{
               display: "flex",
@@ -133,7 +171,7 @@ const CarsListWaiting = () => {
           >
             Добавь первый автомобиль!
           </div>
-        ) : (
+        ) :   (
           <TableContainer
             component={Paper}
             sx={{ width: "100%", margin: "0 auto" }}
@@ -152,12 +190,14 @@ const CarsListWaiting = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {cars.map((car) => (
+                {   cars?.map((car) => (
                   <TableRow
-                   onClick ={()=> getInfocar(car)  }
+                    onClick={() => getInfocar(car)}
                     key={car.numberOwners}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } ,
-                  "&:hover":{cursor: 'pointer'} }}
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: 0 },
+                      "&:hover": { cursor: "pointer" },
+                    }}
                   >
                     <TableCell align="center" component="th" scope="row">
                       {car.firstNameOwner} {car.secondNameOwner}
@@ -174,11 +214,16 @@ const CarsListWaiting = () => {
                           alignItems: "center",
                         }}
                       >
-                        <Button onClick={(event) => deleteCar(event,car)} color="warning">
+                        <Button
+                          onClick={(event) => deleteCar(event, car)}
+                          color="warning"
+                        >
                           Удалить
                         </Button>
                         <Button
-                          onClick={(event) => handleServicePop(event,car.VIN, car)}
+                          onClick={(event) =>
+                            handleServicePop(event, car.VIN, car)
+                          }
                           sx={{
                             backgroundColor: "#705AF8",
                             "&:hover": {
@@ -212,6 +257,18 @@ const CarsListWaiting = () => {
           >
             +
           </Button>
+          <TextField
+          onChange={(e ) => findCar(e.target.value)}
+            variant="standard"
+            sx={{
+              border: "2px solid #DBDBDB",
+              borderRadius: "5px",
+              padding: "0px 10px",
+              backgroundColor: "white",
+            }}
+            placeholder="Поиск по номеру авто "
+            color="primary"
+          />
         </div>
       </div>
     </div>
