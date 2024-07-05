@@ -12,30 +12,57 @@ import {
 import { deleteData, getStoreData } from "../../api/database/db";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+} from "@mui/material";
 import FinishPopup from "../Popups/FinishPopup/FinishPopup";
 import InfoFinishCar from "../Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
-  const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] = useState<boolean>(false)
-  const [currentCar, setCurrentCar] = useState<cardFinish>()
+  const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] =
+    useState<boolean>(false);
+  const [currentCar, setCurrentCar] = useState<cardFinish>();
+  const cars = useTypedSelector((state) => state.carsInFinish.cars);
+  const filteredCars = useTypedSelector(
+    (state) => state.carsInFinish.filteredItems
+  );
+  const [filterWord, setFilterWord] = useState("");
 
-  const deleteHandler = async (event:React.FormEvent<EventTarget>, car: cardFinish) => {
-    event.stopPropagation()
+  const [defaultStateSortNameMaster, setDefaultStateSortNameMaster] =
+    useState(true);
+  const [defaultStateSortManufacturer, setDefaultStateSortManufacturer] =
+    useState(true);
+  const [defaultStateSortModelYear, setDefaultStateSortModelYear] =
+    useState(true);
+  const [defaultStateSortWork, setDefaultStateSortWork] = useState(true);
+  const [upStateSort, setUpStateSort] = useState(false);
+  const [downStateSort, setDownStateSort] = useState(false);
+  const deleteHandler = async (
+    event: React.FormEvent<EventTarget>,
+    car: cardFinish
+  ) => {
+    event.stopPropagation();
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
     dispatch({ type: finishCarTypesAction.DELETE_FINISH_CAR, payload: car });
   };
 
-  const cars = useTypedSelector((state) => state.carsInFinish.cars);
-  const getInfo = (car:cardFinish) =>{
-    setisPopupInfoFinishCarOpen(true)
-    setCurrentCar(car)
-  }
+  const getInfo = (car: cardFinish) => {
+    setisPopupInfoFinishCarOpen(true);
+    setCurrentCar(car);
+  };
 
-  const closePopup = () =>{
-    setisPopupInfoFinishCarOpen(false)
-  }
+  const closePopup = () => {
+    setisPopupInfoFinishCarOpen(false);
+  };
 
   useEffect(() => {
     if (cars.length == 0) {
@@ -47,91 +74,514 @@ export default function CarFinishComponent() {
       })();
     }
   }, []);
+
+  useEffect(() => {
+    findCar(filterWord);
+  }, [cars, filterWord]);
+
+  const findCar = (prop: string) => {
+    const rand = Math.random() * 10;
+    dispatch({
+      type: finishCarTypesAction.FIND_FINISH_CAR,
+      payload: {
+        nameMaster: prop,
+        id: rand,
+        VIN: "",
+        region: "",
+        country: "",
+        manufacturer: "",
+        vehicleAttributes: "",
+        checkDigit: "",
+        modelYear: "",
+        assemblyPlant: "",
+        serialNumber: "",
+        problems: "",
+        date: "",
+      },
+    });
+  };
+
+  const handlerChangeDefaultState = (prop: string) => {
+    if (prop === "defaultStateSortNameMaster") {
+      setDefaultStateSortNameMaster(false);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortWork(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("mASTERup");
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP,
+          payload: {
+            nameMaster: "string",
+            id: 0,
+            VIN: "string",
+            region: "string",
+            country: "string",
+            manufacturer: "string",
+            vehicleAttributes: "string",
+            checkDigit: "string",
+            modelYear: "string",
+            assemblyPlant: "string",
+            serialNumber: "string",
+            problems: "string",
+            date: "strin",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
+          payload: {
+            nameMaster: "string",
+            id: 0,
+            VIN: "string",
+            region: "string",
+            country: "string",
+            manufacturer: "string",
+            vehicleAttributes: "string",
+            checkDigit: "string",
+            modelYear: "string",
+            assemblyPlant: "string",
+            serialNumber: "string",
+            problems: "string",
+            date: "strin",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortManufacturer") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(false);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortWork(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("upManufac");
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortModelYear") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(false);
+      setDefaultStateSortWork(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortWork") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortWork(false);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+  };
+
+  const handlerChangeStateSort = () => {
+    if (
+      defaultStateSortNameMaster === true ||
+      defaultStateSortManufacturer === true ||
+      defaultStateSortModelYear === true ||
+      defaultStateSortWork === true
+    ) {
+      setUpStateSort(true);
+    }
+    if (upStateSort === true) {
+      setUpStateSort(false);
+      setDownStateSort(true);
+    }
+    if (downStateSort === true) {
+      setDownStateSort(false);
+      setUpStateSort(true);
+    }
+  };
+
   return (
     <div>
       <div>
-        {isPopupInfoFinishCarOpen &&(
-          <div><InfoFinishCar car={currentCar!} closeInfoCar={closePopup}/></div>
+        {isPopupInfoFinishCarOpen && (
+          <div>
+            <InfoFinishCar car={currentCar!} closeInfoCar={closePopup} />
+          </div>
         )}
-      {cars.length === 0 ? (
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            justifyContent: " center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          Готовых машин нет
-        </div>
-      ) : (
-        <TableContainer
-          component={Paper}
-          sx={{ width: "100%", margin: "0 auto" }}
-        >
-          <Table
-            sx={{ minWidth: 100, width: "100%" }}
-            aria-label="simple table"
+        {cars.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              justifyContent: " center",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Имя Мастера обслуживавшего авто</TableCell>
-                <TableCell align="center">Автомобиль</TableCell>
-                <TableCell align="center">Год выпуска авто </TableCell>
-                <TableCell align="center">Работа сделанная над автомобилем</TableCell>
-                <TableCell align="center">Действие</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {cars.map((car) => (
-                <TableRow
-                  key={car.id}
-                  onClick = {()=> getInfo(car)}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } ,
-                "&:hover": {cursor: 'pointer'}}}
-                >
-                  <TableCell align="center" component="th" scope="row">
-                    {car.nameMaster}
-                  </TableCell>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.manufacturer}
-                  </TableCell>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.modelYear}
-                  </TableCell>
-                  <TableCell align="center">{car.workOncar.trim().length ===0  ? 'Работа была проведена успешна' : car.workOncar} </TableCell>
-                  
-
-                  <TableCell align="center">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        justifyContent: "center",
-                        alignItems: "center",
+            Готовых машин нет
+          </div>
+        ) : (
+          <div
+            style={{
+              maxWidth: "1440px",
+              margin: "0 auto",
+              display: "flex",
+              alignItems: "start",
+            }}
+          >
+            <TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 100, width: "100%" }}
+                aria-label="simple table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortNameMaster')} align="center">
+                      
+                      <span  className={styles.preIconText} >Имя Мастера взявшего авто </span>  
+                    {defaultStateSortNameMaster ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                    </TableCell>
+                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortManufacturer')}  align="center">
+                    <span  className={styles.preIconText} >Автомобиль </span>  
+                    {defaultStateSortManufacturer ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                    </TableCell>
+                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortModelYear')}  align="center">
+                       
+                      <span  className={styles.preIconText} >   Год выпуска авто</span>  
+                    {defaultStateSortModelYear ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                    </TableCell>
+                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortWork')}  align="center">
+                    
+                      <span  className={styles.preIconText} >  Работа сделанная над автомобилем  </span>  
+                    {defaultStateSortWork ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                    </TableCell>
+                    <TableCell align="center">Действие</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredCars.map((car) => (
+                    <TableRow
+                      key={car.id}
+                      onClick={() => getInfo(car)}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        "&:hover": { cursor: "pointer" },
                       }}
                     >
-                      <Button
-                        onClick={(event) => deleteHandler(event,car)}
-                        sx={{
-                          backgroundColor: "#705AF8",
-                          "&:hover": {
-                            background: "#7975F8",
-                          },
-                        }}
-                        variant="contained"
-                      >
-                        Удалить
-                      </Button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+                      <TableCell align="center" component="th" scope="row">
+                        {car.nameMaster}
+                      </TableCell>
+                      <TableCell align="center" component="th" scope="row">
+                        {car.manufacturer}
+                      </TableCell>
+                      <TableCell align="center" component="th" scope="row">
+                        {car.modelYear}
+                      </TableCell>
+                      <TableCell align="center">
+                        {car.workOncar.trim().length === 0
+                          ? "Работа была проведена успешна"
+                          : car.workOncar}{" "}
+                      </TableCell>
+
+                      <TableCell align="center">
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Button
+                            onClick={(event) => deleteHandler(event, car)}
+                            sx={{
+                              backgroundColor: "#705AF8",
+                              "&:hover": {
+                                background: "#7975F8",
+                              },
+                            }}
+                            variant="contained"
+                          >
+                            Удалить
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TextField
+              onChange={(e) => setFilterWord(e.target.value)}
+              variant="standard"
+              sx={{
+                border: "2px solid #DBDBDB",
+                borderRadius: "5px",
+                padding: "0px 10px",
+                backgroundColor: "white",
+              }}
+              placeholder="Поиск: имя мастера "
+              color="primary"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

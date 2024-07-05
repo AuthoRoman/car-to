@@ -22,20 +22,34 @@ import {
 } from "../../state/types";
 import { addData, deleteData, getStoreData } from "../../api/database/db";
 import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
+import { hover } from "@testing-library/user-event/dist/hover";
+import { Opacity } from "@mui/icons-material";
+
+import styles from './CarsListWaiting.module.css'
 
 const CarsListWaiting = () => {
+  //Work with reducers
   const dispatch = useTypedDispatch();
-
-  const filteredCars = useTypedSelector((state) => state.cars.cars);
-  const cars = useTypedSelector((state) =>state.cars.cars )
+  const filteredCars = useTypedSelector((state) => state.cars.filteredItems);
+  const cars = useTypedSelector((state) => state.cars.cars);
+  //Popups
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
   const [isVisiblePopupWaitingsCar, setIsVisiblePopupWaitingsCar] =
     useState(false);
   const [isOpenPopupEdit, setisOpenPopupEdit] = useState(false);
   const [PopupFixCar, setPopupFixCar] = useState(false);
+  //OptionscurrentCar
   const [currentCar, setCurrentCar] = useState<ICar>();
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
+  //Sort
+  const [filterWord, setFilterWord] = useState("");
+  const [defaultStateSortFullName, setDefaultStateSortFullName] = useState(true);
+  const [defaultStateSortEmail, setDefaultStateSortEmail] = useState(true);
+  const [defaultStateSortNumberAuto, setDefaultStateSortNumberAuto] = useState(true);
+  const [defaultStateSortTime, setDefaultStateSortTime] = useState(true);
+  const [upStateSort, setUpStateSort] = useState(false);
+  const [downStateSort, setDownStateSort] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -48,6 +62,10 @@ const CarsListWaiting = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    findCar(filterWord);
+  }, [ cars, filterWord,   ]);
+
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
     event.stopPropagation();
     await dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: car! });
@@ -56,7 +74,7 @@ const CarsListWaiting = () => {
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
-      console.log("сейчай удаляется " + currentCar.id);
+       
       await dispatch({
         type: typesOfActionsCar.DELETE_CAR,
         payload: currentCar!,
@@ -82,15 +100,15 @@ const CarsListWaiting = () => {
     setisOpenPopupEdit(false);
   };
 
-  async function handleServicePop(
+   function handleServicePop(
     event: React.FormEvent<EventTarget>,
     VIN: string,
     car: ICar
   ) {
     event.stopPropagation();
-    await setCurrentCar(car);
-    await setVIN(VIN);
-    await setPopupFixCar(true);
+     setCurrentCar(car);
+     setVIN(VIN);
+     setPopupFixCar(true);
   }
 
   const OpenPopupEdit = (VIN: string, id: number) => {
@@ -99,12 +117,13 @@ const CarsListWaiting = () => {
     setisOpenPopupEdit(true);
     setIsVisiblePopupWaitingsCar(false);
   };
-  const findCar = (numberOfCar:any) => {
-    console.log('as')
+  const findCar = (filterWord: string) => {
+    const rand = Math.random()*20
+    console.log("as");
     dispatch({
       type: typesOfActionsCar.FIND_CAR,
       payload: {
-        id: 0,
+        id: rand,
         VIN: "",
         tel: "",
         email: "",
@@ -113,14 +132,203 @@ const CarsListWaiting = () => {
         numberOwners: 0,
         color: "string",
         carMileage: "string",
-        carNumber: numberOfCar,
+        carNumber: filterWord,
         registration: "string",
         accidents: "string",
         date: "string",
         problems: "string",
       },
-    })
- 
+    });
+  };
+
+  const handlerChangeDefaultState = (prop: string) => {
+    if(prop === 'defaultStateSortFullName'){
+      setDefaultStateSortFullName(false)
+      setDefaultStateSortEmail(true) 
+       setDefaultStateSortNumberAuto(true) 
+       setDefaultStateSortTime(true)
+       handlerChangeStateSort()
+       if (upStateSort === true) {
+        console.log('up')
+          dispatch({type:typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP, payload:
+            { id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",} })
+      } 
+      if (downStateSort === true) {
+        dispatch({type:typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN, payload:
+          { id: 0,
+          VIN: "",
+          tel: "",
+          email: "",
+          firstNameOwner: "",
+          secondNameOwner: "",
+          numberOwners: 0,
+          color: "string",
+          carMileage: "string",
+          carNumber: filterWord,
+          registration: "string",
+          accidents: "string",
+          date: "string",
+          problems: "string",} })
+      } 
+      
+
+    }
+    if(prop ==='defaultStateSortEmail'){
+      setDefaultStateSortFullName(true)
+      setDefaultStateSortEmail(false) 
+       setDefaultStateSortNumberAuto(true) 
+       setDefaultStateSortTime(true)
+       handlerChangeStateSort()
+       if (upStateSort === true) {
+        console.log('up')
+          dispatch({type:typesOfActionsCar.SORT_CAR_EMAIL_UP, payload:
+            { id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",} })
+      } 
+      if (downStateSort === true) {
+        dispatch({type:typesOfActionsCar.SORT_CAR_EMAIL_DOWN, payload:
+          { id: 0,
+          VIN: "",
+          tel: "",
+          email: "",
+          firstNameOwner: "",
+          secondNameOwner: "",
+          numberOwners: 0,
+          color: "string",
+          carMileage: "string",
+          carNumber: filterWord,
+          registration: "string",
+          accidents: "string",
+          date: "string",
+          problems: "string",} })
+      } 
+    }
+    if(prop === 'defaultStateSortNumberAuto'){
+      setDefaultStateSortFullName(true)
+      setDefaultStateSortEmail(true) 
+       setDefaultStateSortNumberAuto(false) 
+       setDefaultStateSortTime(true)
+       handlerChangeStateSort()
+       if (upStateSort === true) {
+        console.log('up')
+          dispatch({type:typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP, payload:
+            { id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",} })
+      } 
+      if (downStateSort === true) {
+        dispatch({type:typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN, payload:
+          { id: 0,
+          VIN: "",
+          tel: "",
+          email: "",
+          firstNameOwner: "",
+          secondNameOwner: "",
+          numberOwners: 0,
+          color: "string",
+          carMileage: "string",
+          carNumber: filterWord,
+          registration: "string",
+          accidents: "string",
+          date: "string",
+          problems: "string",} })
+      } 
+    }
+    if(prop === 'defaultStateSortTime'){
+      setDefaultStateSortFullName(true)
+      setDefaultStateSortEmail(true) 
+       setDefaultStateSortNumberAuto(true) 
+       setDefaultStateSortTime(false)
+       handlerChangeStateSort()
+       if (upStateSort === true) {
+        console.log('up')
+          dispatch({type:typesOfActionsCar.SORT_CAR_TIME_UP, payload:
+            { id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",} })
+      } 
+      if (downStateSort === true) {
+        dispatch({type:typesOfActionsCar.SORT_CAR_TIME_DOWN, payload:
+          { id: 0,
+          VIN: "",
+          tel: "",
+          email: "",
+          firstNameOwner: "",
+          secondNameOwner: "",
+          numberOwners: 0,
+          color: "string",
+          carMileage: "string",
+          carNumber: filterWord,
+          registration: "string",
+          accidents: "string",
+          date: "string",
+          problems: "string",} })
+      } 
+    }
+
+  }
+
+  const handlerChangeStateSort = () => {
+    
+    if (defaultStateSortFullName === true || defaultStateSortEmail === true || defaultStateSortNumberAuto === true || defaultStateSortTime === true) {  
+       
+      setUpStateSort(true);
+    }
+    if (upStateSort === true) {
+      setUpStateSort(false);
+      setDownStateSort(true) 
+    } 
+    if (downStateSort === true) {
+      setDownStateSort(false)
+      setUpStateSort(true)
+    } 
   };
 
   return (
@@ -171,7 +379,7 @@ const CarsListWaiting = () => {
           >
             Добавь первый автомобиль!
           </div>
-        ) :   (
+        ) : (
           <TableContainer
             component={Paper}
             sx={{ width: "100%", margin: "0 auto" }}
@@ -182,15 +390,166 @@ const CarsListWaiting = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">Имя Фамилия</TableCell>
-                  <TableCell align="center">E-mail </TableCell>
-                  <TableCell align="center">Номер авто </TableCell>
-                  <TableCell align="center">Заявка сформирована </TableCell>
-                  <TableCell align="center">Действие </TableCell>
+                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortFullName')} align="center">
+                  <span  className={styles.preIconText} >Имя Фамилия </span>  
+                    {defaultStateSortFullName ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                  </TableCell>
+                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortEmail')} align="center">
+                   
+                    <span  className={styles.preIconText} >E-mail </span>
+                    {defaultStateSortEmail ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                  </TableCell>
+                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortNumberAuto')} align="center">
+                  <span  className={styles.preIconText} >Номер авто </span>   
+                    {defaultStateSortNumberAuto ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                  </TableCell>
+                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortTime')} align="center">
+                  <span  className={styles.preIconText} >Заявка сформирована </span>  
+                    {defaultStateSortTime ? ( upStateSort ?
+                      <img
+                       className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                      alt="down--v1"
+                    />
+                    : (
+                      
+                      <img
+                      className={styles.preIcon}
+                      width="14"
+                      height="14"
+                      src="https://img.icons8.com/material-two-tone/24/up.png"
+                      alt="up"/>
+                   )
+                    ) : upStateSort ? (
+                       
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/material-two-tone/24/up.png"
+                        alt="up"
+                      />
+                       
+                     
+                    ) : (
+                      <img
+                        width="14"
+                        height="14"
+                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
+                        alt="down--v1"
+                      />
+                    )}
+                  </TableCell>
+                  <TableCell onClick={handlerChangeStateSort} align="center">
+                    Действие{" "}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {   cars?.map((car) => (
+                {filteredCars?.map((car) => (
                   <TableRow
                     onClick={() => getInfocar(car)}
                     key={car.numberOwners}
@@ -258,7 +617,7 @@ const CarsListWaiting = () => {
             +
           </Button>
           <TextField
-          onChange={(e ) => findCar(e.target.value)}
+            onChange={(e) => setFilterWord(e.target.value)}
             variant="standard"
             sx={{
               border: "2px solid #DBDBDB",
@@ -266,7 +625,7 @@ const CarsListWaiting = () => {
               padding: "0px 10px",
               backgroundColor: "white",
             }}
-            placeholder="Поиск по номеру авто "
+            placeholder="Поиск: номер авто/имя фамилия "
             color="primary"
           />
         </div>
