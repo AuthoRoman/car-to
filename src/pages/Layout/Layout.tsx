@@ -13,9 +13,9 @@ const Layout: React.FC<LayoutProps> = ({
   children: React.ReactNode;
 }) => {
   const navigate = useNavigate();
-  console.log(navigate);
+
   const location = useLocation();
-  console.log(location);
+
   const currentTab = location.pathname;
 
   const handlerChange = (e: React.SyntheticEvent, newValue: string) => {
@@ -31,20 +31,49 @@ const Layout: React.FC<LayoutProps> = ({
           indicatorColor="primary"
           textColor="primary"
           aria-label="secondary tabs example"
-          className={styles.navList }
           centered
         >
           <Tab
+            sx={{
+              fontSize: {
+                xxs: "8px",
+                xs: "9px",
+                sm: "9px",
+                md: "10px",
+                lg: "12px",
+                xl: "14px",
+              },
+            }}
             label=" Очередь на обслуживание"
-            /*className={styles.navList__item}*/ value="/car-to"
+            value="/car-to"
           />
           <Tab
+            sx={{
+              fontSize: {
+                xxs: "8px",
+                xs: "9px",
+                sm: "9px",
+                md: "10px",
+                lg: "12px",
+                xl: "14px",
+              },
+            }}
             label=" Машины обслуживаются"
-            /*className={styles.navList__item}*/ value="/inwork"
+            value="/inwork"
           />
           <Tab
+            sx={{
+              fontSize: {
+                xxs: "8px",
+                xs: "9px",
+                sm: "9px",
+                md: "10px",
+                lg: "12px",
+                xl: "14px",
+              },
+            }}
             label=" Машины, которые прошли обслуживание"
-            /*className={styles.navList__item}*/ value="/finish"
+            value="/finish"
           />
         </Tabs>
       </nav>
@@ -53,32 +82,3 @@ const Layout: React.FC<LayoutProps> = ({
   );
 };
 export default Layout;
-// <TabContext value={value}>
-{
-  /* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-<TabList onChange={handleChange} aria-label="lab API tabs example">
-    <Tab label="Очередь на обслуживание" value="1" />
-    <Tab label=" Машины обслуживаются" value="2" />
-    <Tab label="Машины, которые прошли обслуживание" value="3" />
-  </TabList>
-</Box>
-
-<TabPanel value="1">
-  <Link className={styles.navList__item} to="/car-to">
-    Очередь на обслуживание
-  </Link>
-</TabPanel>
-<TabPanel value="2">
-  <Link className={styles.navList__item} to="/inwork">
-    Машины обслуживаются
-  </Link>
-</TabPanel>
-<TabPanel value="3">
-  <Link className={styles.navList__item} to="/finish">
-    Машины, которые прошли обслуживание
-  </Link>
-</TabPanel>
-</Box>
-</TabContext> */
-}
