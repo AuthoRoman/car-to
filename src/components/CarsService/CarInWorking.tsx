@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useTypedDispatch, useTypedSelector } from "../state/hooks/hooks";
-import CarsInService from "../components/CarsService/CarsInService";
-import FinishPopup from "../components/Popups/FinishPopup/FinishPopup";
+import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
+import CarsInService from "../../pages/CarsInService";
+import FinishPopup from "../Popups/FinishPopup/FinishPopup";
 import {
   cardService,
   ICar,
   serviceCarTypesAction,
   TypeBases,
-} from "../state/types";
+} from "../../state/types";
 import { useDispatch } from "react-redux";
-import { getStoreData } from "../api/database/db";
+import { getStoreData } from "../../api/database/db";
 import {
   Button,
   Paper,
@@ -21,10 +21,10 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import InfoServiceCar from "../components/Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
+import InfoServiceCar from "../Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
 
 import styles from "./stylesIconsPages.module.css";
-import TableCellWithSort from "../components/Table/TableCellWithSort";
+import TableCellWithSort from "../Table/TableCellWithSort";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
