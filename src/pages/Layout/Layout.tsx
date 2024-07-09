@@ -24,8 +24,9 @@ const Layout: React.FC<LayoutProps> = ({
 
   return (
     <div>
-      <nav>
+      <nav >
         <Tabs
+        sx={{overflowX:{xs:'scroll', sm: 'hidden' },  }}
           value={currentTab}
           onChange={handlerChange}
           indicatorColor="primary"

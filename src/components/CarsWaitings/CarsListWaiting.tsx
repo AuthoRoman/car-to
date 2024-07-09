@@ -26,6 +26,7 @@ import { hover } from "@testing-library/user-event/dist/hover";
 import { Opacity } from "@mui/icons-material";
 
 import styles from './CarsListWaiting.module.css'
+import TableCellWithSort from "../Table/TableCellWithSort";
 
 const CarsListWaiting = () => {
   //Work with reducers
@@ -390,159 +391,40 @@ const CarsListWaiting = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortFullName')} align="center">
-                  <span  className={styles.preIconText} >Имя Фамилия </span>  
-                    {defaultStateSortFullName ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortEmail')} align="center">
+                <TableCellWithSort
+                    title={"Имя Фамилия"}
+                    state={defaultStateSortFullName}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortFullName")
+                    }
+                  />
+                  <TableCellWithSort
+                    title={"E-mail"}
+                    state={defaultStateSortEmail}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortEmail")
+                    }
+                  />
+                  <TableCellWithSort
+                    title={"Номер авто"}
+                    state={defaultStateSortNumberAuto}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortNumberAuto")
+                    }
+                  />
                    
-                    <span  className={styles.preIconText} >E-mail </span>
-                    {defaultStateSortEmail ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortNumberAuto')} align="center">
-                  <span  className={styles.preIconText} >Номер авто </span>   
-                    {defaultStateSortNumberAuto ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortTime')} align="center">
-                  <span  className={styles.preIconText} >Заявка сформирована </span>  
-                    {defaultStateSortTime ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
+                   <TableCellWithSort
+                    title={"Заявка сформирована"}
+                    state={defaultStateSortTime}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortTime")
+                    }
+                  />
+                   
                   <TableCell onClick={handlerChangeStateSort} align="center">
                     Действие{" "}
                   </TableCell>

@@ -25,6 +25,7 @@ import {
 } from "@mui/material";
 import FinishPopup from "../Popups/FinishPopup/FinishPopup";
 import InfoFinishCar from "../Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
+import TableCellWithSort from "../Table/TableCellWithSort";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
@@ -357,161 +358,42 @@ export default function CarFinishComponent() {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortNameMaster')} align="center">
-                      
-                      <span  className={styles.preIconText} >Имя Мастера взявшего авто </span>  
-                    {defaultStateSortNameMaster ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
+                  <TableCellWithSort
+                    title={"Имя мастера взявшего авто"}
+                    state={defaultStateSortNameMaster}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortNameMaster")
+                    }
+                  />
+                  <TableCellWithSort
+                    title={"Автомобиль"}
+                    state={defaultStateSortManufacturer}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortManufacturer")
+                    }
+                  />
+                  <TableCellWithSort
+                    title={"Год выпуска авто"}
+                    state={defaultStateSortModelYear}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortModelYear")
+                    }
+                  />
+                  <TableCellWithSort
+                    title={"Работа сделанная над автомобилем"}
+                    state={defaultStateSortWork}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortWork")
+                    }
+                  />
                      
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                    </TableCell>
-                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortManufacturer')}  align="center">
-                    <span  className={styles.preIconText} >Автомобиль </span>  
-                    {defaultStateSortManufacturer ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
                      
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                    </TableCell>
-                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortModelYear')}  align="center">
-                       
-                      <span  className={styles.preIconText} >   Год выпуска авто</span>  
-                    {defaultStateSortModelYear ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
                      
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                    </TableCell>
-                    <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortWork')}  align="center">
-                    
-                      <span  className={styles.preIconText} >  Работа сделанная над автомобилем  </span>  
-                    {defaultStateSortWork ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
                      
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                    </TableCell>
                     <TableCell align="center">Действие</TableCell>
                   </TableRow>
                 </TableHead>

@@ -23,7 +23,8 @@ import {
 } from "@mui/material";
 import InfoServiceCar from "../components/Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
 
-import styles from './stylesIconsPages.module.css'
+import styles from "./stylesIconsPages.module.css";
+import TableCellWithSort from "../components/Table/TableCellWithSort";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
@@ -83,232 +84,229 @@ const CarinWorking: React.FC = () => {
         serialNumber: "",
         problems: "",
         date: "",
-
       },
     });
-  }
-    const handlerChangeDefaultState = (prop: string) => {
-      if (prop === "defaultStateSortNameMaster") {
-        setDefaultStateSortNameMaster(false);
-        setDefaultStateSortManufacturer(true);
-        setDefaultStateSortModelYear(true);
-        setDefaultStateSortDate(true);
-        handlerChangeStateSort();
-        if (upStateSort === true) {
-          console.log("mASTERup");
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP,
-            payload: {
-              nameMaster: 'string',
-                id: 0,
-                VIN: 'string',
-                region: 'string',
-                country: 'string',
-                manufacturer: 'string',
-                vehicleAttributes: 'string',
-                checkDigit: 'string',
-                modelYear: 'string',
-                assemblyPlant: 'string',
-                serialNumber: 'string',
-                problems: 'string',
-                date:'strin',
-
-            },
-          });
-        }
-        if (downStateSort === true) {
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
-            payload: {
-              nameMaster: 'string',
-              id: 0,
-              VIN: 'string',
-              region: 'string',
-              country: 'string',
-              manufacturer: 'string',
-              vehicleAttributes: 'string',
-              checkDigit: 'string',
-              modelYear: 'string',
-              assemblyPlant: 'string',
-              serialNumber: 'string',
-              problems: 'string',
-              date:'strin',
-
-            },
-          });
-        }
-      }
-      if (prop === "defaultStateSortManufacturer") {
-        setDefaultStateSortNameMaster(true);
-        setDefaultStateSortManufacturer(false);
-        setDefaultStateSortModelYear(true);
-        setDefaultStateSortDate(true);
-        handlerChangeStateSort();
-        if (upStateSort === true) {
-          console.log("upManufac");
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-        if (downStateSort === true) {
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-      }
-      if (prop === "defaultStateSortModelYear") {
-        setDefaultStateSortNameMaster(true);
-        setDefaultStateSortManufacturer(true);
-        setDefaultStateSortModelYear(false);
-        setDefaultStateSortDate(true);
-        handlerChangeStateSort();
-        if (upStateSort === true) {
-          console.log("up");
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-        if (downStateSort === true) {
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-      }
-      if (prop === "defaultStateSortDate") {
-        setDefaultStateSortNameMaster(true);
-        setDefaultStateSortManufacturer(true);
-        setDefaultStateSortModelYear(true);
-        setDefaultStateSortDate(false);
-        handlerChangeStateSort();
-        if (upStateSort === true) {
-          console.log("up");
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-        if (downStateSort === true) {
-          dispatch({
-            type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
-            payload: {
-              id: 0,
-              VIN: "",
-              tel: "",
-              email: "",
-              firstNameOwner: "",
-              secondNameOwner: "",
-              numberOwners: 0,
-              color: "string",
-              carMileage: "string",
-              carNumber: filterWord,
-              registration: "string",
-              accidents: "string",
-              date: "string",
-              problems: "string",
-            },
-          });
-        }
-      }
-    };
-
-    const handlerChangeStateSort = () => {
-      if (
-        defaultStateSortNameMaster === true ||
-        defaultStateSortManufacturer === true ||
-        defaultStateSortModelYear === true ||
-        defaultStateSortDate === true
-      ) {
-        setUpStateSort(true);
-      }
+  };
+  const handlerChangeDefaultState = (prop: string) => {
+    if (prop === "defaultStateSortNameMaster") {
+      setDefaultStateSortNameMaster(false);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortDate(true);
+      handlerChangeStateSort();
       if (upStateSort === true) {
-        setUpStateSort(false);
-        setDownStateSort(true);
+        console.log("mASTERup");
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP,
+          payload: {
+            nameMaster: "string",
+            id: 0,
+            VIN: "string",
+            region: "string",
+            country: "string",
+            manufacturer: "string",
+            vehicleAttributes: "string",
+            checkDigit: "string",
+            modelYear: "string",
+            assemblyPlant: "string",
+            serialNumber: "string",
+            problems: "string",
+            date: "strin",
+          },
+        });
       }
       if (downStateSort === true) {
-        setDownStateSort(false);
-        setUpStateSort(true);
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
+          payload: {
+            nameMaster: "string",
+            id: 0,
+            VIN: "string",
+            region: "string",
+            country: "string",
+            manufacturer: "string",
+            vehicleAttributes: "string",
+            checkDigit: "string",
+            modelYear: "string",
+            assemblyPlant: "string",
+            serialNumber: "string",
+            problems: "string",
+            date: "strin",
+          },
+        });
       }
-    };
-  
+    }
+    if (prop === "defaultStateSortManufacturer") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(false);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortDate(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("upManufac");
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortModelYear") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(false);
+      setDefaultStateSortDate(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortDate") {
+      setDefaultStateSortNameMaster(true);
+      setDefaultStateSortManufacturer(true);
+      setDefaultStateSortModelYear(true);
+      setDefaultStateSortDate(false);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+  };
+
+  const handlerChangeStateSort = () => {
+    if (
+      defaultStateSortNameMaster === true ||
+      defaultStateSortManufacturer === true ||
+      defaultStateSortModelYear === true ||
+      defaultStateSortDate === true
+    ) {
+      setUpStateSort(true);
+    }
+    if (upStateSort === true) {
+      setUpStateSort(false);
+      setDownStateSort(true);
+    }
+    if (downStateSort === true) {
+      setDownStateSort(false);
+      setUpStateSort(true);
+    }
+  };
+
   const togglePopup = (booleanValue: boolean) => {
     setIsOpen(booleanValue);
   };
@@ -371,162 +369,39 @@ const CarinWorking: React.FC = () => {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell  sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortNameMaster')}  align="center">
-                     
-                    <span  className={styles.preIconText} >Имя Мастера взявшего авто </span>  
-                    {defaultStateSortNameMaster ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortManufacturer')} align="center">
-                    
-                    <span  className={styles.preIconText} >Автомобиль </span>  
-                    {defaultStateSortManufacturer ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortModelYear')}  align="center">
-                  
-                    <span  className={styles.preIconText} >  Год изготовления</span>  
-                    {defaultStateSortModelYear ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
-                  <TableCell sx={{'&:hover':{cursor:'pointer'}}} onClick={() => handlerChangeDefaultState('defaultStateSortDate')}  align="center">
-                    
-                    <span  className={styles.preIconText} >   Добавлен в обслуживание</span>  
-                    {defaultStateSortDate ? ( upStateSort ?
-                      <img
-                       className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                      alt="down--v1"
-                    />
-                    : (
-                      
-                      <img
-                      className={styles.preIcon}
-                      width="14"
-                      height="14"
-                      src="https://img.icons8.com/material-two-tone/24/up.png"
-                      alt="up"/>
-                   )
-                    ) : upStateSort ? (
-                       
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/material-two-tone/24/up.png"
-                        alt="up"
-                      />
-                       
-                     
-                    ) : (
-                      <img
-                        width="14"
-                        height="14"
-                        src="https://img.icons8.com/ios-filled/50/down--v1.png"
-                        alt="down--v1"
-                      />
-                    )}
-                  </TableCell>
+                  <TableCellWithSort
+                    title={"Имя мастера"}
+                    state={defaultStateSortNameMaster}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortNameMaster")
+                    }
+                  />
+                   <TableCellWithSort
+                    title={"Автомобиль"}
+                    state={defaultStateSortManufacturer}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortManufacturer")
+                    }
+                  />
+                   <TableCellWithSort
+                    title={"Год изготовления"}
+                    state={defaultStateSortModelYear}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortModelYear")
+                    }
+                  />
+                    <TableCellWithSort
+                    title={"Добавлен в обслуживание"}
+                    state={defaultStateSortDate}
+                    arrowState={upStateSort}
+                    onClick={() =>
+                      handlerChangeDefaultState("defaultStateSortDate")
+                    }
+                  />
+                   
                   <TableCell align="center">Действие </TableCell>
                 </TableRow>
               </TableHead>

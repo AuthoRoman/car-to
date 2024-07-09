@@ -88,7 +88,7 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
       email.trim().length !== 0
      && /^[\w- ]{6,6}$/g.test(carNumber)){
       let currentDate = new Date();
-      const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDay() : currentDate.getDay() }.${
+      const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDate() : currentDate.getDay() }.${
         currentDate.getMonth() < 10
           ? "0" + (currentDate.getMonth()+ 1)
           : currentDate.getMonth() 
