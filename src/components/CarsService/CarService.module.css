@@ -15,10 +15,10 @@
 
 .tableWaitngList__findField input {
   padding: 4.51px;
-  
+  padding: 4.51px;
+    line-height: normal ;
 }
-.tableWaitngList__findField{
-  padding: 10.51px 0;
-  margin: 2px;
+.tableWaitngList__findField label{
+  line-height: normal ;
 }
  

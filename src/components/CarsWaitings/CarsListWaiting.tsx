@@ -398,12 +398,12 @@ const CarsListWaiting = () => {
         ) : (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
-              <TextField className={styles.tableWaitngList__findField} onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
+              <TextField sx={{padding:'5.71px', lineHeight:'normal'}} className={styles.tableWaitngList__findField} onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
               <Button
             onClick={() => setIsVisiblePopup(true)}
             sx={{
               backgroundColor: "#705AF8",
-              height: `55px`,
+              height: `45px`,
               transition: "all .8s",
               "&:hover": {
                 background: "#7975F8",

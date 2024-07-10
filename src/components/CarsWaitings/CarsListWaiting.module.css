@@ -9,14 +9,15 @@
  .tableWaitngList__findForm{
     display: flex;
     justify-content: space-between;
+    
  }
 
 
  .tableWaitngList__findField input {
     padding: 4.51px;
+    line-height: normal ;
     
  }
- .tableWaitngList__findField{
-    padding: 10.51px 0;
-    margin: 2px;
+ .tableWaitngList__findField label{
+    line-height: normal ;
  }
