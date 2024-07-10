@@ -23,7 +23,7 @@
     
     background-color: #fff;
     height: fit-content;
-    width: 500px;
+    width: 800px;
     padding: 30px;
       
 }
@@ -34,4 +34,19 @@
      font-size: 15px;
      align-items: center;
       
+}
+
+.InfoWaitingPopup__innerPoints{
+     display: flex;
+     justify-content: space-between;
+     
+}
+
+.titlePoints{
+    color: #AFB1C0;
+}
+
+.valueOfPoints{
+     width: 320px;
+    text-align: left;
 }

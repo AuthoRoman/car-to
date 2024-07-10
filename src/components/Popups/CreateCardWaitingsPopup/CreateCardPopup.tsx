@@ -273,6 +273,7 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             color="primary"
           />
           <MuiTelInput
+            inputProps={{ maxLength: 16 }}
             className={styles.inputPhoneCustom}
             value={phone}
             onChange={handlePhone}
@@ -283,6 +284,7 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             color="primary"
           />
           <TextField
+             
             className={styles.inputPhoneCustom}
             disabled={VIN.length > 16}
             value={VINcar ?? VIN}
@@ -439,12 +441,15 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             onChange={(e) => setProblems(e.target.value)}
             variant="standard"
             sx={{
+               
               border: "2px solid #DBDBDB",
               borderRadius: "5px",
               padding: "0px 10px",
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
+             id="standard-multiline-static"
+            rows={4}
             multiline
           />
 

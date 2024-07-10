@@ -398,7 +398,21 @@ const CarsListWaiting = () => {
         ) : (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
-              <TextField  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
+              <TextField className={styles.tableWaitngList__findField} onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
+              <Button
+            onClick={() => setIsVisiblePopup(true)}
+            sx={{
+              backgroundColor: "#705AF8",
+              height: `55px`,
+              transition: "all .8s",
+              "&:hover": {
+                background: "#7975F8",
+              },
+            }}
+            variant="contained"
+          >
+            +
+          </Button>
             </div>
           
             <div style={{display:'flex'}}>
@@ -504,20 +518,7 @@ const CarsListWaiting = () => {
             </Table>
             
           </TableContainer>
-          <Button
-            onClick={() => setIsVisiblePopup(true)}
-            sx={{
-              backgroundColor: "#705AF8",
-              height: `55px`,
-              transition: "all .8s",
-              "&:hover": {
-                background: "#7975F8",
-              },
-            }}
-            variant="contained"
-          >
-            +
-          </Button>
+           
             </div>
          
           </div>

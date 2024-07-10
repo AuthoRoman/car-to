@@ -7,5 +7,16 @@
  }
 
  .tableWaitngList__findForm{
-    margin-right: 0;
+    display: flex;
+    justify-content: space-between;
+ }
+
+
+ .tableWaitngList__findField input {
+    padding: 4.51px;
+    
+ }
+ .tableWaitngList__findField{
+    padding: 10.51px 0;
+    margin: 2px;
  }

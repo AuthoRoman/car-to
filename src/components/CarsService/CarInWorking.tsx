@@ -365,7 +365,7 @@ const CarinWorking: React.FC = () => {
         >
           <div className={styles.tableService}>
             <div>
-              <TextField  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
+              <TextField className={styles.tableWaitngList__findField}  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
             </div>
                <TableContainer component={Paper} sx={{}}>
             <Table

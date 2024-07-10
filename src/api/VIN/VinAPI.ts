@@ -242,9 +242,9 @@ function decodeVIN(vin: string): VINInfo | null {
     const transmissionType = vehicleAttributes.transmissionType[vehicleAttributesPart[2]] || 'Неизвестный тип трансмиссии'
     const safetySystem = vehicleAttributes.safetySystem[vehicleAttributesPart[3]] || 'Неизвестная система безопасности автомобиля'
            
-  const checkDigit = vin[8] || "Неизвестный год";
+  const checkDigit = vin[8] || "Неизвестный контрольный номер";
   const modelYear = modelYears[vin[9]] || "Неизвестный год";
-  const assemblyPlant = assemblyPlants[vin[10]] || "Неизвестнон место";
+  const assemblyPlant = assemblyPlants[vin[10]] || "Неизвестное место";
   const serialNumber = vin.substring(11) || "Неизвестный сирийный номер";
 
   console.log(

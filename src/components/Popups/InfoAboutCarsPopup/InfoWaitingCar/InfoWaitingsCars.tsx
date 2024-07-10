@@ -3,11 +3,11 @@ import { ICar } from "../../../../state/types";
 import styles from "./InfoWaitingsCars.module.css";
 import { Button } from "@mui/material";
 
-const InfoWaitingsCars: React.FC<{ car: ICar; closeInfoCar: any; isOpenPopupEdit:any }> = ({
-  car,
-  closeInfoCar,
-  isOpenPopupEdit
-}) => {
+const InfoWaitingsCars: React.FC<{
+  car: ICar;
+  closeInfoCar: any;
+  isOpenPopupEdit: any;
+}> = ({ car, closeInfoCar, isOpenPopupEdit }) => {
   return (
     <div>
       <div onClick={closeInfoCar!} className={styles.InfoWaitingPopup}>
@@ -15,28 +15,89 @@ const InfoWaitingsCars: React.FC<{ car: ICar; closeInfoCar: any; isOpenPopupEdit
           onClick={(e) => e.stopPropagation()}
           className={styles.InfoWaitingForm}
         >
-          <ul>
-            <li>
-               
-              Имя и фамилия владельца - {car.firstNameOwner}{" "}
-              {car.secondNameOwner}
+          <ul
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "space-between",
+              gap:'5px'
+            }}
+          >
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Имя и фамилия владельца.................................................................
+              </span>
+              <span className ={styles.valueOfPoints}>
+                {car.firstNameOwner} {car.secondNameOwner}
+              </span>
             </li>
-            <li>Количество владельцев автомобиля - {car.numberOwners}</li>
-            <li>Номер автомобиля - {car.carNumber}</li>
-            <li>Цвет автомобиля - {car.color}</li>
-            <li>Машина заявлена на обслуживание - {car.date}</li>
-            <li>Электронная почта владельца - {car.email}</li>
-            <li>ВИН номер автомобиля - {car.VIN}</li>
-            <li> Аварии автомобиля - {car.accidents}</li>
-            <li>Автомобиль с пробегом - {car.carMileage}</li>
-            <li>Автомобиль зарегистрирован - {car.registration}</li>
-            <li>
-              Проблемы автомобиля - {car.problems.length === 0
-                ? " Не отмечены, приехал на тех обслуживание"
-                : car.problems}
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>Количество владельцев автомобиля............................................</span>
+              <span className ={styles.valueOfPoints}>{car.numberOwners}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Номер
+                автомобиля................................................................................ 
+              </span> 
+              <span className ={styles.valueOfPoints}>{car.carNumber}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Цвет
+                автомобиля.................................................................................... 
+              </span>
+              <span className ={styles.valueOfPoints}>{car.color.length ===0  ? 'Цвет неизвестен' : car.color}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>Машина заявлена на обслуживание............................................</span>
+              <span className ={styles.valueOfPoints}>{car.date}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Электронная почта
+                владельца.........................................................
+              </span> 
+              <span className ={styles.valueOfPoints}>{car.email}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                ВИН номер автомобиля......................................................................
+              </span>
+              <span className ={styles.valueOfPoints}>{car.VIN}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Аварии автомобиля............................................................................... 
+              </span>
+              <span className ={styles.valueOfPoints}>{car.accidents.length === 0 ? 'Аварии автомобиля не указаны' : car.accidents}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>
+                Автомобиль с пробегом......................................................................
+              </span> 
+              <span className ={styles.valueOfPoints}>{car.carMileage.length === 0 ? 'Марка автомобиля неизвестна' : car.carMileage}</span>
+              
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>Автомобиль зарегистрирован..........................................................</span>
+              <span className ={styles.valueOfPoints}>{car.registration.length ===0 ? 'Регистрация автомобиля не указана' : car.registration}</span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className ={styles.titlePoints}>Проблемы автомобиля........................................................................</span>
+              <span className ={styles.valueOfPoints}>
+                {car.problems.length === 0
+                  ? " Не отмечены, приехал на тех обслуживание"
+                  : car.problems}
+              </span>
             </li>
           </ul>
-          <Button onClick={ () => isOpenPopupEdit(car.VIN, car.id)} sx={{color:'#705AF8'}}>Редактировать</Button>
+          <Button
+            onClick={() => isOpenPopupEdit(car.VIN, car.id)}
+            sx={{ color: "#705AF8" }}
+          >
+            Редактировать
+          </Button>
         </div>
       </div>
     </div>
