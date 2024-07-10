@@ -11,7 +11,7 @@ const NoCarList:React.FC<INoCarListProps> = ({text}) => {
     <div>
         <div className={styles.NoCarList__body}>
             
-            <img src={NoCarImage} alt="" />
+            <img className={styles.NoCarList__bodyImg} src={NoCarImage} alt="" />
             <span className={styles.text__underImage}>{text ?? 'Машин нет в очереди'}</span>
         </div>
       

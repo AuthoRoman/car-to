@@ -8,8 +8,18 @@
     align-items: center ;
     justify-content: center;
     gap: 15px;
+    text-align: center;
 }
+
+ 
 
 .text__underImage{
     font-size: 20px;
 }
+
+ @media screen and (max-width:630px) {
+   .NoCarList__bodyImg{
+    width: 80%; 
+ }
+}
+ 

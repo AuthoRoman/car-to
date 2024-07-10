@@ -23,11 +23,12 @@ import {
 import { addData, deleteData, getStoreData } from "../../api/database/db";
 import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
 import { hover } from "@testing-library/user-event/dist/hover";
-import { Opacity } from "@mui/icons-material";
+ 
 
 import styles from './CarsListWaiting.module.css'
 import TableCellWithSort from "../Table/TableCellWithSort";
 import NoCarList from "../NoCarList/NoCarList";
+import { abort } from "process";
 
 const CarsListWaiting = () => {
   //Work with reducers
@@ -370,9 +371,9 @@ const CarsListWaiting = () => {
           </div>
         )}
         {cars?.length === 0 ? (
-          <div style={{display:'flex', justifyContent:'center', width:'100%', }}>
+          <div style={{display:'flex', justifyContent:'center', width:'100vw', }}>
           
-          <div>
+          <div style={{display:'flex', justifyContent:'center', width:'100%', marginLeft:'65px' }}>
             <NoCarList text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}/>
           </div>
             
