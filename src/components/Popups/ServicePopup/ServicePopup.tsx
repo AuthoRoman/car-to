@@ -24,7 +24,7 @@ const ServicePopup: React.FC<{
 
   async function submitForm(VIN: any, name: string, problems: string) {
     let currentDate = new Date();
-    const date = `${currentDate.getDay() < 10 ? '0' +currentDate.getDate() : currentDate.getDay() }.${
+    const date = `${currentDate.getDate() < 10 ? '0' +currentDate.getDate() : currentDate.getDate() }.${
       currentDate.getMonth() < 10
         ? "0" + (currentDate.getMonth()+ 1)
         : currentDate.getMonth() 

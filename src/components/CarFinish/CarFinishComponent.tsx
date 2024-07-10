@@ -26,6 +26,7 @@ import {
 import FinishPopup from "../Popups/FinishPopup/FinishPopup";
 import InfoFinishCar from "../Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
 import TableCellWithSort from "../Table/TableCellWithSort";
+import NoCarList from "../NoCarList/NoCarList";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
@@ -340,7 +341,7 @@ export default function CarFinishComponent() {
               width: "100%",
             }}
           >
-            Готовых машин нет
+            <NoCarList text={'Готовых машин пока нет'}/>
           </div>
         ) : (
           <div
@@ -351,7 +352,11 @@ export default function CarFinishComponent() {
               alignItems: "start",
             }}
           >
-            <TableContainer component={Paper}>
+            <div className={styles.tableFinish}>
+               <div>
+              <TextField  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
+            </div>
+<TableContainer component={Paper}>
               <Table
                 sx={{ minWidth: 100, width: "100%" }}
                 aria-label="simple table"
@@ -450,18 +455,11 @@ export default function CarFinishComponent() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TextField
-              onChange={(e) => setFilterWord(e.target.value)}
-              variant="standard"
-              sx={{
-                border: "2px solid #DBDBDB",
-                borderRadius: "5px",
-                padding: "0px 10px",
-                backgroundColor: "white",
-              }}
-              placeholder="Поиск: имя мастера "
-              color="primary"
-            />
+            </div>
+           
+            
+            
+            
           </div>
         )}
       </div>

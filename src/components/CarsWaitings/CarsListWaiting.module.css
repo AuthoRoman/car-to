@@ -1,12 +1,11 @@
+ .tableWaitngList{
+     width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+ }
 
-.preIconText:hover + .preIcon {
-    opacity: .2;
-}
-
-.preIcon {
-    opacity: 0;
-    transition: all .2s;
-}
-.preIcon:hover{
-    opacity: .2;
-}
+ .tableWaitngList__findForm{
+    margin-right: 0;
+ }

@@ -23,8 +23,9 @@ import {
 } from "@mui/material";
 import InfoServiceCar from "../Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
 
-import styles from "./stylesIconsPages.module.css";
+import styles from "./CarService.module.css";
 import TableCellWithSort from "../Table/TableCellWithSort";
+import NoCarList from "../NoCarList/NoCarList";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
@@ -349,7 +350,7 @@ const CarinWorking: React.FC = () => {
             width: "100%",
           }}
         >
-          Заявок в обслуживании нет
+          <NoCarList text={'Заявок в обслуживании нет'}/>
         </div>
       ) : (
         <div
@@ -362,7 +363,11 @@ const CarinWorking: React.FC = () => {
             margin: "0 auto",
           }}
         >
-          <TableContainer component={Paper} sx={{}}>
+          <div className={styles.tableService}>
+            <div>
+              <TextField  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
+            </div>
+               <TableContainer component={Paper} sx={{}}>
             <Table
               sx={{ minWidth: 100, width: "100%" }}
               aria-label="simple table"
@@ -454,18 +459,10 @@ const CarinWorking: React.FC = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <TextField
-            onChange={(e) => setFilterWord(e.target.value)}
-            variant="standard"
-            sx={{
-              border: "2px solid #DBDBDB",
-              borderRadius: "5px",
-              padding: "0px 10px",
-              backgroundColor: "white",
-            }}
-            placeholder="Поиск: имя мастера "
-            color="primary"
-          />
+            </div>
+            
+         
+         
         </div>
       )}
     </div>

@@ -27,6 +27,7 @@ import { Opacity } from "@mui/icons-material";
 
 import styles from './CarsListWaiting.module.css'
 import TableCellWithSort from "../Table/TableCellWithSort";
+import NoCarList from "../NoCarList/NoCarList";
 
 const CarsListWaiting = () => {
   //Work with reducers
@@ -333,7 +334,7 @@ const CarsListWaiting = () => {
   };
 
   return (
-    <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1440px", margin: "0 auto"  }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {isVisiblePopup && (
           <div>
@@ -369,19 +370,38 @@ const CarsListWaiting = () => {
           </div>
         )}
         {cars?.length === 0 ? (
-          <div
-            style={{
-              display: "flex",
-              height: "100%",
-              justifyContent: " center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            Добавь первый автомобиль!
+          <div style={{display:'flex', justifyContent:'center', width:'100%', }}>
+          
+          <div>
+            <NoCarList text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}/>
           </div>
+            
+           <Button
+          onClick={() => setIsVisiblePopup(true)}
+          sx={{
+            backgroundColor: "#705AF8",
+            margin: '0',
+            padding: '0',
+            height: `55px`,
+            transition: "all .8s",
+            "&:hover": {
+              background: "#7975F8",
+            },
+          }}
+          variant="contained"
+        >
+          +
+        </Button>
+          </div>
+          
         ) : (
-          <TableContainer
+          <div className={styles.tableWaitngList}>
+            <div className={styles.tableWaitngList__findForm}>
+              <TextField  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
+            </div>
+          
+            <div style={{display:'flex'}}>
+               <TableContainer
             component={Paper}
             sx={{ width: "100%", margin: "0 auto" }}
           >
@@ -481,9 +501,8 @@ const CarsListWaiting = () => {
                 ))}
               </TableBody>
             </Table>
+            
           </TableContainer>
-        )}
-        <div>
           <Button
             onClick={() => setIsVisiblePopup(true)}
             sx={{
@@ -498,18 +517,14 @@ const CarsListWaiting = () => {
           >
             +
           </Button>
-          <TextField
-            onChange={(e) => setFilterWord(e.target.value)}
-            variant="standard"
-            sx={{
-              border: "2px solid #DBDBDB",
-              borderRadius: "5px",
-              padding: "0px 10px",
-              backgroundColor: "white",
-            }}
-            placeholder="Поиск: номер авто/имя фамилия "
-            color="primary"
-          />
+            </div>
+         
+          </div>
+          
+        )}
+        <div>
+          
+           
         </div>
       </div>
     </div>
