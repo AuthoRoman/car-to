@@ -1,45 +1,37 @@
-.finishPopup{
-    position: fixed;
-    display: flex;
-    min-width:   100%;
-    min-height: 100%;
-    background-color: #00000094;
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    top: 0;
-    left: 0;
-    
+.finishPopup {
+  position: fixed;
+  display: flex;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #00000094;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  top: 0;
+  left: 0;
 }
 
-.finishForm{
-     display: flex;
-     flex-direction: column;
-     gap: 15px;
-    border-radius: 5px; 
-     justify-content: center;
-    
-    background-color: #fff;
-    height: fit-content;
-    width: 500px;
-    padding: 30px;
-      
+.finishForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 5px;
+
+  overflow-y: scroll;
+  max-height: 340px;
+  background-color: #fff;
+
+  width: 500px;
+  padding: 30px;
 }
 
-.finishPopup__inner{
-     
-  
-     font-size: 15px;
-     align-items: center;
-      
-     
+.finishPopup__inner {
+  font-size: 15px;
+  align-items: center;
 }
 
-.finishPopup__lists{
-     
-         
-        font-size: 14px;
-   
+.finishPopup__lists {
+  font-size: 14px;
 }

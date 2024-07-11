@@ -68,7 +68,7 @@ const FinishPopup: React.FC<{
 
               backgroundColor: "white",
             }}
-            placeholder="Рекомендации по дальнейшему использованию авто"
+            placeholder="Работы, которые были проведены"
             multiline
           />
           <div style={{ margin: "13px 0 0 0" }}>Рекомендации:</div>

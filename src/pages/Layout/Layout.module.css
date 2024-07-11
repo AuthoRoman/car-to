@@ -2,7 +2,12 @@
   display: flex;
   justify-content: space-around;
 }
-
+.navLayuout {
+  overflow-x: hidden;
+  display: inline-block;
+  width: 800px;
+  margin: 0 auto;
+}
 .navList__item {
   padding: 5px;
   border: 2px solid #382274;
@@ -24,4 +29,18 @@
 }
 
 
- 
+@media screen and (max-width: 600px) {
+  .navLayuout {
+    overflow-x: scroll;
+    display: inline-block;
+     width: 600px;
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .navLayuout {
+    overflow-x: scroll;
+    display: inline-block;
+     width: 400px;
+  }
+}

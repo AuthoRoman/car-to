@@ -71,7 +71,7 @@ const InfoFinishCar:React.FC<{car:cardFinish, closeInfoCar:any}> = ({car,closeIn
             </li>
             <li className={styles.InfoWaitingPopup__innerPoints}>
               <span className ={styles.titlePoints}>Атрибуты транспортного средства.................................................</span>
-              <span className ={styles.valueOfPoints}>{car.vehicleAttributes}</span>
+              <span className ={styles.valueOfPoints}>{car.vehicleAttributes.length === 0 ? 'Атрибуты не распознаны' :car.vehicleAttributes }</span>
             </li>
             <li className={styles.InfoWaitingPopup__innerPoints}>
               <span className ={styles.titlePoints}>Проблемы автомобиля........................................................................</span>

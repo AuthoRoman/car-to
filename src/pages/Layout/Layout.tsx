@@ -23,10 +23,10 @@ const Layout: React.FC<LayoutProps> = ({
   };
 
   return (
-    <div style={{display:'flex', flexDirection:'column', gap: '15px'}}>
-      <nav >
+    <div style={{display:'flex',   flexDirection:'column', gap: '15px',}}>
+      <nav className={styles.navLayuout} style={{    margin:'0 auto'  }} >
         <Tabs
-        sx={{overflowX:{xs:'scroll', sm: 'hidden' }, }}
+        sx={{ margin:'0 auto'   ,display:'inline-block',  width:{  xs:'630px', md:' 840px'}  }}
           value={currentTab}
           onChange={handlerChange}
           indicatorColor="primary"
