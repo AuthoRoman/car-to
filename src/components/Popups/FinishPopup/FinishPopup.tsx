@@ -1,7 +1,4 @@
-import {
-  Button,
-  TextField,
-} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./FinishPopup.module.css";
 import {
@@ -21,7 +18,7 @@ const FinishPopup: React.FC<{
 }> = ({ togglePopup, car }) => {
   const dispatch = useDispatch();
   const [recomm, setRecomm] = useState("");
-  const [workOncar, setWorkOnCar] = useState('')
+  const [workOncar, setWorkOnCar] = useState("");
   const addCarFinish = async () => {
     if (car) {
       await deleteData(TypeBases.CARS_IN_SERVICE, car.id);
@@ -87,22 +84,19 @@ const FinishPopup: React.FC<{
           <Button
             onClick={() => togglePopup(false)}
             sx={{
-              
               height: `30px`,
               width: `180px`,
               margin: `15px`,
               transition: "all .8s",
-              color:'#7975F8',
-               
+              color: "#7975F8",
             }}
-             
           >
             Отмена
           </Button>
           <Button
             onClick={addCarFinish}
             sx={{
-              backgroundColor: '#7975F8',
+              backgroundColor: "#7975F8",
               height: `30px`,
               width: `180px`,
               margin: `15px`,

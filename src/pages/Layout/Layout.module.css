@@ -28,12 +28,11 @@
   margin: 0 auto;
 }
 
-
 @media screen and (max-width: 600px) {
   .navLayuout {
     overflow-x: scroll;
     display: inline-block;
-     width: 600px;
+    width: 600px;
   }
 }
 
@@ -41,6 +40,6 @@
   .navLayuout {
     overflow-x: scroll;
     display: inline-block;
-     width: 400px;
+    width: 400px;
   }
 }
