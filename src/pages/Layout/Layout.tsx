@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({
     <div style={{display:'flex',   flexDirection:'column', gap: '15px',}}>
       <nav className={styles.navLayuout} style={{    margin:'0 auto'  }} >
         <Tabs
-        sx={{ margin:'0 auto'   ,display:'inline-block',  width:{  xs:'630px', md:' 840px'}  }}
+        sx={{ margin:'0 auto'   ,display:'inline-block',  width:{  xs:'630px', md:' 880px'}  }}
           value={currentTab}
           onChange={handlerChange}
           indicatorColor="primary"
