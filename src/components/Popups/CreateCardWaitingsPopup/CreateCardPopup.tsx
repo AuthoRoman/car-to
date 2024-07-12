@@ -472,6 +472,8 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
           />
 
           
+          
+        </div>
           <TextField
             size="small"
             value={problems}
@@ -487,8 +489,6 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
             rows={4}
             multiline
           />
-        </div>
-          
           
 
           </div>
