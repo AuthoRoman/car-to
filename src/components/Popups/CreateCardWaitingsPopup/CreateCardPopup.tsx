@@ -375,7 +375,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               backgroundColor: "white",
             }}
              
-            label = "Регистрирована"
+            label = "Зарегистрирована"
           />
           <TextField
             size="small"
@@ -396,7 +396,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               backgroundColor: "white",
             }}
             
-            label = "Номер автомобиля"
+            label = "Номер автомобиля*"
             color="primary"
           />
           <TextField
@@ -512,7 +512,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               }}
               variant="contained"
             >
-              Добавить
+              {VINcar ? 'Сохранить' : 'Добавить'}
             </Button>
           </div>
         </form>
