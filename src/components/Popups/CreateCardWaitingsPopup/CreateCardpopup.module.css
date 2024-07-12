@@ -28,10 +28,27 @@ h1{
     width: 500px;
      
 }
-.inputPhoneCustom input{
-    padding: 4.51px;
-     
+
+.formInfo{
+    display: flex;
+    gap: 15px;
 }
+
+.form_clientInfo{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width:100%
+}
+.form__carInfo{ 
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    width:100%
+}
+ 
+
+
 
 .form__footer{
     display: flex;

@@ -263,9 +263,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       <div className={styles.createCardPopup}>
         <form className={styles.form} action="">
           <h1>Заявление на обслуживание</h1>
-
+          <div className={styles.formInfo}>
+            <div className={styles.form_clientInfo}>
           <TextField
-            className={styles.inputPhoneCustom}
+           size="small"
+             
             value={firstNameOwner}
             error={
               nameError && firstNameOwner.trim().length === 0 ? true : false
@@ -282,11 +284,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               backgroundColor: "white",
             }}
             placeholder="Имя*"
+             label="Имя*"
             color="primary"
           />
 
           <TextField
-            className={styles.inputPhoneCustom}
+             size="small"
             value={secondNameOwner}
             error={
               secondNameError && secondNameOwner.trim().length === 0
@@ -305,21 +308,46 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               backgroundColor: "white",
             }}
             placeholder="Фамилия*"
+             label="Фамилия*"
             color="primary"
           />
           <MuiTelInput
             inputProps={{ maxLength: 16 }}
-            className={styles.inputPhoneCustom}
+
+             size="small"
             value={phone}
             onChange={handlePhone}
             sx={{
               backgroundColor: "white",
             }}
-            placeholder="Телефон"
+             
+            label="Телефон"
             color="primary"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+            size="small"
+            value={email}
+            onChange={ValidationEmail}
+            error={emailError ? true : false}
+            helperText={
+              emailError ? "Введите корректную электронную почту*" : false
+            }
+            inputProps={{
+              type: "email",
+            }}
+            sx={{
+              borderRadius: "5px",
+
+              backgroundColor: "white",
+            }}
+             
+            label="Электронная почта*"
+            color="primary"
+          />
+        </div>
+        <div className={styles.form__carInfo}>
+          <TextField
+             size="small"
             inputProps={{ maxLength: 17 }}
             value={VIN}
             error={VINError && VIN.trim().length !== 17 ? true : false}
@@ -334,11 +362,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
               backgroundColor: "white",
             }}
-            placeholder="VIN 17 символов (обязательно)*"
+            label="VIN*"
             color="primary"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+             size="small"
             value={registration}
             onChange={(e) => setRegistration(e.target.value)}
             sx={{
@@ -346,10 +374,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
               backgroundColor: "white",
             }}
-            placeholder="Регистрирована"
+             
+            label = "Регистрирована"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+            size="small"
             value={carNumber}
             inputProps={{ maxLength: 6 }}
             onChange={(e) => setCarNumber(e.target.value)}
@@ -366,11 +395,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
               backgroundColor: "white",
             }}
-            placeholder="Номер автомобиля"
+            
+            label = "Номер автомобиля"
             color="primary"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+             size="small"
             value={carMileage}
             onChange={(e) => setCarMileage(e.target.value)}
             sx={{
@@ -378,11 +408,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
               backgroundColor: "white",
             }}
-            placeholder="Пробег автомобиля"
+            
+            label = "Пробег автомобиля"
             color="primary"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+             size="small"
             value={color}
             onChange={(e) => setColor(e.target.value)}
             sx={{
@@ -391,10 +422,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               backgroundColor: "white",
             }}
             color="primary"
-            placeholder="Цвет"
+            
+            label = "Цвет"
           />
           <TextField
-            className={styles.inputPhoneCustom}
+             size="small"
             error={
               ownerNumbersError &&
               (numberOwners === 0 ||
@@ -412,7 +444,8 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 : false
             }
             onChange={ValidationNumberOwners}
-            placeholder="Количество владельцев*"
+             
+            label = "Количество владельцев*"
             value={numberOwners}
             color="primary"
             inputProps={{ type: "number" }}
@@ -424,7 +457,8 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
           />
 
           <TextField
-            className={styles.inputPhoneCustom}
+            size="small"
+            
             value={accidents}
             onChange={(e) => setAccidents(e.target.value)}
             sx={{
@@ -432,44 +466,33 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
               backgroundColor: "white",
             }}
-            placeholder="Аварии"
+             
+            label="Аварии"
             color="primary"
           />
 
+          
           <TextField
-            className={styles.inputPhoneCustom}
-            value={email}
-            onChange={ValidationEmail}
-            error={emailError ? true : false}
-            helperText={
-              emailError ? "Введите корректную электронную почту*" : false
-            }
-            inputProps={{
-              type: "email",
-            }}
-            sx={{
-              borderRadius: "5px",
-
-              backgroundColor: "white",
-            }}
-            placeholder="Электронная почта*"
-            color="primary"
-          />
-          <TextField
-            className={styles.inputPhoneCustom}
+            size="small"
             value={problems}
             onChange={(e) => setProblems(e.target.value)}
+            
             sx={{
               borderRadius: "5px",
 
               backgroundColor: "white",
             }}
-            placeholder=" Ваша пролема"
+             label="Ваша пролема"
             id="standard-multiline-static"
             rows={4}
             multiline
           />
+        </div>
+          
+          
 
+          </div>
+        
           <div className={styles.form__footer}>
             <Button
               onClick={() => closeVisible(false)}
@@ -477,7 +500,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 color: "#705AF8",
               }}
             >
-              Cancel
+              Отмена
             </Button>
             <Button
               onClick={submitForm}
@@ -489,7 +512,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               }}
               variant="contained"
             >
-              Submit
+              Добавить
             </Button>
           </div>
         </form>

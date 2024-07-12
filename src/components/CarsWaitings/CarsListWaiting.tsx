@@ -499,8 +499,8 @@ const CarsListWaiting = () => {
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
               <TextField
-                sx={{ padding: "5.71px", lineHeight: "normal" }}
-                className={styles.tableWaitngList__findField}
+               
+                 size="small"
                 onChange={(e) => setFilterWord(e.target.value)}
                 id="outlined-search"
                 label="Поиск: номер авто/имя фамилия"
