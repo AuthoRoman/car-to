@@ -17,9 +17,40 @@ import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberIn
 import { addData, editData } from "../../../api/database/db";
 import { Height } from "@mui/icons-material";
 
+interface IEditAndCreatePopupProps {
+  VINcar?: string;
+  idCar?: number;
+  editCarNumber?: string;
+  editPhone?: string;
+  editEmail?: string;
+  editFirstNameOwner?: string;
+  editSecondNameOwner?: string;
+  editNumberOwners?: number;
+  editColor?: Color | string;
+  editCarMileage?: string;
+  editRegistration?: string;
+  editAccidents?: string;
+  editProblems?: string;
+  closeVisible: any;
+}
 
+const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
+  closeVisible,
+  VINcar,
+  idCar,
+  editCarNumber,
+  editPhone,
+  editEmail,
+  editFirstNameOwner,
+  editSecondNameOwner,
+  editNumberOwners,
+  editColor,
+  editCarMileage,
+  editRegistration,
+  editAccidents,
+  editProblems
 
-const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: any }> = ({ closeVisible,VINcar,idCar }) => {
+}) => {
   const dispatch = useTypedDispatch();
 
   const [nameError, setNameError] = useState<boolean>(false);
@@ -27,21 +58,21 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
   const [ownerNumbersError, setNumbersOwnersError] = useState<boolean>(false);
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
-  const [carNumberError, setCarNumberError] = useState<boolean>(false)
+  const [carNumberError, setCarNumberError] = useState<boolean>(false);
 
-  const [carNumber, setCarNumber] = useState<string>("");
+  const [carNumber, setCarNumber] = useState<string>(editCarNumber ?? "");
 
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstNameOwner, setFirstNameOwner] = useState<string>("");
-  const [secondNameOwner, setSecondNameOwner] = useState<string>("");
-  const [numberOwners, setNumberOwners] = useState<number>();
-  const [color, setColor] = useState<Color | string>("");
-  const [carMileage, setCarMileage] = useState("");
-  const [registration, setRegistration] = useState("");
-  const [VIN, setVIN] = useState("");
-  const [accidents, setAccidents] = useState("");
-  const [problems, setProblems] = React.useState("");
+  const [phone, setPhone] = useState(editPhone ?? "");
+  const [email, setEmail] = useState(editEmail ?? "");
+  const [firstNameOwner, setFirstNameOwner] = useState<string>(editFirstNameOwner ?? "");
+  const [secondNameOwner, setSecondNameOwner] = useState<string>(editSecondNameOwner ?? "");
+  const [numberOwners, setNumberOwners] = useState<number | null>(editNumberOwners ?? null);
+  const [color, setColor] = useState<Color | string>(editColor ?? "");
+  const [carMileage, setCarMileage] = useState(editCarMileage ?? "");
+  const [registration, setRegistration] = useState(editRegistration ?? "");
+  const [VIN, setVIN] = useState(VINcar ?? "");
+  const [accidents, setAccidents] = useState(editAccidents ?? "");
+  const [problems, setProblems] = React.useState(editProblems ?? "");
 
   function handlePhone(newValue: any) {
     return setPhone(newValue);
@@ -49,7 +80,7 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
 
   const IdKey = Math.random() * 100;
   async function submitForm() {
-    if (VIN.length !== 17 && !VINcar) {
+    if (VIN.length !== 17) {
       setVINError(true);
     }
     if (firstNameOwner.trim().length === 0) {
@@ -73,11 +104,11 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
       console.log(emailError);
       setEmailError(true);
     }
-    if(!/^[\w- ]{6,6}$/g.test(carNumber)){
-      setCarNumberError(true)
+    if (!/^[\w- ]{6,6}$/g.test(carNumber)) {
+      setCarNumberError(true);
     }
     if (
-      (VIN.length === 17 || VINcar )&&
+      VIN.length === 17 &&
       firstNameOwner.trim().length !== 0 &&
       secondNameOwner.trim().length !== 0 &&
       numberOwners! > 0 &&
@@ -85,36 +116,21 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
       numberOwners !== null &&
       typeof numberOwners === "number" &&
       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) &&
-      email.trim().length !== 0
-     && /^[\w- ]{6,6}$/g.test(carNumber)){
+      email.trim().length !== 0 &&
+      /^[\w- ]{6,6}$/g.test(carNumber)
+    ) {
       let currentDate = new Date();
-      const date = `${currentDate.getDate() < 10 ? '0' +currentDate.getDate() : currentDate.getDate() }.${
-        currentDate.getMonth() < 10
-          ? "0" + (currentDate.getMonth()+ 1)
-          : currentDate.getMonth() 
+      const date = `${
+        currentDate.getDate() < 10
+          ? "0" + currentDate.getDate()
+          : currentDate.getDate()
       }.${
-        currentDate.getFullYear()  
-      }`;
-      if(!VINcar){
-         await addData(TypeBases.CARS_IN_WAITING, {
-        accidents: accidents,
-        carMileage: carMileage,
-        carNumber: carNumber,
-        date: date,
-        color: color,
-        email: email,
-        firstNameOwner: firstNameOwner,
-        id: IdKey,
-        numberOwners: numberOwners,
-        registration: registration,
-        secondNameOwner: secondNameOwner,
-        tel: phone,
-        VIN: VINcar ?? VIN,
-        problems: problems,
-      });
-      await dispatch({
-        type: typesOfActionsCar.ADD_CAR ,
-        payload: {
+        currentDate.getMonth() < 10
+          ? "0" + (currentDate.getMonth() + 1)
+          : currentDate.getMonth()
+      }.${currentDate.getFullYear()}`;
+      if (!VINcar) {
+        await addData(TypeBases.CARS_IN_WAITING, {
           accidents: accidents,
           carMileage: carMileage,
           carNumber: carNumber,
@@ -123,31 +139,53 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
           email: email,
           firstNameOwner: firstNameOwner,
           id: IdKey,
-          numberOwners: numberOwners!,
-          registration: registration,
-          secondNameOwner: secondNameOwner,
-          tel: phone,
-          VIN: VINcar ?? VIN,
-          problems: problems!,
-        },
-      });
-      }else{
-        await editData(TypeBases.CARS_IN_WAITING, {
-          accidents: accidents,
-          carMileage: carMileage,
-          carNumber: carNumber,
-          date: date,
-          color: color,
-          email: email,
-          firstNameOwner: firstNameOwner,
-          id: idCar,
           numberOwners: numberOwners,
           registration: registration,
           secondNameOwner: secondNameOwner,
           tel: phone,
           VIN: VINcar ?? VIN,
           problems: problems,
-        }, idCar! );
+        });
+        await dispatch({
+          type: typesOfActionsCar.ADD_CAR,
+          payload: {
+            accidents: accidents,
+            carMileage: carMileage,
+            carNumber: carNumber,
+            date: date,
+            color: color,
+            email: email,
+            firstNameOwner: firstNameOwner,
+            id: IdKey,
+            numberOwners: numberOwners!,
+            registration: registration,
+            secondNameOwner: secondNameOwner,
+            tel: phone,
+            VIN: VINcar ?? VIN,
+            problems: problems!,
+          },
+        });
+      } else {
+        await editData(
+          TypeBases.CARS_IN_WAITING,
+          {
+            accidents: accidents,
+            carMileage: carMileage,
+            carNumber: carNumber,
+            date: date,
+            color: color,
+            email: email,
+            firstNameOwner: firstNameOwner,
+            id: idCar,
+            numberOwners: numberOwners,
+            registration: registration,
+            secondNameOwner: secondNameOwner,
+            tel: phone,
+            VIN: VIN,
+            problems: problems,
+          },
+          idCar!
+        );
         await dispatch({
           type: typesOfActionsCar.EDIT_CAR,
           payload: {
@@ -163,12 +201,12 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             registration: registration,
             secondNameOwner: secondNameOwner,
             tel: phone,
-            VIN: VINcar  ,
+            VIN: VIN,
             problems: problems!,
           },
         });
       }
-     
+
       closeVisible(false);
     }
     return 0;
@@ -186,6 +224,7 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
     setSecondnameError(false);
   };
   const ValidationVIN = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(VIN);
     setVIN(e.target.value);
     setVINError(false);
   };
@@ -237,11 +276,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
                 : false
             }
             onChange={ValidationFirstNameOwner}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Имя*"
@@ -262,11 +299,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
                 : false
             }
             onChange={ValidationSecondNameOwner}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Фамилия*"
@@ -284,10 +319,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             color="primary"
           />
           <TextField
-             
             className={styles.inputPhoneCustom}
-            disabled={VIN.length > 16}
-            value={VINcar ?? VIN}
+            inputProps={{ maxLength: 17 }}
+            value={VIN}
             error={VINError && VIN.trim().length !== 17 ? true : false}
             helperText={
               VINError && VIN.trim().length !== 17
@@ -295,11 +329,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
                 : false
             }
             onChange={ValidationVIN}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="VIN 17 символов (обязательно)*"
@@ -307,33 +339,31 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
           />
           <TextField
             className={styles.inputPhoneCustom}
-            variant="standard"
             value={registration}
             onChange={(e) => setRegistration(e.target.value)}
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Регистрирована"
-            color="primary"
           />
           <TextField
             className={styles.inputPhoneCustom}
-            variant="standard"
             value={carNumber}
-            disabled={carNumber.length > 5}
+            inputProps={{ maxLength: 6 }}
             onChange={(e) => setCarNumber(e.target.value)}
-            error={carNumberError && carNumber.trim().length !== 6 ? true : false}
-            helperText={carNumberError && carNumber.trim().length !== 6 ?
-                  "Введите корректный номер авто"
+            error={
+              carNumberError && carNumber.trim().length !== 6 ? true : false
+            }
+            helperText={
+              carNumberError && carNumber.trim().length !== 6
+                ? "Введите корректный номер авто"
                 : false
             }
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Номер автомобиля"
@@ -343,11 +373,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             className={styles.inputPhoneCustom}
             value={carMileage}
             onChange={(e) => setCarMileage(e.target.value)}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Пробег автомобиля"
@@ -357,11 +385,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             className={styles.inputPhoneCustom}
             value={color}
             onChange={(e) => setColor(e.target.value)}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             color="primary"
@@ -387,14 +413,12 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             }
             onChange={ValidationNumberOwners}
             placeholder="Количество владельцев*"
-            variant="standard"
             value={numberOwners}
             color="primary"
             inputProps={{ type: "number" }}
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
           />
@@ -403,11 +427,9 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             className={styles.inputPhoneCustom}
             value={accidents}
             onChange={(e) => setAccidents(e.target.value)}
-            variant="standard"
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Аварии"
@@ -418,7 +440,6 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             className={styles.inputPhoneCustom}
             value={email}
             onChange={ValidationEmail}
-            variant="standard"
             error={emailError ? true : false}
             helperText={
               emailError ? "Введите корректную электронную почту*" : false
@@ -427,9 +448,8 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
               type: "email",
             }}
             sx={{
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder="Электронная почта*"
@@ -439,16 +459,13 @@ const CreateCardPopup: React.FC<{VINcar?:string; idCar?:number;  closeVisible: a
             className={styles.inputPhoneCustom}
             value={problems}
             onChange={(e) => setProblems(e.target.value)}
-            variant="standard"
             sx={{
-               
-              border: "2px solid #DBDBDB",
               borderRadius: "5px",
-              padding: "0px 10px",
+
               backgroundColor: "white",
             }}
             placeholder=" Ваша пролема"
-             id="standard-multiline-static"
+            id="standard-multiline-static"
             rows={4}
             multiline
           />

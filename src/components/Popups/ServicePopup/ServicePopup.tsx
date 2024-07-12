@@ -89,13 +89,14 @@ const ServicePopup: React.FC<{
             value={nameMaster}
             onChange={(e) => setNameMaster(e.target.value)}
             sx={{
-              border:  '2px solid #DBDBDB',
+              
               borderRadius: '5px',
-              padding: "0px 10px",
+               
               backgroundColor: "white",
             }}
-            variant="standard"
-            placeholder="Name"
+            className={styles.inputPhoneCustom}
+             
+            placeholder="Имя"
             color="primary"
           />
 
@@ -110,7 +111,7 @@ const ServicePopup: React.FC<{
               }}
                
             >
-              Cancel
+              Отмена
             </Button>
             <Button
               disabled={!nameMaster.trim().length}
@@ -131,7 +132,7 @@ const ServicePopup: React.FC<{
               }}
               variant="contained"
             >
-              Submit
+              Отправить
             </Button>
           </div>
         </form>

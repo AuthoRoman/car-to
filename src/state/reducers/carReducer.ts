@@ -17,7 +17,7 @@ export const carReducer = (
       return {
         ...state,
         cars: state.cars.map((car) =>
-          car.VIN === action.payload!.VIN
+          car.id === action.payload!.id
             ? Object.assign({}, car, action.payload)
             : car
         ),

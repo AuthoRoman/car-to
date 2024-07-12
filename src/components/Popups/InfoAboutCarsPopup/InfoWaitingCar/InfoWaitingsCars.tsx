@@ -122,7 +122,23 @@ const InfoWaitingsCars: React.FC<{
             </li>
           </ul>
           <Button
-            onClick={() => isOpenPopupEdit(car.VIN, car.id)}
+            onClick={() =>
+              isOpenPopupEdit(
+                car.VIN,
+                 car.id,
+                car.accidents,
+                 car.carMileage,
+                 car.carNumber,
+                  car.color,
+                car.email,
+                 car.firstNameOwner,
+                 car.secondNameOwner,
+                  car.numberOwners,
+                car.problems,
+                  car.registration,
+              car.tel 
+              )
+            }
             sx={{ color: "#705AF8" }}
           >
             Редактировать

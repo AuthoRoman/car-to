@@ -23,9 +23,8 @@ import {
 import { addData, deleteData, getStoreData } from "../../api/database/db";
 import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
 import { hover } from "@testing-library/user-event/dist/hover";
- 
 
-import styles from './CarsListWaiting.module.css'
+import styles from "./CarsListWaiting.module.css";
 import TableCellWithSort from "../Table/TableCellWithSort";
 import NoCarList from "../NoCarList/NoCarList";
 import { abort } from "process";
@@ -43,13 +42,27 @@ const CarsListWaiting = () => {
   const [PopupFixCar, setPopupFixCar] = useState(false);
   //OptionscurrentCar
   const [currentCar, setCurrentCar] = useState<ICar>();
+  //EditCars options
+  const [firstNameOwner, setFirstNameOwner] = useState("");
+  const [secondNameOwner, setSecondNameOwner] = useState("");
+  const [accidents, setAccidents] = useState<string>() 
+   const [ carMileage, setCarMileage]= useState<string>() 
+  const [  carNumber, setCarNumber]= useState<string>() 
+   const [ color, setColor]= useState<string>() 
+   const [ email, setEmail]= useState<string>() 
+   const [ numberOwners, setNumberOwners]= useState<number>() 
+   const [ problems, setProblems]= useState<string>() 
+   const [ registration, setRegistration]= useState<string>() 
+   const [ tel, setTel]= useState<string>()
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
   //Sort
   const [filterWord, setFilterWord] = useState("");
-  const [defaultStateSortFullName, setDefaultStateSortFullName] = useState(true);
+  const [defaultStateSortFullName, setDefaultStateSortFullName] =
+    useState(true);
   const [defaultStateSortEmail, setDefaultStateSortEmail] = useState(true);
-  const [defaultStateSortNumberAuto, setDefaultStateSortNumberAuto] = useState(true);
+  const [defaultStateSortNumberAuto, setDefaultStateSortNumberAuto] =
+    useState(true);
   const [defaultStateSortTime, setDefaultStateSortTime] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
   const [downStateSort, setDownStateSort] = useState(false);
@@ -67,7 +80,7 @@ const CarsListWaiting = () => {
 
   useEffect(() => {
     findCar(filterWord);
-  }, [ cars, filterWord,   ]);
+  }, [cars, filterWord]);
 
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
     event.stopPropagation();
@@ -77,7 +90,6 @@ const CarsListWaiting = () => {
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
-       
       await dispatch({
         type: typesOfActionsCar.DELETE_CAR,
         payload: currentCar!,
@@ -103,25 +115,56 @@ const CarsListWaiting = () => {
     setisOpenPopupEdit(false);
   };
 
-   function handleServicePop(
+  function handleServicePop(
     event: React.FormEvent<EventTarget>,
     VIN: string,
     car: ICar
   ) {
     event.stopPropagation();
-     setCurrentCar(car);
-     setVIN(VIN);
-     setPopupFixCar(true);
+    setCurrentCar(car);
+    setVIN(VIN);
+    setPopupFixCar(true);
   }
 
-  const OpenPopupEdit = (VIN: string, id: number) => {
+  const OpenPopupEdit = (
+    VIN: string,
+    id: number,
+    accidents: string,
+    carMileage: string,
+    carNumber: string,
+    color: string,
+    email: string,
+    firstNameOwner:string,
+    secondNameOwner:string,
+    numberOwners: number,
+    problems: string,
+    registration: string,
+    tel: string
+  ) => {
     setCurrentCarId(id);
     setVIN(VIN);
+    setAccidents(accidents)
+    setCarMileage(carMileage)
+    setCarNumber(carNumber)
+    setColor(color)
+    setEmail(email)
+    setNumberOwners(numberOwners)
+    setProblems(problems)
+    setRegistration(registration)
+    setTel(tel)
+     
+     
+    setFirstNameOwner(firstNameOwner);
+    setSecondNameOwner(secondNameOwner);
+     
+ 
+    
+     
     setisOpenPopupEdit(true);
     setIsVisiblePopupWaitingsCar(false);
   };
   const findCar = (filterWord: string) => {
-    const rand = Math.random()*20
+    const rand = Math.random() * 20;
     console.log("as");
     dispatch({
       type: typesOfActionsCar.FIND_CAR,
@@ -145,16 +188,18 @@ const CarsListWaiting = () => {
   };
 
   const handlerChangeDefaultState = (prop: string) => {
-    if(prop === 'defaultStateSortFullName'){
-      setDefaultStateSortFullName(false)
-      setDefaultStateSortEmail(true) 
-       setDefaultStateSortNumberAuto(true) 
-       setDefaultStateSortTime(true)
-       handlerChangeStateSort()
-       if (upStateSort === true) {
-        console.log('up')
-          dispatch({type:typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP, payload:
-            { id: 0,
+    if (prop === "defaultStateSortFullName") {
+      setDefaultStateSortFullName(false);
+      setDefaultStateSortEmail(true);
+      setDefaultStateSortNumberAuto(true);
+      setDefaultStateSortTime(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP,
+          payload: {
+            id: 0,
             VIN: "",
             tel: "",
             email: "",
@@ -167,38 +212,15 @@ const CarsListWaiting = () => {
             registration: "string",
             accidents: "string",
             date: "string",
-            problems: "string",} })
-      } 
+            problems: "string",
+          },
+        });
+      }
       if (downStateSort === true) {
-        dispatch({type:typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN, payload:
-          { id: 0,
-          VIN: "",
-          tel: "",
-          email: "",
-          firstNameOwner: "",
-          secondNameOwner: "",
-          numberOwners: 0,
-          color: "string",
-          carMileage: "string",
-          carNumber: filterWord,
-          registration: "string",
-          accidents: "string",
-          date: "string",
-          problems: "string",} })
-      } 
-      
-
-    }
-    if(prop ==='defaultStateSortEmail'){
-      setDefaultStateSortFullName(true)
-      setDefaultStateSortEmail(false) 
-       setDefaultStateSortNumberAuto(true) 
-       setDefaultStateSortTime(true)
-       handlerChangeStateSort()
-       if (upStateSort === true) {
-        console.log('up')
-          dispatch({type:typesOfActionsCar.SORT_CAR_EMAIL_UP, payload:
-            { id: 0,
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN,
+          payload: {
+            id: 0,
             VIN: "",
             tel: "",
             email: "",
@@ -211,36 +233,23 @@ const CarsListWaiting = () => {
             registration: "string",
             accidents: "string",
             date: "string",
-            problems: "string",} })
-      } 
-      if (downStateSort === true) {
-        dispatch({type:typesOfActionsCar.SORT_CAR_EMAIL_DOWN, payload:
-          { id: 0,
-          VIN: "",
-          tel: "",
-          email: "",
-          firstNameOwner: "",
-          secondNameOwner: "",
-          numberOwners: 0,
-          color: "string",
-          carMileage: "string",
-          carNumber: filterWord,
-          registration: "string",
-          accidents: "string",
-          date: "string",
-          problems: "string",} })
-      } 
+            problems: "string",
+          },
+        });
+      }
     }
-    if(prop === 'defaultStateSortNumberAuto'){
-      setDefaultStateSortFullName(true)
-      setDefaultStateSortEmail(true) 
-       setDefaultStateSortNumberAuto(false) 
-       setDefaultStateSortTime(true)
-       handlerChangeStateSort()
-       if (upStateSort === true) {
-        console.log('up')
-          dispatch({type:typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP, payload:
-            { id: 0,
+    if (prop === "defaultStateSortEmail") {
+      setDefaultStateSortFullName(true);
+      setDefaultStateSortEmail(false);
+      setDefaultStateSortNumberAuto(true);
+      setDefaultStateSortTime(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_EMAIL_UP,
+          payload: {
+            id: 0,
             VIN: "",
             tel: "",
             email: "",
@@ -253,36 +262,15 @@ const CarsListWaiting = () => {
             registration: "string",
             accidents: "string",
             date: "string",
-            problems: "string",} })
-      } 
+            problems: "string",
+          },
+        });
+      }
       if (downStateSort === true) {
-        dispatch({type:typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN, payload:
-          { id: 0,
-          VIN: "",
-          tel: "",
-          email: "",
-          firstNameOwner: "",
-          secondNameOwner: "",
-          numberOwners: 0,
-          color: "string",
-          carMileage: "string",
-          carNumber: filterWord,
-          registration: "string",
-          accidents: "string",
-          date: "string",
-          problems: "string",} })
-      } 
-    }
-    if(prop === 'defaultStateSortTime'){
-      setDefaultStateSortFullName(true)
-      setDefaultStateSortEmail(true) 
-       setDefaultStateSortNumberAuto(true) 
-       setDefaultStateSortTime(false)
-       handlerChangeStateSort()
-       if (upStateSort === true) {
-        console.log('up')
-          dispatch({type:typesOfActionsCar.SORT_CAR_TIME_UP, payload:
-            { id: 0,
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_EMAIL_DOWN,
+          payload: {
+            id: 0,
             VIN: "",
             tel: "",
             email: "",
@@ -295,47 +283,134 @@ const CarsListWaiting = () => {
             registration: "string",
             accidents: "string",
             date: "string",
-            problems: "string",} })
-      } 
-      if (downStateSort === true) {
-        dispatch({type:typesOfActionsCar.SORT_CAR_TIME_DOWN, payload:
-          { id: 0,
-          VIN: "",
-          tel: "",
-          email: "",
-          firstNameOwner: "",
-          secondNameOwner: "",
-          numberOwners: 0,
-          color: "string",
-          carMileage: "string",
-          carNumber: filterWord,
-          registration: "string",
-          accidents: "string",
-          date: "string",
-          problems: "string",} })
-      } 
+            problems: "string",
+          },
+        });
+      }
     }
-
-  }
+    if (prop === "defaultStateSortNumberAuto") {
+      setDefaultStateSortFullName(true);
+      setDefaultStateSortEmail(true);
+      setDefaultStateSortNumberAuto(false);
+      setDefaultStateSortTime(true);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+    if (prop === "defaultStateSortTime") {
+      setDefaultStateSortFullName(true);
+      setDefaultStateSortEmail(true);
+      setDefaultStateSortNumberAuto(true);
+      setDefaultStateSortTime(false);
+      handlerChangeStateSort();
+      if (upStateSort === true) {
+        console.log("up");
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_TIME_UP,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+      if (downStateSort === true) {
+        dispatch({
+          type: typesOfActionsCar.SORT_CAR_TIME_DOWN,
+          payload: {
+            id: 0,
+            VIN: "",
+            tel: "",
+            email: "",
+            firstNameOwner: "",
+            secondNameOwner: "",
+            numberOwners: 0,
+            color: "string",
+            carMileage: "string",
+            carNumber: filterWord,
+            registration: "string",
+            accidents: "string",
+            date: "string",
+            problems: "string",
+          },
+        });
+      }
+    }
+  };
 
   const handlerChangeStateSort = () => {
-    
-    if (defaultStateSortFullName === true || defaultStateSortEmail === true || defaultStateSortNumberAuto === true || defaultStateSortTime === true) {  
-       
+    if (
+      defaultStateSortFullName === true ||
+      defaultStateSortEmail === true ||
+      defaultStateSortNumberAuto === true ||
+      defaultStateSortTime === true
+    ) {
       setUpStateSort(true);
     }
     if (upStateSort === true) {
       setUpStateSort(false);
-      setDownStateSort(true) 
-    } 
+      setDownStateSort(true);
+    }
     if (downStateSort === true) {
-      setDownStateSort(false)
-      setUpStateSort(true)
-    } 
+      setDownStateSort(false);
+      setUpStateSort(true);
+    }
   };
 
   return (
-    <div style={{ maxWidth: "1440px", margin: "0 auto"  }}>
+    <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {isVisiblePopup && (
           <div>
@@ -347,6 +422,18 @@ const CarsListWaiting = () => {
             <CreateCardPopup
               idCar={CurrentCarId}
               VINcar={VIN}
+               editAccidents={accidents}
+               editCarMileage={carMileage}
+               editCarNumber={carNumber}
+               editColor={color}
+               editEmail={email}
+               editFirstNameOwner={firstNameOwner}
+               editSecondNameOwner={secondNameOwner}
+               editNumberOwners={numberOwners!}
+               editPhone={tel}
+               editProblems={problems}
+               editRegistration={registration}
+
               closeVisible={closeEditor}
             />{" "}
           </div>
@@ -371,163 +458,181 @@ const CarsListWaiting = () => {
           </div>
         )}
         {cars?.length === 0 ? (
-          <div style={{display:'flex', justifyContent:'center', width:'100vw', }}>
-          
-          <div style={{display:'flex', justifyContent:'center', width:'100%', marginLeft:'65px' }}>
-            <NoCarList text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "100vw",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+                marginLeft: "65px",
+              }}
+            >
+              <NoCarList
+                text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}
+              />
+            </div>
+
+            <Button
+              onClick={() => setIsVisiblePopup(true)}
+              sx={{
+                backgroundColor: "#705AF8",
+                margin: "0",
+                padding: "0",
+                height: `55px`,
+                transition: "all .8s",
+                "&:hover": {
+                  background: "#7975F8",
+                },
+              }}
+              variant="contained"
+            >
+              +
+            </Button>
           </div>
-            
-           <Button
-          onClick={() => setIsVisiblePopup(true)}
-          sx={{
-            backgroundColor: "#705AF8",
-            margin: '0',
-            padding: '0',
-            height: `55px`,
-            transition: "all .8s",
-            "&:hover": {
-              background: "#7975F8",
-            },
-          }}
-          variant="contained"
-        >
-          +
-        </Button>
-          </div>
-          
         ) : (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
-              <TextField sx={{padding:'5.71px', lineHeight:'normal'}} className={styles.tableWaitngList__findField} onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: номер авто/имя фамилия" type="search" />
+              <TextField
+                sx={{ padding: "5.71px", lineHeight: "normal" }}
+                className={styles.tableWaitngList__findField}
+                onChange={(e) => setFilterWord(e.target.value)}
+                id="outlined-search"
+                label="Поиск: номер авто/имя фамилия"
+                type="search"
+              />
               <Button
-            onClick={() => setIsVisiblePopup(true)}
-            sx={{
-              backgroundColor: "#705AF8",
-              height: `45px`,
-              transition: "all .8s",
-              "&:hover": {
-                background: "#7975F8",
-              },
-            }}
-            variant="contained"
-          >
-            +
-          </Button>
+                onClick={() => setIsVisiblePopup(true)}
+                sx={{
+                  backgroundColor: "#705AF8",
+                  height: `45px`,
+                  transition: "all .8s",
+                  "&:hover": {
+                    background: "#7975F8",
+                  },
+                }}
+                variant="contained"
+              >
+                +
+              </Button>
             </div>
-          
-            <div style={{display:'flex'}}>
-               <TableContainer
-            component={Paper}
-            sx={{ width: "100%", margin: "0 auto" }}
-          >
-            <Table
-              sx={{ minWidth: 100, width: "100%" }}
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow>
-                <TableCellWithSort
-                    title={"Имя Фамилия"}
-                    state={defaultStateSortFullName}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortFullName")
-                    }
-                  />
-                  <TableCellWithSort
-                    title={"E-mail"}
-                    state={defaultStateSortEmail}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortEmail")
-                    }
-                  />
-                  <TableCellWithSort
-                    title={"Номер авто"}
-                    state={defaultStateSortNumberAuto}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortNumberAuto")
-                    }
-                  />
-                   
-                   <TableCellWithSort
-                    title={"Заявка сформирована"}
-                    state={defaultStateSortTime}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortTime")
-                    }
-                  />
-                   
-                  <TableCell onClick={handlerChangeStateSort} align="center">
-                    Действие{" "}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredCars?.map((car) => (
-                  <TableRow
-                    onClick={() => getInfocar(car)}
-                    key={car.numberOwners}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                      "&:hover": { cursor: "pointer" },
-                    }}
-                  >
-                    <TableCell align="center" component="th" scope="row">
-                      {car.firstNameOwner} {car.secondNameOwner}
-                    </TableCell>
-                    <TableCell align="center">{car.email} </TableCell>
-                    <TableCell align="center">{car.carNumber}</TableCell>
-                    <TableCell align="center">{car.date}</TableCell>
-                    <TableCell align="center">
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "5px",
-                          justifyContent: "center",
-                          alignItems: "center",
+
+            <div style={{ display: "flex" }}>
+              <TableContainer
+                component={Paper}
+                sx={{ width: "100%", margin: "0 auto" }}
+              >
+                <Table
+                  sx={{ minWidth: 100, width: "100%" }}
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCellWithSort
+                        title={"Имя Фамилия"}
+                        state={defaultStateSortFullName}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState("defaultStateSortFullName")
+                        }
+                      />
+                      <TableCellWithSort
+                        title={"E-mail"}
+                        state={defaultStateSortEmail}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState("defaultStateSortEmail")
+                        }
+                      />
+                      <TableCellWithSort
+                        title={"Номер авто"}
+                        state={defaultStateSortNumberAuto}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState(
+                            "defaultStateSortNumberAuto"
+                          )
+                        }
+                      />
+
+                      <TableCellWithSort
+                        title={"Заявка сформирована"}
+                        state={defaultStateSortTime}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState("defaultStateSortTime")
+                        }
+                      />
+
+                      <TableCell
+                        onClick={handlerChangeStateSort}
+                        align="center"
+                      >
+                        Действие{" "}
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filteredCars?.map((car) => (
+                      <TableRow
+                        onClick={() => getInfocar(car)}
+                        key={car.numberOwners}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          "&:hover": { cursor: "pointer" },
                         }}
                       >
-                        <Button
-                          onClick={(event) => deleteCar(event, car)}
-                          color="warning"
-                        >
-                          Удалить
-                        </Button>
-                        <Button
-                          onClick={(event) =>
-                            handleServicePop(event, car.VIN, car)
-                          }
-                          sx={{
-                            backgroundColor: "#705AF8",
-                            "&:hover": {
-                              background: "#7975F8",
-                            },
-                          }}
-                          variant="contained"
-                        >
-                          Отправить на обслуживание
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            
-          </TableContainer>
-           
+                        <TableCell align="center" component="th" scope="row">
+                          {car.firstNameOwner} {car.secondNameOwner}
+                        </TableCell>
+                        <TableCell align="center">{car.email} </TableCell>
+                        <TableCell align="center">{car.carNumber}</TableCell>
+                        <TableCell align="center">{car.date}</TableCell>
+                        <TableCell align="center">
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Button
+                              onClick={(event) => deleteCar(event, car)}
+                              color="warning"
+                            >
+                              Удалить
+                            </Button>
+                            <Button
+                              onClick={(event) =>
+                                handleServicePop(event, car.VIN, car)
+                              }
+                              sx={{
+                                backgroundColor: "#705AF8",
+                                "&:hover": {
+                                  background: "#7975F8",
+                                },
+                              }}
+                              variant="contained"
+                            >
+                              Отправить на обслуживание
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
-         
           </div>
-          
         )}
-        <div>
-          
-           
-        </div>
+        <div></div>
       </div>
     </div>
   );
