@@ -59,6 +59,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [VINError, setVINError] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<boolean>(false);
   const [carNumberError, setCarNumberError] = useState<boolean>(false);
+  const [phoneError, setPhoneError] = useState<boolean>(false)
 
   const [carNumber, setCarNumber] = useState<string>(editCarNumber ?? "");
 
@@ -75,7 +76,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [problems, setProblems] = React.useState(editProblems ?? "");
 
   function handlePhone(newValue: any) {
-    return setPhone(newValue);
+    if(newValue.length===16){
+
+        
+       setPhoneError(false)
+    }
+    setPhone(newValue);
   }
 
   const IdKey = Math.random() * 100;
@@ -104,11 +110,15 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       console.log(emailError);
       setEmailError(true);
     }
+
     if (!/^[\w- ]{6,6}$/g.test(carNumber)) {
       setCarNumberError(true);
     }
+    if (phone.length !==16){
+      setPhoneError(true)
+    }
     if (
-      VIN.length === 17 &&
+      VIN.length === 17 && phone.length ===16 &&
       firstNameOwner.trim().length !== 0 &&
       secondNameOwner.trim().length !== 0 &&
       numberOwners! > 0 &&
@@ -320,8 +330,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
             sx={{
               backgroundColor: "white",
             }}
-             
-            label="Телефон"
+            error={phoneError ? true : false}
+            helperText={
+              phoneError ? "Введите корректный номер телефона*" : false
+            }
+            label="Телефон*"
             color="primary"
           />
           <TextField

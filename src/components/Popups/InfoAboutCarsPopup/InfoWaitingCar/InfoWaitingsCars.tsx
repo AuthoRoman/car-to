@@ -34,6 +34,15 @@ const InfoWaitingsCars: React.FC<{
             </li>
             <li className={styles.InfoWaitingPopup__innerPoints}>
               <span className={styles.titlePoints}>
+                Номер телефона
+                владельца..............................................................
+              </span>
+              <span className={styles.valueOfPoints}>
+                {car.tel}
+              </span>
+            </li>
+            <li className={styles.InfoWaitingPopup__innerPoints}>
+              <span className={styles.titlePoints}>
                 Количество владельцев
                 автомобиля............................................
               </span>
