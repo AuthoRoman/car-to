@@ -18,10 +18,12 @@ export const ServiceCarReducer = (
       return { ...state, cars: [...state.cars, action.payload!] };
     case serviceCarTypesAction.FIND_SERVICE_CAR:
       return {
-        ...state, 
-        filteredItems: [...state.cars].filter((x) => x.nameMaster.includes(action.payload!.nameMaster))
+        ...state,
+        filteredItems: [...state.cars].filter((x) =>
+          x.nameMaster.includes(action.payload!.nameMaster)
+        ),
       };
-      case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP:
+    case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>

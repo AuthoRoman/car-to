@@ -6,7 +6,7 @@ import {
 
 const initialState: ICarFinishState = {
   cars: [],
-  filteredItems:[]
+  filteredItems: [],
 };
 
 export const finishCarReducer = (
@@ -18,10 +18,14 @@ export const finishCarReducer = (
       return { ...state, cars: [...state.cars, action.payload!] };
     case finishCarTypesAction.FIND_FINISH_CAR:
       return {
-        ...state, 
-        filteredItems: [...state.cars].filter((x) => x.nameMaster.toLocaleLowerCase().includes(action.payload!.nameMaster.toLocaleLowerCase()))
-      }  
-      case finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP:
+        ...state,
+        filteredItems: [...state.cars].filter((x) =>
+          x.nameMaster
+            .toLocaleLowerCase()
+            .includes(action.payload!.nameMaster.toLocaleLowerCase())
+        ),
+      };
+    case finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>

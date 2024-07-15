@@ -45,15 +45,15 @@ const CarsListWaiting = () => {
   //EditCars options
   const [firstNameOwner, setFirstNameOwner] = useState("");
   const [secondNameOwner, setSecondNameOwner] = useState("");
-  const [accidents, setAccidents] = useState<string>() 
-   const [ carMileage, setCarMileage]= useState<string>() 
-  const [  carNumber, setCarNumber]= useState<string>() 
-   const [ color, setColor]= useState<string>() 
-   const [ email, setEmail]= useState<string>() 
-   const [ numberOwners, setNumberOwners]= useState<number>() 
-   const [ problems, setProblems]= useState<string>() 
-   const [ registration, setRegistration]= useState<string>() 
-   const [ tel, setTel]= useState<string>()
+  const [accidents, setAccidents] = useState<string>();
+  const [carMileage, setCarMileage] = useState<string>();
+  const [carNumber, setCarNumber] = useState<string>();
+  const [color, setColor] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [numberOwners, setNumberOwners] = useState<number>();
+  const [problems, setProblems] = useState<string>();
+  const [registration, setRegistration] = useState<string>();
+  const [tel, setTel] = useState<string>();
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
   //Sort
@@ -134,8 +134,8 @@ const CarsListWaiting = () => {
     carNumber: string,
     color: string,
     email: string,
-    firstNameOwner:string,
-    secondNameOwner:string,
+    firstNameOwner: string,
+    secondNameOwner: string,
     numberOwners: number,
     problems: string,
     registration: string,
@@ -143,23 +143,19 @@ const CarsListWaiting = () => {
   ) => {
     setCurrentCarId(id);
     setVIN(VIN);
-    setAccidents(accidents)
-    setCarMileage(carMileage)
-    setCarNumber(carNumber)
-    setColor(color)
-    setEmail(email)
-    setNumberOwners(numberOwners)
-    setProblems(problems)
-    setRegistration(registration)
-    setTel(tel)
-     
-     
+    setAccidents(accidents);
+    setCarMileage(carMileage);
+    setCarNumber(carNumber);
+    setColor(color);
+    setEmail(email);
+    setNumberOwners(numberOwners);
+    setProblems(problems);
+    setRegistration(registration);
+    setTel(tel);
+
     setFirstNameOwner(firstNameOwner);
     setSecondNameOwner(secondNameOwner);
-     
- 
-    
-     
+
     setisOpenPopupEdit(true);
     setIsVisiblePopupWaitingsCar(false);
   };
@@ -422,18 +418,17 @@ const CarsListWaiting = () => {
             <CreateCardPopup
               idCar={CurrentCarId}
               VINcar={VIN}
-               editAccidents={accidents}
-               editCarMileage={carMileage}
-               editCarNumber={carNumber}
-               editColor={color}
-               editEmail={email}
-               editFirstNameOwner={firstNameOwner}
-               editSecondNameOwner={secondNameOwner}
-               editNumberOwners={numberOwners!}
-               editPhone={tel}
-               editProblems={problems}
-               editRegistration={registration}
-
+              editAccidents={accidents}
+              editCarMileage={carMileage}
+              editCarNumber={carNumber}
+              editColor={color}
+              editEmail={email}
+              editFirstNameOwner={firstNameOwner}
+              editSecondNameOwner={secondNameOwner}
+              editNumberOwners={numberOwners!}
+              editPhone={tel}
+              editProblems={problems}
+              editRegistration={registration}
               closeVisible={closeEditor}
             />{" "}
           </div>
@@ -499,8 +494,7 @@ const CarsListWaiting = () => {
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
               <TextField
-               
-                 size="small"
+                size="small"
                 onChange={(e) => setFilterWord(e.target.value)}
                 id="outlined-search"
                 label="Поиск: номер авто/имя фамилия"
