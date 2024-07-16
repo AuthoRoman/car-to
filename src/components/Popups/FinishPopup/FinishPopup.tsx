@@ -21,10 +21,19 @@ const FinishPopup: React.FC<{
   const [workOncar, setWorkOnCar] = useState("");
   const addCarFinish = async () => {
     if (car) {
+      let currentDate = new Date();
+      const date = `${currentDate.getDate() < 10 ? '0' +currentDate.getDate() : currentDate.getDate() }.${
+        currentDate.getMonth() < 10
+          ? "0" + (currentDate.getMonth()+ 1)
+          : currentDate.getMonth() 
+      }.${
+        currentDate.getFullYear()  
+      }` 
       await deleteData(TypeBases.CARS_IN_SERVICE, car.id);
       await addData(TypeBases.CARS_IN_FINISH, {
         id: carCurr.id,
         VIN: carCurr.VIN,
+        date:date,
         modelYear: carCurr.modelYear,
         recomm: carCurr.recomm,
         workOncar: workOncar,
@@ -40,7 +49,7 @@ const FinishPopup: React.FC<{
 
       dispatch({
         type: serviceCarTypesAction.DELETE_SERVICE_CAR,
-        payload: car,
+        payload: {...car, date:date},
       });
       dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: carCurr });
       togglePopup(false);

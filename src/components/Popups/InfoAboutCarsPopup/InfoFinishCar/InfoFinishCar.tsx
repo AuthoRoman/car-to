@@ -92,9 +92,9 @@ const InfoFinishCar: React.FC<{ car: cardFinish; closeInfoCar: any }> = ({
                 средства.................................................
               </span>
               <span className={styles.valueOfPoints}>
-                {car.vehicleAttributes.length === 0
-                  ? "Атрибуты не распознаны"
-                  : car.vehicleAttributes}
+                {car.vehicleAttributes 
+                  ?? "Атрибуты не распознаны"
+                  }
               </span>
             </li>
             <li className={styles.InfoWaitingPopup__innerPoints}>
