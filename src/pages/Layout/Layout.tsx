@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {   useLocation, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { Tab, Tabs } from "@mui/material";
 
@@ -50,7 +50,7 @@ const Layout: React.FC<LayoutProps> = ({
               },
             }}
             label=" Очередь на обслуживание"
-            value="/car-to"
+            value="/car-to/"
           />
           <Tab
             sx={{
