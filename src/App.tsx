@@ -22,10 +22,10 @@ function App() {
   return (
     <div>
       {isDBReady ? (
-        <Router>
+        <Router >
           <Layout>
             <Routes>
-              <Route path="/car-to" element={<WaitingsCarPage />} />
+              <Route    path="/car-to" element={<WaitingsCarPage />} />
               <Route path="/inwork" element={<CarsInService />} />
               <Route path="/finish" element={<FinishCarWorking />} />
             </Routes>
