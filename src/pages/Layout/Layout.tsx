@@ -1,5 +1,5 @@
 import React from "react";
-import {   useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { Tab, Tabs } from "@mui/material";
 

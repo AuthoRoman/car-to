@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-
 import "./index.css";
 
+import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WaitingsCarPage from "./pages/WaitingsCarPage";
 import FinishCarWorking from "./pages/FinishCarWorking";
@@ -11,21 +10,23 @@ import CarsInService from "./pages/CarsInService";
 
 function App() {
   const [isDBReady, setIsDBReady] = useState<boolean>(false);
+
+  const handleInitDB = useCallback(async () => {
+    const satus = await initDB();
+    setIsDBReady(satus);
+  }, []);
+
   useEffect(() => {
-    const handleInitDB = async () => {
-      const satus = await initDB();
-      setIsDBReady(satus);
-    };
     handleInitDB();
   }, []);
 
   return (
     <div>
       {isDBReady ? (
-        <Router >
+        <Router>
           <Layout>
             <Routes>
-              <Route    path="/car-to/" element={<WaitingsCarPage />} />
+              <Route path="/car-to/" element={<WaitingsCarPage />} />
               <Route path="/inwork" element={<CarsInService />} />
               <Route path="/finish" element={<FinishCarWorking />} />
             </Routes>

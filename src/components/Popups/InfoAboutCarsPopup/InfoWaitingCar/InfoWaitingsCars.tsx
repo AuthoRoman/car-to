@@ -37,9 +37,7 @@ const InfoWaitingsCars: React.FC<{
                 Номер телефона
                 владельца..............................................................
               </span>
-              <span className={styles.valueOfPoints}>
-                {car.tel}
-              </span>
+              <span className={styles.valueOfPoints}>{car.tel}</span>
             </li>
             <li className={styles.InfoWaitingPopup__innerPoints}>
               <span className={styles.titlePoints}>
@@ -134,18 +132,18 @@ const InfoWaitingsCars: React.FC<{
             onClick={() =>
               isOpenPopupEdit(
                 car.VIN,
-                 car.id,
+                car.id,
                 car.accidents,
-                 car.carMileage,
-                 car.carNumber,
-                  car.color,
+                car.carMileage,
+                car.carNumber,
+                car.color,
                 car.email,
-                 car.firstNameOwner,
-                 car.secondNameOwner,
-                  car.numberOwners,
+                car.firstNameOwner,
+                car.secondNameOwner,
+                car.numberOwners,
                 car.problems,
-                  car.registration,
-              car.tel 
+                car.registration,
+                car.tel
               )
             }
             sx={{ color: "#705AF8" }}

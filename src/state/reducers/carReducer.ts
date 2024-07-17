@@ -1,4 +1,8 @@
-import { IAction, ICarsState, typesOfActionsCar } from "../types";
+import { 
+  IAction,
+  ICarsState,
+  typesOfActionsCar 
+} from "../types";
 
 const initialState: ICarsState = {
   cars: [],

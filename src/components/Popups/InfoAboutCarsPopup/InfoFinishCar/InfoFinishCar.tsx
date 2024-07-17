@@ -1,5 +1,6 @@
 import React from "react";
-import { cardFinish, ICar } from "../../../../state/types";
+import { cardFinish } from "../../../../state/types";
+
 import styles from "./InfoFinnishCar.module.css";
 
 const InfoFinishCar: React.FC<{ car: cardFinish; closeInfoCar: any }> = ({

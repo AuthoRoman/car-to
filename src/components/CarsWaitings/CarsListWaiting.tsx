@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import CarComponent from "./CarComponent/CarComponent";
 import CreateCardPopup from "../Popups/CreateCardWaitingsPopup/CreateCardPopup";
 import ServicePopup from "../Popups/ServicePopup/ServicePopup";
 import {
@@ -14,20 +13,14 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import {
-  ICar,
-  ICarsState,
-  TypeBases,
-  typesOfActionsCar,
-} from "../../state/types";
-import { addData, deleteData, getStoreData } from "../../api/database/db";
+import { ICar, TypeBases, typesOfActionsCar } from "../../state/types";
+import { deleteData, getStoreData } from "../../api/database/db";
 import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
-import { hover } from "@testing-library/user-event/dist/hover";
-
-import styles from "./CarsListWaiting.module.css";
 import TableCellWithSort from "../Table/TableCellWithSort";
 import NoCarList from "../NoCarList/NoCarList";
-import { abort } from "process";
+
+import styles from "./CarsListWaiting.module.css";
+
 
 const CarsListWaiting = () => {
   //Work with reducers

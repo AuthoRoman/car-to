@@ -1,16 +1,15 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import styles from "./FinishPopup.module.css";
 import {
   cardService,
   finishCarTypesAction,
-  localInRussian,
-  LocalInRussianKeys,
   serviceCarTypesAction,
   TypeBases,
 } from "../../../state/types";
 import { useDispatch } from "react-redux";
 import { addData, deleteData } from "../../../api/database/db";
+
+import styles from "./FinishPopup.module.css";
 
 const FinishPopup: React.FC<{
   togglePopup: any;
@@ -22,18 +21,20 @@ const FinishPopup: React.FC<{
   const addCarFinish = async () => {
     if (car) {
       let currentDate = new Date();
-      const date = `${currentDate.getDate() < 10 ? '0' +currentDate.getDate() : currentDate.getDate() }.${
-        currentDate.getMonth() < 10
-          ? "0" + (currentDate.getMonth()+ 1)
-          : currentDate.getMonth() 
+      const date = `${
+        currentDate.getDate() < 10
+          ? "0" + currentDate.getDate()
+          : currentDate.getDate()
       }.${
-        currentDate.getFullYear()  
-      }` 
+        currentDate.getMonth() < 10
+          ? "0" + (currentDate.getMonth() + 1)
+          : currentDate.getMonth()
+      }.${currentDate.getFullYear()}`;
       await deleteData(TypeBases.CARS_IN_SERVICE, car.id);
       await addData(TypeBases.CARS_IN_FINISH, {
         id: carCurr.id,
         VIN: carCurr.VIN,
-        date:date,
+        date: date,
         modelYear: carCurr.modelYear,
         recomm: carCurr.recomm,
         workOncar: workOncar,
@@ -49,7 +50,7 @@ const FinishPopup: React.FC<{
 
       dispatch({
         type: serviceCarTypesAction.DELETE_SERVICE_CAR,
-        payload: {...car, date:date},
+        payload: { ...car, date: date },
       });
       dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: carCurr });
       togglePopup(false);

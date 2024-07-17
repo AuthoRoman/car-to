@@ -5,13 +5,10 @@ import {
   cardFinish,
   finishCarTypesAction,
   ICar,
-  localInRussian,
-  LocalInRussianKeys,
   TypeBases,
 } from "../../state/types";
 import { deleteData, getStoreData } from "../../api/database/db";
 
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
   Paper,
@@ -23,7 +20,6 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import FinishPopup from "../Popups/FinishPopup/FinishPopup";
 import InfoFinishCar from "../Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
 import TableCellWithSort from "../Table/TableCellWithSort";
 import NoCarList from "../NoCarList/NoCarList";

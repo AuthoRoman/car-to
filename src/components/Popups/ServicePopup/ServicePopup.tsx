@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import styles from "./ServicePopup.module.css";
-import { Button, Input, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import {
-  ICar,
-   
-  serviceCarTypesAction,
-  TypeBases,
-} from "../../../state/types";
+import { serviceCarTypesAction, TypeBases } from "../../../state/types";
 import decodeVIN from "../../../api/VIN/VinAPI";
-import { addData, deleteData } from "../../../api/database/db";
+import { addData } from "../../../api/database/db";
 
 const ServicePopup: React.FC<{
   closeVisible: any;
@@ -24,13 +19,15 @@ const ServicePopup: React.FC<{
 
   async function submitForm(VIN: any, name: string, problems: string) {
     let currentDate = new Date();
-    const date = `${currentDate.getDate() < 10 ? '0' +currentDate.getDate() : currentDate.getDate() }.${
-      currentDate.getMonth() < 10
-        ? "0" + (currentDate.getMonth()+ 1)
-        : currentDate.getMonth() 
+    const date = `${
+      currentDate.getDate() < 10
+        ? "0" + currentDate.getDate()
+        : currentDate.getDate()
     }.${
-      currentDate.getFullYear()  
-    }`;
+      currentDate.getMonth() < 10
+        ? "0" + (currentDate.getMonth() + 1)
+        : currentDate.getMonth()
+    }.${currentDate.getFullYear()}`;
     console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
     console.log("OUR data IS: " + data);
@@ -40,7 +37,7 @@ const ServicePopup: React.FC<{
         VIN: VIN,
         region: data.region,
         country: data.country,
-        date:date,
+        date: date,
         manufacturer: data.manufacturer,
         vehicleAttributes: data.vehicleAttributes,
         checkDigit: data.checkDigit,
@@ -57,7 +54,7 @@ const ServicePopup: React.FC<{
           VIN: VIN,
           region: data.region,
           country: data.country,
-          date:date,
+          date: date,
           manufacturer: data.manufacturer,
           vehicleAttributes: data.vehicleAttributes,
           checkDigit: data.checkDigit,
@@ -89,13 +86,11 @@ const ServicePopup: React.FC<{
             value={nameMaster}
             onChange={(e) => setNameMaster(e.target.value)}
             sx={{
-              
-              borderRadius: '5px',
-               
+              borderRadius: "5px",
+
               backgroundColor: "white",
             }}
             className={styles.inputPhoneCustom}
-             
             placeholder="Имя"
             color="primary"
           />
@@ -105,24 +100,15 @@ const ServicePopup: React.FC<{
               onClick={() => closeVisible(false)}
               sx={{
                 color: "#7975F8",
-                "&:hover": {
-                   
-                },
+                "&:hover": {},
               }}
-               
             >
               Отмена
             </Button>
             <Button
               disabled={!nameMaster.trim().length}
               onClick={() =>
-                submitForm(
-                  VIN,
-                  nameMaster,
-                  problems
-                    ? problems
-                    : ''
-                )
+                submitForm(VIN, nameMaster, problems ? problems : "")
               }
               sx={{
                 backgroundColor: "#705AF8",
