@@ -1,3 +1,9 @@
+@mixin scrollMedia($widthBlock){
+  overflow-x: scroll;
+  display: inline-block;
+  width: $widthBlock;
+}
+
 .navList {
   display: flex;
   justify-content: space-around;
@@ -30,16 +36,12 @@
 
 @media screen and (max-width: 600px) {
   .navLayuout {
-    overflow-x: scroll;
-    display: inline-block;
-    width: 600px;
+    @include scrollMedia ($widthBlock:600px)
   }
 }
 
 @media screen and (max-width: 589px) {
   .navLayuout {
-    overflow-x: scroll;
-    display: inline-block;
-    width: 400px;
+    @include scrollMedia ($widthBlock:400px)
   }
 }

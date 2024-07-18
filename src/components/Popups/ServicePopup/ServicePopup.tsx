@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "./ServicePopup.module.css";
 import { Button, TextField } from "@mui/material";
-
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import { serviceCarTypesAction, TypeBases } from "../../../state/types";
 import decodeVIN from "../../../api/VIN/VinAPI";
 import { addData } from "../../../api/database/db";
+
+import styles from "./ServicePopup.module.scss";
 
 const ServicePopup: React.FC<{
   closeVisible: any;

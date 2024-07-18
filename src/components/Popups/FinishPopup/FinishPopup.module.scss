@@ -18,8 +18,8 @@
   flex-direction: column;
   gap: 15px;
   border-radius: 5px;
-
-  overflow-y: scroll;
+ overflow-y: auto;
+ 
   max-height: 340px;
   background-color: #fff;
 
@@ -35,3 +35,6 @@
 .finishPopup__lists {
   font-size: 14px;
 }
+
+
+ 

@@ -5,7 +5,7 @@ import { useTypedDispatch } from "../../../state/hooks/hooks";
 import { Color, TypeBases, typesOfActionsCar } from "../../../state/types";
 import { addData, editData } from "../../../api/database/db";
 
-import styles from "./CreateCardpopup.module.css";
+import styles from "./CreateCardpopup.module.scss";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -21,7 +21,7 @@ interface IEditAndCreatePopupProps {
   editRegistration?: string;
   editAccidents?: string;
   editProblems?: string;
-  closeVisible: any;
+  closeVisible: (paramVisible: boolean)=>void;
 }
 
 const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({

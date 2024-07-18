@@ -1,18 +1,15 @@
-import {
-  finishCarTypesAction,
-  ICarFinishAction,
-  ICarFinishState,
-} from "../types";
+import { cardFinish, IAction, ICarsState } from "./../types";
+import { finishCarTypesAction } from "../types";
 
-const initialState: ICarFinishState = {
+const initialState: ICarsState<cardFinish> = {
   cars: [],
   filteredItems: [],
 };
 
 export const finishCarReducer = (
   state = initialState,
-  action: ICarFinishAction
-): ICarFinishState => {
+  action: IAction<cardFinish>
+): ICarsState<cardFinish> => {
   switch (action.type) {
     case finishCarTypesAction.ADD_FINISH_CAR:
       return { ...state, cars: [...state.cars, action.payload!] };

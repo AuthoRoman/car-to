@@ -45,18 +45,18 @@ export interface ICar {
   date?: string;
   problems: string;
 }
-
-export interface ICarsState {
-  cars: ICar[]  ;
-  filteredItems?:ICar[]
+//GloablStateTypes
+export interface ICarsState<T> {
+  cars: T[]  ;
+  filteredItems:T[]
 }
 
-export interface IAction {
+export interface IAction<T> {
   type: string;
-  payload: ICar   ;
+  payload: T ;  
  
 }
-
+//////
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
   EDIT_CAR = "EDIT_CAR",
@@ -109,10 +109,7 @@ export interface ICarserviceState {
   filteredItems: cardService[]
 }
 
-export interface IServiceAction {
-  type: string;
-  payload: cardService;
-}
+ 
 ////Finish 
 export enum finishCarTypesAction {
 
@@ -134,16 +131,7 @@ export interface cardFinish extends cardService {
   workOncar:string
 }
 
-export interface ICarFinishState {
-  cars: cardFinish[];
-  filteredItems: cardFinish[]
-}
 
-
-export interface ICarFinishAction {
-  type: string;
-  payload: cardFinish;
-}
 ///IndexedDB
 export enum TypeBases{
   CARS_IN_WAITING = 'CARS_IN_WAITING',

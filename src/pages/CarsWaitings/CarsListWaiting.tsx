@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import CreateCardPopup from "../Popups/CreateCardWaitingsPopup/CreateCardPopup";
-import ServicePopup from "../Popups/ServicePopup/ServicePopup";
+import CreateCardPopup from "../../components/Popups/CreateCardWaitingsPopup/CreateCardPopup";
+import ServicePopup from "../../components/Popups/ServicePopup/ServicePopup";
 import {
   Button,
   Paper,
@@ -15,11 +15,11 @@ import {
 } from "@mui/material";
 import { ICar, TypeBases, typesOfActionsCar } from "../../state/types";
 import { deleteData, getStoreData } from "../../api/database/db";
-import InfoWaitingsCars from "../Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
-import TableCellWithSort from "../Table/TableCellWithSort";
-import NoCarList from "../NoCarList/NoCarList";
+import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
+import TableCellWithSort from "../../components/Table/TableCellWithSort";
+import NoCarList from "../../components/NoCarList/NoCarList";
 
-import styles from "./CarsListWaiting.module.css";
+import styles from "./CarsListWaiting.module.scss";
 
 
 const CarsListWaiting = () => {

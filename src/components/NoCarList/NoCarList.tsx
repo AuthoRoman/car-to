@@ -1,6 +1,6 @@
 import React from "react";
 import NoCarImage from "../../assets/images/carNo.png";
-import styles from "./NoCarList.module.css";
+import styles from "./NoCarList.module.scss";
 
 interface INoCarListProps {
   text: String;

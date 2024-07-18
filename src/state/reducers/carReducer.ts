@@ -1,18 +1,18 @@
 import { 
-  IAction,
-  ICarsState,
-  typesOfActionsCar 
-} from "../types";
+  IAction, 
+  ICar, 
+  ICarsState, 
+  typesOfActionsCar } from "../types";
 
-const initialState: ICarsState = {
+const initialState: ICarsState<ICar> = {
   cars: [],
   filteredItems: [],
 };
 
 export const carReducer = (
   state = initialState,
-  action: IAction
-): ICarsState => {
+  action: IAction<ICar>
+): ICarsState<ICar> => {
   switch (action.type) {
     case typesOfActionsCar.ADD_CAR:
       return { ...state, cars: [...state.cars, action.payload!] };

@@ -1,6 +1,7 @@
 import React from "react";
 import { ICar } from "../../../../state/types";
-import styles from "./InfoWaitingsCars.module.css";
+
+import styles from "./InfoWaitingsCars.module.scss";
 import { Button } from "@mui/material";
 
 const InfoWaitingsCars: React.FC<{

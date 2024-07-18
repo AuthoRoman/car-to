@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import CarsInService from "../../pages/CarsInService";
-import FinishPopup from "../Popups/FinishPopup/FinishPopup";
+import styles from "./CarFinishPage.module.scss";
 import {
-  cardService,
+  cardFinish,
+  finishCarTypesAction,
   ICar,
-  serviceCarTypesAction,
   TypeBases,
 } from "../../state/types";
-import { useDispatch } from "react-redux";
-import { getStoreData } from "../../api/database/db";
+import { deleteData, getStoreData } from "../../api/database/db";
+
 import {
   Button,
   Paper,
@@ -21,58 +20,69 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import InfoServiceCar from "../Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
+import InfoFinishCar from "../../components/Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
+import TableCellWithSort from "../../components/Table/TableCellWithSort";
+import NoCarList from "../../components/NoCarList/NoCarList";
 
-import styles from "./CarService.module.css";
-import TableCellWithSort from "../Table/TableCellWithSort";
-import NoCarList from "../NoCarList/NoCarList";
-
-const CarinWorking: React.FC = () => {
-  const filteredCars = useTypedSelector(
-    (state) => state.carsInServ.filteredItems
-  );
-
-  const cars = useTypedSelector((state) => state.carsInServ.cars);
+export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
-  const [currentCar, setCurrentCar] = useState<cardService>();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenServiceInfo, setIsOpenServiceInfo] = useState(false);
-  //sort
+  const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] =
+    useState<boolean>(false);
+  const [currentCar, setCurrentCar] = useState<cardFinish>();
+  const cars = useTypedSelector((state) => state.carsInFinish.cars);
+  const filteredCars = useTypedSelector(
+    (state) => state.carsInFinish.filteredItems
+  );
   const [filterWord, setFilterWord] = useState("");
+
   const [defaultStateSortNameMaster, setDefaultStateSortNameMaster] =
     useState(true);
   const [defaultStateSortManufacturer, setDefaultStateSortManufacturer] =
     useState(true);
   const [defaultStateSortModelYear, setDefaultStateSortModelYear] =
     useState(true);
-  const [defaultStateSortDate, setDefaultStateSortDate] = useState(true);
+  const [defaultStateSortWork, setDefaultStateSortWork] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
   const [downStateSort, setDownStateSort] = useState(false);
+  const deleteHandler = async (
+    event: React.FormEvent<EventTarget>,
+    car: cardFinish
+  ) => {
+    event.stopPropagation();
+    await deleteData(TypeBases.CARS_IN_FINISH, car.id);
+    dispatch({ type: finishCarTypesAction.DELETE_FINISH_CAR, payload: car });
+  };
+
+  const getInfo = (car: cardFinish) => {
+    setisPopupInfoFinishCarOpen(true);
+    setCurrentCar(car);
+  };
+
+  const closePopup = () => {
+    setisPopupInfoFinishCarOpen(false);
+  };
 
   useEffect(() => {
-    (async () => {
-      if (cars.length == 0) {
-        const carsDB = await getStoreData<cardService>(
-          TypeBases.CARS_IN_SERVICE
+    if (cars.length == 0) {
+      (async () => {
+        const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_FINISH);
+        carsDB.map((car) =>
+          dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: car })
         );
-        carsDB.map((x) =>
-          dispatch({ type: serviceCarTypesAction.ADD_SERVICE_CAR, payload: x })
-        );
-      }
-    })();
+      })();
+    }
   }, []);
 
   useEffect(() => {
     findCar(filterWord);
   }, [cars, filterWord]);
 
-  const findCar = (filterWord: string) => {
-    const rand = Math.random() * 1000;
-    console.log("as");
+  const findCar = (prop: string) => {
+    const rand = Math.random() * 10;
     dispatch({
-      type: serviceCarTypesAction.FIND_SERVICE_CAR,
+      type: finishCarTypesAction.FIND_FINISH_CAR,
       payload: {
-        nameMaster: filterWord,
+        nameMaster: prop,
         id: rand,
         VIN: "",
         region: "",
@@ -88,17 +98,18 @@ const CarinWorking: React.FC = () => {
       },
     });
   };
+
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortNameMaster") {
       setDefaultStateSortNameMaster(false);
       setDefaultStateSortManufacturer(true);
       setDefaultStateSortModelYear(true);
-      setDefaultStateSortDate(true);
+      setDefaultStateSortWork(true);
       handlerChangeStateSort();
       if (upStateSort === true) {
         console.log("mASTERup");
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP,
           payload: {
             nameMaster: "string",
             id: 0,
@@ -118,7 +129,7 @@ const CarinWorking: React.FC = () => {
       }
       if (downStateSort === true) {
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
           payload: {
             nameMaster: "string",
             id: 0,
@@ -141,12 +152,12 @@ const CarinWorking: React.FC = () => {
       setDefaultStateSortNameMaster(true);
       setDefaultStateSortManufacturer(false);
       setDefaultStateSortModelYear(true);
-      setDefaultStateSortDate(true);
+      setDefaultStateSortWork(true);
       handlerChangeStateSort();
       if (upStateSort === true) {
         console.log("upManufac");
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP,
           payload: {
             id: 0,
             VIN: "",
@@ -167,7 +178,7 @@ const CarinWorking: React.FC = () => {
       }
       if (downStateSort === true) {
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
           payload: {
             id: 0,
             VIN: "",
@@ -191,12 +202,12 @@ const CarinWorking: React.FC = () => {
       setDefaultStateSortNameMaster(true);
       setDefaultStateSortManufacturer(true);
       setDefaultStateSortModelYear(false);
-      setDefaultStateSortDate(true);
+      setDefaultStateSortWork(true);
       handlerChangeStateSort();
       if (upStateSort === true) {
         console.log("up");
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP,
           payload: {
             id: 0,
             VIN: "",
@@ -217,7 +228,7 @@ const CarinWorking: React.FC = () => {
       }
       if (downStateSort === true) {
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
           payload: {
             id: 0,
             VIN: "",
@@ -237,16 +248,16 @@ const CarinWorking: React.FC = () => {
         });
       }
     }
-    if (prop === "defaultStateSortDate") {
+    if (prop === "defaultStateSortWork") {
       setDefaultStateSortNameMaster(true);
       setDefaultStateSortManufacturer(true);
       setDefaultStateSortModelYear(true);
-      setDefaultStateSortDate(false);
+      setDefaultStateSortWork(false);
       handlerChangeStateSort();
       if (upStateSort === true) {
         console.log("up");
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP,
           payload: {
             id: 0,
             VIN: "",
@@ -267,7 +278,7 @@ const CarinWorking: React.FC = () => {
       }
       if (downStateSort === true) {
         dispatch({
-          type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
+          type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
           payload: {
             id: 0,
             VIN: "",
@@ -294,7 +305,7 @@ const CarinWorking: React.FC = () => {
       defaultStateSortNameMaster === true ||
       defaultStateSortManufacturer === true ||
       defaultStateSortModelYear === true ||
-      defaultStateSortDate === true
+      defaultStateSortWork === true
     ) {
       setUpStateSort(true);
     }
@@ -308,81 +319,55 @@ const CarinWorking: React.FC = () => {
     }
   };
 
-  const togglePopup = (booleanValue: boolean) => {
-    setIsOpen(booleanValue);
-  };
-
-  const funSetCurrentCar = (
-    event: React.FormEvent<EventTarget>,
-    car: cardService
-  ) => {
-    event.stopPropagation();
-    setCurrentCar(car);
-    togglePopup(true);
-  };
-
-  const getInfoServiceCard = (car: cardService) => {
-    setIsOpenServiceInfo(true);
-    setCurrentCar(car);
-  };
-  const closeInfoCar = () => {
-    setIsOpenServiceInfo(false);
-  };
   return (
     <div>
-      {isOpen && (
-        <div>
-          <FinishPopup togglePopup={togglePopup} car={currentCar} />
-        </div>
-      )}
-      {isOpenServiceInfo && (
-        <div>
-          <InfoServiceCar closeInfoCar={closeInfoCar!} car={currentCar!} />
-        </div>
-      )}
-      {cars?.length === 0 ? (
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            justifyContent: " center",
-            alignItems: "center",
-            width: "100%",
-          }}
-        >
-          <NoCarList text={'Заявок в обслуживании нет'}/>
-        </div>
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "start",
-            maxWidth: "1440px",
-            margin: "0 auto",
-          }}
-        >
-          <div className={styles.tableService}>
-            <div>
-              <TextField  size="small"  onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
+      <div>
+        {isPopupInfoFinishCarOpen && (
+          <div>
+            <InfoFinishCar car={currentCar!} closeInfoCar={closePopup} />
+          </div>
+        )}
+        {cars.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              justifyContent: " center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <NoCarList text={'Готовых машин пока нет'}/>
+          </div>
+        ) : (
+          <div
+            style={{
+              maxWidth: "1440px",
+              margin: "0 auto",
+              display: "flex",
+              alignItems: "start",
+            }}
+          >
+            <div className={styles.tableFinish}>
+               <div>
+              <TextField  size="small"    onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
             </div>
-               <TableContainer component={Paper} sx={{}}>
-            <Table
-              sx={{ minWidth: 100, width: "100%" }}
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow>
+<TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 100, width: "100%" }}
+                aria-label="simple table"
+              >
+                <TableHead>
+                  <TableRow>
                   <TableCellWithSort
-                    title={"Имя мастера"}
+                    title={"Имя мастера взявшего авто"}
                     state={defaultStateSortNameMaster}
                     arrowState={upStateSort}
                     onClick={() =>
                       handlerChangeDefaultState("defaultStateSortNameMaster")
                     }
                   />
-                   <TableCellWithSort
+                  <TableCellWithSort
                     title={"Автомобиль"}
                     state={defaultStateSortManufacturer}
                     arrowState={upStateSort}
@@ -390,83 +375,90 @@ const CarinWorking: React.FC = () => {
                       handlerChangeDefaultState("defaultStateSortManufacturer")
                     }
                   />
-                   <TableCellWithSort
-                    title={"Год изготовления"}
+                  <TableCellWithSort
+                    title={"Год выпуска авто"}
                     state={defaultStateSortModelYear}
                     arrowState={upStateSort}
                     onClick={() =>
                       handlerChangeDefaultState("defaultStateSortModelYear")
                     }
                   />
-                    <TableCellWithSort
-                    title={"Добавлен в обслуживание"}
-                    state={defaultStateSortDate}
+                  <TableCellWithSort
+                    title={"Работа сделанная над автомобилем"}
+                    state={defaultStateSortWork}
                     arrowState={upStateSort}
                     onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortDate")
+                      handlerChangeDefaultState("defaultStateSortWork")
                     }
                   />
-                   
-                  <TableCell align="center">Действие </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredCars?.map((car) => (
-                  <TableRow
-                    onClick={() => getInfoServiceCard(car)}
-                    key={car.id}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                      "&:hover": { cursor: "pointer" },
-                    }}
-                  >
-                    <TableCell align="center" component="th" scope="row">
-                      {car.nameMaster}
-                    </TableCell>
-                    <TableCell align="center" component="th" scope="row">
-                      {car.manufacturer}
-                    </TableCell>
-                    <TableCell align="center">{car.modelYear} </TableCell>
-                    <TableCell align="center">
-                      {car.date ?? "Неизвестно"}
-                    </TableCell>
-
-                    <TableCell align="center">
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "5px",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Button
-                          onClick={(event) => funSetCurrentCar(event, car)}
-                          sx={{
-                            backgroundColor: "#705AF8",
-                            "&:hover": {
-                              background: "#7975F8",
-                            },
-                          }}
-                          variant="contained"
-                        >
-                          Завершить обслуживание
-                        </Button>
-                      </div>
-                    </TableCell>
+                     
+                     
+                     
+                     
+                    <TableCell align="center">Действие</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {filteredCars.map((car) => (
+                    <TableRow
+                      key={car.id}
+                      onClick={() => getInfo(car)}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        "&:hover": { cursor: "pointer" },
+                      }}
+                    >
+                      <TableCell align="center" component="th" scope="row">
+                        {car.nameMaster}
+                      </TableCell>
+                      <TableCell align="center" component="th" scope="row">
+                        {car.manufacturer}
+                      </TableCell>
+                      <TableCell align="center" component="th" scope="row">
+                        {car.modelYear}
+                      </TableCell>
+                      <TableCell align="center">
+                        {car.workOncar.trim().length === 0
+                          ? "Работа была проведена успешна"
+                          : car.workOncar}{" "}
+                      </TableCell>
+
+                      <TableCell align="center">
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Button
+                            onClick={(event) => deleteHandler(event, car)}
+                            sx={{
+                              backgroundColor: "#705AF8",
+                              "&:hover": {
+                                background: "#7975F8",
+                              },
+                            }}
+                            variant="contained"
+                          >
+                            Удалить
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
             </div>
+           
             
-         
-         
-        </div>
-      )}
+            
+            
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default CarinWorking;
+}

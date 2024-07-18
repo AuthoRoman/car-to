@@ -9,12 +9,14 @@ import {
 import { useDispatch } from "react-redux";
 import { addData, deleteData } from "../../../api/database/db";
 
-import styles from "./FinishPopup.module.css";
+import styles from "./FinishPopup.module.scss";
 
-const FinishPopup: React.FC<{
-  togglePopup: any;
+interface IFinishPopupProps {
+  togglePopup: (toggleParam: boolean) => void;
   car: cardService | undefined;
-}> = ({ togglePopup, car }) => {
+}
+
+const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
   const dispatch = useDispatch();
   const [recomm, setRecomm] = useState("");
   const [workOncar, setWorkOnCar] = useState("");

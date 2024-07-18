@@ -2,11 +2,14 @@ import "./index.css";
 
 import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import WaitingsCarPage from "./pages/WaitingsCarPage";
-import FinishCarWorking from "./pages/FinishCarWorking";
-import Layout from "./pages/Layout/Layout";
 import { initDB } from "./api/database/db";
-import CarsInService from "./pages/CarsInService";
+import Layout from "./pages/Layout/Layout";
+import CarsListWaiting from "./pages/CarsWaitings/CarsListWaiting";
+import CarinWorking from "./pages/CarsService/CarInWorking";
+import CarFinishComponent from "./pages/CarFinish/CarFinishPage";
+
+
+ 
 
 function App() {
   const [isDBReady, setIsDBReady] = useState<boolean>(false);
@@ -26,9 +29,9 @@ function App() {
         <Router>
           <Layout>
             <Routes>
-              <Route path="/car-to/" element={<WaitingsCarPage />} />
-              <Route path="/inwork" element={<CarsInService />} />
-              <Route path="/finish" element={<FinishCarWorking />} />
+              <Route path="/car-to/" element={<CarsListWaiting />} />
+              <Route path="/inwork" element={<CarinWorking />} />
+              <Route path="/finish" element={<CarFinishComponent />} />
             </Routes>
           </Layout>
         </Router>

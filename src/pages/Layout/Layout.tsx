@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./Layout.module.css";
+import styles from "./Layout.module.scss";
 import { Tab, Tabs } from "@mui/material";
 
 interface LayoutProps {

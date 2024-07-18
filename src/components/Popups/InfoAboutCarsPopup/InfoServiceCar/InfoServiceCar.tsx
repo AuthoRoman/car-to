@@ -1,7 +1,7 @@
 import React from 'react'
 import { cardService } from '../../../../state/types'
 
-import styles from '../InfoServiceCar/InfoServiceCar.module.css'
+import styles from '../InfoServiceCar/InfoServiceCar.module.scss'
 
 const InfoServiceCar:React.FC<{car:cardService, closeInfoCar:any}> = ({car,closeInfoCar}) => {
   return (
