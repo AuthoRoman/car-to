@@ -6,8 +6,22 @@ import { Button } from "@mui/material";
 
 const InfoWaitingsCars: React.FC<{
   car: ICar;
-  closeInfoCar: any;
-  isOpenPopupEdit: any;
+  closeInfoCar: () => void;
+  isOpenPopupEdit: (
+    VINEditCar: string,
+    idEditCar: number,
+    accidentsEditCar: string,
+    carMileageEditCar: string,
+    carNumberEditCar: string,
+    colorEditCar: string,
+    emailEditCar: string,
+    firstNameOwnerEditCar: string,
+    secondNameOwnerEditCar: string,
+    numberOwnersEditCar: number,
+    problemsEditCar: string,
+    registrationEditCar: string,
+    telEditCar: string
+  ) => void;
 }> = ({ car, closeInfoCar, isOpenPopupEdit }) => {
   return (
     <div>

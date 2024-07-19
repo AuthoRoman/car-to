@@ -4,16 +4,11 @@ import styles from "./Layout.module.scss";
 import { Tab, Tabs } from "@mui/material";
 
 interface LayoutProps {
-  children: any;
+  children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
-
   const location = useLocation();
 
   const currentTab = location.pathname;

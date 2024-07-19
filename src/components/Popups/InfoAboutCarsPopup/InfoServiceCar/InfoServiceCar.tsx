@@ -3,7 +3,12 @@ import { cardService } from '../../../../state/types'
 
 import styles from '../InfoServiceCar/InfoServiceCar.module.scss'
 
-const InfoServiceCar:React.FC<{car:cardService, closeInfoCar:any}> = ({car,closeInfoCar}) => {
+interface IInfoServiceCarProps{
+  car:cardService, 
+  closeInfoCar:()=>void
+}
+
+const InfoServiceCar:React.FC<IInfoServiceCarProps> = ({car,closeInfoCar}) => {
   return (
     <div>
       <div onClick={closeInfoCar!} className={styles.InfoWaitingPopup}>

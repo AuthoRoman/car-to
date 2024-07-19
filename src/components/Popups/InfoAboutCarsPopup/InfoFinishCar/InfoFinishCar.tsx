@@ -3,7 +3,12 @@ import { cardFinish } from "../../../../state/types";
 
 import styles from "./InfoFinnishCar.module.scss";
 
-const InfoFinishCar: React.FC<{ car: cardFinish; closeInfoCar: any }> = ({
+interface IInfoFinishCarProps{
+  car: cardFinish;
+   closeInfoCar: ()=>void 
+}
+
+const InfoFinishCar: React.FC<IInfoFinishCarProps> = ({
   car,
   closeInfoCar,
 }) => {

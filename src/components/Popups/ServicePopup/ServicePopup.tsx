@@ -8,16 +8,16 @@ import { addData } from "../../../api/database/db";
 import styles from "./ServicePopup.module.scss";
 
 const ServicePopup: React.FC<{
-  closeVisible: any;
+  closeVisible: (parampopup:boolean)=>void;
   VIN: string;
   problems: string;
-  closeWithNextStadyCar: any;
+  closeWithNextStadyCar: ( )=>void;
 }> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
   const dispatch = useTypedDispatch();
   const randomIdKey = Math.random() * 100;
   const [nameMaster, setNameMaster] = useState("");
 
-  async function submitForm(VIN: any, name: string, problems: string) {
+  async function submitForm(VIN: string, name: string, problems: string) {
     let currentDate = new Date();
     const date = `${
       currentDate.getDate() < 10

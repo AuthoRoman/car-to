@@ -70,7 +70,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [accidents, setAccidents] = useState(editAccidents ?? "");
   const [problems, setProblems] = React.useState(editProblems ?? "");
 
-  function handlePhone(newValue: any) {
+  function handlePhone(newValue: string) {
     if (newValue.length === 16) {
       setPhoneError(false);
     }
