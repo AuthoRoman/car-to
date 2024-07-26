@@ -20,7 +20,7 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
- 
+
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
@@ -325,7 +325,6 @@ export default function CarFinishComponent() {
       <div>
         {isPopupInfoFinishCarOpen && (
           <div>
-             
             <InfoPopupCars car={currentCar!} closeInfoCar={closePopup} />
           </div>
         )}
@@ -339,7 +338,7 @@ export default function CarFinishComponent() {
               width: "100%",
             }}
           >
-            <NoCarList text={'Готовых машин пока нет'}/>
+            <NoCarList text={"Готовых машин пока нет"} />
           </div>
         ) : (
           <div
@@ -351,113 +350,116 @@ export default function CarFinishComponent() {
             }}
           >
             <div className={styles.tableFinish}>
-               <div>
-              <TextField  size="small"    onChange={(e) => setFilterWord(e.target.value)}   id="outlined-search" label="Поиск: имя мастера" type="search" />
-            </div>
-<TableContainer component={Paper}>
-              <Table
-                sx={{ minWidth: 100, width: "100%" }}
-                aria-label="simple table"
-              >
-                <TableHead>
-                  <TableRow>
-                  <TableCellWithSort
-                    title={"Имя мастера взявшего авто"}
-                    state={defaultStateSortNameMaster}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortNameMaster")
-                    }
-                  />
-                  <TableCellWithSort
-                    title={"Автомобиль"}
-                    state={defaultStateSortManufacturer}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortManufacturer")
-                    }
-                  />
-                  <TableCellWithSort
-                    title={"Год выпуска авто"}
-                    state={defaultStateSortModelYear}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortModelYear")
-                    }
-                  />
-                  <TableCellWithSort
-                    title={"Работа сделанная над автомобилем"}
-                    state={defaultStateSortWork}
-                    arrowState={upStateSort}
-                    onClick={() =>
-                      handlerChangeDefaultState("defaultStateSortWork")
-                    }
-                  />
-                     
-                     
-                     
-                     
-                    <TableCell align="center">Действие</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredCars.map((car) => (
-                    <TableRow
-                      key={car.id}
-                      onClick={() => getInfo(car)}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                        "&:hover": { cursor: "pointer" },
-                      }}
-                    >
-                      <TableCell align="center" component="th" scope="row">
-                        {car.nameMaster}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {car.manufacturer}
-                      </TableCell>
-                      <TableCell align="center" component="th" scope="row">
-                        {car.modelYear}
-                      </TableCell>
-                      <TableCell align="center">
-                        {car.workOncar.trim().length === 0
-                          ? "Работа была проведена успешна"
-                          : car.workOncar}{" "}
-                      </TableCell>
+              <div>
+                <TextField
+                  size="small"
+                  onChange={(e) => setFilterWord(e.target.value)}
+                  id="outlined-search"
+                  label="Поиск: имя мастера"
+                  type="search"
+                />
+              </div>
+              <TableContainer component={Paper}>
+                <Table
+                  sx={{ minWidth: 100, width: "100%" }}
+                  aria-label="simple table"
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCellWithSort
+                        title={"Имя мастера взявшего авто"}
+                        state={defaultStateSortNameMaster}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState(
+                            "defaultStateSortNameMaster"
+                          )
+                        }
+                      />
+                      <TableCellWithSort
+                        title={"Автомобиль"}
+                        state={defaultStateSortManufacturer}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState(
+                            "defaultStateSortManufacturer"
+                          )
+                        }
+                      />
+                      <TableCellWithSort
+                        title={"Год выпуска авто"}
+                        state={defaultStateSortModelYear}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState("defaultStateSortModelYear")
+                        }
+                      />
+                      <TableCellWithSort
+                        title={"Работа сделанная над автомобилем"}
+                        state={defaultStateSortWork}
+                        arrowState={upStateSort}
+                        onClick={() =>
+                          handlerChangeDefaultState("defaultStateSortWork")
+                        }
+                      />
 
-                      <TableCell align="center">
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "5px",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Button
-                            onClick={(event) => deleteHandler(event, car)}
-                            sx={{
-                              backgroundColor: "#705AF8",
-                              "&:hover": {
-                                background: "#7975F8",
-                              },
-                            }}
-                            variant="contained"
-                          >
-                            Удалить
-                          </Button>
-                        </div>
-                      </TableCell>
+                      <TableCell align="center">Действие</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {filteredCars.map((car) => (
+                      <TableRow
+                        key={car.id}
+                        onClick={() => getInfo(car)}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                          "&:hover": { cursor: "pointer" },
+                        }}
+                      >
+                        <TableCell align="center" component="th" scope="row">
+                          {car.nameMaster}
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row">
+                          {car.manufacturer}
+                        </TableCell>
+                        <TableCell align="center" component="th" scope="row">
+                          {car.modelYear}
+                        </TableCell>
+                        <TableCell align="center">
+                          {car.workOncar.trim().length === 0
+                            ? "Работа была проведена успешна"
+                            : car.workOncar}{" "}
+                        </TableCell>
+
+                        <TableCell align="center">
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Button
+                              onClick={(event) => deleteHandler(event, car)}
+                              sx={{
+                                backgroundColor: "#705AF8",
+                                "&:hover": {
+                                  background: "#7975F8",
+                                },
+                              }}
+                              variant="contained"
+                            >
+                              Удалить
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
-           
-            
-            
-            
           </div>
         )}
       </div>
