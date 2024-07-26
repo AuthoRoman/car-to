@@ -20,9 +20,10 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import InfoFinishCar from "../../components/Popups/InfoAboutCarsPopup/InfoFinishCar/InfoFinishCar";
+ 
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
+import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
@@ -324,7 +325,8 @@ export default function CarFinishComponent() {
       <div>
         {isPopupInfoFinishCarOpen && (
           <div>
-            <InfoFinishCar car={currentCar!} closeInfoCar={closePopup} />
+             
+            <InfoPopupCars car={currentCar!} closeInfoCar={closePopup} />
           </div>
         )}
         {cars.length === 0 ? (

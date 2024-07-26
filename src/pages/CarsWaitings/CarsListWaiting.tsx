@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { ICar, TypeBases, typesOfActionsCar } from "../../state/types";
 import { deleteData, getStoreData } from "../../api/database/db";
-import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoWaitingCar/InfoWaitingsCars";
+import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 

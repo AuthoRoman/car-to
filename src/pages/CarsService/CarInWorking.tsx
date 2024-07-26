@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import FinishPopup from "../../components/Popups/FinishPopup/FinishPopup";
-import InfoServiceCar from "../../components/Popups/InfoAboutCarsPopup/InfoServiceCar/InfoServiceCar";
+ 
 import styles from "./CarService.module.scss";
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
@@ -22,6 +22,7 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
+import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
@@ -333,7 +334,7 @@ const CarinWorking: React.FC = () => {
       )}
       {isOpenServiceInfo && (
         <div>
-          <InfoServiceCar closeInfoCar={closeInfoCar!} car={currentCar!} />
+          <InfoWaitingsCars closeInfoCar={closeInfoCar!} car={currentCar!} />
         </div>
       )}
       {cars?.length === 0 ? (
