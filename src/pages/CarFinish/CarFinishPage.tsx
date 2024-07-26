@@ -64,7 +64,7 @@ export default function CarFinishComponent() {
   };
 
   useEffect(() => {
-    if (cars.length == 0) {
+    if (cars.length === 0) {
       (async () => {
         const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_FINISH);
         carsDB.map((car) =>

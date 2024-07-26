@@ -48,7 +48,7 @@ const CarinWorking: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      if (cars.length == 0) {
+      if (cars.length === 0) {
         const carsDB = await getStoreData<cardService>(
           TypeBases.CARS_IN_SERVICE
         );
@@ -57,10 +57,12 @@ const CarinWorking: React.FC = () => {
         );
       }
     })();
+ 
   }, []);
 
   useEffect(() => {
     findCar(filterWord);
+ 
   }, [cars, filterWord]);
 
   const findCar = (filterWord: string) => {
