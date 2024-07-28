@@ -254,13 +254,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     }
   };
 
-  const ValidationCarNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pattern = new RegExp(/^[\w- ]{6,6}$/g);
-    setCarNumber(e.target.value);
-    if (pattern.test(e.target.value)) {
-      setCarNumberError(false);
-    }
-  };
+ 
 
   return (
     <div>

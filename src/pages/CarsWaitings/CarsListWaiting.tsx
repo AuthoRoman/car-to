@@ -57,8 +57,8 @@ const CarsListWaiting = () => {
   const [defaultStateSortNumberAuto, setDefaultStateSortNumberAuto] =
     useState(true);
   const [defaultStateSortTime, setDefaultStateSortTime] = useState(true);
-  const [upStateSort, setUpStateSort] = useState(false);
-  const [downStateSort, setDownStateSort] = useState(false);
+  const [upStateSort, setUpStateSort] = useState<boolean | null>(false);
+ 
 
   useEffect(() => {
     (async () => {
@@ -205,7 +205,7 @@ const CarsListWaiting = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN,
           payload: {
@@ -255,7 +255,7 @@ const CarsListWaiting = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_EMAIL_DOWN,
           payload: {
@@ -305,7 +305,7 @@ const CarsListWaiting = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN,
           payload: {
@@ -355,7 +355,7 @@ const CarsListWaiting = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_TIME_DOWN,
           payload: {
@@ -385,17 +385,11 @@ const CarsListWaiting = () => {
       defaultStateSortEmail === true ||
       defaultStateSortNumberAuto === true ||
       defaultStateSortTime === true
-    ) {
+     ) {
       setUpStateSort(true);
     }
-    if (upStateSort === true) {
-      setUpStateSort(false);
-      setDownStateSort(true);
-    }
-    if (downStateSort === true) {
-      setDownStateSort(false);
-      setUpStateSort(true);
-    }
+    upStateSort === true ? setUpStateSort(false) : setUpStateSort(true);
+     
   };
 
   return (
@@ -523,7 +517,7 @@ const CarsListWaiting = () => {
                       <TableCellWithSort
                         title={"Имя Фамилия"}
                         state={defaultStateSortFullName}
-                        arrowState={upStateSort}
+                        arrowState={upStateSort!}
                         onClick={() =>
                           handlerChangeDefaultState("defaultStateSortFullName")
                         }
@@ -531,7 +525,7 @@ const CarsListWaiting = () => {
                       <TableCellWithSort
                         title={"E-mail"}
                         state={defaultStateSortEmail}
-                        arrowState={upStateSort}
+                        arrowState={upStateSort!}
                         onClick={() =>
                           handlerChangeDefaultState("defaultStateSortEmail")
                         }
@@ -539,7 +533,7 @@ const CarsListWaiting = () => {
                       <TableCellWithSort
                         title={"Номер авто"}
                         state={defaultStateSortNumberAuto}
-                        arrowState={upStateSort}
+                        arrowState={upStateSort!}
                         onClick={() =>
                           handlerChangeDefaultState(
                             "defaultStateSortNumberAuto"
@@ -550,7 +544,7 @@ const CarsListWaiting = () => {
                       <TableCellWithSort
                         title={"Заявка сформирована"}
                         state={defaultStateSortTime}
-                        arrowState={upStateSort}
+                        arrowState={upStateSort!}
                         onClick={() =>
                           handlerChangeDefaultState("defaultStateSortTime")
                         }

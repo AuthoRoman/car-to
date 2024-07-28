@@ -70,17 +70,21 @@ h1{
     }
     h1{
         margin: 0
+
     }
   }
 
 
   @media only screen and ((max-height: 838px) or (max-width:600px)) { 
     .form{
-        width: 300px;
-         
+        width: 500px;
+        gap: 10px 10px;
+    }
+    .formInfo{
+        gap: 25px;
     }
     h1{
-        font-size: 15px;
+        font-size: 25px;
     }
      .inputCustom  {
         height: 20px;
@@ -95,7 +99,7 @@ h1{
         height: 29px;
     }
     .form__footer{
-        max-width: 300px;
+        max-width: 100%;
     }
 }
 

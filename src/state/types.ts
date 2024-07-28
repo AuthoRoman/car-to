@@ -23,6 +23,7 @@ export enum localInRussianInfo {
   registration = " Автомобиль зарегистрирован",
   checkDigit = "Номер контрольный автомобиля",
   country = "Автомобиль собран в стране",
+  color = "Цвет автомобиля",
   serialNumber = "Сирийный номер автомобиля",
   region = "Регион сборки",
   assemblyPlant = "Сборочный завод",
