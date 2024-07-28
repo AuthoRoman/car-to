@@ -44,7 +44,7 @@ const CarinWorking: React.FC = () => {
     useState(true);
   const [defaultStateSortDate, setDefaultStateSortDate] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
-  const [downStateSort, setDownStateSort] = useState(false);
+ 
 
   useEffect(() => {
     (async () => {
@@ -115,7 +115,7 @@ const CarinWorking: React.FC = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
           payload: {
@@ -164,7 +164,7 @@ const CarinWorking: React.FC = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
           payload: {
@@ -214,7 +214,7 @@ const CarinWorking: React.FC = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
           payload: {
@@ -264,7 +264,7 @@ const CarinWorking: React.FC = () => {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
           payload: {
@@ -299,10 +299,10 @@ const CarinWorking: React.FC = () => {
     }
     if (upStateSort === true) {
       setUpStateSort(false);
-      setDownStateSort(true);
+ 
     }
-    if (downStateSort === true) {
-      setDownStateSort(false);
+    if (upStateSort === false) {
+ 
       setUpStateSort(true);
     }
   };

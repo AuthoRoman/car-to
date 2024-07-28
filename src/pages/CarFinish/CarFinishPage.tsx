@@ -44,7 +44,7 @@ export default function CarFinishComponent() {
     useState(true);
   const [defaultStateSortWork, setDefaultStateSortWork] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
-  const [downStateSort, setDownStateSort] = useState(false);
+  
   const deleteHandler = async (
     event: React.FormEvent<EventTarget>,
     car: cardFinish
@@ -128,7 +128,7 @@ export default function CarFinishComponent() {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
           payload: {
@@ -177,7 +177,7 @@ export default function CarFinishComponent() {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
           payload: {
@@ -227,7 +227,7 @@ export default function CarFinishComponent() {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
           payload: {
@@ -277,7 +277,7 @@ export default function CarFinishComponent() {
           },
         });
       }
-      if (downStateSort === true) {
+      if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
           payload: {
@@ -312,10 +312,10 @@ export default function CarFinishComponent() {
     }
     if (upStateSort === true) {
       setUpStateSort(false);
-      setDownStateSort(true);
+    
     }
-    if (downStateSort === true) {
-      setDownStateSort(false);
+    if (upStateSort === false) {
+       
       setUpStateSort(true);
     }
   };
