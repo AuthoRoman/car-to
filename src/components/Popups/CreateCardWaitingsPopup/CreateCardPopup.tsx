@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
@@ -233,7 +233,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     setVINError(false);
   };
 
-  const ValidationNumberOwners = (
+  const ValidationNumberOwners = useCallback((
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
@@ -244,15 +244,15 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       setNumberOwners(Number(event.target.value));
       setNumbersOwnersError(false);
     }
-  };
+  },[]);
 
-  const ValidationEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const ValidationEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     setEmail(e.target.value);
     if (pattern.test(e.target.value)) {
       setEmailError(false);
     }
-  };
+  },[]);
 
  
 

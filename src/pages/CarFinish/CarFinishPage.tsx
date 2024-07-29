@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import styles from "./CarFinishPage.module.scss";
 import {
@@ -24,6 +24,7 @@ import {
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
+import SearchInput from "../../components/SearchInput/SearchInput";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();
@@ -100,6 +101,10 @@ export default function CarFinishComponent() {
     });
   };
 
+  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
+    setFilterWord(e.target.value)
+ },[])
+
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortNameMaster") {
       setDefaultStateSortNameMaster(false);
@@ -111,41 +116,13 @@ export default function CarFinishComponent() {
         console.log("mASTERup");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP,
-          payload: {
-            nameMaster: "string",
-            id: 0,
-            VIN: "string",
-            region: "string",
-            country: "string",
-            manufacturer: "string",
-            vehicleAttributes: "string",
-            checkDigit: "string",
-            modelYear: "string",
-            assemblyPlant: "string",
-            serialNumber: "string",
-            problems: "string",
-            date: "strin",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
-          payload: {
-            nameMaster: "string",
-            id: 0,
-            VIN: "string",
-            region: "string",
-            country: "string",
-            manufacturer: "string",
-            vehicleAttributes: "string",
-            checkDigit: "string",
-            modelYear: "string",
-            assemblyPlant: "string",
-            serialNumber: "string",
-            problems: "string",
-            date: "strin",
-          },
+          
         });
       }
     }
@@ -159,43 +136,13 @@ export default function CarFinishComponent() {
         console.log("upManufac");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
     }
@@ -209,43 +156,13 @@ export default function CarFinishComponent() {
         console.log("up");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -259,43 +176,13 @@ export default function CarFinishComponent() {
         console.log("up");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -351,13 +238,8 @@ export default function CarFinishComponent() {
           >
             <div className={styles.tableFinish}>
               <div>
-                <TextField
-                  size="small"
-                  onChange={(e) => setFilterWord(e.target.value)}
-                  id="outlined-search"
-                  label="Поиск: имя мастера"
-                  type="search"
-                />
+                <SearchInput onChange={handlerFindWord} textLabel="Поиск: имя мастера"/>
+                
               </div>
               <TableContainer component={Paper}>
                 <Table

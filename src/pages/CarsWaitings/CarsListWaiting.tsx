@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import CreateCardPopup from "../../components/Popups/CreateCardWaitingsPopup/CreateCardPopup";
 import ServicePopup from "../../components/Popups/ServicePopup/ServicePopup";
@@ -20,6 +20,7 @@ import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 
 import styles from "./CarsListWaiting.module.scss";
+import SearchInput from "../../components/SearchInput/SearchInput";
 
 
 const CarsListWaiting = () => {
@@ -38,14 +39,14 @@ const CarsListWaiting = () => {
   //EditCars options
   const [firstNameOwner, setFirstNameOwner] = useState("");
   const [secondNameOwner, setSecondNameOwner] = useState("");
-  const [accidents, setAccidents] = useState<string>();
-  const [carMileage, setCarMileage] = useState<string>();
-  const [carNumber, setCarNumber] = useState<string>();
-  const [color, setColor] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [numberOwners, setNumberOwners] = useState<number>();
-  const [problems, setProblems] = useState<string>();
-  const [registration, setRegistration] = useState<string>();
+  const [accidents, setAccidents] = useState<string>('');
+  const [carMileage, setCarMileage] = useState<string>('');
+  const [carNumber, setCarNumber] = useState<string>('');
+  const [color, setColor] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [numberOwners, setNumberOwners] = useState<number | null>(null);
+  const [problems, setProblems] = useState<string>('');
+  const [registration, setRegistration] = useState<string>('');
   const [tel, setTel] = useState<string>();
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
@@ -59,6 +60,7 @@ const CarsListWaiting = () => {
   const [defaultStateSortTime, setDefaultStateSortTime] = useState(true);
   const [upStateSort, setUpStateSort] = useState<boolean | null>(false);
  
+    
 
   useEffect(() => {
     (async () => {
@@ -176,6 +178,10 @@ const CarsListWaiting = () => {
     });
   };
 
+  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
+    setFilterWord(e.target.value)
+ },[])
+ 
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortFullName") {
       setDefaultStateSortFullName(false);
@@ -187,43 +193,13 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -237,43 +213,13 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_EMAIL_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_EMAIL_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
     }
@@ -287,43 +233,13 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -337,43 +253,13 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_TIME_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_TIME_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -480,13 +366,8 @@ const CarsListWaiting = () => {
         ) : (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
-              <TextField
-                size="small"
-                onChange={(e) => setFilterWord(e.target.value)}
-                id="outlined-search"
-                label="Поиск: номер авто/имя фамилия"
-                type="search"
-              />
+            <SearchInput onChange={handlerFindWord} textLabel="Поиск: номер авто/имя фамилия"/>  
+              
               <Button
                 onClick={() => setIsVisiblePopup(true)}
                 sx={{
