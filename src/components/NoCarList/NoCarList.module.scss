@@ -13,8 +13,16 @@
   font-size: 20px;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and ((max-width: 630px) or (max-height:530px)) {
   .NoCarList__bodyImg {
-    width: 80%;
+    width:  80%;
+    
+  }
+}
+
+@media screen and  (max-height:500px)  {
+  .NoCarList__bodyImg {
+    width:  50%;
+    
   }
 }

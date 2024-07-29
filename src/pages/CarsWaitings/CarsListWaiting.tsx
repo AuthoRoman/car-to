@@ -20,8 +20,8 @@ import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 
 import styles from "./CarsListWaiting.module.scss";
-import SearchInput from "../../components/SearchInput/SearchInput";
-
+import SearchInput from "../../components/ui/SearchInput/SearchInput";
+import ButtonPlus from "../../components/ui/ButtonPlus/ButtonPlus";
 
 const CarsListWaiting = () => {
   //Work with reducers
@@ -39,14 +39,14 @@ const CarsListWaiting = () => {
   //EditCars options
   const [firstNameOwner, setFirstNameOwner] = useState("");
   const [secondNameOwner, setSecondNameOwner] = useState("");
-  const [accidents, setAccidents] = useState<string>('');
-  const [carMileage, setCarMileage] = useState<string>('');
-  const [carNumber, setCarNumber] = useState<string>('');
-  const [color, setColor] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [accidents, setAccidents] = useState<string>("");
+  const [carMileage, setCarMileage] = useState<string>("");
+  const [carNumber, setCarNumber] = useState<string>("");
+  const [color, setColor] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [numberOwners, setNumberOwners] = useState<number | null>(null);
-  const [problems, setProblems] = useState<string>('');
-  const [registration, setRegistration] = useState<string>('');
+  const [problems, setProblems] = useState<string>("");
+  const [registration, setRegistration] = useState<string>("");
   const [tel, setTel] = useState<string>();
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
@@ -59,8 +59,6 @@ const CarsListWaiting = () => {
     useState(true);
   const [defaultStateSortTime, setDefaultStateSortTime] = useState(true);
   const [upStateSort, setUpStateSort] = useState<boolean | null>(false);
- 
-    
 
   useEffect(() => {
     (async () => {
@@ -178,10 +176,13 @@ const CarsListWaiting = () => {
     });
   };
 
-  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
-    setFilterWord(e.target.value)
- },[])
- 
+  const handlerFindWord = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilterWord(e.target.value);
+    },
+    []
+  );
+
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortFullName") {
       setDefaultStateSortFullName(false);
@@ -193,13 +194,11 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN,
-           
         });
       }
     }
@@ -213,13 +212,11 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_EMAIL_UP,
-          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_EMAIL_DOWN,
-          
         });
       }
     }
@@ -233,13 +230,11 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN,
-           
         });
       }
     }
@@ -253,13 +248,11 @@ const CarsListWaiting = () => {
         console.log("up");
         dispatch({
           type: typesOfActionsCar.SORT_CAR_TIME_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: typesOfActionsCar.SORT_CAR_TIME_DOWN,
-           
         });
       }
     }
@@ -271,11 +264,10 @@ const CarsListWaiting = () => {
       defaultStateSortEmail === true ||
       defaultStateSortNumberAuto === true ||
       defaultStateSortTime === true
-     ) {
+    ) {
       setUpStateSort(true);
     }
     upStateSort === true ? setUpStateSort(false) : setUpStateSort(true);
-     
   };
 
   return (
@@ -346,42 +338,16 @@ const CarsListWaiting = () => {
               />
             </div>
 
-            <Button
-              onClick={() => setIsVisiblePopup(true)}
-              sx={{
-                backgroundColor: "#705AF8",
-                margin: "0",
-                padding: "0",
-                height: `55px`,
-                transition: "all .8s",
-                "&:hover": {
-                  background: "#7975F8",
-                },
-              }}
-              variant="contained"
-            >
-              +
-            </Button>
+            <ButtonPlus onClick={() => setIsVisiblePopup(true)} height="55px"/>
           </div>
         ) : (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
-            <SearchInput onChange={handlerFindWord} textLabel="Поиск: номер авто/имя фамилия"/>  
-              
-              <Button
-                onClick={() => setIsVisiblePopup(true)}
-                sx={{
-                  backgroundColor: "#705AF8",
-                  height: `45px`,
-                  transition: "all .8s",
-                  "&:hover": {
-                    background: "#7975F8",
-                  },
-                }}
-                variant="contained"
-              >
-                +
-              </Button>
+              <SearchInput
+                onChange={handlerFindWord}
+                textLabel="Поиск: номер авто/имя фамилия"
+              />
+              <ButtonPlus onClick={() => setIsVisiblePopup(true)} />
             </div>
 
             <div style={{ display: "flex" }}>

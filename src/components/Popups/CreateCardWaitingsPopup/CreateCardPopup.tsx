@@ -6,6 +6,7 @@ import { Color, TypeBases, typesOfActionsCar } from "../../../state/types";
 import { addData, editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
+import UTextField from "../../ui/UTextField/UTextField";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -21,7 +22,7 @@ interface IEditAndCreatePopupProps {
   editRegistration?: string;
   editAccidents?: string;
   editProblems?: string;
-  closeVisible: (paramVisible: boolean)=>void;
+  closeVisible: (paramVisible: boolean) => void;
 }
 
 const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
@@ -69,13 +70,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [VIN, setVIN] = useState(VINcar ?? "");
   const [accidents, setAccidents] = useState(editAccidents ?? "");
   const [problems, setProblems] = React.useState(editProblems ?? "");
-
-  function handlePhone(newValue: string) {
-    if (newValue.length === 16) {
-      setPhoneError(false);
-    }
-    setPhone(newValue);
-  }
+ 
 
   const IdKey = Math.random() * 100;
   async function submitForm() {
@@ -216,45 +211,93 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     return 0;
   }
 
-  const ValidationFirstNameOwner = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstNameOwner(e.target.value);
-    setNameError(false);
-  };
-  const ValidationSecondNameOwner = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSecondNameOwner(e.target.value);
-
-    setSecondnameError(false);
-  };
-  const ValidationVIN = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(VIN);
-    setVIN(e.target.value);
-    setVINError(false);
-  };
-
-  const ValidationNumberOwners = useCallback((
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    event.preventDefault();
-    if (
-      event.target.value !== null &&
-      Number(event.target.value) === parseInt(event.target.value)
-    ) {
-      setNumberOwners(Number(event.target.value));
-      setNumbersOwnersError(false);
+  const ValidationFirstNameOwner = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFirstNameOwner(e.target.value);
+      setNameError(false);
+    },[]);
+  
+  const  ValidationHandlePhone = useCallback((value:string) => {
+    if (phone.length === 16) {
+      setPhoneError(false);
     }
-  },[]);
+    setPhone(value);
+  },[])
 
-  const ValidationEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-    setEmail(e.target.value);
-    if (pattern.test(e.target.value)) {
-      setEmailError(false);
-    }
-  },[]);
+  const ValidationSecondNameOwner = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSecondNameOwner(e.target.value);
+      setSecondnameError(false);
+    },[]);
 
- 
+  const ValidationVIN = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setVIN(e.target.value);
+      setVINError(false);
+    },[]);
+
+  const ValidationNumberOwners = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("owner");
+      event.preventDefault();
+      if (
+        event.target.value !== null &&
+        Number(event.target.value) === parseInt(event.target.value)
+      ) {
+        setNumberOwners(Number(event.target.value));
+        setNumbersOwnersError(false);
+      }
+    },[]);
+
+  const ValidationEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+      setEmail(e.target.value);
+      if (pattern.test(e.target.value)) {
+        setEmailError(false);
+      }
+    },
+    []
+  );
+
+  const handlerRegistr = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setRegistration(e.target.value);
+    },
+    []
+  );
+
+  const handlerCarMileage = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCarMileage(e.target.value);
+    },
+    []
+  );
+
+  const handlerColor = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setColor(e.target.value);
+    },
+    []
+  );
+  const handlerCarNumber = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCarNumber(e.target.value);
+    },
+    []
+  );
+  const handlerAccedints = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAccidents(e.target.value);
+    },
+    []
+  );
+  const handlerProblems = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setProblems(e.target.value);
+    },
+    []
+  );
 
   return (
     <div>
@@ -263,8 +306,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
           <h1>Заявление на обслуживание</h1>
           <div className={styles.formInfo}>
             <div className={styles.form_clientInfo}>
-              <TextField
-                size="small"
+              <UTextField
                 value={firstNameOwner}
                 error={
                   nameError && firstNameOwner.trim().length === 0 ? true : false
@@ -272,21 +314,13 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 helperText={
                   nameError && firstNameOwner.trim().length === 0
                     ? "Введите имя*"
-                    : false
+                    : ""
                 }
                 onChange={ValidationFirstNameOwner}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                placeholder="Имя*"
-                label="Имя*"
-                color="primary"
+                textLabel="Имя*"
               />
 
-              <TextField
-                size="small"
+              <UTextField
                 value={secondNameOwner}
                 error={
                   secondNameError && secondNameOwner.trim().length === 0
@@ -296,131 +330,87 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 helperText={
                   secondNameError && secondNameOwner.trim().length === 0
                     ? "Введите фамилию*"
-                    : false
+                    : ""
                 }
                 onChange={ValidationSecondNameOwner}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                placeholder="Фамилия*"
-                label="Фамилия*"
-                color="primary"
+                textLabel="Фамилия*"
               />
-              <MuiTelInput
-                inputProps={{ maxLength: 16 }}
-                size="small"
+              <UTextField
+                 maxLength = '16'
+                 
                 value={phone}
-                onChange={handlePhone}
-                sx={{
-                  backgroundColor: "white",
-                }}
+                onChange={ValidationHandlePhone as ()=>string}
+                 
                 error={phoneError ? true : false}
                 helperText={
-                  phoneError ? "Введите корректный номер телефона*" : false
+                  phoneError ? "Введите корректный номер телефона*" : ''
                 }
-                label="Телефон*"
-                color="primary"
+                textLabel="Телефон*"
+                
               />
-              <TextField
-                size="small"
+              <UTextField
                 value={email}
                 onChange={ValidationEmail}
                 error={emailError ? true : false}
                 helperText={
-                  emailError ? "Введите корректную электронную почту*" : false
+                  emailError ? "Введите корректную электронную почту*" : ""
                 }
-                inputProps={{
-                  type: "email",
-                }}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="Электронная почта*"
-                color="primary"
+              
+                  type ="email" 
+                
+                textLabel="Электронная почта*"
               />
             </div>
             <div className={styles.form__carInfo}>
-              <TextField
-                size="small"
-                inputProps={{ maxLength: 17 }}
+              <UTextField
+                 maxLength = '17' 
                 value={VIN}
                 error={VINError && VIN.trim().length !== 17 ? true : false}
                 helperText={
                   VINError && VIN.trim().length !== 17
                     ? "Введите 17 символов VIN*"
-                    : false
+                    : ""
                 }
                 onChange={ValidationVIN}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="VIN*"
-                color="primary"
+                textLabel="VIN*"
               />
-              <TextField
-                size="small"
+              <UTextField
                 value={registration}
-                onChange={(e) => setRegistration(e.target.value)}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="Зарегистрирована"
+                textLabel="Зарегистрирована"
+                onChange={handlerRegistr}
               />
-              <TextField
-                size="small"
+
+              <UTextField
                 value={carNumber}
-                inputProps={{ maxLength: 6 }}
-                onChange={(e) => setCarNumber(e.target.value)}
+                 maxLength ='6'  
+                onChange={handlerCarNumber}
                 error={
                   carNumberError && carNumber.trim().length !== 6 ? true : false
                 }
                 helperText={
                   carNumberError && carNumber.trim().length !== 6
                     ? "Введите корректный номер авто"
-                    : false
+                    : ""
                 }
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="Номер автомобиля*"
-                color="primary"
+                textLabel="Номер автомобиля*"
               />
-              <TextField
-                size="small"
+              <UTextField
+                
                 value={carMileage}
-                onChange={(e) => setCarMileage(e.target.value)}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="Пробег автомобиля"
-                color="primary"
+                onChange={handlerCarMileage}
+                 
+                textLabel="Пробег автомобиля"
+                
               />
-              <TextField
-                size="small"
+              <UTextField
+                 
                 value={color}
-                onChange={(e) => setColor(e.target.value)}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                color="primary"
-                label="Цвет"
+                onChange={handlerColor}
+                 
+                
+                textLabel="Цвет"
               />
-              <TextField
-                size="small"
+              <UTextField
                 error={
                   ownerNumbersError &&
                   (numberOwners === 0 ||
@@ -435,46 +425,31 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     numberOwners === undefined ||
                     numberOwners === null)
                     ? "Введите корректное число владельцев*"
-                    : false
+                    : ""
                 }
                 onChange={ValidationNumberOwners}
-                label="Количество владельцев*"
-                value={numberOwners}
-                color="primary"
-                inputProps={{ type: "number" }}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
+                textLabel="Количество владельцев*"
+                value={numberOwners!}
               />
 
-              <TextField
-                size="small"
+              <UTextField
+                 
                 value={accidents}
-                onChange={(e) => setAccidents(e.target.value)}
-                sx={{
-                  borderRadius: "5px",
-
-                  backgroundColor: "white",
-                }}
-                label="Аварии"
-                color="primary"
+                onChange={handlerAccedints}
+                
+                textLabel="Аварии"
+                 
               />
             </div>
-            <TextField
-              size="small"
+            <UTextField
+               
               value={problems}
-              onChange={(e) => setProblems(e.target.value)}
-              sx={{
-                borderRadius: "5px",
-
-                backgroundColor: "white",
-              }}
-              label="Ваша пролема"
-              id="standard-multiline-static"
-              rows={4}
-              multiline
+              onChange={handlerProblems}
+               
+              textLabel="Ваша пролема"
+               
+               
+               
             />
           </div>
 

@@ -24,7 +24,7 @@ import {
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
-import SearchInput from "../../components/SearchInput/SearchInput";
+import SearchInput from "../../components/ui/SearchInput/SearchInput";
 
 export default function CarFinishComponent() {
   const dispatch = useTypedDispatch();

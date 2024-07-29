@@ -23,7 +23,7 @@ import {
   TextField,
 } from "@mui/material";
 import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
-import SearchInput from "../../components/SearchInput/SearchInput";
+import SearchInput from "../../components/ui/SearchInput/SearchInput";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
