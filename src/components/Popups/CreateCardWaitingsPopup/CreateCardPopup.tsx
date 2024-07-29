@@ -7,6 +7,7 @@ import { addData, editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
+import { useDefaultInput } from "../../../state/hooks/useDefaultInput";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -51,8 +52,6 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [carNumberError, setCarNumberError] = useState<boolean>(false);
   const [phoneError, setPhoneError] = useState<boolean>(false);
 
-  const [carNumber, setCarNumber] = useState<string>(editCarNumber ?? "");
-
   const [phone, setPhone] = useState(editPhone ?? "");
   const [email, setEmail] = useState(editEmail ?? "");
   const [firstNameOwner, setFirstNameOwner] = useState<string>(
@@ -64,13 +63,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [numberOwners, setNumberOwners] = useState<number | null>(
     editNumberOwners ?? null
   );
-  const [color, setColor] = useState<Color | string>(editColor ?? "");
-  const [carMileage, setCarMileage] = useState(editCarMileage ?? "");
-  const [registration, setRegistration] = useState(editRegistration ?? "");
   const [VIN, setVIN] = useState(VINcar ?? "");
-  const [accidents, setAccidents] = useState(editAccidents ?? "");
-  const [problems, setProblems] = React.useState(editProblems ?? "");
- 
+
+  const color = useDefaultInput(editColor ?? "");
+  const carMileage = useDefaultInput(editCarMileage ?? "");
+  const registration = useDefaultInput(editRegistration ?? "");
+  const carNumber = useDefaultInput(editCarNumber ?? "");
+  const accidents = useDefaultInput(editAccidents ?? "");
+  const problems = useDefaultInput(editProblems ?? "");
 
   const IdKey = Math.random() * 100;
   async function submitForm() {
@@ -99,7 +99,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       setEmailError(true);
     }
 
-    if (!/^[\w- ]{6,6}$/g.test(carNumber)) {
+    if (!/^[\w- ]{6,6}$/g.test(carNumber.value)) {
       setCarNumberError(true);
     }
     if (phone.length !== 16) {
@@ -116,7 +116,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       typeof numberOwners === "number" &&
       /^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) &&
       email.trim().length !== 0 &&
-      /^[\w- ]{6,6}$/g.test(carNumber)
+      /^[\w- ]{6,6}$/g.test(carNumber.value)
     ) {
       let currentDate = new Date();
       const date = `${
@@ -130,78 +130,78 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       }.${currentDate.getFullYear()}`;
       if (!VINcar) {
         await addData(TypeBases.CARS_IN_WAITING, {
-          accidents: accidents,
-          carMileage: carMileage,
-          carNumber: carNumber,
+          accidents: accidents.value,
+          carMileage: carMileage.value,
+          carNumber: carNumber.value,
           date: date,
-          color: color,
+          color: color.value,
           email: email,
           firstNameOwner: firstNameOwner,
           id: IdKey,
           numberOwners: numberOwners,
-          registration: registration,
+          registration: registration.value,
           secondNameOwner: secondNameOwner,
           tel: phone,
           VIN: VINcar ?? VIN,
-          problems: problems,
+          problems: problems.value,
         });
         await dispatch({
           type: typesOfActionsCar.ADD_CAR,
           payload: {
-            accidents: accidents,
-            carMileage: carMileage,
-            carNumber: carNumber,
+            accidents: accidents.value,
+            carMileage: carMileage.value,
+            carNumber: carNumber.value,
             date: date,
-            color: color,
+            color: color.value,
             email: email,
             firstNameOwner: firstNameOwner,
             id: IdKey,
             numberOwners: numberOwners!,
-            registration: registration,
+            registration: registration.value,
             secondNameOwner: secondNameOwner,
             tel: phone,
             VIN: VINcar ?? VIN,
-            problems: problems!,
+            problems: problems.value!,
           },
         });
       } else {
         await editData(
           TypeBases.CARS_IN_WAITING,
           {
-            accidents: accidents,
-            carMileage: carMileage,
-            carNumber: carNumber,
+            accidents: accidents.value,
+            carMileage: carMileage.value,
+            carNumber: carNumber.value,
             date: date,
-            color: color,
+            color: color.value,
             email: email,
             firstNameOwner: firstNameOwner,
             id: idCar,
             numberOwners: numberOwners,
-            registration: registration,
+            registration: registration.value,
             secondNameOwner: secondNameOwner,
             tel: phone,
             VIN: VIN,
-            problems: problems,
+            problems: problems.value,
           },
           idCar!
         );
         await dispatch({
           type: typesOfActionsCar.EDIT_CAR,
           payload: {
-            accidents: accidents,
-            carMileage: carMileage,
-            carNumber: carNumber,
+            accidents: accidents.value,
+            carMileage: carMileage.value,
+            carNumber: carNumber.value,
             date: date,
-            color: color,
+            color: color.value,
             email: email,
             firstNameOwner: firstNameOwner,
             id: idCar!,
             numberOwners: numberOwners!,
-            registration: registration,
+            registration: registration.value,
             secondNameOwner: secondNameOwner,
             tel: phone,
             VIN: VIN,
-            problems: problems!,
+            problems: problems.value!,
           },
         });
       }
@@ -215,26 +215,35 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFirstNameOwner(e.target.value);
       setNameError(false);
-    },[]);
-  
-  const  ValidationHandlePhone = useCallback((value:string) => {
-    if (phone.length === 16) {
-      setPhoneError(false);
-    }
-    setPhone(value);
-  },[])
+    },
+    []
+  );
+
+  const ValidationHandlePhone = useCallback(
+    (value: string) => {
+      if (phone.length === 15) {
+        setPhoneError(false);
+      }
+      setPhone(value);
+    },
+    [phone.length]
+  );
 
   const ValidationSecondNameOwner = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setSecondNameOwner(e.target.value);
       setSecondnameError(false);
-    },[]);
+    },
+    []
+  );
 
   const ValidationVIN = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setVIN(e.target.value);
       setVINError(false);
-    },[]);
+    },
+    []
+  );
 
   const ValidationNumberOwners = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -247,7 +256,9 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
         setNumberOwners(Number(event.target.value));
         setNumbersOwnersError(false);
       }
-    },[]);
+    },
+    []
+  );
 
   const ValidationEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -256,45 +267,6 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       if (pattern.test(e.target.value)) {
         setEmailError(false);
       }
-    },
-    []
-  );
-
-  const handlerRegistr = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setRegistration(e.target.value);
-    },
-    []
-  );
-
-  const handlerCarMileage = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCarMileage(e.target.value);
-    },
-    []
-  );
-
-  const handlerColor = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setColor(e.target.value);
-    },
-    []
-  );
-  const handlerCarNumber = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCarNumber(e.target.value);
-    },
-    []
-  );
-  const handlerAccedints = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setAccidents(e.target.value);
-    },
-    []
-  );
-  const handlerProblems = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setProblems(e.target.value);
     },
     []
   );
@@ -336,17 +308,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 textLabel="Фамилия*"
               />
               <UTextField
-                 maxLength = '16'
-                 
+                maxLength="16"
                 value={phone}
-                onChange={ValidationHandlePhone as ()=>string}
-                 
+                onChange={ValidationHandlePhone as () => string}
                 error={phoneError ? true : false}
                 helperText={
-                  phoneError ? "Введите корректный номер телефона*" : ''
+                  phoneError ? "Введите корректный номер телефона*" : ""
                 }
                 textLabel="Телефон*"
-                
               />
               <UTextField
                 value={email}
@@ -355,15 +324,13 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 helperText={
                   emailError ? "Введите корректную электронную почту*" : ""
                 }
-              
-                  type ="email" 
-                
+                type="email"
                 textLabel="Электронная почта*"
               />
             </div>
             <div className={styles.form__carInfo}>
               <UTextField
-                 maxLength = '17' 
+                maxLength="17"
                 value={VIN}
                 error={VINError && VIN.trim().length !== 17 ? true : false}
                 helperText={
@@ -375,41 +342,28 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 textLabel="VIN*"
               />
               <UTextField
-                value={registration}
+                onChange={registration.onChange}
+                value={registration.value}
                 textLabel="Зарегистрирована"
-                onChange={handlerRegistr}
               />
 
               <UTextField
-                value={carNumber}
-                 maxLength ='6'  
-                onChange={handlerCarNumber}
+                {...carNumber}
+                maxLength="6"
                 error={
-                  carNumberError && carNumber.trim().length !== 6 ? true : false
+                  carNumberError && carNumber.value.trim().length !== 6
+                    ? true
+                    : false
                 }
                 helperText={
-                  carNumberError && carNumber.trim().length !== 6
+                  carNumberError && carNumber.value.trim().length !== 6
                     ? "Введите корректный номер авто"
                     : ""
                 }
                 textLabel="Номер автомобиля*"
               />
-              <UTextField
-                
-                value={carMileage}
-                onChange={handlerCarMileage}
-                 
-                textLabel="Пробег автомобиля"
-                
-              />
-              <UTextField
-                 
-                value={color}
-                onChange={handlerColor}
-                 
-                
-                textLabel="Цвет"
-              />
+              <UTextField {...carMileage} textLabel="Пробег автомобиля" />
+              <UTextField {...color} textLabel="Цвет" />
               <UTextField
                 error={
                   ownerNumbersError &&
@@ -432,25 +386,9 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 value={numberOwners!}
               />
 
-              <UTextField
-                 
-                value={accidents}
-                onChange={handlerAccedints}
-                
-                textLabel="Аварии"
-                 
-              />
+              <UTextField {...accidents} textLabel="Аварии" />
             </div>
-            <UTextField
-               
-              value={problems}
-              onChange={handlerProblems}
-               
-              textLabel="Ваша пролема"
-               
-               
-               
-            />
+            <UTextField {...problems} textLabel="Ваша пролема" />
           </div>
 
           <div className={styles.form__footer}>
