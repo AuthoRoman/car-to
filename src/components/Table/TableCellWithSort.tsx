@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import styles from "./TableCellWithSort.module.css";
 
 interface ITableCellProps{
@@ -9,7 +9,7 @@ interface ITableCellProps{
     onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
-const TableCellWithSort: React.FC<ITableCellProps> = ({state,   arrowState, title, onClick}) => {
+const TableCellWithSort: React.FC<ITableCellProps> = memo(({state,   arrowState, title, onClick}) => {
   return (
     <TableCell onClick={onClick} sx={{ "&:hover": { cursor: "pointer" } }} align="center">
       <span className={styles.preIconText}> {title}</span>
@@ -48,6 +48,6 @@ const TableCellWithSort: React.FC<ITableCellProps> = ({state,   arrowState, titl
       )}
     </TableCell>
   );
-};
+});
 
 export default TableCellWithSort;

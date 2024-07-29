@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import FinishPopup from "../../components/Popups/FinishPopup/FinishPopup";
  
@@ -23,6 +23,7 @@ import {
   TextField,
 } from "@mui/material";
 import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
+import SearchInput from "../../components/SearchInput/SearchInput";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
@@ -87,6 +88,11 @@ const CarinWorking: React.FC = () => {
       },
     });
   };
+
+  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
+    setFilterWord(e.target.value)
+ },[])
+
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortNameMaster") {
       setDefaultStateSortNameMaster(false);
@@ -98,41 +104,13 @@ const CarinWorking: React.FC = () => {
         console.log("mASTERup");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP,
-          payload: {
-            nameMaster: "string",
-            id: 0,
-            VIN: "string",
-            region: "string",
-            country: "string",
-            manufacturer: "string",
-            vehicleAttributes: "string",
-            checkDigit: "string",
-            modelYear: "string",
-            assemblyPlant: "string",
-            serialNumber: "string",
-            problems: "string",
-            date: "strin",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
-          payload: {
-            nameMaster: "string",
-            id: 0,
-            VIN: "string",
-            region: "string",
-            country: "string",
-            manufacturer: "string",
-            vehicleAttributes: "string",
-            checkDigit: "string",
-            modelYear: "string",
-            assemblyPlant: "string",
-            serialNumber: "string",
-            problems: "string",
-            date: "strin",
-          },
+           
         });
       }
     }
@@ -146,43 +124,13 @@ const CarinWorking: React.FC = () => {
         console.log("upManufac");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
     }
@@ -196,43 +144,13 @@ const CarinWorking: React.FC = () => {
         console.log("up");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -246,43 +164,13 @@ const CarinWorking: React.FC = () => {
         console.log("up");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
-          payload: {
-            id: 0,
-            VIN: "",
-            tel: "",
-            email: "",
-            firstNameOwner: "",
-            secondNameOwner: "",
-            numberOwners: 0,
-            color: "string",
-            carMileage: "string",
-            carNumber: filterWord,
-            registration: "string",
-            accidents: "string",
-            date: "string",
-            problems: "string",
-          },
+           
         });
       }
     }
@@ -347,13 +235,8 @@ const CarinWorking: React.FC = () => {
         <div className={styles.containerTable}>
           <div className={styles.tableService}>
             <div>
-              <TextField
-                size="small"
-                onChange={(e) => setFilterWord(e.target.value)}
-                id="outlined-search"
-                label="Поиск: имя мастера"
-                type="search"
-              />
+              <SearchInput onChange={handlerFindWord} textLabel="Поиск: имя мастера"/>
+               
             </div>
             <TableContainer component={Paper} sx={{}}>
               <Table

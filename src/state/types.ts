@@ -66,7 +66,7 @@ export interface ICarsState<T> {
 
 export interface IAction<T> {
   type: string;
-  payload: T;
+  payload?: T;
 }
 //////
 export enum typesOfActionsCar {
