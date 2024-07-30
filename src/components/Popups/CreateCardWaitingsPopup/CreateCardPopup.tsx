@@ -128,81 +128,33 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
           ? "0" + (currentDate.getMonth() + 1)
           : currentDate.getMonth()
       }.${currentDate.getFullYear()}`;
+      const thisCar = {
+        accidents: accidents.value,
+        carMileage: carMileage.value,
+        carNumber: carNumber.value,
+        date: date,
+        color: color.value,
+        email: email,
+        firstNameOwner: firstNameOwner,
+        id: idCar ?? IdKey,
+        numberOwners: numberOwners,
+        registration: registration.value,
+        secondNameOwner: secondNameOwner,
+        tel: phone,
+        VIN: VINcar ?? VIN,
+        problems: problems.value,
+      };
       if (!VINcar) {
-        await addData(TypeBases.CARS_IN_WAITING, {
-          accidents: accidents.value,
-          carMileage: carMileage.value,
-          carNumber: carNumber.value,
-          date: date,
-          color: color.value,
-          email: email,
-          firstNameOwner: firstNameOwner,
-          id: IdKey,
-          numberOwners: numberOwners,
-          registration: registration.value,
-          secondNameOwner: secondNameOwner,
-          tel: phone,
-          VIN: VINcar ?? VIN,
-          problems: problems.value,
-        });
+        await addData(TypeBases.CARS_IN_WAITING, thisCar);
         await dispatch({
           type: typesOfActionsCar.ADD_CAR,
-          payload: {
-            accidents: accidents.value,
-            carMileage: carMileage.value,
-            carNumber: carNumber.value,
-            date: date,
-            color: color.value,
-            email: email,
-            firstNameOwner: firstNameOwner,
-            id: IdKey,
-            numberOwners: numberOwners!,
-            registration: registration.value,
-            secondNameOwner: secondNameOwner,
-            tel: phone,
-            VIN: VINcar ?? VIN,
-            problems: problems.value!,
-          },
+          payload: thisCar,
         });
       } else {
-        await editData(
-          TypeBases.CARS_IN_WAITING,
-          {
-            accidents: accidents.value,
-            carMileage: carMileage.value,
-            carNumber: carNumber.value,
-            date: date,
-            color: color.value,
-            email: email,
-            firstNameOwner: firstNameOwner,
-            id: idCar,
-            numberOwners: numberOwners,
-            registration: registration.value,
-            secondNameOwner: secondNameOwner,
-            tel: phone,
-            VIN: VIN,
-            problems: problems.value,
-          },
-          idCar!
-        );
+        await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);
         await dispatch({
           type: typesOfActionsCar.EDIT_CAR,
-          payload: {
-            accidents: accidents.value,
-            carMileage: carMileage.value,
-            carNumber: carNumber.value,
-            date: date,
-            color: color.value,
-            email: email,
-            firstNameOwner: firstNameOwner,
-            id: idCar!,
-            numberOwners: numberOwners!,
-            registration: registration.value,
-            secondNameOwner: secondNameOwner,
-            tel: phone,
-            VIN: VIN,
-            problems: problems.value!,
-          },
+          payload: thisCar,
         });
       }
 
@@ -341,10 +293,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 onChange={ValidationVIN}
                 textLabel="VIN*"
               />
-              <UTextField
-                {...registration}
-                textLabel="Зарегистрирована"
-              />
+              <UTextField {...registration} textLabel="Зарегистрирована" />
 
               <UTextField
                 {...carNumber}

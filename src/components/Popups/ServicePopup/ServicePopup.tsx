@@ -8,10 +8,10 @@ import { addData } from "../../../api/database/db";
 import styles from "./ServicePopup.module.scss";
 
 const ServicePopup: React.FC<{
-  closeVisible: (parampopup:boolean)=>void;
+  closeVisible: (parampopup: boolean) => void;
   VIN: string;
   problems: string;
-  closeWithNextStadyCar: ( )=>void;
+  closeWithNextStadyCar: () => void;
 }> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
   const dispatch = useTypedDispatch();
   const randomIdKey = Math.random() * 100;
@@ -28,11 +28,10 @@ const ServicePopup: React.FC<{
         ? "0" + (currentDate.getMonth() + 1)
         : currentDate.getMonth()
     }.${currentDate.getFullYear()}`;
-    console.log("OUR VIN IS: " + VIN);
     const data = await decodeVIN(VIN);
-    console.log("OUR data IS: " + data);
+
     if (data) {
-      await addData(TypeBases.CARS_IN_SERVICE, {
+      const thisCar = {
         id: randomIdKey,
         VIN: VIN,
         region: data.region,
@@ -46,24 +45,12 @@ const ServicePopup: React.FC<{
         serialNumber: data.serialNumber,
         nameMaster: name,
         problems: problems,
-      });
+      };
+
+      await addData(TypeBases.CARS_IN_SERVICE, thisCar);
       await dispatch({
         type: serviceCarTypesAction.ADD_SERVICE_CAR,
-        payload: {
-          id: randomIdKey,
-          VIN: VIN,
-          region: data.region,
-          country: data.country,
-          date: date,
-          manufacturer: data.manufacturer,
-          vehicleAttributes: data.vehicleAttributes,
-          checkDigit: data.checkDigit,
-          modelYear: data.modelYear,
-          assemblyPlant: data.assemblyPlant,
-          serialNumber: data.serialNumber,
-          nameMaster: name,
-          problems: problems,
-        },
+        payload: thisCar,
       });
       closeWithNextStadyCar();
     }
