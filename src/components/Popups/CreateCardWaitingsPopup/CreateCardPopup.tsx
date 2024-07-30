@@ -342,8 +342,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 textLabel="VIN*"
               />
               <UTextField
-                onChange={registration.onChange}
-                value={registration.value}
+                {...registration}
                 textLabel="Зарегистрирована"
               />
 

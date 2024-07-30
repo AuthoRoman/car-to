@@ -20,7 +20,7 @@ const TableCellWithSort: React.FC<ITableCellProps> = memo(({state,   arrowState,
             width="14"
             height="14"
             src="https://img.icons8.com/ios-filled/50/down--v1.png"
-            alt="down--v1"
+            alt="down"
           />
         ) : (
           <img
@@ -43,7 +43,7 @@ const TableCellWithSort: React.FC<ITableCellProps> = memo(({state,   arrowState,
           width="14"
           height="14"
           src="https://img.icons8.com/ios-filled/50/down--v1.png"
-          alt="down--v1"
+          alt="down"
         />
       )}
     </TableCell>

@@ -62,7 +62,7 @@ const CarsListWaiting = () => {
 
   useEffect(() => {
     (async () => {
-      if (cars?.length == 0) {
+      if (cars?.length === 0) {
         const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_WAITING);
         carsDB.map((x) =>
           dispatch({ type: typesOfActionsCar.ADD_CAR, payload: x })
@@ -154,7 +154,7 @@ const CarsListWaiting = () => {
   };
   const findCar = (filterWord: string) => {
     const rand = Math.random() * 20;
-    console.log("as");
+    console.log("find");
     dispatch({
       type: typesOfActionsCar.FIND_CAR,
       payload: {
