@@ -74,7 +74,6 @@ const ServicePopup: React.FC<{
             onChange={(e) => setNameMaster(e.target.value)}
             sx={{
               borderRadius: "5px",
-
               backgroundColor: "white",
             }}
             className={styles.inputPhoneCustom}
@@ -86,8 +85,7 @@ const ServicePopup: React.FC<{
             <Button
               onClick={() => closeVisible(false)}
               sx={{
-                color: "#7975F8",
-                "&:hover": {},
+                color: "var(--default-color-button)",
               }}
             >
               Отмена
@@ -98,9 +96,10 @@ const ServicePopup: React.FC<{
                 submitForm(VIN, nameMaster, problems ? problems : "")
               }
               sx={{
-                backgroundColor: "#705AF8",
+                backgroundColor: "var(--default-color-button)",
+                transition: "var(--default-transition)",
                 "&:hover": {
-                  background: "#7975F8",
+                  background: "var(--default-color-button-hover)",
                 },
               }}
               variant="contained"

@@ -338,7 +338,7 @@ const CarsListWaiting = () => {
               />
             </div>
 
-            <ButtonPlus onClick={() => setIsVisiblePopup(true)} height="55px"/>
+            <ButtonPlus onClick={() => setIsVisiblePopup(true)} height="55px" />
           </div>
         ) : (
           <div className={styles.tableWaitngList}>
@@ -441,9 +441,11 @@ const CarsListWaiting = () => {
                                 handleServicePop(event, car.VIN, car)
                               }
                               sx={{
-                                backgroundColor: "#705AF8",
+                                backgroundColor: "var(--default-color-button)",
+                                transition: "var(--default-transition)",
                                 "&:hover": {
-                                  background: "#7975F8",
+                                  background:
+                                    "var(--default-color-button-hover)",
                                 },
                               }}
                               variant="contained"

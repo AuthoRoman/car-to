@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import FinishPopup from "../../components/Popups/FinishPopup/FinishPopup";
- 
+
 import styles from "./CarService.module.scss";
 import TableCellWithSort from "../../components/Table/TableCellWithSort";
 import NoCarList from "../../components/NoCarList/NoCarList";
@@ -45,7 +45,6 @@ const CarinWorking: React.FC = () => {
     useState(true);
   const [defaultStateSortDate, setDefaultStateSortDate] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
- 
 
   useEffect(() => {
     (async () => {
@@ -58,12 +57,10 @@ const CarinWorking: React.FC = () => {
         );
       }
     })();
- 
   }, []);
 
   useEffect(() => {
     findCar(filterWord);
- 
   }, [cars, filterWord]);
 
   const findCar = (filterWord: string) => {
@@ -89,9 +86,12 @@ const CarinWorking: React.FC = () => {
     });
   };
 
-  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
-    setFilterWord(e.target.value)
- },[])
+  const handlerFindWord = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilterWord(e.target.value);
+    },
+    []
+  );
 
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortNameMaster") {
@@ -104,13 +104,11 @@ const CarinWorking: React.FC = () => {
         console.log("mASTERup");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
-           
         });
       }
     }
@@ -124,13 +122,11 @@ const CarinWorking: React.FC = () => {
         console.log("upManufac");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
-          
         });
       }
     }
@@ -144,13 +140,11 @@ const CarinWorking: React.FC = () => {
         console.log("up");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP,
-          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
-           
         });
       }
     }
@@ -164,13 +158,11 @@ const CarinWorking: React.FC = () => {
         console.log("up");
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP,
-          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
-           
         });
       }
     }
@@ -187,10 +179,8 @@ const CarinWorking: React.FC = () => {
     }
     if (upStateSort === true) {
       setUpStateSort(false);
- 
     }
     if (upStateSort === false) {
- 
       setUpStateSort(true);
     }
   };
@@ -235,8 +225,10 @@ const CarinWorking: React.FC = () => {
         <div className={styles.containerTable}>
           <div className={styles.tableService}>
             <div>
-              <SearchInput onChange={handlerFindWord} textLabel="Поиск: имя мастера"/>
-               
+              <SearchInput
+                onChange={handlerFindWord}
+                textLabel="Поиск: имя мастера"
+              />
             </div>
             <TableContainer component={Paper} sx={{}}>
               <Table
@@ -309,9 +301,10 @@ const CarinWorking: React.FC = () => {
                           <Button
                             onClick={(event) => funSetCurrentCar(event, car)}
                             sx={{
-                              backgroundColor: "#705AF8",
+                              backgroundColor: "var(--default-color-button)",
+                              transition: "var(--default-transition)",
                               "&:hover": {
-                                background: "#7975F8",
+                                background: "var(--default-color-button-hover)",
                               },
                             }}
                             variant="contained"

@@ -45,7 +45,7 @@ export default function CarFinishComponent() {
     useState(true);
   const [defaultStateSortWork, setDefaultStateSortWork] = useState(true);
   const [upStateSort, setUpStateSort] = useState(false);
-  
+
   const deleteHandler = async (
     event: React.FormEvent<EventTarget>,
     car: cardFinish
@@ -101,9 +101,12 @@ export default function CarFinishComponent() {
     });
   };
 
-  const handlerFindWord = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>{
-    setFilterWord(e.target.value)
- },[])
+  const handlerFindWord = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilterWord(e.target.value);
+    },
+    []
+  );
 
   const handlerChangeDefaultState = (prop: string) => {
     if (prop === "defaultStateSortNameMaster") {
@@ -116,13 +119,11 @@ export default function CarFinishComponent() {
         console.log("mASTERup");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
-          
         });
       }
     }
@@ -136,13 +137,11 @@ export default function CarFinishComponent() {
         console.log("upManufac");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP,
-          
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
-          
         });
       }
     }
@@ -156,13 +155,11 @@ export default function CarFinishComponent() {
         console.log("up");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
-           
         });
       }
     }
@@ -176,13 +173,11 @@ export default function CarFinishComponent() {
         console.log("up");
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP,
-           
         });
       }
       if (upStateSort === false) {
         dispatch({
           type: finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
-           
         });
       }
     }
@@ -199,10 +194,8 @@ export default function CarFinishComponent() {
     }
     if (upStateSort === true) {
       setUpStateSort(false);
-    
     }
     if (upStateSort === false) {
-       
       setUpStateSort(true);
     }
   };
@@ -238,8 +231,10 @@ export default function CarFinishComponent() {
           >
             <div className={styles.tableFinish}>
               <div>
-                <SearchInput onChange={handlerFindWord} textLabel="Поиск: имя мастера"/>
-                
+                <SearchInput
+                  onChange={handlerFindWord}
+                  textLabel="Поиск: имя мастера"
+                />
               </div>
               <TableContainer component={Paper}>
                 <Table
@@ -325,9 +320,11 @@ export default function CarFinishComponent() {
                             <Button
                               onClick={(event) => deleteHandler(event, car)}
                               sx={{
-                                backgroundColor: "#705AF8",
+                                backgroundColor: "var(--default-color-button)",
+                                transition: "var(--default-transition)",
                                 "&:hover": {
-                                  background: "#7975F8",
+                                  background:
+                                    "var(--default-color-button-hover)",
                                 },
                               }}
                               variant="contained"

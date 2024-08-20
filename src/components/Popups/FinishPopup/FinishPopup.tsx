@@ -108,13 +108,13 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
           <Button
             onClick={addCarFinish}
             sx={{
-              backgroundColor: "#7975F8",
               height: `30px`,
               width: `180px`,
               margin: `15px`,
-              transition: "all .8s",
+              backgroundColor: "var(--default-color-button)",
+              transition: "var(--default-transition)",
               "&:hover": {
-                background: "#7975F8",
+                background: "var(--default-color-button-hover)",
               },
             }}
             variant="contained"

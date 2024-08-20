@@ -351,9 +351,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
             <Button
               onClick={submitForm}
               sx={{
-                backgroundColor: "#705AF8",
+                backgroundColor: "var(--default-color-button)",
+                transition: "var(--default-transition)",
                 "&:hover": {
-                  background: "#7975F8",
+                  background: "var(--default-color-button-hover)",
                 },
               }}
               variant="contained"

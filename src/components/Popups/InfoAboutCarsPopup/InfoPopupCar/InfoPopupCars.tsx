@@ -79,7 +79,7 @@ const InfoWaitingsCars: React.FC<{
                   car.tel!
                 )
               }
-              sx={{ color: "#705AF8" }}
+              sx={{ color: "var(--default-color-button)" }}
             >
               Редактировать
             </Button>

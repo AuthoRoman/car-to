@@ -11,11 +11,11 @@ const ButtonPlus: React.FC<ButtonPlusProps> = ({ onClick, height }) => {
     <Button
       onClick={onClick}
       sx={{
-        backgroundColor: "#705AF8",
-        height: height ?? `45px`,
-        transition: "all .8s",
+        backgroundColor: "var(--default-color-button)",
+        height: height ?? "45px",
+        transition: "var(--default-transition)",
         "&:hover": {
-          background: "#7975F8",
+          background: "var(--default-color-button-hover)",
         },
       }}
       variant="contained"
