@@ -11,7 +11,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@mui/material";
 import { ICar, TypeBases, typesOfActionsCar } from "../../state/types";
 import { deleteData, getStoreData } from "../../api/database/db";
