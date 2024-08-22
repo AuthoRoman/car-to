@@ -1,13 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { Button, TextField } from "@mui/material";
-import { MuiTelInput } from "mui-tel-input";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color, TypeBases, typesOfActionsCar } from "../../../state/types";
+import {
+  Color,
+  ICar,
+  TypeBases,
+  typesOfActionsCar,
+} from "../../../state/types";
 import { addData, editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
-import { useDefaultInput } from "../../../state/hooks/useDefaultInput";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -25,7 +29,7 @@ interface IEditAndCreatePopupProps {
   editProblems?: string;
   closeVisible: (paramVisible: boolean) => void;
 }
-
+type FormType = Omit<ICar, "id">;
 const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   closeVisible,
   VINcar,
@@ -44,299 +48,246 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 }) => {
   const dispatch = useTypedDispatch();
 
-  const [nameError, setNameError] = useState<boolean>(false);
-  const [secondNameError, setSecondnameError] = useState<boolean>(false);
-  const [ownerNumbersError, setNumbersOwnersError] = useState<boolean>(false);
-  const [VINError, setVINError] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [carNumberError, setCarNumberError] = useState<boolean>(false);
-  const [phoneError, setPhoneError] = useState<boolean>(false);
-
-  const [phone, setPhone] = useState(editPhone ?? "");
-  const [email, setEmail] = useState(editEmail ?? "");
-  const [firstNameOwner, setFirstNameOwner] = useState<string>(
-    editFirstNameOwner ?? ""
-  );
-  const [secondNameOwner, setSecondNameOwner] = useState<string>(
-    editSecondNameOwner ?? ""
-  );
-  const [numberOwners, setNumberOwners] = useState<number | null>(
-    editNumberOwners ?? null
-  );
-  const [VIN, setVIN] = useState(VINcar ?? "");
-
-  const color = useDefaultInput(editColor ?? "");
-  const carMileage = useDefaultInput(editCarMileage ?? "");
-  const registration = useDefaultInput(editRegistration ?? "");
-  const carNumber = useDefaultInput(editCarNumber ?? "");
-  const accidents = useDefaultInput(editAccidents ?? "");
-  const problems = useDefaultInput(editProblems ?? "");
+  const { handleSubmit, control } = useForm<FormType>();
 
   const IdKey = Math.random() * 100;
-  async function submitForm() {
-    if (VIN.length !== 17) {
-      setVINError(true);
-    }
-    if (firstNameOwner.trim().length === 0) {
-      setNameError(true);
-    }
-    if (secondNameOwner.trim().length === 0) {
-      setSecondnameError(true);
-    }
-    if (
-      numberOwners! <= 0 ||
-      numberOwners === undefined ||
-      numberOwners === null ||
-      typeof numberOwners !== "number"
-    ) {
-      setNumbersOwnersError(true);
-    }
-    if (
-      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) ||
-      email.trim().length === 0
-    ) {
-      console.log(emailError);
-      setEmailError(true);
+  async function submitForm(data: FormType) {
+    console.log(data);
+
+    let currentDate = new Date();
+    const date = `${
+      currentDate.getDate() < 10
+        ? "0" + currentDate.getDate()
+        : currentDate.getDate()
+    }.${
+      currentDate.getMonth() < 10
+        ? "0" + (currentDate.getMonth() + 1)
+        : currentDate.getMonth()
+    }.${currentDate.getFullYear()}`;
+    const thisCar = {
+      accidents: data.accidents,
+      carMileage: data.carMileage,
+      carNumber: data.carNumber,
+      date: date,
+      color: data.color,
+      email: data.email,
+      firstNameOwner: data.firstNameOwner,
+      id: idCar ?? IdKey,
+      numberOwners: data.numberOwners,
+      registration: data.registration,
+      secondNameOwner: data.secondNameOwner,
+      tel: data.tel,
+      VIN: data.VIN,
+      problems: data.problems,
+    };
+    if (!VINcar) {
+      await addData(TypeBases.CARS_IN_WAITING, thisCar);
+      await dispatch({
+        type: typesOfActionsCar.ADD_CAR,
+        payload: thisCar,
+      });
+    } else {
+      await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);
+      await dispatch({
+        type: typesOfActionsCar.EDIT_CAR,
+        payload: thisCar,
+      });
     }
 
-    if (!/^[\w- ]{6,6}$/g.test(carNumber.value)) {
-      setCarNumberError(true);
-    }
-    if (phone.length !== 16) {
-      setPhoneError(true);
-    }
-    if (
-      VIN.length === 17 &&
-      phone.length === 16 &&
-      firstNameOwner.trim().length !== 0 &&
-      secondNameOwner.trim().length !== 0 &&
-      numberOwners! > 0 &&
-      numberOwners !== undefined &&
-      numberOwners !== null &&
-      typeof numberOwners === "number" &&
-      /^[\w-\.]+@([\w-]+\.)+[\w-]{2,23}$/g.test(email) &&
-      email.trim().length !== 0 &&
-      /^[\w- ]{6,6}$/g.test(carNumber.value)
-    ) {
-      let currentDate = new Date();
-      const date = `${
-        currentDate.getDate() < 10
-          ? "0" + currentDate.getDate()
-          : currentDate.getDate()
-      }.${
-        currentDate.getMonth() < 10
-          ? "0" + (currentDate.getMonth() + 1)
-          : currentDate.getMonth()
-      }.${currentDate.getFullYear()}`;
-      const thisCar = {
-        accidents: accidents.value,
-        carMileage: carMileage.value,
-        carNumber: carNumber.value,
-        date: date,
-        color: color.value,
-        email: email,
-        firstNameOwner: firstNameOwner,
-        id: idCar ?? IdKey,
-        numberOwners: numberOwners,
-        registration: registration.value,
-        secondNameOwner: secondNameOwner,
-        tel: phone,
-        VIN: VINcar ?? VIN,
-        problems: problems.value,
-      };
-      if (!VINcar) {
-        await addData(TypeBases.CARS_IN_WAITING, thisCar);
-        await dispatch({
-          type: typesOfActionsCar.ADD_CAR,
-          payload: thisCar,
-        });
-      } else {
-        await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);
-        await dispatch({
-          type: typesOfActionsCar.EDIT_CAR,
-          payload: thisCar,
-        });
-      }
-
-      closeVisible(false);
-    }
-    return 0;
+    closeVisible(false);
   }
-
-  const ValidationFirstNameOwner = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFirstNameOwner(e.target.value);
-      setNameError(false);
-    },
-    []
-  );
-
-  const ValidationHandlePhone = useCallback(
-    (value: string) => {
-      if (phone.length === 15) {
-        setPhoneError(false);
-      }
-      setPhone(value);
-    },
-    [phone.length]
-  );
-
-  const ValidationSecondNameOwner = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSecondNameOwner(e.target.value);
-      setSecondnameError(false);
-    },
-    []
-  );
-
-  const ValidationVIN = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setVIN(e.target.value);
-      setVINError(false);
-    },
-    []
-  );
-
-  const ValidationNumberOwners = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("owner");
-      event.preventDefault();
-      if (
-        event.target.value !== null &&
-        Number(event.target.value) === parseInt(event.target.value)
-      ) {
-        setNumberOwners(Number(event.target.value));
-        setNumbersOwnersError(false);
-      }
-    },
-    []
-  );
-
-  const ValidationEmail = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const pattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-      setEmail(e.target.value);
-      if (pattern.test(e.target.value)) {
-        setEmailError(false);
-      }
-    },
-    []
-  );
 
   return (
     <div>
       <div className={styles.createCardPopup}>
-        <form className={styles.form} action="">
+        <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
           <h1>Заявление на обслуживание</h1>
           <div className={styles.formInfo}>
             <div className={styles.form_clientInfo}>
-              <UTextField
-                value={firstNameOwner}
-                error={
-                  nameError && firstNameOwner.trim().length === 0 ? true : false
-                }
-                helperText={
-                  nameError && firstNameOwner.trim().length === 0
-                    ? "Введите имя*"
-                    : ""
-                }
-                onChange={ValidationFirstNameOwner}
-                textLabel="Имя*"
+              <Controller
+                name="firstNameOwner"
+                control={control}
+                defaultValue={editFirstNameOwner ?? ""}
+                rules={{
+                  required: "Поле обязательно к заполнению*",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="Имя*"
+                  />
+                )}
               />
-
-              <UTextField
-                value={secondNameOwner}
-                error={
-                  secondNameError && secondNameOwner.trim().length === 0
-                    ? true
-                    : false
-                }
-                helperText={
-                  secondNameError && secondNameOwner.trim().length === 0
-                    ? "Введите фамилию*"
-                    : ""
-                }
-                onChange={ValidationSecondNameOwner}
-                textLabel="Фамилия*"
+              <Controller
+                name="secondNameOwner"
+                control={control}
+                defaultValue={editSecondNameOwner ?? ""}
+                rules={{
+                  required: "Поле обязательно к заполнению*",
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="Фамилия*"
+                  />
+                )}
               />
-              <UTextField
-                maxLength="16"
-                value={phone}
-                onChange={ValidationHandlePhone as () => string}
-                error={phoneError ? true : false}
-                helperText={
-                  phoneError ? "Введите корректный номер телефона*" : ""
-                }
-                textLabel="Телефон*"
+              <Controller
+                name="tel"
+                control={control}
+                defaultValue={editPhone ?? ""}
+                rules={{
+                  required: "Введите номер телефона*",
+                  minLength: {
+                    value: 16,
+                    message: "Введите номер до конца*",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    maxLength="16"
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="Телефон*"
+                  />
+                )}
               />
-              <UTextField
-                value={email}
-                onChange={ValidationEmail}
-                error={emailError ? true : false}
-                helperText={
-                  emailError ? "Введите корректную электронную почту*" : ""
-                }
-                type="email"
-                textLabel="Электронная почта*"
+              <Controller
+                name="email"
+                control={control}
+                defaultValue={editEmail ?? ""}
+                rules={{
+                  required: "Введите почту*",
+                  pattern: {
+                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                    message: "Введите корректную электронную почту*",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    type="email"
+                    textLabel="Электронная почта*"
+                  />
+                )}
               />
             </div>
+
             <div className={styles.form__carInfo}>
-              <UTextField
-                maxLength="17"
-                value={VIN}
-                error={VINError && VIN.trim().length !== 17 ? true : false}
-                helperText={
-                  VINError && VIN.trim().length !== 17
-                    ? "Введите 17 символов VIN*"
-                    : ""
-                }
-                onChange={ValidationVIN}
-                textLabel="VIN*"
+              <Controller
+                name="VIN"
+                control={control}
+                defaultValue={VINcar ?? ""}
+                rules={{
+                  required: "Поле обязательно к заполнению",
+                  minLength: {
+                    value: 17,
+                    message: "Введите семнадцатизначный номер VIN",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    maxLength="17"
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="VIN*"
+                  />
+                )}
               />
-              <UTextField {...registration} textLabel="Зарегистрирована" />
+              <Controller
+                name="registration"
+                control={control}
+                defaultValue={editRegistration ?? ""}
+                render={({ field }) => (
+                  <UTextField {...field} textLabel="Зарегистрирована" />
+                )}
+              />
+              <Controller
+                name="carNumber"
+                control={control}
+                defaultValue={editCarNumber ?? ""}
+                rules={{
+                  required: "Введите номер авто",
+                  minLength: {
+                    value: 6,
+                    message: "Введите шестизначный номер авто",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    maxLength="6"
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="Номер автомобиля*"
+                  />
+                )}
+              />
+              <Controller
+                name="carMileage"
+                control={control}
+                defaultValue={editCarMileage ?? ""}
+                render={({ field }) => (
+                  <UTextField {...field} textLabel="Пробег автомобиля" />
+                )}
+              />
+              <Controller
+                name="color"
+                control={control}
+                defaultValue={editColor ?? ""}
+                render={({ field }) => (
+                  <UTextField {...field} textLabel="Цвет" />
+                )}
+              />
 
-              <UTextField
-                {...carNumber}
-                maxLength="6"
-                error={
-                  carNumberError && carNumber.value.trim().length !== 6
-                    ? true
-                    : false
-                }
-                helperText={
-                  carNumberError && carNumber.value.trim().length !== 6
-                    ? "Введите корректный номер авто"
-                    : ""
-                }
-                textLabel="Номер автомобиля*"
-              />
-              <UTextField {...carMileage} textLabel="Пробег автомобиля" />
-              <UTextField {...color} textLabel="Цвет" />
-              <UTextField
-                error={
-                  ownerNumbersError &&
-                  (numberOwners === 0 ||
-                    numberOwners === undefined ||
-                    numberOwners === null)
-                    ? true
-                    : false
-                }
-                helperText={
-                  ownerNumbersError &&
-                  (numberOwners === 0 ||
-                    numberOwners === undefined ||
-                    numberOwners === null)
-                    ? "Введите корректное число владельцев*"
-                    : ""
-                }
-                onChange={ValidationNumberOwners}
-                textLabel="Количество владельцев*"
-                value={numberOwners!}
+              <Controller
+                name="numberOwners"
+                control={control}
+                defaultValue={editNumberOwners ?? 0}
+                rules={{
+                  required: "Введите число владельцев",
+                  pattern: {
+                    value: /^([1-9][0-9]{0,1})$/,
+                    message:
+                      "Введите положительное, корректное число владельцев",
+                  },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <UTextField
+                    {...field}
+                    type="number"
+                    error={!!error}
+                    helperText={error ? error.message : undefined}
+                    textLabel="Количество владельцев*"
+                  />
+                )}
               />
 
-              <UTextField {...accidents} textLabel="Аварии" />
+              <Controller
+                name="accidents"
+                control={control}
+                defaultValue={editAccidents ?? ""}
+                render={({ field }) => (
+                  <UTextField {...field} textLabel="Аварии" />
+                )}
+              />
             </div>
-            <UTextField {...problems} textLabel="Ваша пролема" />
+            <Controller
+              name="problems"
+              control={control}
+              defaultValue={editProblems ?? ""}
+              render={({ field }) => (
+                <UTextField {...field} textLabel="Ваша пролема" />
+              )}
+            />
           </div>
 
           <div className={styles.form__footer}>
@@ -349,7 +300,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               Отмена
             </Button>
             <Button
-              onClick={submitForm}
+              type="submit"
               sx={{
                 backgroundColor: "var(--default-color-button)",
                 transition: "var(--default-transition)",
