@@ -12,7 +12,7 @@ const initialState: ICarsState<cardService> = {
 
 export const ServiceCarReducer = (
   state = initialState,
-  action: IAction<cardService>
+  action: IAction<cardService>,
 ): ICarsState<cardService> => {
   switch (action.type) {
     case serviceCarTypesAction.ADD_SERVICE_CAR:
@@ -21,63 +21,63 @@ export const ServiceCarReducer = (
       return {
         ...state,
         filteredItems: [...state.cars].filter((x) =>
-          x.nameMaster.includes(action.payload!.nameMaster)
+          x.nameMaster.includes(action.payload!.nameMaster),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.nameMaster.localeCompare(b.nameMaster)
+          a.nameMaster.localeCompare(b.nameMaster),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.manufacturer.localeCompare(b.manufacturer)
+          a.manufacturer.localeCompare(b.manufacturer),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.modelYear.localeCompare(b.modelYear)
+          a.modelYear.localeCompare(b.modelYear),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.date!.localeCompare(b.date!)
+          a.date!.localeCompare(b.date!),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.nameMaster.localeCompare(a.nameMaster)
+          b.nameMaster.localeCompare(a.nameMaster),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.manufacturer.localeCompare(a.manufacturer)
+          b.manufacturer.localeCompare(a.manufacturer),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.modelYear.localeCompare(a.modelYear)
+          b.modelYear.localeCompare(a.modelYear),
         ),
       };
     case serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.date!.localeCompare(a.date!)
+          b.date!.localeCompare(a.date!),
         ),
       };
     case serviceCarTypesAction.DELETE_SERVICE_CAR:

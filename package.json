@@ -16,6 +16,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
     "mui-tel-input": "^5.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -78,7 +79,7 @@
     "typescript-eslint": "^8.2.0"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "npx prettier --write",
       "npx eslint --fix"
     ]

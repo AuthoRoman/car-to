@@ -8,7 +8,7 @@ const initialState: ICarsState<cardFinish> = {
 
 export const finishCarReducer = (
   state = initialState,
-  action: IAction<cardFinish>
+  action: IAction<cardFinish>,
 ): ICarsState<cardFinish> => {
   switch (action.type) {
     case finishCarTypesAction.ADD_FINISH_CAR:
@@ -19,63 +19,63 @@ export const finishCarReducer = (
         filteredItems: [...state.cars].filter((x) =>
           x.nameMaster
             .toLocaleLowerCase()
-            .includes(action.payload!.nameMaster.toLocaleLowerCase())
+            .includes(action.payload!.nameMaster.toLocaleLowerCase()),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.nameMaster.localeCompare(b.nameMaster)
+          a.nameMaster.localeCompare(b.nameMaster),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.manufacturer.localeCompare(b.manufacturer)
+          a.manufacturer.localeCompare(b.manufacturer),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.modelYear.localeCompare(b.modelYear)
+          a.modelYear.localeCompare(b.modelYear),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.workOncar.localeCompare(b.workOncar)
+          a.workOncar.localeCompare(b.workOncar),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.nameMaster.localeCompare(a.nameMaster)
+          b.nameMaster.localeCompare(a.nameMaster),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.manufacturer.localeCompare(a.manufacturer)
+          b.manufacturer.localeCompare(a.manufacturer),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.modelYear.localeCompare(a.modelYear)
+          b.modelYear.localeCompare(a.modelYear),
         ),
       };
     case finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.workOncar.localeCompare(a.workOncar)
+          b.workOncar.localeCompare(a.workOncar),
         ),
       };
     case finishCarTypesAction.DELETE_FINISH_CAR:

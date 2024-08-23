@@ -26,7 +26,7 @@ import SearchInput from "../../components/ui/SearchInput/SearchInput";
 
 const CarinWorking: React.FC = () => {
   const filteredCars = useTypedSelector(
-    (state) => state.carsInServ.filteredItems
+    (state) => state.carsInServ.filteredItems,
   );
 
   const cars = useTypedSelector((state) => state.carsInServ.cars);
@@ -49,10 +49,10 @@ const CarinWorking: React.FC = () => {
     (async () => {
       if (cars.length === 0) {
         const carsDB = await getStoreData<cardService>(
-          TypeBases.CARS_IN_SERVICE
+          TypeBases.CARS_IN_SERVICE,
         );
         carsDB.map((x) =>
-          dispatch({ type: serviceCarTypesAction.ADD_SERVICE_CAR, payload: x })
+          dispatch({ type: serviceCarTypesAction.ADD_SERVICE_CAR, payload: x }),
         );
       }
     })();
@@ -89,7 +89,7 @@ const CarinWorking: React.FC = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFilterWord(e.target.value);
     },
-    []
+    [],
   );
 
   const handlerChangeDefaultState = (prop: string) => {
@@ -190,7 +190,7 @@ const CarinWorking: React.FC = () => {
 
   const funSetCurrentCar = (
     event: React.FormEvent<EventTarget>,
-    car: cardService
+    car: cardService,
   ) => {
     event.stopPropagation();
     setCurrentCar(car);
@@ -218,7 +218,7 @@ const CarinWorking: React.FC = () => {
       )}
       {cars?.length === 0 ? (
         <div className={styles.inServicPage}>
-          <NoCarList text={"Заявок в обслуживании нет"} />
+          <NoCarList text="Заявок в обслуживании нет" />
         </div>
       ) : (
         <div className={styles.containerTable}>
@@ -237,7 +237,7 @@ const CarinWorking: React.FC = () => {
                 <TableHead>
                   <TableRow>
                     <TableCellWithSort
-                      title={"Имя мастера"}
+                      title="Имя мастера"
                       state={defaultStateSortNameMaster}
                       arrowState={upStateSort}
                       onClick={() =>
@@ -245,17 +245,17 @@ const CarinWorking: React.FC = () => {
                       }
                     />
                     <TableCellWithSort
-                      title={"Автомобиль"}
+                      title="Автомобиль"
                       state={defaultStateSortManufacturer}
                       arrowState={upStateSort}
                       onClick={() =>
                         handlerChangeDefaultState(
-                          "defaultStateSortManufacturer"
+                          "defaultStateSortManufacturer",
                         )
                       }
                     />
                     <TableCellWithSort
-                      title={"Год изготовления"}
+                      title="Год изготовления"
                       state={defaultStateSortModelYear}
                       arrowState={upStateSort}
                       onClick={() =>
@@ -263,7 +263,7 @@ const CarinWorking: React.FC = () => {
                       }
                     />
                     <TableCellWithSort
-                      title={"Добавлен в обслуживание"}
+                      title="Добавлен в обслуживание"
                       state={defaultStateSortDate}
                       arrowState={upStateSort}
                       onClick={() =>

@@ -1,8 +1,4 @@
-import { 
-  IAction, 
-  ICar, 
-  ICarsState, 
-  typesOfActionsCar } from "../types";
+import { IAction, ICar, ICarsState, typesOfActionsCar } from "../types";
 
 const initialState: ICarsState<ICar> = {
   cars: [],
@@ -11,7 +7,7 @@ const initialState: ICarsState<ICar> = {
 
 export const carReducer = (
   state = initialState,
-  action: IAction<ICar>
+  action: IAction<ICar>,
 ): ICarsState<ICar> => {
   switch (action.type) {
     case typesOfActionsCar.ADD_CAR:
@@ -23,7 +19,7 @@ export const carReducer = (
         cars: state.cars.map((car) =>
           car.id === action.payload!.id
             ? Object.assign({}, car, action.payload)
-            : car
+            : car,
         ),
       };
     case typesOfActionsCar.FIND_CAR:
@@ -39,7 +35,7 @@ export const carReducer = (
               .includes(action.payload!.carNumber.toLocaleLowerCase()) ||
             x.secondNameOwner
               .toLocaleLowerCase()
-              .includes(action.payload!.carNumber.toLocaleLowerCase())
+              .includes(action.payload!.carNumber.toLocaleLowerCase()),
         ),
       };
 
@@ -47,56 +43,56 @@ export const carReducer = (
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.firstNameOwner.localeCompare(b.firstNameOwner)
+          a.firstNameOwner.localeCompare(b.firstNameOwner),
         ),
       };
     case typesOfActionsCar.SORT_CAR_EMAIL_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.email.localeCompare(b.email)
+          a.email.localeCompare(b.email),
         ),
       };
     case typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.carNumber.localeCompare(b.carNumber)
+          a.carNumber.localeCompare(b.carNumber),
         ),
       };
     case typesOfActionsCar.SORT_CAR_TIME_UP:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          a.date!.localeCompare(b.date!)
+          a.date!.localeCompare(b.date!),
         ),
       };
     case typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.firstNameOwner.localeCompare(a.firstNameOwner)
+          b.firstNameOwner.localeCompare(a.firstNameOwner),
         ),
       };
     case typesOfActionsCar.SORT_CAR_EMAIL_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.email.localeCompare(a.email)
+          b.email.localeCompare(a.email),
         ),
       };
     case typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.carNumber.localeCompare(a.carNumber)
+          b.carNumber.localeCompare(a.carNumber),
         ),
       };
     case typesOfActionsCar.SORT_CAR_TIME_DOWN:
       return {
         ...state,
         filteredItems: [...state.filteredItems!].sort((a, b) =>
-          b.date!.localeCompare(a.date!)
+          b.date!.localeCompare(a.date!),
         ),
       };
 

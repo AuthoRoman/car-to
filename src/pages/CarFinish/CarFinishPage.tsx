@@ -32,7 +32,7 @@ export default function CarFinishComponent() {
   const [currentCar, setCurrentCar] = useState<cardFinish>();
   const cars = useTypedSelector((state) => state.carsInFinish.cars);
   const filteredCars = useTypedSelector(
-    (state) => state.carsInFinish.filteredItems
+    (state) => state.carsInFinish.filteredItems,
   );
   const [filterWord, setFilterWord] = useState("");
 
@@ -47,7 +47,7 @@ export default function CarFinishComponent() {
 
   const deleteHandler = async (
     event: React.FormEvent<EventTarget>,
-    car: cardFinish
+    car: cardFinish,
   ) => {
     event.stopPropagation();
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
@@ -68,7 +68,7 @@ export default function CarFinishComponent() {
       (async () => {
         const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_FINISH);
         carsDB.map((car) =>
-          dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: car })
+          dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: car }),
         );
       })();
     }
@@ -104,7 +104,7 @@ export default function CarFinishComponent() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFilterWord(e.target.value);
     },
-    []
+    [],
   );
 
   const handlerChangeDefaultState = (prop: string) => {
@@ -217,7 +217,7 @@ export default function CarFinishComponent() {
               width: "100%",
             }}
           >
-            <NoCarList text={"Готовых машин пока нет"} />
+            <NoCarList text="Готовых машин пока нет" />
           </div>
         ) : (
           <div
@@ -243,27 +243,27 @@ export default function CarFinishComponent() {
                   <TableHead>
                     <TableRow>
                       <TableCellWithSort
-                        title={"Имя мастера взявшего авто"}
+                        title="Имя мастера взявшего авто"
                         state={defaultStateSortNameMaster}
                         arrowState={upStateSort}
                         onClick={() =>
                           handlerChangeDefaultState(
-                            "defaultStateSortNameMaster"
+                            "defaultStateSortNameMaster",
                           )
                         }
                       />
                       <TableCellWithSort
-                        title={"Автомобиль"}
+                        title="Автомобиль"
                         state={defaultStateSortManufacturer}
                         arrowState={upStateSort}
                         onClick={() =>
                           handlerChangeDefaultState(
-                            "defaultStateSortManufacturer"
+                            "defaultStateSortManufacturer",
                           )
                         }
                       />
                       <TableCellWithSort
-                        title={"Год выпуска авто"}
+                        title="Год выпуска авто"
                         state={defaultStateSortModelYear}
                         arrowState={upStateSort}
                         onClick={() =>
@@ -271,7 +271,7 @@ export default function CarFinishComponent() {
                         }
                       />
                       <TableCellWithSort
-                        title={"Работа сделанная над автомобилем"}
+                        title="Работа сделанная над автомобилем"
                         state={defaultStateSortWork}
                         arrowState={upStateSort}
                         onClick={() =>
