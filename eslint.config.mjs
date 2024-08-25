@@ -17,7 +17,12 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["node_modules", "coverage", "eslint.config.mjs"],
+    ignores: [
+      "node_modules",
+      "coverage",
+      "eslint.config.mjs",
+      "vite.config.ts",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
