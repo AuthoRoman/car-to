@@ -34,7 +34,6 @@ interface ICarTableProps {
 export const CarsTable = (props: ICarTableProps) => {
   const {
     filteredCars,
-
     sortState,
     upStateSort,
     handlerChangeDefaultState,

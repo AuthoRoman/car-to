@@ -1,17 +1,16 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import {
-  Color,
-  ICar,
-  TypeBases,
-  typesOfActionsCar,
-} from "../../../state/types";
+import { Color, ICar, TypeBases } from "../../../state/types";
 import { addData, editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
 import { Controller, useForm } from "react-hook-form";
+import {
+  addCarsInWaiting,
+  editCarWaiting,
+} from "../../../state/reducers/CarsInWaitingsSlice";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -82,16 +81,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     };
     if (!VINcar) {
       await addData(TypeBases.CARS_IN_WAITING, thisCar);
-      await dispatch({
-        type: typesOfActionsCar.ADD_CAR,
-        payload: thisCar,
-      });
+      await dispatch(addCarsInWaiting(thisCar));
     } else {
       await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);
-      await dispatch({
-        type: typesOfActionsCar.EDIT_CAR,
-        payload: thisCar,
-      });
+      await dispatch(editCarWaiting(thisCar));
     }
 
     closeVisible(false);

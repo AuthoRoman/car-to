@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import {
   cardService,
   finishCarTypesAction,
-  serviceCarTypesAction,
   TypeBases,
 } from "../../../state/types";
 import { useDispatch } from "react-redux";
 import { addData, deleteData } from "../../../api/database/db";
 
 import styles from "./FinishPopup.module.scss";
+import { deleteServiceCar } from "../../../state/reducers/ServiceCarSlice";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;
@@ -50,10 +50,8 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
         serialNumber: carCurr.serialNumber,
       });
 
-      dispatch({
-        type: serviceCarTypesAction.DELETE_SERVICE_CAR,
-        payload: { ...car, date: date },
-      });
+      dispatch(deleteServiceCar({ ...car, date: date }));
+
       dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: carCurr });
       togglePopup(false);
     }

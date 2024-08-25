@@ -1,14 +1,21 @@
-import { combineReducers } from "redux";
-import { carReducer } from "./carReducer";
-import { store } from "../store";
-import { ServiceCarReducer } from "./serviceCarReducer";
-import { finishCarReducer } from "./finishCarReducer";
+import { carsInWaitingSlice } from "./CarsInWaitingsSlice";
 
-export const rootReducer = combineReducers({
-  cars: carReducer,
-  carsInServ: ServiceCarReducer,
-  carsInFinish: finishCarReducer,
-});
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import { serviceCarSlice } from "./ServiceCarSlice";
+import { finishCarSlice } from "./FinishCarSlice";
+
+const rootReducer = combineSlices(
+  carsInWaitingSlice,
+  serviceCarSlice,
+  finishCarSlice,
+);
+
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer,
+  });
+};
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = typeof store.dispatch;
+export type AppState = ReturnType<typeof setupStore>;
+export type AppDispatch = AppState["dispatch"];

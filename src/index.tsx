@@ -2,11 +2,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { store } from "./state/store";
+import { setupStore } from "./state/reducers";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+const store = setupStore();
 root.render(
   <Provider store={store}>
     <App />

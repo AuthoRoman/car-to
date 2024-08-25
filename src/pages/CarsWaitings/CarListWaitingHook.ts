@@ -2,9 +2,22 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { ICar, typesOfActionsCar, TypeBases } from "../../state/types";
+import { ICar, TypeBases } from "../../state/types";
 
 import { deleteData, getStoreData } from "../../api/database/db";
+import {
+  addCarsInWaiting,
+  deleteWaitingCar,
+  findCarWaiting,
+  sortCarEmailDown,
+  sortCarEmailUp,
+  sortCarFirstnameOwnerDown,
+  sortCarFirstNameOwnerUp,
+  sortCarNumberAutoDown,
+  sortCarNumberAutoUp,
+  sortCarTimeDown,
+  sortCarTimeUp,
+} from "../../state/reducers/CarsInWaitingsSlice";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;
@@ -55,34 +68,24 @@ export const useCarListWaitingHook = () => {
     (async () => {
       if (cars.length === 0) {
         const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_WAITING);
-
-        // Массив не возвращается, поэтому можно использовать forEach
-        carsDB.forEach((x) =>
-          dispatch({ type: typesOfActionsCar.ADD_CAR, payload: x }),
-        );
+        carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
     })();
-    // Обновил зависимости
   }, [cars.length, dispatch]);
 
   useEffect(() => {
-    // Cars может и не быть, нужна проверка
-    // Не нужно запускать filterWord всегда, нужна проверка на длину
     findCar(filterWord);
   }, [cars, filterWord]);
 
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
     event.stopPropagation();
-    await dispatch({ type: typesOfActionsCar.DELETE_CAR, payload: car! });
+    await dispatch(deleteWaitingCar(car));
     await deleteData(TypeBases.CARS_IN_WAITING, car.id);
   };
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
-      await dispatch({
-        type: typesOfActionsCar.DELETE_CAR,
-        payload: currentCar!,
-      });
+      await dispatch(deleteWaitingCar(currentCar));
       await deleteData(TypeBases.CARS_IN_WAITING, currentCar.id);
 
       setPopupFixCar(false);
@@ -154,9 +157,8 @@ export const useCarListWaitingHook = () => {
   const findCar = (filterWord: string) => {
     const rand = Math.random() * 20;
     console.log("find");
-    dispatch({
-      type: typesOfActionsCar.FIND_CAR,
-      payload: {
+    dispatch(
+      findCarWaiting({
         id: rand,
         VIN: "",
         tel: "",
@@ -171,8 +173,8 @@ export const useCarListWaitingHook = () => {
         accidents: "string",
         date: "string",
         problems: "string",
-      },
-    });
+      }),
+    );
   };
 
   const handlerFindWord = useCallback(
@@ -182,24 +184,27 @@ export const useCarListWaitingHook = () => {
     [],
   );
 
-  // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {
-    const sortActionMap = {
-      defaultStateSortFullName: upStateSort
-        ? typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_UP
-        : typesOfActionsCar.SORT_CAR_FIRSTNAMEOWNER_DOWN,
-      defaultStateSortEmail: upStateSort
-        ? typesOfActionsCar.SORT_CAR_EMAIL_UP
-        : typesOfActionsCar.SORT_CAR_EMAIL_DOWN,
-      defaultStateSortNumberAuto: upStateSort
-        ? typesOfActionsCar.SORT_CAR_NUMBERAUTO_UP
-        : typesOfActionsCar.SORT_CAR_NUMBERAUTO_DOWN,
-      defaultStateSortTime: upStateSort
-        ? typesOfActionsCar.SORT_CAR_TIME_UP
-        : typesOfActionsCar.SORT_CAR_TIME_DOWN,
-    };
-
-    dispatch({ type: sortActionMap[prop] });
+    switch (prop) {
+      case "defaultStateSortEmail":
+        upStateSort ? dispatch(sortCarEmailUp()) : dispatch(sortCarEmailDown());
+        break;
+      case "defaultStateSortFullName":
+        upStateSort
+          ? dispatch(sortCarFirstNameOwnerUp())
+          : dispatch(sortCarFirstnameOwnerDown());
+        break;
+      case "defaultStateSortNumberAuto":
+        upStateSort
+          ? dispatch(sortCarNumberAutoUp())
+          : dispatch(sortCarNumberAutoDown());
+        break;
+      case "defaultStateSortTime":
+        upStateSort ? dispatch(sortCarTimeUp()) : dispatch(sortCarTimeDown());
+        break;
+      default:
+        break;
+    }
   };
 
   // Упростили логику переключения сортировок

@@ -1,13 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import {
-  cardService,
-  serviceCarTypesAction,
-  TypeBases,
-} from "../../state/types";
+import { cardService, TypeBases } from "../../state/types";
 
 import { getStoreData } from "../../api/database/db";
+import {
+  addServiceCar,
+  findServiceCar,
+  sortServiceCarDaterDown,
+  sortServiceCarDateUp,
+  sortServiceCarManufacturerDown,
+  sortServiceCarManufacturerUp,
+  sortServiceCarModelYearDown,
+  sortServiceCarModelYearUp,
+  sortServiceCarNameMasterDown,
+  sortServiceCarNameMasterUp,
+} from "../../state/reducers/ServiceCarSlice";
 
 export type SortStateType = {
   nameMaster: boolean;
@@ -18,9 +27,9 @@ export type SortStateType = {
 
 export const useCarService = () => {
   const dispatch = useTypedDispatch();
-  const cars = useTypedSelector((state) => state.carsInServ.cars);
+  const cars = useTypedSelector((state) => state.serviceCar.cars);
   const filteredCars = useTypedSelector(
-    (state) => state.carsInServ.filteredItems,
+    (state) => state.serviceCar.filteredItems,
   );
 
   const [sortState, setSortState] = useState<SortStateType>({
@@ -46,9 +55,7 @@ export const useCarService = () => {
         );
 
         // Массив не возвращается, поэтому можно использовать forEach
-        carsDB.forEach((x) =>
-          dispatch({ type: serviceCarTypesAction.ADD_SERVICE_CAR, payload: x }),
-        );
+        carsDB.forEach((x) => dispatch(addServiceCar(x)));
       }
     })();
     // Обновил зависимости
@@ -62,10 +69,9 @@ export const useCarService = () => {
 
   const findCar = (filterWord: string) => {
     const rand = Math.random() * 1000;
-    console.log("as");
-    dispatch({
-      type: serviceCarTypesAction.FIND_SERVICE_CAR,
-      payload: {
+
+    dispatch(
+      findServiceCar({
         nameMaster: filterWord,
         id: rand,
         VIN: "",
@@ -79,8 +85,8 @@ export const useCarService = () => {
         serialNumber: "",
         problems: "",
         date: "",
-      },
-    });
+      }),
+    );
   };
 
   const handlerFindWord = useCallback(
@@ -92,22 +98,34 @@ export const useCarService = () => {
 
   // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {
-    const sortActionMap = {
-      nameMaster: upStateSort
-        ? serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_UP
-        : serviceCarTypesAction.SORT_SERVICE_CAR_CAR_NAME_MASTER_DOWN,
-      manufacturer: upStateSort
-        ? serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_UP
-        : serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MANUFACTURER_DOWN,
-      modelYear: upStateSort
-        ? serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_UP
-        : serviceCarTypesAction.SORT_SERVICE_CAR_CAR_MODEL_YEAR_DOWN,
-      date: upStateSort
-        ? serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_UP
-        : serviceCarTypesAction.SORT_SERVICE_CAR_CAR_DATE_DOWN,
-    };
+    switch (prop) {
+      case "nameMaster":
+        upStateSort
+          ? dispatch(sortServiceCarNameMasterUp())
+          : dispatch(sortServiceCarNameMasterDown());
 
-    dispatch({ type: sortActionMap[prop] });
+        break;
+      case "manufacturer":
+        upStateSort
+          ? dispatch(sortServiceCarManufacturerUp())
+          : dispatch(sortServiceCarManufacturerDown());
+
+        break;
+      case "modelYear":
+        upStateSort
+          ? dispatch(sortServiceCarModelYearUp())
+          : dispatch(sortServiceCarModelYearDown());
+
+        break;
+      case "date":
+        upStateSort
+          ? dispatch(sortServiceCarDateUp())
+          : dispatch(sortServiceCarDaterDown());
+
+        break;
+      default:
+        break;
+    }
   };
 
   // Упростили логику переключения сортировок

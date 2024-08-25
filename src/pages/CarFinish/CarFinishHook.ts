@@ -1,7 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import { deleteData, getStoreData } from "../../api/database/db";
-import { cardFinish, finishCarTypesAction, TypeBases } from "../../state/types";
+import { cardFinish, TypeBases } from "../../state/types";
+import {
+  addFinishCar,
+  deleteFinishCar,
+  findFinishCar,
+  sortFinishCarManufacturerDown,
+  sortFinishCarManufacturerUp,
+  sortFinishCarModelYearDown,
+  sortFinishCarModelYearUp,
+  sortFinishCarNameMasterDown,
+  sortFinishCarNameMasterUp,
+  sortFinishCarWorkDown,
+  sortFinishCarWorkUp,
+} from "../../state/reducers/FinishCarSlice";
 
 export type SortStateTypeFinishCars = {
   defaultStateSortNameMaster: boolean;
@@ -12,9 +26,9 @@ export type SortStateTypeFinishCars = {
 
 export const useCarFinishHook = () => {
   const dispatch = useTypedDispatch();
-  const cars = useTypedSelector((state) => state.carsInFinish.cars);
+  const cars = useTypedSelector((state) => state.finishCars.cars);
   const filteredCars = useTypedSelector(
-    (state) => state.carsInFinish.filteredItems,
+    (state) => state.finishCars.filteredItems,
   );
   const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] =
     useState<boolean>(false);
@@ -38,9 +52,7 @@ export const useCarFinishHook = () => {
         const carsDB = await getStoreData<cardFinish>(TypeBases.CARS_IN_FINISH);
 
         // Массив не возвращается, поэтому можно использовать forEach
-        carsDB.forEach((x) =>
-          dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: x }),
-        );
+        carsDB.forEach((x) => dispatch(addFinishCar(x)));
       }
     })();
     // Обновил зависимости
@@ -54,10 +66,11 @@ export const useCarFinishHook = () => {
 
   const findCar = (filterWord: string) => {
     const rand = Math.random() * 1000;
-    console.log("as");
-    dispatch({
-      type: finishCarTypesAction.FIND_FINISH_CAR,
-      payload: {
+
+    dispatch(
+      findFinishCar({
+        workOncar: "",
+        recomm: "",
         nameMaster: filterWord,
         id: rand,
         VIN: "",
@@ -71,8 +84,8 @@ export const useCarFinishHook = () => {
         serialNumber: "",
         problems: "",
         date: "",
-      },
-    });
+      }),
+    );
   };
 
   const handlerFindWord = useCallback(
@@ -86,30 +99,39 @@ export const useCarFinishHook = () => {
     car: cardFinish,
   ) => {
     event.stopPropagation();
-    await dispatch({
-      type: finishCarTypesAction.DELETE_FINISH_CAR,
-      payload: car!,
-    });
+    await dispatch(deleteFinishCar(car));
     await deleteData(TypeBases.CARS_IN_FINISH, car.id);
   };
   // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {
-    const sortActionMap = {
-      defaultStateSortNameMaster: upStateSort
-        ? finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_UP
-        : finishCarTypesAction.SORT_FINISH_CAR_CAR_NAME_MASTER_DOWN,
-      defaultStateSortManufacturer: upStateSort
-        ? finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_UP
-        : finishCarTypesAction.SORT_FINISH_CAR_CAR_MANUFACTURER_DOWN,
-      defaultStateSortModelYear: upStateSort
-        ? finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_UP
-        : finishCarTypesAction.SORT_FINISH_CAR_CAR_MODEL_YEAR_DOWN,
-      defaultStateSortWork: upStateSort
-        ? finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_UP
-        : finishCarTypesAction.SORT_FINISH_CAR_CAR_WORK_DOWN,
-    };
+    switch (prop) {
+      case "defaultStateSortNameMaster":
+        upStateSort
+          ? dispatch(sortFinishCarNameMasterUp())
+          : dispatch(sortFinishCarNameMasterDown());
 
-    dispatch({ type: sortActionMap[prop] });
+        break;
+      case "defaultStateSortManufacturer":
+        upStateSort
+          ? dispatch(sortFinishCarManufacturerUp())
+          : dispatch(sortFinishCarManufacturerDown());
+
+        break;
+      case "defaultStateSortModelYear":
+        upStateSort
+          ? dispatch(sortFinishCarModelYearUp())
+          : dispatch(sortFinishCarModelYearDown());
+
+        break;
+      case "defaultStateSortWork":
+        upStateSort
+          ? dispatch(sortFinishCarWorkUp())
+          : dispatch(sortFinishCarWorkDown());
+
+        break;
+      default:
+        break;
+    }
   };
 
   // Упростили логику переключения сортировок
