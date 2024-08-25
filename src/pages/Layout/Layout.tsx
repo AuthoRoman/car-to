@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label=" Очередь на обслуживание"
-            value="/car-to"
+            value="/car-to/inwaiting"
           />
           <Tab
             sx={{
@@ -59,7 +59,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label=" Машины обслуживаются"
-            value="/inwork"
+            value="/car-to/inwork"
           />
           <Tab
             sx={{
@@ -73,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label=" Машины, которые прошли обслуживание"
-            value="/finish"
+            value="/car-to/finish"
           />
         </Tabs>
       </nav>
