@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label=" Очередь на обслуживание"
-            value="/car-to/inwaiting"
+            value="/car-to/"
           />
           <Tab
             sx={{
