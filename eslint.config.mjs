@@ -17,7 +17,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["dist", "node_modules", "coverage", "eslint.config.js"],
+    ignores: ["dist", "node_modules", "coverage", "eslint.config.mjs"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -29,12 +29,12 @@ export default tseslint.config(
         ...globals.es2020,
       },
       parserOptions: {
-        project: ["tsconfig.json", "tsconfig.node.json"],
+        project: ["**/tsconfig.json", "**/tsconfig.node.json"],
       },
     },
   },
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["/*.{ts,tsx}"],
     rules: {
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
@@ -54,6 +54,11 @@ export default tseslint.config(
       "react/self-closing-comp": ["error", { component: true, html: true }],
       "max-lines": ["warn", { max: 124 }],
       "max-params": ["error", 3],
+      "prettier/prettier": [
+        "error",
+        { endOfLine: "auto" },
+        { usePrettierrc: true },
+      ],
     },
   },
 );

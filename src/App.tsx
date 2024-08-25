@@ -15,7 +15,7 @@ function App() {
         <Router>
           <Layout>
             <Routes>
-              <Route path="/car-to/" element={<CarsListWaiting />} />
+              <Route path="/" element={<CarsListWaiting />} />
               <Route path="/inwork" element={<CarinWorking />} />
               <Route path="/finish" element={<CarFinishComponent />} />
             </Routes>

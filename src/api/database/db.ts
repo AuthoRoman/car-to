@@ -32,7 +32,7 @@ export const initDB = (): Promise<boolean> => {
       resolve(true);
     };
     request.onerror = (error) => {
-      console.log("error");
+      console.log(error);
       resolve(false);
     };
   });
@@ -40,7 +40,7 @@ export const initDB = (): Promise<boolean> => {
 
 export const addData = <T>(
   storeName: string,
-  data: T
+  data: T,
 ): Promise<T | string | null> => {
   return new Promise((resolve) => {
     request = indexedDB.open("carsDB", version);
@@ -70,63 +70,63 @@ export const getStoreData = <T>(storeName: string): Promise<T[]> => {
 
     request.onsuccess = () => {
       console.log("request get success");
-    
-    db = request.result;
-    const tx = db.transaction(storeName, "readonly");
-    const store = tx.objectStore(storeName);
-    const res = store.getAll();
-    res.onsuccess = () => {
-      resolve(res.result);
-    };
+
+      db = request.result;
+      const tx = db.transaction(storeName, "readonly");
+      const store = tx.objectStore(storeName);
+      const res = store.getAll();
+      res.onsuccess = () => {
+        resolve(res.result);
+      };
     };
   });
 };
 
+export const deleteData = (
+  storeName: string,
+  key: number,
+): Promise<boolean> => {
+  return new Promise((resolve) => {
+    request = indexedDB.open("carsDB", version);
 
-export const deleteData = (storeName:string, key:number): Promise<boolean> =>{
-    return new Promise((resolve) => {
-        request = indexedDB.open('carsDB', version)
+    request.onsuccess = () => {
+      console.log("request delete - good", key);
+      db = request.result;
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
+      const res = store.delete(key);
 
-        request.onsuccess = () => {
-            console.log('request delete - good',key)
-            db = request.result
-            const tx = db.transaction(storeName, 'readwrite')
-            const store = tx.objectStore(storeName)
-            const res = store.delete(key)
-
-
-            res.onsuccess = ()=>{
-                resolve(true)
-            }
-            res.onerror = ()=>{
-                resolve(false)
-            }
-        }
-    })
-}
+      res.onsuccess = () => {
+        resolve(true);
+      };
+      res.onerror = () => {
+        resolve(false);
+      };
+    };
+  });
+};
 
 export const editData = <T>(
   storeName: string,
   data: T,
-  key:number
-): Promise<T | string | null|boolean> =>{
+  key: number,
+): Promise<T | string | null | boolean> => {
   return new Promise((resolve) => {
-      request = indexedDB.open('carsDB', version)
+    request = indexedDB.open("carsDB", version);
 
-      request.onsuccess = () => {
-          console.log('request delete - good',data, key)
-          db = request.result
-          const tx = db.transaction(storeName, 'readwrite')
-          const store = tx.objectStore(storeName)
-          const res = store.put(data ) //!TODO
+    request.onsuccess = () => {
+      console.log("request delete - good", data, key);
+      db = request.result;
+      const tx = db.transaction(storeName, "readwrite");
+      const store = tx.objectStore(storeName);
+      const res = store.put(data); //!TODO
 
-
-          res.onsuccess = ()=>{
-              resolve(true)
-          }
-          res.onerror = ()=>{
-              resolve(false)
-          }
-      }
-  })
-}
+      res.onsuccess = () => {
+        resolve(true);
+      };
+      res.onerror = () => {
+        resolve(false);
+      };
+    };
+  });
+};

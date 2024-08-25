@@ -22,7 +22,7 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
   const [workOncar, setWorkOnCar] = useState("");
   const addCarFinish = async () => {
     if (car) {
-      let currentDate = new Date();
+      const currentDate = new Date();
       const date = `${
         currentDate.getDate() < 10
           ? "0" + currentDate.getDate()

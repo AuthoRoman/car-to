@@ -5,10 +5,10 @@
   flex-direction: column;
   gap: 5px;
 
-  &__findForm{
+  &__findForm {
     display: flex;
-  justify-content: space-between;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 10px;
   }
 }
-
- 

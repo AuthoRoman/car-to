@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { Button, TextField } from "@mui/material";
+import React from "react";
+import { Button } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import {
   Color,
@@ -11,7 +11,7 @@ import { addData, editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -54,7 +54,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   async function submitForm(data: FormType) {
     console.log(data);
 
-    let currentDate = new Date();
+    const currentDate = new Date();
     const date = `${
       currentDate.getDate() < 10
         ? "0" + currentDate.getDate()
@@ -164,7 +164,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 rules={{
                   required: "Введите почту*",
                   pattern: {
-                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                     message: "Введите корректную электронную почту*",
                   },
                 }}
@@ -251,7 +251,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="numberOwners"
                 control={control}
-                defaultValue={editNumberOwners ?? 0}
+                defaultValue={editNumberOwners ?? 1}
                 rules={{
                   required: "Введите число владельцев",
                   pattern: {
