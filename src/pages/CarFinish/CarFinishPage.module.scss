@@ -1,4 +1,4 @@
-.tableFinish{
+.tableFinish {
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -8,10 +8,22 @@
 
 .tableWaitngList__findField input {
   padding: 4.51px;
-  line-height: normal ;
-  
+  line-height: normal;
 }
-.tableWaitngList__findField label{
-  line-height: normal ;
+.tableWaitngList__findField label {
+  line-height: normal;
 }
- 
+
+.nocars {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.withcars {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: start;
+}

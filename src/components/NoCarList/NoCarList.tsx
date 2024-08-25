@@ -3,7 +3,7 @@ import NoCarImage from "../../assets/images/carNo.png";
 import styles from "./NoCarList.module.scss";
 
 interface INoCarListProps {
-  text: String;
+  text: string;
 }
 
 const NoCarList: React.FC<INoCarListProps> = ({ text }) => {
