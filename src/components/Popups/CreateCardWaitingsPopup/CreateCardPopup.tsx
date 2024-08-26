@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 import { Color, ICar, TypeBases } from "../../../state/types";
-import { addData, editData } from "../../../api/database/db";
+import { editData } from "../../../api/database/db";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
@@ -11,6 +11,7 @@ import {
   addCarsInWaiting,
   editCarWaiting,
 } from "../../../state/reducers/CarsInWaitingsSlice";
+import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -46,7 +47,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   editProblems,
 }) => {
   const dispatch = useTypedDispatch();
-
+  const [createCarWaiting] = carsWaitingAPI.useCreateWaitingCarMutation();
   const { handleSubmit, control } = useForm<FormType>();
 
   const IdKey = Math.random() * 100;
@@ -80,7 +81,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       problems: data.problems,
     };
     if (!VINcar) {
-      await addData(TypeBases.CARS_IN_WAITING, thisCar);
+      await createCarWaiting(thisCar);
       await dispatch(addCarsInWaiting(thisCar));
     } else {
       await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);

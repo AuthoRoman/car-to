@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 import { ICar, TypeBases } from "../../state/types";
 
-import { deleteData, getStoreData } from "../../api/database/db";
+import { deleteData } from "../../api/database/db";
 import {
   addCarsInWaiting,
   deleteWaitingCar,
@@ -18,6 +18,7 @@ import {
   sortCarTimeDown,
   sortCarTimeUp,
 } from "../../state/reducers/CarsInWaitingsSlice";
+import { carsWaitingAPI } from "./api/carsWaitingAPI";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;
@@ -64,11 +65,17 @@ export const useCarListWaitingHook = () => {
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
 
+  const {
+    data: carsDB,
+    isLoading,
+    error,
+  } = carsWaitingAPI.useFetchWaitingsCarsQuery("");
   useEffect(() => {
+    console.log(carsDB);
     (async () => {
-      if (cars.length === 0) {
-        const carsDB = await getStoreData<ICar>(TypeBases.CARS_IN_WAITING);
-        carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
+      await carsDB;
+      if (cars.length === 0 && carsDB && !error) {
+        await carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
     })();
   }, [cars.length, dispatch]);
@@ -265,5 +272,7 @@ export const useCarListWaitingHook = () => {
     tel,
     VIN,
     CurrentCarId,
+    isLoading,
+    carsDB,
   };
 };

@@ -42,6 +42,7 @@ const CarsListWaiting = () => {
     tel,
     VIN,
     CurrentCarId,
+    isLoading,
   } = useCarListWaitingHook();
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
@@ -71,7 +72,7 @@ const CarsListWaiting = () => {
           openPopupEdit={OpenPopupEdit}
           closeInfoCar={closeInfoCar}
         />
-        {cars?.length === 0 ? (
+        {(!cars.length || isLoading) && (
           <div
             style={{
               display: "flex",
@@ -94,7 +95,9 @@ const CarsListWaiting = () => {
 
             <ButtonPlus onClick={() => openPopupCreateCars()} height="55px" />
           </div>
-        ) : (
+        )}
+
+        {cars && cars.length && (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
               <SearchInput
