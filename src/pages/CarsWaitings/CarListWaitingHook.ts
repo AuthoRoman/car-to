@@ -2,9 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { ICar, TypeBases } from "../../state/types";
+import { ICar } from "../../state/types";
 
-import { deleteData } from "../../api/database/db";
 import {
   addCarsInWaiting,
   deleteWaitingCar,
@@ -64,7 +63,7 @@ export const useCarListWaitingHook = () => {
   const [tel, setTel] = useState<string>();
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
-
+  const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
   const {
     data: carsDB,
     isLoading,
@@ -86,14 +85,14 @@ export const useCarListWaitingHook = () => {
 
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
     event.stopPropagation();
+    await deleteData(car);
     await dispatch(deleteWaitingCar(car));
-    await deleteData(TypeBases.CARS_IN_WAITING, car.id);
   };
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
+      await deleteData(currentCar);
       await dispatch(deleteWaitingCar(currentCar));
-      await deleteData(TypeBases.CARS_IN_WAITING, currentCar.id);
 
       setPopupFixCar(false);
     }

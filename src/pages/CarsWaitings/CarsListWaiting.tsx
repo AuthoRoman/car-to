@@ -42,7 +42,6 @@ const CarsListWaiting = () => {
     tel,
     VIN,
     CurrentCarId,
-    isLoading,
   } = useCarListWaitingHook();
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
@@ -72,7 +71,7 @@ const CarsListWaiting = () => {
           openPopupEdit={OpenPopupEdit}
           closeInfoCar={closeInfoCar}
         />
-        {(!cars.length || isLoading) && (
+        {!cars.length && (
           <div
             style={{
               display: "flex",
@@ -92,7 +91,6 @@ const CarsListWaiting = () => {
                 text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}
               />
             </div>
-
             <ButtonPlus onClick={() => openPopupCreateCars()} height="55px" />
           </div>
         )}

@@ -20,5 +20,20 @@ export const carsWaitingAPI = createApi({
       }),
       invalidatesTags: ["carsWaiting"],
     }),
+    updateWaitingCar: build.mutation<ICar, ICar>({
+      query: (car: ICar) => ({
+        url: `/carsInWaiting/${car.id}`,
+        method: "PATCH",
+        body: car,
+      }),
+      invalidatesTags: ["carsWaiting"],
+    }),
+    deleteWaitingCar: build.mutation<ICar, ICar>({
+      query: (car: ICar) => ({
+        url: `/carsInWaiting/${car.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["carsWaiting"],
+    }),
   }),
 });

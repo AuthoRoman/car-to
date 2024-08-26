@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color, ICar, TypeBases } from "../../../state/types";
-import { editData } from "../../../api/database/db";
+import { Color, ICar } from "../../../state/types";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
@@ -49,7 +48,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const dispatch = useTypedDispatch();
   const [createCarWaiting] = carsWaitingAPI.useCreateWaitingCarMutation();
   const { handleSubmit, control } = useForm<FormType>();
-
+  const [updateCarWaiting] = carsWaitingAPI.useUpdateWaitingCarMutation();
   const IdKey = Math.random() * 100;
   async function submitForm(data: FormType) {
     console.log(data);
@@ -84,7 +83,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       await createCarWaiting(thisCar);
       await dispatch(addCarsInWaiting(thisCar));
     } else {
-      await editData(TypeBases.CARS_IN_WAITING, thisCar, idCar!);
+      await updateCarWaiting(thisCar);
       await dispatch(editCarWaiting(thisCar));
     }
 
