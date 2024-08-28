@@ -16,7 +16,7 @@ import {
   sortCarNumberAutoUp,
   sortCarTimeDown,
   sortCarTimeUp,
-} from "../../state/reducers/CarsInWaitingsSlice";
+} from "../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI } from "./api/carsWaitingAPI";
 
 export type SortStateTypeWaitingCars = {
@@ -64,17 +64,13 @@ export const useCarListWaitingHook = () => {
   const [VIN, setVIN] = useState("");
   const [CurrentCarId, setCurrentCarId] = useState<number>();
   const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
-  const {
-    data: carsDB,
-    isLoading,
-    error,
-  } = carsWaitingAPI.useFetchWaitingsCarsQuery("");
+  const [getCars, { isLoading }] =
+    carsWaitingAPI.useLazyFetchWaitingsCarsQuery();
   useEffect(() => {
-    console.log(carsDB);
     (async () => {
-      await carsDB;
-      if (cars.length === 0 && carsDB && !error) {
-        await carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
+      const carsDB = (await getCars("")).data;
+      if (cars.length === 0 && carsDB) {
+        carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
     })();
   }, [cars.length, dispatch]);
@@ -84,14 +80,15 @@ export const useCarListWaitingHook = () => {
   }, [cars, filterWord]);
 
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
+    console.log(car);
     event.stopPropagation();
-    await deleteData(car);
-    await dispatch(deleteWaitingCar(car));
+    await deleteData(car.id);
+    dispatch(deleteWaitingCar(car));
   };
 
   const closeWithNextStadyCar = async () => {
     if (currentCar) {
-      await deleteData(currentCar);
+      await deleteData(currentCar.id);
       await dispatch(deleteWaitingCar(currentCar));
 
       setPopupFixCar(false);
@@ -272,6 +269,5 @@ export const useCarListWaitingHook = () => {
     VIN,
     CurrentCarId,
     isLoading,
-    carsDB,
   };
 };

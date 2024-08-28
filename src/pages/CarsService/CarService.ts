@@ -2,9 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { cardService, TypeBases } from "../../state/types";
+import { cardService } from "../../state/types";
 
-import { getStoreData } from "../../api/database/db";
 import {
   addServiceCar,
   findServiceCar,
@@ -16,7 +15,8 @@ import {
   sortServiceCarModelYearUp,
   sortServiceCarNameMasterDown,
   sortServiceCarNameMasterUp,
-} from "../../state/reducers/ServiceCarSlice";
+} from "../../state/slices/ServiceCarSlice";
+import { carsServiceAPI } from "./api/CarsServiceAPI";
 
 export type SortStateType = {
   nameMaster: boolean;
@@ -47,13 +47,12 @@ export const useCarService = () => {
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState(false);
 
+  const [getCarsService] = carsServiceAPI.useLazyFetchCarsServiceQuery();
+
   useEffect(() => {
     (async () => {
-      if (cars.length === 0) {
-        const carsDB = await getStoreData<cardService>(
-          TypeBases.CARS_IN_SERVICE,
-        );
-
+      const carsDB = (await getCarsService("")).data;
+      if (cars.length === 0 && carsDB) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addServiceCar(x)));
       }

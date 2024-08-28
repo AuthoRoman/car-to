@@ -9,7 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import {
   addCarsInWaiting,
   editCarWaiting,
-} from "../../../state/reducers/CarsInWaitingsSlice";
+} from "../../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
 
 interface IEditAndCreatePopupProps {
@@ -49,10 +49,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [createCarWaiting] = carsWaitingAPI.useCreateWaitingCarMutation();
   const { handleSubmit, control } = useForm<FormType>();
   const [updateCarWaiting] = carsWaitingAPI.useUpdateWaitingCarMutation();
-  const IdKey = Math.random() * 100;
+
   async function submitForm(data: FormType) {
     console.log(data);
-
+    const IdKey = Math.round(Math.random() * 1000);
     const currentDate = new Date();
     const date = `${
       currentDate.getDate() < 10

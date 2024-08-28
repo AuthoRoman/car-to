@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { deleteData, getStoreData } from "../../api/database/db";
-import { cardFinish, TypeBases } from "../../state/types";
+
+import { cardFinish } from "../../state/types";
+
 import {
   addFinishCar,
   deleteFinishCar,
@@ -15,7 +16,8 @@ import {
   sortFinishCarNameMasterUp,
   sortFinishCarWorkDown,
   sortFinishCarWorkUp,
-} from "../../state/reducers/FinishCarSlice";
+} from "../../state/slices/FinishCarSlice";
+import { carFinishAPI } from "./api/CarFinishAPI";
 
 export type SortStateTypeFinishCars = {
   defaultStateSortNameMaster: boolean;
@@ -45,12 +47,12 @@ export const useCarFinishHook = () => {
   //sort
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState(false);
-
+  const [getStoreData] = carFinishAPI.useLazyFetchCarsFinishQuery();
+  const [deleteData] = carFinishAPI.useDeleteCarFinishMutation();
   useEffect(() => {
     (async () => {
-      if (cars.length === 0) {
-        const carsDB = await getStoreData<cardFinish>(TypeBases.CARS_IN_FINISH);
-
+      const carsDB = (await getStoreData("")).data;
+      if (cars.length === 0 && carsDB) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addFinishCar(x)));
       }
@@ -100,7 +102,7 @@ export const useCarFinishHook = () => {
   ) => {
     event.stopPropagation();
     await dispatch(deleteFinishCar(car));
-    await deleteData(TypeBases.CARS_IN_FINISH, car.id);
+    await deleteData(car.id);
   };
   // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {

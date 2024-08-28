@@ -42,6 +42,7 @@ const CarsListWaiting = () => {
     tel,
     VIN,
     CurrentCarId,
+    isLoading,
   } = useCarListWaitingHook();
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
@@ -95,7 +96,7 @@ const CarsListWaiting = () => {
           </div>
         )}
 
-        {cars && cars.length && (
+        {!isLoading && cars.length > 0 && (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
               <SearchInput
@@ -116,7 +117,6 @@ const CarsListWaiting = () => {
             />
           </div>
         )}
-        <div></div>
       </div>
     </div>
   );

@@ -64,6 +64,10 @@ export default tseslint.config(
         { endOfLine: "auto" },
         { usePrettierrc: true },
       ],
+      "padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "function", next: "function" },
+      ],
     },
   },
 );

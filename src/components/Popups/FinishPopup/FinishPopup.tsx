@@ -1,15 +1,16 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import {
+  cardFinish,
   cardService,
   finishCarTypesAction,
-  TypeBases,
 } from "../../../state/types";
 import { useDispatch } from "react-redux";
-import { addData, deleteData } from "../../../api/database/db";
 
 import styles from "./FinishPopup.module.scss";
-import { deleteServiceCar } from "../../../state/reducers/ServiceCarSlice";
+import { deleteServiceCar } from "../../../state/slices/ServiceCarSlice";
+import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
+import { carFinishAPI } from "../../../pages/CarFinish/api/CarFinishAPI";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;
@@ -20,6 +21,8 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
   const dispatch = useDispatch();
   const [recomm, setRecomm] = useState("");
   const [workOncar, setWorkOnCar] = useState("");
+  const [deleteData] = carsServiceAPI.useDeleteCArSrviceMutation();
+  const [addDataCarFinish] = carFinishAPI.useAddCarFinishMutation();
   const addCarFinish = async () => {
     if (car) {
       const currentDate = new Date();
@@ -32,23 +35,8 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
           ? "0" + (currentDate.getMonth() + 1)
           : currentDate.getMonth()
       }.${currentDate.getFullYear()}`;
-      await deleteData(TypeBases.CARS_IN_SERVICE, car.id);
-      await addData(TypeBases.CARS_IN_FINISH, {
-        id: carCurr.id,
-        VIN: carCurr.VIN,
-        date: date,
-        modelYear: carCurr.modelYear,
-        recomm: carCurr.recomm,
-        workOncar: workOncar,
-        nameMaster: carCurr.nameMaster,
-        region: carCurr.region,
-        country: carCurr.country,
-        problems: carCurr.problems,
-        manufacturer: carCurr.manufacturer,
-        checkDigit: carCurr.checkDigit,
-        assemblyPlant: carCurr.assemblyPlant,
-        serialNumber: carCurr.serialNumber,
-      });
+      await deleteData(car.id);
+      await addDataCarFinish(carCurr as cardFinish);
 
       dispatch(deleteServiceCar({ ...car, date: date }));
 

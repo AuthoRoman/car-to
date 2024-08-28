@@ -92,7 +92,7 @@ export const CarsTable = (props: ICarTableProps) => {
             {filteredCars?.map((car) => (
               <TableRow
                 onClick={() => getInfocar(car)}
-                key={car.numberOwners}
+                key={car.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   "&:hover": { cursor: "pointer" },

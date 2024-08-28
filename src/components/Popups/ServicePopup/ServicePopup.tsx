@@ -3,11 +3,11 @@ import { Button, TextField } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
 
 import decodeVIN from "../../../api/VIN/VinAPI";
-import { addData } from "../../../api/database/db";
 
 import styles from "./ServicePopup.module.scss";
-import { addServiceCar } from "../../../state/reducers/ServiceCarSlice";
-import { TypeBases } from "../../../state/types";
+import { addServiceCar } from "../../../state/slices/ServiceCarSlice";
+
+import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
 
 const ServicePopup: React.FC<{
   closeVisible: (parampopup: boolean) => void;
@@ -18,6 +18,7 @@ const ServicePopup: React.FC<{
   const dispatch = useTypedDispatch();
   const randomIdKey = Math.random() * 100;
   const [nameMaster, setNameMaster] = useState("");
+  const [createCarService] = carsServiceAPI.useCreateCarServiceMutation();
 
   async function submitForm(VIN: string, name: string, problems: string) {
     const currentDate = new Date();
@@ -49,8 +50,8 @@ const ServicePopup: React.FC<{
         problems: problems,
       };
 
-      await addData(TypeBases.CARS_IN_SERVICE, thisCar);
-      await dispatch(addServiceCar(thisCar));
+      await createCarService(thisCar);
+      dispatch(addServiceCar(thisCar));
       closeWithNextStadyCar();
     }
     if (!data) {

@@ -1,3 +1,4 @@
+ 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICar } from "../../../state/types";
 
@@ -28,9 +29,9 @@ export const carsWaitingAPI = createApi({
       }),
       invalidatesTags: ["carsWaiting"],
     }),
-    deleteWaitingCar: build.mutation<ICar, ICar>({
-      query: (car: ICar) => ({
-        url: `/carsInWaiting/${car.id}`,
+    deleteWaitingCar: build.mutation<ICar, number>({
+      query: (id) => ({
+        url: `/carsInWaiting/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["carsWaiting"],
