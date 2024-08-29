@@ -1,5 +1,24 @@
+import { z } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { cardService } from "../../../state/types";
+
+const carServiceSchema = z.object({
+  nameMaster: z.string(),
+  id: z.number(),
+  VIN: z.string(),
+  region: z.string(),
+  country: z.string(),
+  manufacturer: z.string(),
+  vehicleAttributes: z.string(),
+  checkDigit: z.string(),
+  modelYear: z.string(),
+  assemblyPlant: z.string(),
+  serialNumber: z.string(),
+  problems: z.string(),
+  date: z.string().optional(),
+});
+
+export const carsServiceSchema = z.array(carServiceSchema);
 
 export const carsServiceAPI = createApi({
   reducerPath: "carsServiceAPI",

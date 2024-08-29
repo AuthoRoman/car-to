@@ -16,7 +16,7 @@ import {
   sortServiceCarNameMasterDown,
   sortServiceCarNameMasterUp,
 } from "../../state/slices/ServiceCarSlice";
-import { carsServiceAPI } from "./api/CarsServiceAPI";
+import { carsServiceAPI, carsServiceSchema } from "./api/CarsServiceAPI";
 
 export type SortStateType = {
   nameMaster: boolean;
@@ -51,7 +51,7 @@ export const useCarService = () => {
 
   useEffect(() => {
     (async () => {
-      const carsDB = (await getCarsService("")).data;
+      const carsDB = carsServiceSchema.parse((await getCarsService("")).data);
       if (cars.length === 0 && carsDB) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addServiceCar(x)));

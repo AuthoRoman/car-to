@@ -17,7 +17,7 @@ import {
   sortFinishCarWorkDown,
   sortFinishCarWorkUp,
 } from "../../state/slices/FinishCarSlice";
-import { carFinishAPI } from "./api/CarFinishAPI";
+import { carFinishAPI, carsFinishSchema } from "./api/CarFinishAPI";
 
 export type SortStateTypeFinishCars = {
   defaultStateSortNameMaster: boolean;
@@ -51,7 +51,7 @@ export const useCarFinishHook = () => {
   const [deleteData] = carFinishAPI.useDeleteCarFinishMutation();
   useEffect(() => {
     (async () => {
-      const carsDB = (await getStoreData("")).data;
+      const carsDB = carsFinishSchema.parse((await getStoreData("")).data);
       if (cars.length === 0 && carsDB) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addFinishCar(x)));

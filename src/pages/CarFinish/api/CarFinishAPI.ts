@@ -1,5 +1,26 @@
+import { z } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { cardFinish } from "../../../state/types";
+
+const carFinishSchema = z.object({
+  nameMaster: z.string(),
+  id: z.number(),
+  VIN: z.string(),
+  region: z.string(),
+  country: z.string(),
+  manufacturer: z.string(),
+  vehicleAttributes: z.string(),
+  checkDigit: z.string(),
+  modelYear: z.string(),
+  assemblyPlant: z.string(),
+  serialNumber: z.string(),
+  problems: z.string(),
+  date: z.string().optional(),
+  recomm: z.string(),
+  workOncar: z.string(),
+});
+
+export const carsFinishSchema = z.array(carFinishSchema);
 
 export const carFinishAPI = createApi({
   reducerPath: "carFinishAPI",

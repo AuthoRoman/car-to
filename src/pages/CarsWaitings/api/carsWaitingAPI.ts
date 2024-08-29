@@ -1,6 +1,25 @@
- 
+import { z } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICar } from "../../../state/types";
+
+const carWaitingSchema = z.object({
+  id: z.number(),
+  VIN: z.string(),
+  tel: z.string(),
+  email: z.string(),
+  firstNameOwner: z.string(),
+  secondNameOwner: z.string(),
+  numberOwners: z.number(),
+  color: z.string(),
+  carMileage: z.string(),
+  carNumber: z.string(),
+  registration: z.string(),
+  accidents: z.string(),
+  date: z.string().optional(),
+  problems: z.string(),
+});
+
+export const carsWaitingSchema = z.array(carWaitingSchema);
 
 export const carsWaitingAPI = createApi({
   reducerPath: "carsWaitingAPI",
@@ -11,6 +30,7 @@ export const carsWaitingAPI = createApi({
       query: () => ({
         url: "/carsInWaiting",
       }),
+
       providesTags: ["carsWaiting"],
     }),
     createWaitingCar: build.mutation<ICar, ICar>({

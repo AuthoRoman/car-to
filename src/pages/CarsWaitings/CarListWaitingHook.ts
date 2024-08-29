@@ -17,7 +17,7 @@ import {
   sortCarTimeDown,
   sortCarTimeUp,
 } from "../../state/slices/CarsInWaitingsSlice";
-import { carsWaitingAPI } from "./api/carsWaitingAPI";
+import { carsWaitingAPI, carsWaitingSchema } from "./api/carsWaitingAPI";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;
@@ -66,9 +66,10 @@ export const useCarListWaitingHook = () => {
   const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
   const [getCars, { isLoading }] =
     carsWaitingAPI.useLazyFetchWaitingsCarsQuery();
+
   useEffect(() => {
     (async () => {
-      const carsDB = (await getCars("")).data;
+      const carsDB = carsWaitingSchema.parse((await getCars("")).data);
       if (cars.length === 0 && carsDB) {
         carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
