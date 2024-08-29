@@ -1,0 +1,12 @@
+
+.preIconText:hover + .preIcon {
+    opacity: .2;
+}
+
+.preIcon {
+    opacity: 0;
+    transition: all .2s;
+}
+.preIcon:hover{
+    opacity: .2;
+}

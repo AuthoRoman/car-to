@@ -9,7 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import React from "react";
-import TableCellWithSort from "../../components/Table/TableCellWithSort";
+import TableCellWithSort from "../../components/customDataTable/TableCellWithSort";
 import { SortStateTypeFinishCars } from "./CarFinishHook";
 import { cardFinish } from "../../state/types";
 

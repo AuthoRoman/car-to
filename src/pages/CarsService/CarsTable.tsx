@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import TableCellWithSort from "../../components/Table/TableCellWithSort";
+import TableCellWithSort from "../../components/customDataTable/TableCellWithSort";
 import styles from "./CarService.module.scss";
 import { cardService } from "../../state/types";
 import { SortStateType } from "./CarService";
