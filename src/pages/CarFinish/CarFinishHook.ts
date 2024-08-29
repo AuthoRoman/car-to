@@ -49,6 +49,7 @@ export const useCarFinishHook = () => {
   const [upStateSort, setUpStateSort] = useState(false);
   const [getStoreData] = carFinishAPI.useLazyFetchCarsFinishQuery();
   const [deleteData] = carFinishAPI.useDeleteCarFinishMutation();
+
   useEffect(() => {
     (async () => {
       const carsDB = carsFinishSchema.parse((await getStoreData("")).data);
