@@ -20,10 +20,11 @@ interface ICarsListWaitingsPopupsProps {
   tel: string;
   secondNameOwner: string;
   firstNameOwner: string;
-  currentCar: ICar;
+
   numberOwners: number;
   problems: string;
   registration: string;
+  currentCar: ICar;
   closeEditor: (paramVisible: boolean) => void;
   closeWithNextStadyCar: () => void;
   closeInfoCar: (() => void) | undefined;

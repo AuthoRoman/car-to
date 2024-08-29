@@ -233,7 +233,20 @@ export const useCarListWaitingHook = () => {
   const handlerChangeStateSort = () => {
     setUpStateSort((prevState) => !prevState);
   };
-
+  const car = {
+    firstNameOwner,
+    secondNameOwner,
+    accidents,
+    carMileage,
+    carNumber,
+    color,
+    email,
+    numberOwners,
+    problems,
+    registration,
+    tel,
+    VIN,
+  };
   return {
     deleteCar,
     close,
@@ -255,18 +268,7 @@ export const useCarListWaitingHook = () => {
     cars,
     upStateSort,
     sortState,
-    firstNameOwner,
-    secondNameOwner,
-    accidents,
-    carMileage,
-    carNumber,
-    color,
-    email,
-    numberOwners,
-    problems,
-    registration,
-    tel,
-    VIN,
+    car,
     CurrentCarId,
     isLoading,
   };

@@ -29,18 +29,7 @@ const CarsListWaiting = () => {
     cars,
     upStateSort,
     sortState,
-    firstNameOwner,
-    secondNameOwner,
-    accidents,
-    carMileage,
-    carNumber,
-    color,
-    email,
-    numberOwners,
-    problems,
-    registration,
-    tel,
-    VIN,
+    car,
     CurrentCarId,
     isLoading,
   } = useCarListWaitingHook();
@@ -55,18 +44,18 @@ const CarsListWaiting = () => {
           isVisiblePopupWaitingsCar={isVisiblePopupWaitingsCar}
           currentCar={currentCar!}
           CurrentCarId={CurrentCarId!}
-          VIN={VIN}
-          accidents={accidents}
-          carMileage={carMileage}
-          carNumber={carNumber}
-          color={color}
-          email={email}
-          firstNameOwner={firstNameOwner}
-          secondNameOwner={secondNameOwner}
-          numberOwners={numberOwners!}
-          tel={tel!}
-          problems={problems}
-          registration={registration}
+          VIN={car.VIN}
+          accidents={car.accidents}
+          carMileage={car.carMileage}
+          carNumber={car.carNumber}
+          color={car.color}
+          email={car.email}
+          firstNameOwner={car.firstNameOwner}
+          secondNameOwner={car.secondNameOwner}
+          numberOwners={car.numberOwners!}
+          tel={car.tel!}
+          problems={car.problems}
+          registration={car.registration}
           closeEditor={closeEditor}
           closeWithNextStadyCar={closeWithNextStadyCar}
           openPopupEdit={OpenPopupEdit}
