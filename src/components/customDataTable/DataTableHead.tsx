@@ -2,34 +2,117 @@ import { TableCell, TableHead, TableRow } from "@mui/material";
 import React from "react";
 import { CARS_IN_WAITING_ITEMS } from "./constants/carsInWaitingItems";
 import TableCellWithSort from "./TableCellWithSort";
-import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/CarListWaitingHook";
 
-interface IDataTableRowProps {
-  handlerChangeDefaultState: (prop: keyof SortStateTypeWaitingCars) => void;
-  sortState: SortStateTypeWaitingCars;
+import { SortState } from "./DataTable";
+import { cardFinish, cardService, ICar } from "../../state/types";
+import { CARS_SERVICE_ITEMS } from "./constants/carsServiceItems";
+import { CARS_FINISH_ITEMS } from "./constants/carsFinishItems";
+
+interface IDataTableRowProps<T> {
+  handlerChangeDefaultState: (prop: keyof SortState<T>) => void;
+  sortState: SortState<T>;
   upStateSort: boolean;
+  typeCar: string;
 }
 
-const DataTableHead: React.FC<IDataTableRowProps> = ({
+const DataTableHead = <T,>({
+  typeCar,
   handlerChangeDefaultState,
   sortState,
   upStateSort,
-}) => {
+}: IDataTableRowProps<
+  T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
+>) => {
   return (
     <TableHead>
       <TableRow>
-        {CARS_IN_WAITING_ITEMS.map((car) => (
-          <TableCellWithSort
-            title={car.title}
-            state={sortState[car.defaultName as keyof SortStateTypeWaitingCars]}
-            arrowState={upStateSort}
-            onClick={() =>
-              handlerChangeDefaultState(
-                car.defaultName as keyof SortStateTypeWaitingCars,
-              )
-            }
-          />
-        ))}
+        {typeCar == "ICar" &&
+          CARS_IN_WAITING_ITEMS.map((car) => (
+            <TableCellWithSort
+              title={car.title}
+              state={
+                sortState[
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >
+                ] as boolean
+              }
+              arrowState={upStateSort}
+              onClick={() =>
+                handlerChangeDefaultState(
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >,
+                )
+              }
+            />
+          ))}
+        {typeCar == "cardService" &&
+          CARS_SERVICE_ITEMS.map((car) => (
+            <TableCellWithSort
+              title={car.title}
+              state={
+                sortState[
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >
+                ] as boolean
+              }
+              arrowState={upStateSort}
+              onClick={() =>
+                handlerChangeDefaultState(
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >,
+                )
+              }
+            />
+          ))}
+        {typeCar == "cardFinish" &&
+          CARS_FINISH_ITEMS.map((car) => (
+            <TableCellWithSort
+              title={car.title}
+              state={
+                sortState[
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >
+                ] as boolean
+              }
+              arrowState={upStateSort}
+              onClick={() =>
+                handlerChangeDefaultState(
+                  car.defaultName as keyof SortState<
+                    T extends ICar
+                      ? ICar
+                      : T extends cardFinish
+                        ? cardFinish
+                        : cardService
+                  >,
+                )
+              }
+            />
+          ))}
         <TableCell align="center">Действие </TableCell>
       </TableRow>
     </TableHead>

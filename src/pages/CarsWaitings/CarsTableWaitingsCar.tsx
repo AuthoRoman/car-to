@@ -24,7 +24,7 @@ interface ICarTableProps {
 export const CarsTable = (props: ICarTableProps) => {
   return (
     <div style={{ display: "flex" }}>
-      <DataTable {...props} />
+      <DataTable<ICar> {...props} typeCar={"ICar"} />
     </div>
   );
 };
