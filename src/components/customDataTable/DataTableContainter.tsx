@@ -7,8 +7,8 @@ import {
 } from "react";
 
 const DataTableContainer = (props: {
-  children:
-    | string
+  children: // Как то слишком много типов, почему в children можно прокинуть всё что угодно?
+  | string
     | number
     | boolean
     | ReactElement<unknown, string | JSXElementConstructor<unknown>>

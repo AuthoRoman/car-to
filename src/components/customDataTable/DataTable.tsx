@@ -76,9 +76,23 @@ const DataTable = <T extends object>({
                 "&:hover": { cursor: "pointer" },
               }}
             >
+              {/*Слишком много дублированного кода, который можно вынести в отдельные функции которые будут генерить  ячейки таблицы*/}
+              {/*const renderTableRows = (car: T) => {*/}
+              {/*if ("firstNameOwner" in car) {*/}
+              {/*return renderOwnerCells(car as ICar);*/}
+              {/*  }*/}
+              {/*    if ("nameMaster" in car && !("recomm" in car)) {*/}
+              {/*    return renderServiceCells(car as cardService);*/}
+              {/*  }*/}
+              {/*    if ("recomm" in car) {*/}
+              {/*    return renderFinishCells(car as cardFinish);*/}
+              {/*  }*/}
+              {/*    return null;*/}
+              {/*  };*/}
               {"firstNameOwner" in car && (
                 <>
                   <TableCell align="center" component="th" scope="row">
+                    {/*// Ошибки в типах*/}
                     {car.firstNameOwner} {car.secondNameOwner}
                   </TableCell>
                   <TableCell align="center">{car.email} </TableCell>

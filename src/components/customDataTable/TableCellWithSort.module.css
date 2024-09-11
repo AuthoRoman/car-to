@@ -1,12 +1,16 @@
 
 .preIconText:hover + .preIcon {
+    /*Todo: Кандидат на var*/
     opacity: .2;
 }
 
 .preIcon {
     opacity: 0;
+    /*Todo: Кандидат на var*/
     transition: all .2s;
 }
-.preIcon:hover{
+
+.preIcon:hover {
+    /*Todo: Кандидат на var*/
     opacity: .2;
 }

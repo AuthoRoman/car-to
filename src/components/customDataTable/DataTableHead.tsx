@@ -15,6 +15,9 @@ interface IDataTableRowProps<T> {
   typeCar: string;
 }
 
+// Todo: в идеале DataTableHead это универсальный shared компонент, и он ничего не должен знать о том что принимает
+// Todo: надо начинать делать модули на shared, core и тд, по аналогии с проектом колоны
+
 const DataTableHead = <T,>({
   typeCar,
   handlerChangeDefaultState,
@@ -28,7 +31,7 @@ const DataTableHead = <T,>({
       <TableRow>
         {typeCar == "ICar" &&
           CARS_IN_WAITING_ITEMS.map((car) => (
-            <TableCellWithSort
+            <TableCellWithSort //Todo: Отсутствует key
               title={car.title}
               state={
                 sortState[
@@ -47,7 +50,7 @@ const DataTableHead = <T,>({
                   car.defaultName as keyof SortState<
                     T extends ICar
                       ? ICar
-                      : T extends cardFinish
+                      : T extends cardFinish // Todo: Убрать использование вложенных тернарников
                         ? cardFinish
                         : cardService
                   >,

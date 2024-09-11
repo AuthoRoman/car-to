@@ -18,3 +18,5 @@ const useInitDB = () => {
 };
 
 export default useInitDB;
+
+// Удалить useInitDb, не используется

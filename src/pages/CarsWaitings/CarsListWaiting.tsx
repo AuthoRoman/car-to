@@ -36,6 +36,7 @@ const CarsListWaiting = () => {
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* Todo: Слишком много прокидываемых props, вынести их в стору и используй внутри самого компонента*/}
         <CarsListWaitingsPopups
           close={close}
           isVisiblePopup={isVisiblePopup}

@@ -18,6 +18,7 @@ const TableCellWithSort: React.FC<ITableCellProps> = memo(
         align="center"
       >
         <span className={styles.preIconText}> {title}</span>
+        {/*Todo: очень плохо исполльзовать вложенные тернарники*/}
         {state ? (
           arrowState ? (
             <img
