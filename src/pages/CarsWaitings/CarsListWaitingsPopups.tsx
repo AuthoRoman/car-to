@@ -82,6 +82,7 @@ const CarsListWaitingsPopups: React.FC<ICarsListWaitingsPopupsProps> = (
       )}
       {isOpenPopupEdit && (
         <div>
+          {/* Todo: Слишком много прокидываемых props, вынести их в стору и используй внутри самого компонента*/}
           <CreateCardPopup
             idCar={CurrentCarId}
             VINcar={VIN}

@@ -12,3 +12,5 @@ export const useDefaultInput = (initialValue: string) => {
     onChange,
   };
 };
+
+// не используется хук, удалить его
