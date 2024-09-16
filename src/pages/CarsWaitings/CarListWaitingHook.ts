@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { ICar } from "../../state/types";
 
 import {
   addCarsInWaiting,
@@ -18,6 +17,7 @@ import {
   sortCarTimeUp,
 } from "../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI, carsWaitingSchema } from "./api/carsWaitingAPI";
+import { ICar } from "./types";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;

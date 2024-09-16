@@ -43,7 +43,7 @@ export default function CarFinishComponent() {
                 />
               </div>
               <CarFinishTable
-                deleteHandler={deleteHandler}
+                deleteHandlerFinish={deleteHandler}
                 filteredCars={filteredCars}
                 getInfo={getInfo}
                 handlerChangeDefaultState={handlerChangeDefaultState}

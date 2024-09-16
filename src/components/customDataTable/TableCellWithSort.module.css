@@ -1,12 +1,11 @@
-
 .preIconText:hover + .preIcon {
-    opacity: .2;
+  opacity: var(--default-opacity);
 }
 
 .preIcon {
-    opacity: 0;
-    transition: all .2s;
+  opacity: 0;
+  transition: var(--default-transition);
 }
-.preIcon:hover{
-    opacity: .2;
+.preIcon:hover {
+  opacity: var(--default-opacity);
 }

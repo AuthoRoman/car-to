@@ -1,7 +1,7 @@
 import FinishPopup from "../../components/Popups/FinishPopup/FinishPopup";
 import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import React from "react";
-import { cardService } from "../../state/types";
+import { cardService } from "./types";
 
 interface IPopupsProps {
   isOpen: boolean;

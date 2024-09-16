@@ -22,4 +22,5 @@ ul {
   --default-color-button: #705af8;
   --default-color-button-hover: #7975f8;
   --default-transition: all 0.8s;
+  --default-opacity: 0.2s;
 }

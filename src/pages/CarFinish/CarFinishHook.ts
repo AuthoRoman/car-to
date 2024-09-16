@@ -2,8 +2,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
 
-import { cardFinish } from "../../state/types";
-
 import {
   addFinishCar,
   deleteFinishCar,
@@ -18,6 +16,7 @@ import {
   sortFinishCarWorkUp,
 } from "../../state/slices/FinishCarSlice";
 import { carFinishAPI, carsFinishSchema } from "./api/CarFinishAPI";
+import { cardFinish } from "./types";
 
 export type SortStateTypeFinishCars = {
   defaultStateSortNameMaster: boolean;

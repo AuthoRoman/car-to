@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
-import { cardService } from "../../state/types";
 
 import {
   addServiceCar,
@@ -17,6 +16,7 @@ import {
   sortServiceCarNameMasterUp,
 } from "../../state/slices/ServiceCarSlice";
 import { carsServiceAPI, carsServiceSchema } from "./api/CarsServiceAPI";
+import { cardService } from "./types";
 
 export type SortStateType = {
   nameMaster: boolean;

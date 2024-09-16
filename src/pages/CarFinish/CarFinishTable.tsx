@@ -1,8 +1,9 @@
 import React from "react";
 
 import { SortStateTypeFinishCars } from "./CarFinishHook";
-import { cardFinish } from "../../state/types";
+
 import DataTable from "../../components/customDataTable/DataTable";
+import { cardFinish, DeleteHandlerFinishCar } from "./types";
 
 interface ICarFinishTable {
   filteredCars: cardFinish[];
@@ -10,10 +11,7 @@ interface ICarFinishTable {
   upStateSort: boolean;
   handlerChangeDefaultState: (prop: keyof SortStateTypeFinishCars) => void;
   getInfo: (car: cardFinish) => void;
-  deleteHandler: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    car: cardFinish,
-  ) => void;
+  deleteHandlerFinish: DeleteHandlerFinishCar;
 }
 
 const CarFinishTable = (props: ICarFinishTable) => {
@@ -21,13 +19,13 @@ const CarFinishTable = (props: ICarFinishTable) => {
     sortState,
 
     getInfo,
-    deleteHandler,
+    deleteHandlerFinish: deleteHandler,
   } = props;
   return (
     <DataTable<cardFinish>
       typeCar="cardFinish"
       getInfocar={getInfo}
-      deleteCar={deleteHandler}
+      deleteHandlerFinishCar={deleteHandler}
       {...props}
       sortState={sortState}
     />

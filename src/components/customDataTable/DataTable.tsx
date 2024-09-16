@@ -1,11 +1,24 @@
 import React from "react";
 import DataTableContainer from "./DataTableContainter";
-import { Button, Table, TableBody, TableCell, TableRow } from "@mui/material";
+import { Table, TableBody, TableRow } from "@mui/material";
 import DataTableHead from "./DataTableHead";
 import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/CarListWaitingHook";
-import { cardFinish, cardService, ICar } from "../../state/types";
+
 import { SortStateType } from "../../pages/CarsService/CarService";
 import { SortStateTypeFinishCars } from "../../pages/CarFinish/CarFinishHook";
+import renderWaitingsCarTableRow from "./utils/renderWaitingsCarsCells";
+import {
+  DeleteButtonCarHandler,
+  ICar,
+  NextHandlerPop,
+} from "../../pages/CarsWaitings/types";
+import { cardService, FunSetCurrentCar } from "../../pages/CarsService/types";
+import renderServiceCarsCells from "./utils/renderServiceCarsCells";
+import {
+  cardFinish,
+  DeleteHandlerFinishCar,
+} from "../../pages/CarFinish/types";
+import renderFinishCarsCells from "./utils/renderFinishCarsCells";
 
 export type SortState<T> = T extends ICar
   ? SortStateTypeWaitingCars
@@ -21,31 +34,18 @@ interface DataTableProps<T> {
   upStateSort: boolean;
   handlerChangeDefaultState: (prop: keyof SortState<T>) => void;
   getInfocar: (car: T) => void;
-  deleteCar?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    car: T,
-  ) => void;
-  handleServicePop?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    VIN: string,
-    car: T,
-  ) => void;
-  funSetCurrentCar?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
 
-    car: T,
-  ) => void;
-  deleteHandler?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    car: T,
-  ) => void;
+  handleServicePop?: NextHandlerPop;
+  funSetCurrentCar?: FunSetCurrentCar;
+  deleteHandler?: DeleteButtonCarHandler;
+  deleteHandlerFinishCar?: DeleteHandlerFinishCar;
   typeCar: "ICar" | "cardService" | "cardFinish";
 }
 
 const DataTable = <T extends object>({
   typeCar,
   handleServicePop,
-  deleteCar,
+
   getInfocar,
   filteredCars,
   handlerChangeDefaultState,
@@ -53,6 +53,7 @@ const DataTable = <T extends object>({
   upStateSort,
   funSetCurrentCar,
   deleteHandler,
+  deleteHandlerFinishCar,
 }: DataTableProps<
   T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
 >) => {
@@ -76,125 +77,22 @@ const DataTable = <T extends object>({
                 "&:hover": { cursor: "pointer" },
               }}
             >
-              {"firstNameOwner" in car && (
-                <>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.firstNameOwner} {car.secondNameOwner}
-                  </TableCell>
-                  <TableCell align="center">{car.email} </TableCell>
-                  <TableCell align="center">{car.carNumber}</TableCell>
-                  <TableCell align="center">{car.date}</TableCell>
-                  <TableCell align="center">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Button
-                        onClick={(event) => deleteCar?.(event, car)}
-                        color="warning"
-                      >
-                        Удалить
-                      </Button>
-                      <Button
-                        onClick={(event) =>
-                          handleServicePop?.(event, car.VIN, car)
-                        }
-                        sx={{
-                          backgroundColor: "var(--default-color-button)",
-                          transition: "var(--default-transition)",
-                          "&:hover": {
-                            background: "var(--default-color-button-hover)",
-                          },
-                        }}
-                        variant="contained"
-                      >
-                        Отправить на обслуживание
-                      </Button>
-                    </div>
-                  </TableCell>
-                </>
-              )}
-              {"nameMaster" in car && !("recomm" in car) && (
-                <>
-                  <TableCell align="center">{car.nameMaster}</TableCell>
-                  <TableCell align="center">{car.manufacturer}</TableCell>
-                  <TableCell align="center">{car.modelYear}</TableCell>
-                  <TableCell align="center">
-                    {car.date ?? "Неизвестно"}
-                  </TableCell>
-                  <TableCell align="center">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        justifyContent: "center",
-                        alignItems: " center",
-                      }}
-                    >
-                      <Button
-                        onClick={(event) => funSetCurrentCar?.(event, car)}
-                        sx={{
-                          backgroundColor: "var(--default-color-button)",
-                          transition: "var(--default-transition)",
-                          "&:hover": {
-                            background: "var(--default-color-button-hover)",
-                          },
-                        }}
-                        variant="contained"
-                      >
-                        Завершить обслуживание
-                      </Button>
-                    </div>
-                  </TableCell>
-                </>
-              )}
-              {"recomm" in car && (
-                <>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.nameMaster}
-                  </TableCell>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.manufacturer}
-                  </TableCell>
-                  <TableCell align="center" component="th" scope="row">
-                    {car.modelYear}
-                  </TableCell>
-                  <TableCell align="center">
-                    {car.workOncar.trim().length === 0
-                      ? "Работа была проведена успешна"
-                      : car.workOncar}{" "}
-                  </TableCell>
-
-                  <TableCell align="center">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "5px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Button
-                        onClick={(event) => deleteHandler?.(event, car)}
-                        sx={{
-                          backgroundColor: "var(--default-color-button)",
-                          transition: "var(--default-transition)",
-                          "&:hover": {
-                            background: "var(--default-color-button-hover)",
-                          },
-                        }}
-                        variant="contained"
-                      >
-                        Удалить
-                      </Button>
-                    </div>
-                  </TableCell>
-                </>
-              )}
+              {/**TAB 1 RENDER TABLE */}
+              {"firstNameOwner" in car &&
+                renderWaitingsCarTableRow(
+                  car as ICar,
+                  deleteHandler as DeleteButtonCarHandler,
+                  handleServicePop as NextHandlerPop,
+                )}
+              {/**TAB 2 RENDER TABLE */}
+              {"nameMaster" in car &&
+                !("recomm" in car) &&
+                funSetCurrentCar &&
+                renderServiceCarsCells(car as cardService, funSetCurrentCar)}
+              {/**TAB 3 RENDER TABLE */}
+              {"recomm" in car &&
+                deleteHandlerFinishCar &&
+                renderFinishCarsCells(car, deleteHandlerFinishCar)}
             </TableRow>
           ))}
         </TableBody>

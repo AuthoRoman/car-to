@@ -1,8 +1,9 @@
 // Компонент для отображения таблицы автомобилей
 
 import { SortStateTypeWaitingCars } from "./CarListWaitingHook";
-import { ICar } from "../../state/types";
+
 import DataTable from "../../components/customDataTable/DataTable";
+import { DeleteButtonCarHandler, ICar } from "./types";
 
 interface ICarTableProps {
   filteredCars: ICar[];
@@ -10,10 +11,7 @@ interface ICarTableProps {
   upStateSort: boolean;
   handlerChangeDefaultState: (prop: keyof SortStateTypeWaitingCars) => void;
   getInfocar: (car: ICar) => void;
-  deleteCar: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    car: ICar,
-  ) => void;
+  deleteCar: DeleteButtonCarHandler;
   handleServicePop: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     VIN: string,
@@ -24,7 +22,11 @@ interface ICarTableProps {
 export const CarsTable = (props: ICarTableProps) => {
   return (
     <div style={{ display: "flex" }}>
-      <DataTable<ICar> {...props} typeCar={"ICar"} />
+      <DataTable<ICar>
+        {...props}
+        deleteHandler={props.deleteCar}
+        typeCar={"ICar"}
+      />
     </div>
   );
 };

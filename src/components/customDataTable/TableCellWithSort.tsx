@@ -18,8 +18,8 @@ const TableCellWithSort: React.FC<ITableCellProps> = memo(
         align="center"
       >
         <span className={styles.preIconText}> {title}</span>
-        {state ? (
-          arrowState ? (
+        {state &&
+          (arrowState ? (
             <img
               className={styles.preIcon}
               width="14"
@@ -35,22 +35,24 @@ const TableCellWithSort: React.FC<ITableCellProps> = memo(
               src="https://img.icons8.com/material-two-tone/24/up.png"
               alt="up"
             />
-          )
-        ) : arrowState ? (
-          <img
-            width="14"
-            height="14"
-            src="https://img.icons8.com/material-two-tone/24/up.png"
-            alt="up"
-          />
-        ) : (
-          <img
-            width="14"
-            height="14"
-            src="https://img.icons8.com/ios-filled/50/down--v1.png"
-            alt="down"
-          />
-        )}
+          ))}
+
+        {!state &&
+          (arrowState ? (
+            <img
+              width="14"
+              height="14"
+              src="https://img.icons8.com/material-two-tone/24/up.png"
+              alt="up"
+            />
+          ) : (
+            <img
+              width="14"
+              height="14"
+              src="https://img.icons8.com/ios-filled/50/down--v1.png"
+              alt="down"
+            />
+          ))}
       </TableCell>
     );
   },
