@@ -1,0 +1,7 @@
+{
+  "language": "Language",
+  "noCarQueue": "No cars in line",
+  "noCarWaitingsCar": "There are no cars in the queue, to add click on \"+\"",
+  "noCarService": "There are no requests for service",
+  "noCarFinish": "There are no finished cars yet"
+}

@@ -92,7 +92,10 @@ const DataTable = <T extends object>({
               {/**TAB 3 RENDER TABLE */}
               {"recomm" in car &&
                 deleteHandlerFinishCar &&
-                renderFinishCarsCells(car, deleteHandlerFinishCar)}
+                renderFinishCarsCells(
+                  car as cardFinish,
+                  deleteHandlerFinishCar,
+                )}
             </TableRow>
           ))}
         </TableBody>

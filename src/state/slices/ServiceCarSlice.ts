@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { cardService, ICarsState } from "../types";
+import { ICarsState } from "../types";
+import { cardService } from "../../pages/CarsService/types";
 
 const initialState: ICarsState<cardService> = {
   cars: [],

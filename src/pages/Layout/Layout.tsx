@@ -1,7 +1,17 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.scss";
-import { Tab, Tabs } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Tab,
+  Tabs,
+} from "@mui/material";
+import useChangeLang from "./hooks/useChangeLang";
+import { useTranslation } from "react-i18next";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,14 +27,31 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate(newValue);
   };
 
+  const { t } = useTranslation();
+  const { lang, handlerChangeLang } = useChangeLang();
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-      <nav className={styles.navLayuout} style={{ margin: "0 auto" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "15px",
+      }}
+    >
+      <nav
+        className={styles.navLayuout}
+        style={{
+          display: "flex",
+          alignItems: "baseline",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
         <Tabs
           sx={{
-            margin: "0 auto",
-            display: "inline-block",
-            width: { xs: "630px", md: " 881px" },
+            display: "flex",
+
+            width: { xs: "630px", md: "881px", lg: "fit-content" },
           }}
           value={currentTab}
           onChange={handlerChange}
@@ -76,6 +103,31 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             value="/car-to/finish"
           />
         </Tabs>
+
+        <Box
+          sx={{
+            minWidth: 90,
+            justifyContent: "flex-end",
+            height: "10px",
+            alignItems: "center",
+          }}
+        >
+          <FormControl size="small" fullWidth>
+            <InputLabel id="demo-select-small-label">
+              {t("language")}
+            </InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={lang}
+              label={t("language")}
+              onChange={(e) => handlerChangeLang(e.target.value as "ru" | "en")}
+            >
+              <MenuItem value={"ru"}>RU</MenuItem>
+              <MenuItem value={"en"}>EN</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </nav>
       <main>{children}</main>
     </div>

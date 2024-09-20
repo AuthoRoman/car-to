@@ -7,7 +7,10 @@ import { useCarListWaitingHook } from "./CarListWaitingHook";
 import CarsListWaitingsPopups from "./CarsListWaitingsPopups";
 import { CarsTable } from "./CarsTableWaitingsCar";
 
+import { useTranslation } from "react-i18next";
+
 const CarsListWaiting = () => {
+  const { t } = useTranslation();
   const {
     deleteCar,
     close,
@@ -77,9 +80,7 @@ const CarsListWaiting = () => {
                 marginLeft: "65px",
               }}
             >
-              <NoCarList
-                text={'Нет автомобилей в очереди, чтобы добавить нажми на "+"'}
-              />
+              <NoCarList text={t("noCarWaitingsCar")} />
             </div>
             <ButtonPlus onClick={() => openPopupCreateCars()} height="55px" />
           </div>
