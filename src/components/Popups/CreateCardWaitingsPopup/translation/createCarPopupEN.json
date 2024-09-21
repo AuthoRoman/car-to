@@ -1,0 +1,15 @@
+{
+  "application": "Application for service",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "phone": "Phone",
+  "email": "E-mail",
+  "vin": "VIN",
+  "registered": "Registered",
+  "NumberOwners": "Number of owners",
+  "carNumber": "Car number",
+  "carMileage": "Car mileage",
+  "color": "Color",
+  "accidents": "Accidents",
+  "problem": "Your problem"
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Layout.module.scss";
 import {
@@ -27,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate(newValue);
   };
 
-  const { t } = useTranslation();
+  const { t } = useTranslation("translation");
   const { lang, handlerChangeLang } = useChangeLang();
 
   return (
@@ -36,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         gap: "15px",
+        width: "100%",
       }}
     >
       <nav
@@ -43,15 +43,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         style={{
           display: "flex",
           alignItems: "baseline",
+          gap: "15px 15px",
           width: "100%",
-          justifyContent: "center",
         }}
       >
         <Tabs
           sx={{
             display: "flex",
-
-            width: { xs: "630px", md: "881px", lg: "fit-content" },
+            justifyContent: "center",
+            width: { xs: "630px", md: "881px", lg: "100%" },
           }}
           value={currentTab}
           onChange={handlerChange}
@@ -71,7 +71,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 xl: "14px",
               },
             }}
-            label=" Очередь на обслуживание"
+            label={`${t("layout.inWaiting")}`}
             value="/car-to/"
           />
           <Tab
@@ -85,7 +85,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 xl: "14px",
               },
             }}
-            label=" Машины обслуживаются"
+            label={`${t("layout.inService")}`}
             value="/car-to/inwork"
           />
           <Tab
@@ -99,7 +99,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 xl: "14px",
               },
             }}
-            label=" Машины, которые прошли обслуживание"
+            label={`${t("layout.inFinish")}`}
             value="/car-to/finish"
           />
         </Tabs>
@@ -108,8 +108,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           sx={{
             minWidth: 90,
             justifyContent: "flex-end",
-            height: "10px",
+            right: "120px",
+            top: "10px",
+            padding: "0px",
             alignItems: "center",
+            position: "absolute",
           }}
         >
           <FormControl size="small" fullWidth>

@@ -2,7 +2,7 @@ import React from "react";
 import ServicePopup from "../../components/Popups/ServicePopup/ServicePopup";
 import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import CreateCardPopup from "../../components/Popups/CreateCardWaitingsPopup/CreateCardPopup";
-import { ICar } from "../../state/types";
+import { ICar } from "./types";
 
 interface ICarsListWaitingsPopupsProps {
   isVisiblePopup: boolean;

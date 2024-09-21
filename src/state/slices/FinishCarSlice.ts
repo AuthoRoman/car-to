@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { cardFinish, ICarsState } from "../types";
+import { ICarsState } from "../types";
+import { cardFinish } from "../../pages/CarFinish/types";
 
 const initialState: ICarsState<cardFinish> = {
   cars: [],

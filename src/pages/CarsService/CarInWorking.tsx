@@ -1,11 +1,10 @@
-import React from "react";
-
 import styles from "./CarService.module.scss";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarService } from "./CarService";
 import { CarsTable } from "./CarsTable";
 import { Popups } from "./CarsServicePopups";
+import { useTranslation } from "react-i18next";
 
 const CarinWorking: React.FC = () => {
   const {
@@ -24,6 +23,8 @@ const CarinWorking: React.FC = () => {
     sortState,
   } = useCarService();
 
+  const { t } = useTranslation("translateServiceCar");
+
   return (
     <div>
       <Popups
@@ -37,7 +38,7 @@ const CarinWorking: React.FC = () => {
       {/* Если нет машин */}
       {!cars.length && (
         <div className={styles.inServicPage}>
-          <NoCarList text="Заявок в обслуживании нет" />
+          <NoCarList text={`${t("noCarService")}`} />
         </div>
       )}
 

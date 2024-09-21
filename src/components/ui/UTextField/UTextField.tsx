@@ -2,18 +2,30 @@ import { TextField } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
 import React, { memo } from "react";
 
-interface UTextFieldProps {
+export interface UTextFieldProps {
   value: string | number;
   textLabel: string;
   type?: string;
   error?: boolean;
   helperText?: string;
   maxLength?: string;
+  require?: boolean;
+  multiline?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const UTextField: React.FC<UTextFieldProps> = memo(
-  ({ onChange, value, textLabel, error, type, helperText, maxLength }) => {
+  ({
+    onChange,
+    value,
+    textLabel,
+    error,
+    type,
+    helperText,
+    maxLength,
+    require,
+    multiline,
+  }) => {
     return (
       <>
         {textLabel === "Телефон*" ? (
@@ -32,6 +44,7 @@ const UTextField: React.FC<UTextFieldProps> = memo(
           />
         ) : (
           <TextField
+            required={require}
             size="small"
             value={value}
             error={error}
@@ -43,14 +56,14 @@ const UTextField: React.FC<UTextFieldProps> = memo(
               backgroundColor: "white",
             }}
             label={textLabel}
-            multiline={textLabel === "Ваша пролема" ? true : false}
-            rows={textLabel === "Ваша пролема" ? 4 : 1}
-            id={textLabel === "Ваша пролема" ? "standard-multiline-static" : ""}
+            multiline={multiline}
+            rows={multiline ? 4 : 1}
+            id={multiline ? "standard-multiline-static" : ""}
           />
         )}
       </>
     );
-  }
+  },
 );
 
 export default UTextField;

@@ -5,6 +5,7 @@ import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupC
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarFinishHook } from "./CarFinishHook";
 import CarFinishTable from "./CarFinishTable";
+import { useTranslation } from "react-i18next";
 
 export default function CarFinishComponent() {
   const {
@@ -21,6 +22,8 @@ export default function CarFinishComponent() {
     deleteHandler,
   } = useCarFinishHook();
 
+  const { t } = useTranslation("translateFinishCar");
+
   return (
     <div>
       <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
@@ -31,7 +34,7 @@ export default function CarFinishComponent() {
         )}
         {cars.length === 0 ? (
           <div className={styles.nocars}>
-            <NoCarList text="Готовых машин пока нет" />
+            <NoCarList text={`${t("noCarFinish")}`} />
           </div>
         ) : (
           <div className={styles.withcar}>

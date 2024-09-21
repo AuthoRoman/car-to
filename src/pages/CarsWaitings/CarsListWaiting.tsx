@@ -10,7 +10,7 @@ import { CarsTable } from "./CarsTableWaitingsCar";
 import { useTranslation } from "react-i18next";
 
 const CarsListWaiting = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("translateWaitCar");
   const {
     deleteCar,
     close,

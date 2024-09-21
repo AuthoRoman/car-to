@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color, ICar } from "../../../state/types";
+import { Color } from "../../../state/types";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
@@ -11,6 +11,9 @@ import {
   editCarWaiting,
 } from "../../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
+import { ICar } from "../../../pages/CarsWaitings/types";
+import { useTranslation } from "react-i18next";
+import UTextFieldPhone from "../../ui/UTextField/UTextFieldPhone";
 
 interface IEditAndCreatePopupProps {
   VINcar?: string;
@@ -49,6 +52,8 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const [createCarWaiting] = carsWaitingAPI.useCreateWaitingCarMutation();
   const { handleSubmit, control } = useForm<FormType>();
   const [updateCarWaiting] = carsWaitingAPI.useUpdateWaitingCarMutation();
+
+  const { t } = useTranslation(["translateCreatePopup", "translation"]);
 
   async function submitForm(data: FormType) {
     console.log(data);
@@ -94,7 +99,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     <div>
       <div className={styles.createCardPopup}>
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
-          <h1>Заявление на обслуживание</h1>
+          <h1>{t("application")}</h1>
           <div className={styles.formInfo}>
             <div className={styles.form_clientInfo}>
               <Controller
@@ -106,10 +111,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="Имя*"
+                    textLabel={`${t("firstName")}`}
                   />
                 )}
               />
@@ -122,10 +128,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="Фамилия*"
+                    textLabel={`${t("lastName")}`}
                   />
                 )}
               />
@@ -141,12 +148,13 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
-                  <UTextField
+                  <UTextFieldPhone
+                    require
                     {...field}
                     maxLength="16"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="Телефон*"
+                    textLabel={`${t("phone")}`}
                   />
                 )}
               />
@@ -163,11 +171,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     error={!!error}
                     helperText={error ? error.message : undefined}
                     type="email"
-                    textLabel="Электронная почта*"
+                    textLabel={`${t("email")}`}
                   />
                 )}
               />
@@ -187,11 +196,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     maxLength="17"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="VIN*"
+                    textLabel={`${t("VIN")}`}
                   />
                 )}
               />
@@ -200,7 +210,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editRegistration ?? ""}
                 render={({ field }) => (
-                  <UTextField {...field} textLabel="Зарегистрирована" />
+                  <UTextField {...field} textLabel={`${t("registered")}`} />
                 )}
               />
               <Controller
@@ -216,11 +226,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     maxLength="6"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="Номер автомобиля*"
+                    textLabel={`${t("carNumber")}`}
                   />
                 )}
               />
@@ -229,7 +240,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editCarMileage ?? ""}
                 render={({ field }) => (
-                  <UTextField {...field} textLabel="Пробег автомобиля" />
+                  <UTextField {...field} textLabel={`${t("carMileage")}`} />
                 )}
               />
               <Controller
@@ -237,7 +248,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editColor ?? ""}
                 render={({ field }) => (
-                  <UTextField {...field} textLabel="Цвет" />
+                  <UTextField {...field} textLabel={`${t("color")}`} />
                 )}
               />
 
@@ -255,11 +266,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
+                    require
                     {...field}
                     type="number"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel="Количество владельцев*"
+                    textLabel={`${t("NumberOwners")}`}
                   />
                 )}
               />
@@ -269,7 +281,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editAccidents ?? ""}
                 render={({ field }) => (
-                  <UTextField {...field} textLabel="Аварии" />
+                  <UTextField {...field} textLabel={`${t("accidents")}`} />
                 )}
               />
             </div>
@@ -278,7 +290,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               control={control}
               defaultValue={editProblems ?? ""}
               render={({ field }) => (
-                <UTextField {...field} textLabel="Ваша пролема" />
+                <UTextField
+                  multiline
+                  {...field}
+                  textLabel={`${t("problem")}`}
+                />
               )}
             />
           </div>
@@ -290,7 +306,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 color: "#705AF8",
               }}
             >
-              Отмена
+              {t("translation:buttons.cancel")}
             </Button>
             <Button
               type="submit"
@@ -303,7 +319,9 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               }}
               variant="contained"
             >
-              {VINcar ? "Сохранить" : "Добавить"}
+              {VINcar
+                ? `${t("translation:buttons.save")}`
+                : `${t("translation:buttons.add")}`}
             </Button>
           </div>
         </form>

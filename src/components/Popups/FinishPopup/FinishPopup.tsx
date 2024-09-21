@@ -1,16 +1,14 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import {
-  cardFinish,
-  cardService,
-  finishCarTypesAction,
-} from "../../../state/types";
+import { finishCarTypesAction } from "../../../state/types";
 import { useDispatch } from "react-redux";
 
 import styles from "./FinishPopup.module.scss";
 import { deleteServiceCar } from "../../../state/slices/ServiceCarSlice";
 import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
 import { carFinishAPI } from "../../../pages/CarFinish/api/CarFinishAPI";
+import { cardService } from "../../../pages/CarsService/types";
+import { cardFinish } from "../../../pages/CarFinish/types";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;
