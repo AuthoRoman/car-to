@@ -1,3 +1,4 @@
+import { localCarInfo } from "../core/utils/localeInfoCar";
 import { cardFinish } from "../pages/CarFinish/types";
 import { cardService } from "../pages/CarsService/types";
 import { ICar } from "../pages/CarsWaitings/types";
@@ -13,33 +14,7 @@ export type Color =
   | "white"
   | "orange";
 
-export enum localInRussianInfo {
-  firstNameOwner = "Имя владельца",
-  secondNameOwner = "Фамилия владельца",
-  tel = "Номер телефона владельца",
-  numberOwners = "Количество владельцев автомобиля",
-  carNumber = "Номер автомобиля",
-  date = "Машина заявлена на обслуживание",
-  email = "Электронная почта владельца",
-  VIN = "ВИН номер автомобиля",
-  accidents = "Аварии автомобиля",
-  carMileage = "Автомобиль с пробегом",
-  registration = " Автомобиль зарегистрирован",
-  checkDigit = "Номер контрольный автомобиля",
-  country = "Автомобиль собран в стране",
-  color = "Цвет автомобиля",
-  serialNumber = "Сирийный номер автомобиля",
-  region = "Регион сборки",
-  assemblyPlant = "Сборочный завод",
-  accidentse = "Марка автомобиля",
-  modelYear = "Год выпуска авто",
-  nameMaster = "Имя мастера, который отремонтировал авто",
-  vehicleAttributes = "Атрибуты транспортного средства",
-  problems = "Проблемы автомобиля",
-  workOncar = "Работы, которые были проведены",
-  recomm = "Рекомендации",
-}
-export type LocalInRussianKeys = keyof typeof localInRussianInfo;
+export type LocalInRussianKeys = keyof typeof localCarInfo;
 
 //GloablStateTypes
 export interface ICarsState<T> {

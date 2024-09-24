@@ -5,12 +5,14 @@ import {
   ICar,
   NextHandlerPop,
 } from "../../../pages/CarsWaitings/types";
+import { useTranslation } from "react-i18next";
 
 const renderWaitingsCarTableRow = (
   car: ICar,
   deleteCar: DeleteButtonCarHandler,
   handleServicePop: NextHandlerPop,
 ) => {
+  const { t } = useTranslation("translation");
   return (
     <>
       <TableCell align="center" component="th" scope="row">
@@ -29,7 +31,7 @@ const renderWaitingsCarTableRow = (
           }}
         >
           <Button onClick={(event) => deleteCar?.(event, car)} color="warning">
-            Удалить
+            {`${t("buttons.delete")}`}
           </Button>
           <Button
             onClick={(event) => handleServicePop?.(event, car.VIN, car)}
@@ -42,7 +44,7 @@ const renderWaitingsCarTableRow = (
             }}
             variant="contained"
           >
-            Отправить на обслуживание
+            {`${t("buttons.sendService")}`}
           </Button>
         </div>
       </TableCell>

@@ -107,7 +107,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editFirstNameOwner ?? ""}
                 rules={{
-                  required: "Поле обязательно к заполнению*",
+                  required: `${t("messagesField.required")}`,
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
@@ -124,7 +124,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editSecondNameOwner ?? ""}
                 rules={{
-                  required: "Поле обязательно к заполнению*",
+                  required: `${t("messagesField.required")}`,
                 }}
                 render={({ field, fieldState: { error } }) => (
                   <UTextField
@@ -141,10 +141,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editPhone ?? ""}
                 rules={{
-                  required: "Введите номер телефона*",
+                  required: `${t("messagesField.phone.required")}`,
                   minLength: {
                     value: 16,
-                    message: "Введите номер до конца*",
+                    message: `${t("messagesField.phone.message")}`,
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
@@ -163,10 +163,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editEmail ?? ""}
                 rules={{
-                  required: "Введите почту*",
+                  required: `${t("messagesField.email.required")}`,
                   pattern: {
                     value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: "Введите корректную электронную почту*",
+                    message: `${t("messagesField.email.message")}`,
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
@@ -188,10 +188,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={VINcar ?? ""}
                 rules={{
-                  required: "Поле обязательно к заполнению",
+                  required: `${t("messagesField.required")}`,
                   minLength: {
                     value: 17,
-                    message: "Введите семнадцатизначный номер VIN",
+                    message: `${t("messagesField.VIN.message")}`,
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
@@ -218,10 +218,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editCarNumber ?? ""}
                 rules={{
-                  required: "Введите номер авто",
+                  required: `${t("messagesField.carNumber.required")}`,
                   minLength: {
                     value: 6,
-                    message: "Введите шестизначный номер авто",
+                    message: `${t("messagesField.carNumber.message")}`,
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
@@ -257,11 +257,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editNumberOwners ?? 1}
                 rules={{
-                  required: "Введите число владельцев",
+                  required: `${t("messagesField.numberOwners.required")}`,
                   pattern: {
                     value: /^([1-9][0-9]{0,1})$/,
-                    message:
-                      "Введите положительное, корректное число владельцев",
+                    message: `${t("messagesField.numberOwners.message")}`,
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (

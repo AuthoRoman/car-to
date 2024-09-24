@@ -1,13 +1,14 @@
 import React from "react";
-import {
-  UnificatorPropsInfoCar,
-  LocalInRussianKeys,
-  localInRussianInfo,
-} from "../../../../state/types";
+import { UnificatorPropsInfoCar } from "../../../../state/types";
 
 import styles from "./InfoPopupCars.module.scss";
 import { Button } from "@mui/material";
 import ListPointInfo from "../ListPoint/ListPointInfo";
+import {
+  getLocaleCarInfo,
+  localCarInfo,
+} from "../../../../core/utils/localeInfoCar";
+import { useTranslation } from "react-i18next";
 
 const InfoWaitingsCars: React.FC<{
   car: UnificatorPropsInfoCar;
@@ -25,9 +26,11 @@ const InfoWaitingsCars: React.FC<{
     numberOwnersEditCar: number,
     problemsEditCar: string,
     registrationEditCar: string,
-    telEditCar: string
+    telEditCar: string,
   ) => void;
 }> = ({ car, closeInfoCar, isOpenPopupEdit }) => {
+  const { t } = useTranslation("translation");
+
   return (
     <div>
       <div onClick={closeInfoCar!} className={styles.InfoWaitingPopup}>
@@ -48,13 +51,15 @@ const InfoWaitingsCars: React.FC<{
                 (key) =>
                   car[key as keyof UnificatorPropsInfoCar] !== undefined &&
                   car[key as keyof UnificatorPropsInfoCar] !== "" &&
-                  key !== "id"
+                  key !== "id",
               )
               .map((carsPref, index) => (
                 <ListPointInfo
                   key={index}
                   title={
-                    localInRussianInfo[carsPref as LocalInRussianKeys] ?? ""
+                    t(
+                      getLocaleCarInfo(carsPref as keyof typeof localCarInfo),
+                    ) ?? ""
                   }
                   text={car[carsPref as keyof typeof car] ?? ""}
                 />
@@ -63,25 +68,25 @@ const InfoWaitingsCars: React.FC<{
           {!car.recomm && !car.manufacturer ? (
             <Button
               onClick={() =>
-                isOpenPopupEdit!(
-                  car.VIN!,
-                  car.id!,
-                  car.accidents!,
-                  car.carMileage!,
-                  car.carNumber!,
-                  car.color!,
-                  car.email!,
-                  car.firstNameOwner!,
-                  car.secondNameOwner!,
-                  car.numberOwners!,
-                  car.problems!,
-                  car.registration!,
-                  car.tel!
+                isOpenPopupEdit?.(
+                  car.VIN ?? "",
+                  car.id ?? 0,
+                  car.accidents ?? "",
+                  car.carMileage ?? "",
+                  car.carNumber ?? "",
+                  car.color ?? "",
+                  car.email ?? "",
+                  car.firstNameOwner ?? "",
+                  car.secondNameOwner ?? "",
+                  car.numberOwners ?? 1,
+                  car.problems ?? "",
+                  car.registration ?? "",
+                  car.tel ?? "",
                 )
               }
               sx={{ color: "var(--default-color-button)" }}
             >
-              Редактировать
+              {t("buttons.edit")}
             </Button>
           ) : (
             ""

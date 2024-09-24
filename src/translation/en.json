@@ -8,9 +8,37 @@
   },
   "buttons": {
     "add": "Add",
+    "edit": "Edit",
     "cancel": "Cancel",
     "delete": "Delete",
     "sendService": "Send for service",
     "save": "Save"
+  },
+
+  "carInfo": {
+    "firstNameOwner": "First name",
+    "secondNameOwner": "Last name",
+    "tel": "Phone of owner",
+    "numberOwners": "Number of car owners",
+    "carNumber": "Car number",
+    "date": "The car has been requested for service",
+    "email": "Owner Email",
+    "VIN": "VIN number of the car",
+    "accidents": "Car accidents",
+    "carMileage": "Used car",
+    "registration": "The car is registered",
+    "checkDigit": "Vehicle control number",
+    "country": "The car is assembled in the country",
+    "color": "Car color",
+    "serialNumber": "Vehicle serial number",
+    "region": "Build region",
+    "assemblyPlant": "Assembly plant",
+    "accidentse": "Car make",
+    "modelYear": "Year of manufacture of the car",
+    "nameMaster": "Name of the technician who repaired the car",
+    "vehicleAttributes": "Vehicle Attributes",
+    "problems": "Car Problems",
+    "workOncar": "The work that was carried out",
+    "recomm": "Recommendations"
   }
 }

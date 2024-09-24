@@ -20,13 +20,10 @@ import {
 } from "../../pages/CarFinish/types";
 import renderFinishCarsCells from "./utils/renderFinishCarsCells";
 
-export type SortState<T> = T extends ICar
-  ? SortStateTypeWaitingCars
-  : T extends cardFinish
-    ? SortStateTypeFinishCars
-    : T extends cardService
-      ? SortStateType
-      : never;
+export type SortState<T> =
+  | (T extends ICar ? SortStateTypeWaitingCars : never)
+  | (T extends cardFinish ? SortStateTypeFinishCars : never)
+  | (T extends cardService ? SortStateType : never);
 
 interface DataTableProps<T> {
   filteredCars: T[];
