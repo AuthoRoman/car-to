@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { cardService } from "../../../state/types";
+import { cardService } from "../types";
 
 const carServiceSchema = z.object({
   nameMaster: z.string(),

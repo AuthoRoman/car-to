@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICar } from "../../../state/types";
+import { ICar } from "../types";
 
 const carWaitingSchema = z.object({
   id: z.number(),
