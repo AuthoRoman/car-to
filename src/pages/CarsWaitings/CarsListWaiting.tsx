@@ -3,7 +3,7 @@ import NoCarList from "../../components/NoCarList/NoCarList";
 import styles from "./CarsListWaiting.module.scss";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import ButtonPlus from "../../components/ui/ButtonPlus/ButtonPlus";
-import { useCarListWaitingHook } from "./CarListWaitingHook";
+import { useCarListWaitingHook } from "./hooks/CarListWaitingHook";
 import CarsListWaitingsPopups from "./CarsListWaitingsPopups";
 import { CarsTable } from "./CarsTableWaitingsCar";
 
@@ -28,12 +28,11 @@ const CarsListWaiting = () => {
     openPopupCreateCars,
     isOpenPopupEdit,
     PopupFixCar,
-    currentCar,
+
     cars,
     upStateSort,
     sortState,
-    car,
-    CurrentCarId,
+
     isLoading,
   } = useCarListWaitingHook();
   return (
@@ -45,20 +44,6 @@ const CarsListWaiting = () => {
           isOpenPopupEdit={isOpenPopupEdit}
           PopupFixCar={PopupFixCar}
           isVisiblePopupWaitingsCar={isVisiblePopupWaitingsCar}
-          currentCar={currentCar!}
-          CurrentCarId={CurrentCarId!}
-          VIN={car.VIN}
-          accidents={car.accidents}
-          carMileage={car.carMileage}
-          carNumber={car.carNumber}
-          color={car.color}
-          email={car.email}
-          firstNameOwner={car.firstNameOwner}
-          secondNameOwner={car.secondNameOwner}
-          numberOwners={car.numberOwners!}
-          tel={car.tel!}
-          problems={car.problems}
-          registration={car.registration}
           closeEditor={closeEditor}
           closeWithNextStadyCar={closeWithNextStadyCar}
           openPopupEdit={OpenPopupEdit}

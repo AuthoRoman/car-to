@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { useTypedDispatch } from "../../../state/hooks/hooks";
-import { Color } from "../../../state/types";
+import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
 
 import styles from "./CreateCardpopup.module.scss";
 import UTextField from "../../ui/UTextField/UTextField";
@@ -16,42 +15,32 @@ import { useTranslation } from "react-i18next";
 import UTextFieldPhone from "../../ui/UTextField/UTextFieldPhone";
 
 interface IEditAndCreatePopupProps {
-  VINcar?: string;
-  idCar?: number;
-  editCarNumber?: string;
-  editPhone?: string;
-  editEmail?: string;
-  editFirstNameOwner?: string;
-  editSecondNameOwner?: string;
-  editNumberOwners?: number;
-  editColor?: Color | string;
-  editCarMileage?: string;
-  editRegistration?: string;
-  editAccidents?: string;
-  editProblems?: string;
   closeVisible: (paramVisible: boolean) => void;
 }
 type FormType = Omit<ICar, "id">;
 const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   closeVisible,
-  VINcar,
-  idCar,
-  editCarNumber,
-  editPhone,
-  editEmail,
-  editFirstNameOwner,
-  editSecondNameOwner,
-  editNumberOwners,
-  editColor,
-  editCarMileage,
-  editRegistration,
-  editAccidents,
-  editProblems,
 }) => {
   const dispatch = useTypedDispatch();
   const [createCarWaiting] = carsWaitingAPI.useCreateWaitingCarMutation();
   const { handleSubmit, control } = useForm<FormType>();
   const [updateCarWaiting] = carsWaitingAPI.useUpdateWaitingCarMutation();
+
+  const {
+    id: idCar,
+    VIN: VINcar,
+    firstNameOwner: editFirstNameOwner,
+    tel: editPhone,
+    email: editEmail,
+    secondNameOwner: editSecondNameOwner,
+    numberOwners: editNumberOwners,
+    color: editColor,
+    carMileage: editCarMileage,
+    carNumber: editCarNumber,
+    registration: editRegistration,
+    accidents: editAccidents,
+    problems: editProblems,
+  } = useTypedSelector((state) => state.currentCar);
 
   const { t } = useTranslation(["translateCreatePopup", "translation"]);
 
@@ -76,7 +65,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       color: data.color,
       email: data.email,
       firstNameOwner: data.firstNameOwner,
-      id: idCar ?? IdKey,
+      id: idCar !== 0 ? idCar : IdKey,
       numberOwners: data.numberOwners,
       registration: data.registration,
       secondNameOwner: data.secondNameOwner,
@@ -84,7 +73,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       VIN: data.VIN,
       problems: data.problems,
     };
-    if (!VINcar) {
+    if (idCar === 0) {
       await createCarWaiting(thisCar);
       await dispatch(addCarsInWaiting(thisCar));
     } else {
@@ -105,7 +94,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="firstNameOwner"
                 control={control}
-                defaultValue={editFirstNameOwner ?? ""}
+                defaultValue={idCar ? editFirstNameOwner : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
@@ -122,7 +111,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="secondNameOwner"
                 control={control}
-                defaultValue={editSecondNameOwner ?? ""}
+                defaultValue={idCar ? editSecondNameOwner : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
@@ -139,7 +128,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="tel"
                 control={control}
-                defaultValue={editPhone ?? ""}
+                defaultValue={idCar ? editPhone : ""}
                 rules={{
                   required: `${t("messagesField.phone.required")}`,
                   minLength: {
@@ -161,7 +150,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="email"
                 control={control}
-                defaultValue={editEmail ?? ""}
+                defaultValue={idCar ? editEmail : ""}
                 rules={{
                   required: `${t("messagesField.email.required")}`,
                   pattern: {
@@ -186,7 +175,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="VIN"
                 control={control}
-                defaultValue={VINcar ?? ""}
+                defaultValue={idCar ? VINcar : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                   minLength: {
@@ -208,7 +197,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="registration"
                 control={control}
-                defaultValue={editRegistration ?? ""}
+                defaultValue={idCar ? editRegistration : ""}
                 render={({ field }) => (
                   <UTextField {...field} textLabel={`${t("registered")}`} />
                 )}
@@ -238,7 +227,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="carMileage"
                 control={control}
-                defaultValue={editCarMileage ?? ""}
+                defaultValue={idCar ? editCarMileage : ""}
                 render={({ field }) => (
                   <UTextField {...field} textLabel={`${t("carMileage")}`} />
                 )}
@@ -255,7 +244,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="numberOwners"
                 control={control}
-                defaultValue={editNumberOwners ?? 1}
+                defaultValue={idCar ? editNumberOwners : 1}
                 rules={{
                   required: `${t("messagesField.numberOwners.required")}`,
                   pattern: {
@@ -278,7 +267,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="accidents"
                 control={control}
-                defaultValue={editAccidents ?? ""}
+                defaultValue={idCar ? editAccidents : ""}
                 render={({ field }) => (
                   <UTextField {...field} textLabel={`${t("accidents")}`} />
                 )}

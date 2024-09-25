@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useCallback, useEffect, useState } from "react";
 
-import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
+import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
 
 import {
   addCarsInWaiting,
@@ -15,9 +15,11 @@ import {
   sortCarNumberAutoUp,
   sortCarTimeDown,
   sortCarTimeUp,
-} from "../../state/slices/CarsInWaitingsSlice";
-import { carsWaitingAPI, carsWaitingSchema } from "./api/carsWaitingAPI";
-import { ICar } from "./types";
+} from "../../../state/slices/CarsInWaitingsSlice";
+import { carsWaitingAPI, carsWaitingSchema } from "../api/carsWaitingAPI";
+import { ICar } from "../types";
+import resetCurrentCar from "../utils/resetCurrentCar";
+import { setNewCar } from "../../../state/slices/CurrentCarSlice";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;
@@ -28,6 +30,7 @@ export type SortStateTypeWaitingCars = {
 
 export const useCarListWaitingHook = () => {
   const dispatch = useTypedDispatch();
+  const currentCar = useTypedSelector((state) => state.currentCar);
   const cars = useTypedSelector((state) => state.cars.cars);
   const filteredCars = useTypedSelector((state) => state.cars.filteredItems);
 
@@ -38,7 +41,6 @@ export const useCarListWaitingHook = () => {
     defaultStateSortTime: true,
   });
 
-  const [currentCar, setCurrentCar] = useState<ICar>();
   const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false);
   const [isVisiblePopupWaitingsCar, setIsVisiblePopupWaitingsCar] =
     useState(false);
@@ -50,19 +52,7 @@ export const useCarListWaitingHook = () => {
   const [upStateSort, setUpStateSort] = useState<boolean>(false);
 
   //EditCars options
-  const [firstNameOwner, setFirstNameOwner] = useState("");
-  const [secondNameOwner, setSecondNameOwner] = useState("");
-  const [accidents, setAccidents] = useState<string>("");
-  const [carMileage, setCarMileage] = useState<string>("");
-  const [carNumber, setCarNumber] = useState<string>("");
-  const [color, setColor] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [numberOwners, setNumberOwners] = useState<number | null>(null);
-  const [problems, setProblems] = useState<string>("");
-  const [registration, setRegistration] = useState<string>("");
-  const [tel, setTel] = useState<string>();
-  const [VIN, setVIN] = useState("");
-  const [CurrentCarId, setCurrentCarId] = useState<number>();
+
   const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
   const [getCars, { isLoading }] =
     carsWaitingAPI.useLazyFetchWaitingsCarsQuery();
@@ -88,7 +78,7 @@ export const useCarListWaitingHook = () => {
   };
 
   const closeWithNextStadyCar = async () => {
-    if (currentCar) {
+    if (currentCar.id) {
       await deleteData(currentCar.id);
       await dispatch(deleteWaitingCar(currentCar));
 
@@ -97,11 +87,12 @@ export const useCarListWaitingHook = () => {
   };
 
   const getInfocar = (car: ICar) => {
-    setCurrentCar(car);
+    setNewCar(car);
     setIsVisiblePopupWaitingsCar(true);
   };
   const closeInfoCar = () => {
     setIsVisiblePopupWaitingsCar(false);
+    resetCurrentCar();
   };
   const openPopupCreateCars = () => {
     setIsVisiblePopup(true);
@@ -119,41 +110,12 @@ export const useCarListWaitingHook = () => {
     car: ICar,
   ) {
     event.stopPropagation();
-    setCurrentCar(car);
-    setVIN(VIN);
+    setNewCar(car);
+
     setPopupFixCar(true);
   }
 
-  const OpenPopupEdit = (
-    VIN: string,
-    id: number,
-    accidents: string,
-    carMileage: string,
-    carNumber: string,
-    color: string,
-    email: string,
-    firstNameOwner: string,
-    secondNameOwner: string,
-    numberOwners: number,
-    problems: string,
-    registration: string,
-    tel: string,
-  ) => {
-    setCurrentCarId(id);
-    setVIN(VIN);
-    setAccidents(accidents);
-    setCarMileage(carMileage);
-    setCarNumber(carNumber);
-    setColor(color);
-    setEmail(email);
-    setNumberOwners(numberOwners);
-    setProblems(problems);
-    setRegistration(registration);
-    setTel(tel);
-
-    setFirstNameOwner(firstNameOwner);
-    setSecondNameOwner(secondNameOwner);
-
+  const OpenPopupEdit = () => {
     setisOpenPopupEdit(true);
     setIsVisiblePopupWaitingsCar(false);
   };
@@ -234,20 +196,7 @@ export const useCarListWaitingHook = () => {
   const handlerChangeStateSort = () => {
     setUpStateSort((prevState) => !prevState);
   };
-  const car = {
-    firstNameOwner,
-    secondNameOwner,
-    accidents,
-    carMileage,
-    carNumber,
-    color,
-    email,
-    numberOwners,
-    problems,
-    registration,
-    tel,
-    VIN,
-  };
+  const car = {};
   return {
     deleteCar,
     close,
@@ -270,7 +219,7 @@ export const useCarListWaitingHook = () => {
     upStateSort,
     sortState,
     car,
-    CurrentCarId,
+
     isLoading,
   };
 };

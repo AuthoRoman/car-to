@@ -2,7 +2,7 @@ import React from "react";
 import DataTableContainer from "./DataTableContainter";
 import { Table, TableBody, TableRow } from "@mui/material";
 import DataTableHead from "./DataTableHead";
-import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/CarListWaitingHook";
+import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/hooks/CarListWaitingHook";
 
 import { SortStateType } from "../../pages/CarsService/CarService";
 import { SortStateTypeFinishCars } from "../../pages/CarFinish/CarFinishHook";
