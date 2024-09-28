@@ -86,8 +86,12 @@ export const useCarListWaitingHook = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(currentCar);
+  }, [currentCar, setNewCar]);
+
   const getInfocar = (car: ICar) => {
-    setNewCar(car);
+    dispatch(setNewCar(car));
     setIsVisiblePopupWaitingsCar(true);
   };
   const closeInfoCar = () => {
@@ -110,7 +114,7 @@ export const useCarListWaitingHook = () => {
     car: ICar,
   ) {
     event.stopPropagation();
-    setNewCar(car);
+    dispatch(setNewCar(car));
 
     setPopupFixCar(true);
   }

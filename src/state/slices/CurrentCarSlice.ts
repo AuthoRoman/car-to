@@ -23,7 +23,7 @@ export const currentCarSlice = createSlice({
   initialState,
   reducers: {
     setNewCar: (state, action: PayloadAction<ICar>) => {
-      return (state = { ...state, ...action });
+      return (state = { ...state, ...action.payload });
     },
   },
 });

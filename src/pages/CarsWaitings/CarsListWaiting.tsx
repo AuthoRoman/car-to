@@ -28,11 +28,9 @@ const CarsListWaiting = () => {
     openPopupCreateCars,
     isOpenPopupEdit,
     PopupFixCar,
-
     cars,
     upStateSort,
     sortState,
-
     isLoading,
   } = useCarListWaitingHook();
   return (
