@@ -62,7 +62,7 @@ export const serviceCarSlice = createSlice({
       );
     },
     deleteServiceCar(state, action: PayloadAction<cardService>) {
-      state.cars = state.cars.filter((car) => car.VIN !== action.payload!.VIN);
+      state.cars = state.cars.filter((car) => car.VIN !== action.payload.VIN);
     },
   },
 });

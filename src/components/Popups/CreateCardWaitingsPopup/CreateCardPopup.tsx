@@ -13,6 +13,9 @@ import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
 import { ICar } from "../../../pages/CarsWaitings/types";
 import { useTranslation } from "react-i18next";
 import UTextFieldPhone from "../../ui/UTextField/UTextFieldPhone";
+import resetCurrentCar from "../../../pages/CarsWaitings/utils/resetCurrentCar";
+import { setNewCar } from "../../../state/slices/CurrentCarSlice";
+import { EMPTY_CAR } from "../../../pages/CarsWaitings/constants/EMPTY_CAR";
 
 interface IEditAndCreatePopupProps {
   closeVisible: (paramVisible: boolean) => void;
@@ -83,10 +86,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       await updateCarWaiting(thisCar);
       await dispatch(editCarWaiting(thisCar));
     }
-
+    setNewCar(EMPTY_CAR);
     closeVisible(false);
   }
-
+  console.log(idCar);
   return (
     <div>
       <div className={styles.createCardPopup}>
@@ -97,7 +100,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="firstNameOwner"
                 control={control}
-                defaultValue={idCar ? editFirstNameOwner : ""}
+                defaultValue={!!idCar ? editFirstNameOwner : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
@@ -118,7 +121,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="secondNameOwner"
                 control={control}
-                defaultValue={idCar ? editSecondNameOwner : ""}
+                defaultValue={!!idCar ? editSecondNameOwner : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
@@ -139,7 +142,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="tel"
                 control={control}
-                defaultValue={idCar ? editPhone : ""}
+                defaultValue={!!idCar ? editPhone : ""}
                 rules={{
                   required: `${t("messagesField.phone.required")}`,
                   minLength: {
@@ -165,7 +168,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="email"
                 control={control}
-                defaultValue={idCar ? editEmail : ""}
+                defaultValue={!!idCar ? editEmail : ""}
                 rules={{
                   required: `${t("messagesField.email.required")}`,
                   pattern: {
@@ -194,7 +197,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="VIN"
                 control={control}
-                defaultValue={idCar ? VINcar : ""}
+                defaultValue={!!idCar ? VINcar : ""}
                 rules={{
                   required: `${t("messagesField.required")}`,
                   minLength: {
@@ -220,7 +223,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="registration"
                 control={control}
-                defaultValue={idCar ? editRegistration : ""}
+                defaultValue={!!idCar ? editRegistration : ""}
                 render={({ field: { value, onChange } }) => (
                   <UTextField
                     value={value}
@@ -258,7 +261,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="carMileage"
                 control={control}
-                defaultValue={idCar ? editCarMileage : ""}
+                defaultValue={!!idCar ? editCarMileage : ""}
                 render={({ field: { value, onChange } }) => (
                   <UTextField
                     value={value}
@@ -283,7 +286,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="numberOwners"
                 control={control}
-                defaultValue={idCar ? editNumberOwners : 1}
+                defaultValue={!!idCar ? editNumberOwners : 1}
                 rules={{
                   required: `${t("messagesField.numberOwners.required")}`,
                   pattern: {
@@ -310,7 +313,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               <Controller
                 name="accidents"
                 control={control}
-                defaultValue={idCar ? editAccidents : ""}
+                defaultValue={!!idCar ? editAccidents : ""}
                 render={({ field: { value, onChange } }) => (
                   <UTextField
                     value={value}

@@ -10,6 +10,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default tseslint.config(
   {
     plugins: {
+      plugin: react - hooks - unreliable - deps / recommended,
       "@typescript-eslint": tseslint.plugin,
       react: eslintReact,
       "react-refresh": eslintReactRefresh,

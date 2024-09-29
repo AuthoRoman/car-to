@@ -10,18 +10,22 @@ import { useTypedDispatch } from "../../../state/hooks/hooks";
 
 import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
 import { cardService } from "../../../pages/CarsService/types";
+import { deleteWaitingCar } from "../../../state/slices/CarsInWaitingsSlice";
+import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
+import { ICar } from "../../../pages/CarsWaitings/types";
 
 const ServicePopup: React.FC<{
   closeVisible: (parampopup: boolean) => void;
-  VIN: string;
+  car: ICar;
   problems: string;
   closeWithNextStadyCar: () => void;
-}> = ({ closeVisible, VIN, problems, closeWithNextStadyCar }) => {
+}> = ({ closeVisible, car, problems, closeWithNextStadyCar }) => {
+  const VIN = car.VIN;
   const dispatch = useTypedDispatch();
-  const randomIdKey = Math.random() * 100;
+
   const [nameMaster, setNameMaster] = useState("");
   const [createCarService] = carsServiceAPI.useCreateCarServiceMutation();
-
+  const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
   async function submitForm(VIN: string, name: string, problems: string) {
     const currentDate = new Date();
     const date = `${
@@ -37,7 +41,7 @@ const ServicePopup: React.FC<{
     console.log(data);
     if (data) {
       const thisCar = {
-        id: randomIdKey,
+        id: car.id,
         VIN: VIN,
         region: data.region,
         country: data.country,
@@ -51,10 +55,13 @@ const ServicePopup: React.FC<{
         nameMaster: name,
         problems: problems,
       };
+      await deleteData(car.id);
 
       const { data: newCarServiceWithId } = await createCarService(thisCar);
-      dispatch(addServiceCar(newCarServiceWithId as cardService));
 
+      dispatch(deleteWaitingCar(car.VIN));
+
+      dispatch(addServiceCar(newCarServiceWithId as cardService));
       closeWithNextStadyCar();
     }
     if (!data) {

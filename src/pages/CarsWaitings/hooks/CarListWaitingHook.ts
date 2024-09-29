@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
@@ -20,6 +19,7 @@ import { carsWaitingAPI, carsWaitingSchema } from "../api/carsWaitingAPI";
 import { ICar } from "../types";
 import resetCurrentCar from "../utils/resetCurrentCar";
 import { setNewCar } from "../../../state/slices/CurrentCarSlice";
+import { EMPTY_CAR } from "../constants/EMPTY_CAR";
 
 export type SortStateTypeWaitingCars = {
   defaultStateSortFullName: boolean;
@@ -60,31 +60,28 @@ export const useCarListWaitingHook = () => {
   useEffect(() => {
     (async () => {
       const carsDB = carsWaitingSchema.parse((await getCars("")).data);
-      if (cars.length === 0 && carsDB) {
+      if (carsDB) {
         carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
     })();
-  }, [cars.length, dispatch]);
+  }, []);
 
   useEffect(() => {
     findCar(filterWord);
     console.log("findCar(filterWord)");
   }, [cars, filterWord]);
 
-  const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {
-    console.log(car);
-    event.stopPropagation();
-    await deleteData(car.id);
-    dispatch(deleteWaitingCar(car));
-  };
+  const deleteCar = useCallback(
+    async (event: React.FormEvent<EventTarget>, car: ICar) => {
+      event.stopPropagation();
+      dispatch(deleteWaitingCar(car.VIN));
+      await deleteData(car.id);
+    },
+    [dispatch, deleteData],
+  );
 
-  const closeWithNextStadyCar = async () => {
-    if (currentCar.id) {
-      await deleteData(currentCar.id);
-      await dispatch(deleteWaitingCar(currentCar));
-
-      setPopupFixCar(false);
-    }
+  const closeWithNextStadyCar = () => {
+    setPopupFixCar(false);
   };
 
   useEffect(() => {
@@ -97,16 +94,18 @@ export const useCarListWaitingHook = () => {
   };
   const closeInfoCar = () => {
     setIsVisiblePopupWaitingsCar(false);
-    resetCurrentCar();
+    dispatch(setNewCar(EMPTY_CAR));
   };
   const openPopupCreateCars = () => {
     setIsVisiblePopup(true);
   };
   const close = () => {
     PopupFixCar ? setPopupFixCar(false) : setIsVisiblePopup(false);
+    dispatch(setNewCar(EMPTY_CAR));
   };
   const closeEditor = () => {
     setisOpenPopupEdit(false);
+    dispatch(setNewCar(EMPTY_CAR));
   };
 
   function handleServicePop(

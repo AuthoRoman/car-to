@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { finishCarTypesAction } from "../../../state/types";
+
 import { useDispatch } from "react-redux";
 
 import styles from "./FinishPopup.module.scss";
@@ -9,6 +9,7 @@ import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
 import { carFinishAPI } from "../../../pages/CarFinish/api/CarFinishAPI";
 import { cardService } from "../../../pages/CarsService/types";
 import { cardFinish } from "../../../pages/CarFinish/types";
+import { addFinishCar } from "../../../state/slices/FinishCarSlice";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;
@@ -33,12 +34,13 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
           ? "0" + (currentDate.getMonth() + 1)
           : currentDate.getMonth()
       }.${currentDate.getFullYear()}`;
+
       await deleteData(car.id);
-      const newCar = await addDataCarFinish(carCurr as cardFinish);
+      const { data: newCar } = await addDataCarFinish(carCurr as cardFinish);
 
       dispatch(deleteServiceCar({ ...car, date: date }));
 
-      dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: newCar });
+      dispatch(addFinishCar(newCar as cardFinish));
       togglePopup(false);
     }
   };

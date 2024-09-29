@@ -50,7 +50,7 @@ const CarsListWaitingsPopups: React.FC<ICarsListWaitingsPopupsProps> = (
           <ServicePopup
             closeWithNextStadyCar={closeWithNextStadyCar}
             closeVisible={close}
-            VIN={car.VIN ?? ""}
+            car={car ?? ""}
             problems={car.problems ?? ""}
           />
         </div>

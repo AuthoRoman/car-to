@@ -78,8 +78,8 @@ export const carsInWaitingSlice = createSlice({
         b.date!.localeCompare(a.date!),
       );
     },
-    deleteWaitingCar(state, action) {
-      state.cars = state.cars.filter((car) => car.VIN !== action.payload.VIN);
+    deleteWaitingCar(state, action: PayloadAction<string>) {
+      state.cars = state.cars.filter((car) => car.VIN !== action.payload);
     },
   },
 });
