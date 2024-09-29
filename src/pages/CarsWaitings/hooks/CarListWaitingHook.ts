@@ -60,7 +60,7 @@ export const useCarListWaitingHook = () => {
   useEffect(() => {
     (async () => {
       const carsDB = carsWaitingSchema.parse((await getCars("")).data);
-      if (carsDB) {
+      if (carsDB && cars.length == 0) {
         carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
       }
     })();
@@ -82,6 +82,7 @@ export const useCarListWaitingHook = () => {
 
   const closeWithNextStadyCar = () => {
     setPopupFixCar(false);
+    dispatch(setNewCar(EMPTY_CAR));
   };
 
   useEffect(() => {

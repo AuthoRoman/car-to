@@ -52,13 +52,13 @@ export const useCarFinishHook = () => {
   useEffect(() => {
     (async () => {
       const carsDB = carsFinishSchema.parse((await getStoreData("")).data);
-      if (cars.length === 0 && carsDB) {
+      if (carsDB && cars.length == 0) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addFinishCar(x)));
       }
     })();
     // Обновил зависимости
-  }, [cars.length, dispatch]);
+  }, []);
 
   useEffect(() => {
     // Cars может и не быть, нужна проверка

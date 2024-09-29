@@ -52,13 +52,13 @@ export const useCarService = () => {
   useEffect(() => {
     (async () => {
       const carsDB = carsServiceSchema.parse((await getCarsService("")).data);
-      if (cars.length === 0 && carsDB) {
+      if (carsDB && cars.length == 0) {
         // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addServiceCar(x)));
       }
     })();
     // Обновил зависимости
-  }, [cars.length, dispatch]);
+  }, [cars.length]);
 
   useEffect(() => {
     // Cars может и не быть, нужна проверка

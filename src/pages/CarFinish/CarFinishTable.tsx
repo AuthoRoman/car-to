@@ -15,19 +15,14 @@ interface ICarFinishTable {
 }
 
 const CarFinishTable = (props: ICarFinishTable) => {
-  const {
-    sortState,
-
-    getInfo,
-    deleteHandlerFinish: deleteHandler,
-  } = props;
+  const { sortState, getInfo, deleteHandlerFinish } = props;
   return (
     <DataTable<cardFinish>
       typeCar="cardFinish"
       getInfocar={getInfo}
-      deleteHandlerFinishCar={deleteHandler}
       {...props}
       sortState={sortState}
+      deleteHandlerFinishCar={deleteHandlerFinish}
     />
   );
 };
