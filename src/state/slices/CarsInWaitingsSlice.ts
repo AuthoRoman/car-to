@@ -13,7 +13,7 @@ export const carsInWaitingSlice = createSlice({
 
   reducers: {
     addCarsInWaiting(state: ICarsState<ICar>, action: PayloadAction<ICar>) {
-      state.cars = [...state.cars, action.payload];
+      state.cars.push(action.payload);
     },
     editCarWaiting(state, action: PayloadAction<ICar>) {
       state.cars = state.cars.map((car) =>
@@ -24,7 +24,7 @@ export const carsInWaitingSlice = createSlice({
     },
 
     findCarWaiting(state, action: PayloadAction<ICar>) {
-      state.filteredItems = [...state.cars].filter(
+      state.filteredItems = state.cars.filter(
         (x) =>
           x.carNumber
             .toLocaleLowerCase()
@@ -39,47 +39,47 @@ export const carsInWaitingSlice = createSlice({
     },
 
     sortCarFirstNameOwnerUp(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         a.firstNameOwner.localeCompare(b.firstNameOwner),
       );
     },
     sortCarEmailUp(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         a.email.localeCompare(b.email),
       );
     },
     sortCarNumberAutoUp(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         a.carNumber.localeCompare(b.carNumber),
       );
     },
     sortCarTimeUp(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         a.date!.localeCompare(b.date!),
       );
     },
     sortCarFirstnameOwnerDown(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         b.firstNameOwner.localeCompare(a.firstNameOwner),
       );
     },
     sortCarEmailDown(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         b.email.localeCompare(a.email),
       );
     },
     sortCarNumberAutoDown(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         b.carNumber.localeCompare(a.carNumber),
       );
     },
     sortCarTimeDown(state) {
-      state.filteredItems = [...state.filteredItems!].sort((a, b) =>
+      state.filteredItems = [...state.filteredItems].sort((a, b) =>
         b.date!.localeCompare(a.date!),
       );
     },
     deleteWaitingCar(state, action) {
-      state.cars = state.cars.filter((car) => car.VIN !== action.payload!.VIN);
+      state.cars = state.cars.filter((car) => car.VIN !== action.payload.VIN);
     },
   },
 });

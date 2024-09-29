@@ -33,6 +33,7 @@ const CarsListWaiting = () => {
     sortState,
     isLoading,
   } = useCarListWaitingHook();
+
   return (
     <div style={{ maxWidth: "1440px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -69,14 +70,14 @@ const CarsListWaiting = () => {
           </div>
         )}
 
-        {!isLoading && cars.length > 0 && (
+        {!isLoading && !!cars.length && (
           <div className={styles.tableWaitngList}>
             <div className={styles.tableWaitngList__findForm}>
               <SearchInput
                 onChange={handlerFindWord}
                 textLabel="Поиск: номер авто/имя фамилия"
               />
-              <ButtonPlus onClick={() => openPopupCreateCars()} />
+              <ButtonPlus onClick={openPopupCreateCars} />
             </div>
 
             <CarsTable

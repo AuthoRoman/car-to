@@ -51,7 +51,7 @@ export const carsWaitingAPI = createApi({
     }),
     deleteWaitingCar: build.mutation<ICar, number>({
       query: (id) => ({
-        url: `/carsInWaiting/${id}`,
+        url: `/carsInWaiting/${id}`, //в mokky.dev autoincrement (((
         method: "DELETE",
       }),
       invalidatesTags: ["carsWaiting"],

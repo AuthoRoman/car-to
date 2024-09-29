@@ -3,7 +3,7 @@ import styles from "./CarFinishPage.module.scss";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
-import { useCarFinishHook } from "./CarFinishHook";
+import { useCarFinishHook } from "./hooks/CarFinishHook";
 import CarFinishTable from "./CarFinishTable";
 import { useTranslation } from "react-i18next";
 

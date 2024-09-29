@@ -1,60 +1,60 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useCallback, useEffect, useState } from "react";
-import { useTypedDispatch, useTypedSelector } from "../../state/hooks/hooks";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
 
 import {
-  addFinishCar,
-  deleteFinishCar,
-  findFinishCar,
-  sortFinishCarManufacturerDown,
-  sortFinishCarManufacturerUp,
-  sortFinishCarModelYearDown,
-  sortFinishCarModelYearUp,
-  sortFinishCarNameMasterDown,
-  sortFinishCarNameMasterUp,
-  sortFinishCarWorkDown,
-  sortFinishCarWorkUp,
-} from "../../state/slices/FinishCarSlice";
-import { carFinishAPI, carsFinishSchema } from "./api/CarFinishAPI";
-import { cardFinish } from "./types";
+  addServiceCar,
+  findServiceCar,
+  sortServiceCarDaterDown,
+  sortServiceCarDateUp,
+  sortServiceCarManufacturerDown,
+  sortServiceCarManufacturerUp,
+  sortServiceCarModelYearDown,
+  sortServiceCarModelYearUp,
+  sortServiceCarNameMasterDown,
+  sortServiceCarNameMasterUp,
+} from "../../../state/slices/ServiceCarSlice";
+import { carsServiceAPI, carsServiceSchema } from "../api/CarsServiceAPI";
+import { cardService } from "../types";
 
-export type SortStateTypeFinishCars = {
-  defaultStateSortNameMaster: boolean;
-  defaultStateSortManufacturer: boolean;
-  defaultStateSortModelYear: boolean;
-  defaultStateSortWork: boolean;
+export type SortStateType = {
+  nameMaster: boolean;
+  manufacturer: boolean;
+  modelYear: boolean;
+  date: boolean;
 };
 
-export const useCarFinishHook = () => {
+export const useCarService = () => {
   const dispatch = useTypedDispatch();
-  const cars = useTypedSelector((state) => state.finishCars.cars);
+  const cars = useTypedSelector((state) => state.serviceCar.cars);
   const filteredCars = useTypedSelector(
-    (state) => state.finishCars.filteredItems,
+    (state) => state.serviceCar.filteredItems,
   );
-  const [isPopupInfoFinishCarOpen, setisPopupInfoFinishCarOpen] =
-    useState<boolean>(false);
-  const [sortState, setSortState] = useState<SortStateTypeFinishCars>({
-    defaultStateSortNameMaster: true,
-    defaultStateSortManufacturer: true,
-    defaultStateSortModelYear: true,
-    defaultStateSortWork: true,
+
+  const [sortState, setSortState] = useState<SortStateType>({
+    nameMaster: true,
+    manufacturer: true,
+    modelYear: true,
+    date: true,
   });
 
-  const [currentCar, setCurrentCar] = useState<cardFinish>();
+  const [currentCar, setCurrentCar] = useState<cardService>();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenServiceInfo, setIsOpenServiceInfo] = useState(false);
 
   //sort
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState(false);
-  const [getStoreData] = carFinishAPI.useLazyFetchCarsFinishQuery();
-  const [deleteData] = carFinishAPI.useDeleteCarFinishMutation();
+
+  const [getCarsService] = carsServiceAPI.useLazyFetchCarsServiceQuery();
 
   useEffect(() => {
     (async () => {
-      const carsDB = carsFinishSchema.parse((await getStoreData("")).data);
+      const carsDB = carsServiceSchema.parse((await getCarsService("")).data);
       if (cars.length === 0 && carsDB) {
         // Массив не возвращается, поэтому можно использовать forEach
-        carsDB.forEach((x) => dispatch(addFinishCar(x)));
+        carsDB.forEach((x) => dispatch(addServiceCar(x)));
       }
     })();
     // Обновил зависимости
@@ -70,9 +70,7 @@ export const useCarFinishHook = () => {
     const rand = Math.random() * 1000;
 
     dispatch(
-      findFinishCar({
-        workOncar: "",
-        recomm: "",
+      findServiceCar({
         nameMaster: filterWord,
         id: rand,
         VIN: "",
@@ -96,39 +94,32 @@ export const useCarFinishHook = () => {
     },
     [],
   );
-  const deleteHandler = async (
-    event: React.FormEvent<EventTarget>,
-    car: cardFinish,
-  ) => {
-    event.stopPropagation();
-    await dispatch(deleteFinishCar(car));
-    await deleteData(car.id);
-  };
+
   // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {
     switch (prop) {
-      case "defaultStateSortNameMaster":
+      case "nameMaster":
         upStateSort
-          ? dispatch(sortFinishCarNameMasterUp())
-          : dispatch(sortFinishCarNameMasterDown());
+          ? dispatch(sortServiceCarNameMasterUp())
+          : dispatch(sortServiceCarNameMasterDown());
 
         break;
-      case "defaultStateSortManufacturer":
+      case "manufacturer":
         upStateSort
-          ? dispatch(sortFinishCarManufacturerUp())
-          : dispatch(sortFinishCarManufacturerDown());
+          ? dispatch(sortServiceCarManufacturerUp())
+          : dispatch(sortServiceCarManufacturerDown());
 
         break;
-      case "defaultStateSortModelYear":
+      case "modelYear":
         upStateSort
-          ? dispatch(sortFinishCarModelYearUp())
-          : dispatch(sortFinishCarModelYearDown());
+          ? dispatch(sortServiceCarModelYearUp())
+          : dispatch(sortServiceCarModelYearDown());
 
         break;
-      case "defaultStateSortWork":
+      case "date":
         upStateSort
-          ? dispatch(sortFinishCarWorkUp())
-          : dispatch(sortFinishCarWorkDown());
+          ? dispatch(sortServiceCarDateUp())
+          : dispatch(sortServiceCarDaterDown());
 
         break;
       default:
@@ -166,32 +157,30 @@ export const useCarFinishHook = () => {
 
   const funSetCurrentCar = (
     event: React.FormEvent<EventTarget>,
-    car: cardFinish,
+    car: cardService,
   ) => {
     event.stopPropagation();
     setCurrentCar(car);
     togglePopup(true);
   };
 
-  const getInfo = (car: cardFinish) => {
-    setisPopupInfoFinishCarOpen(true);
+  const getInfoServiceCard = (car: cardService) => {
+    setIsOpenServiceInfo(true);
     setCurrentCar(car);
   };
-
-  const closePopup = () => {
-    setisPopupInfoFinishCarOpen(false);
+  const closeInfoCar = () => {
+    setIsOpenServiceInfo(false);
   };
 
   return {
     togglePopup,
-    closePopup,
-    getInfo,
+    closeInfoCar,
+    getInfoServiceCard,
     funSetCurrentCar,
     handlerChangeDefaultState,
-    isPopupInfoFinishCarOpen,
     filteredCars,
     handlerFindWord,
-    deleteHandler,
+    isOpenServiceInfo,
     isOpen,
     currentCar,
     cars,

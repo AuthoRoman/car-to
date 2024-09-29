@@ -4,8 +4,8 @@ import { Table, TableBody, TableRow } from "@mui/material";
 import DataTableHead from "./DataTableHead";
 import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/hooks/CarListWaitingHook";
 
-import { SortStateType } from "../../pages/CarsService/CarService";
-import { SortStateTypeFinishCars } from "../../pages/CarFinish/CarFinishHook";
+import { SortStateType } from "../../pages/CarsService/hooks/CarServiceHook";
+import { SortStateTypeFinishCars } from "../../pages/CarFinish/hooks/CarFinishHook";
 import renderWaitingsCarTableRow from "./utils/renderWaitingsCarsCells";
 import {
   DeleteButtonCarHandler,
@@ -19,6 +19,7 @@ import {
   DeleteHandlerFinishCar,
 } from "../../pages/CarFinish/types";
 import renderFinishCarsCells from "./utils/renderFinishCarsCells";
+import { useTranslation } from "react-i18next";
 
 export type SortState<T> =
   | (T extends ICar ? SortStateTypeWaitingCars : never)
@@ -54,6 +55,7 @@ const DataTable = <T extends object>({
 }: DataTableProps<
   T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
 >) => {
+  const { t } = useTranslation<string>("translation");
   return (
     <DataTableContainer>
       <Table sx={{ minWidth: 100, width: "100%" }} aria-label="simple table">
@@ -80,6 +82,7 @@ const DataTable = <T extends object>({
                   car as ICar,
                   deleteHandler as DeleteButtonCarHandler,
                   handleServicePop as NextHandlerPop,
+                  t,
                 )}
               {/**TAB 2 RENDER TABLE */}
               {"nameMaster" in car &&

@@ -68,6 +68,7 @@ export const useCarListWaitingHook = () => {
 
   useEffect(() => {
     findCar(filterWord);
+    console.log("findCar(filterWord)");
   }, [cars, filterWord]);
 
   const deleteCar = async (event: React.FormEvent<EventTarget>, car: ICar) => {

@@ -5,14 +5,14 @@ import {
   ICar,
   NextHandlerPop,
 } from "../../../pages/CarsWaitings/types";
-import { useTranslation } from "react-i18next";
+import { TFunction } from "i18next";
 
 const renderWaitingsCarTableRow = (
   car: ICar,
   deleteCar: DeleteButtonCarHandler,
   handleServicePop: NextHandlerPop,
+  t: TFunction<string, undefined>,
 ) => {
-  const { t } = useTranslation("translation");
   return (
     <>
       <TableCell align="center" component="th" scope="row">

@@ -10,6 +10,7 @@ export interface UTextFieldProps {
   helperText?: string;
   maxLength?: string;
   require?: boolean;
+
   multiline?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

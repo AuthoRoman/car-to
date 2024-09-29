@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
-import { useTypedDispatch } from "../../../state/hooks/hooks";
+
+import styles from "./ServicePopup.module.scss";
 
 import decodeVIN from "../../../api/VIN/VinAPI";
 
-import styles from "./ServicePopup.module.scss";
 import { addServiceCar } from "../../../state/slices/ServiceCarSlice";
+import { useTypedDispatch } from "../../../state/hooks/hooks";
 
 import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
+import { cardService } from "../../../pages/CarsService/types";
 
 const ServicePopup: React.FC<{
   closeVisible: (parampopup: boolean) => void;
@@ -31,8 +33,8 @@ const ServicePopup: React.FC<{
         ? "0" + (currentDate.getMonth() + 1)
         : currentDate.getMonth()
     }.${currentDate.getFullYear()}`;
-    const data = await decodeVIN(VIN);
-
+    const data = decodeVIN(VIN);
+    console.log(data);
     if (data) {
       const thisCar = {
         id: randomIdKey,
@@ -50,8 +52,9 @@ const ServicePopup: React.FC<{
         problems: problems,
       };
 
-      await createCarService(thisCar);
-      dispatch(addServiceCar(thisCar));
+      const { data: newCarServiceWithId } = await createCarService(thisCar);
+      dispatch(addServiceCar(newCarServiceWithId as cardService));
+
       closeWithNextStadyCar();
     }
     if (!data) {

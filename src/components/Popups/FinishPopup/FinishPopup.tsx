@@ -34,11 +34,11 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
           : currentDate.getMonth()
       }.${currentDate.getFullYear()}`;
       await deleteData(car.id);
-      await addDataCarFinish(carCurr as cardFinish);
+      const newCar = await addDataCarFinish(carCurr as cardFinish);
 
       dispatch(deleteServiceCar({ ...car, date: date }));
 
-      dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: carCurr });
+      dispatch({ type: finishCarTypesAction.ADD_FINISH_CAR, payload: newCar });
       togglePopup(false);
     }
   };

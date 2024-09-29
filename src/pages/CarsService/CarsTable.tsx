@@ -1,6 +1,6 @@
 // Компонент для отображения таблицы автомобилей
 
-import { SortStateType } from "./CarService";
+import { SortStateType } from "./hooks/CarServiceHook";
 import DataTable from "../../components/customDataTable/DataTable";
 import { cardService } from "./types";
 

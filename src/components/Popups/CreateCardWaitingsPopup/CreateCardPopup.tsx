@@ -45,7 +45,6 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   const { t } = useTranslation(["translateCreatePopup", "translation"]);
 
   async function submitForm(data: FormType) {
-    console.log(data);
     const IdKey = Math.round(Math.random() * 1000);
     const currentDate = new Date();
     const date = `${
@@ -73,9 +72,13 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
       VIN: data.VIN,
       problems: data.problems,
     };
+
     if (idCar === 0) {
-      await createCarWaiting(thisCar);
-      await dispatch(addCarsInWaiting(thisCar));
+      console.log("create");
+
+      const { data: thisCarNew } = await createCarWaiting(thisCar);
+      console.log(thisCarNew);
+      await dispatch(addCarsInWaiting(thisCarNew as ICar));
     } else {
       await updateCarWaiting(thisCar);
       await dispatch(editCarWaiting(thisCar));
@@ -98,10 +101,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : undefined}
                     textLabel={`${t("firstName")}`}
@@ -115,10 +122,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 rules={{
                   required: `${t("messagesField.required")}`,
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : undefined}
                     textLabel={`${t("lastName")}`}
@@ -136,10 +147,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     message: `${t("messagesField.phone.message")}`,
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextFieldPhone
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     maxLength="16"
                     error={!!error}
                     helperText={error ? error.message : undefined}
@@ -158,10 +173,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     message: `${t("messagesField.email.message")}`,
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : undefined}
                     type="email"
@@ -183,10 +202,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     message: `${t("messagesField.VIN.message")}`,
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     maxLength="17"
                     error={!!error}
                     helperText={error ? error.message : undefined}
@@ -198,8 +221,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 name="registration"
                 control={control}
                 defaultValue={idCar ? editRegistration : ""}
-                render={({ field }) => (
-                  <UTextField {...field} textLabel={`${t("registered")}`} />
+                render={({ field: { value, onChange } }) => (
+                  <UTextField
+                    value={value}
+                    onChange={onChange}
+                    textLabel={`${t("registered")}`}
+                  />
                 )}
               />
               <Controller
@@ -213,10 +240,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     message: `${t("messagesField.carNumber.message")}`,
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     maxLength="6"
                     error={!!error}
                     helperText={error ? error.message : undefined}
@@ -228,16 +259,24 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 name="carMileage"
                 control={control}
                 defaultValue={idCar ? editCarMileage : ""}
-                render={({ field }) => (
-                  <UTextField {...field} textLabel={`${t("carMileage")}`} />
+                render={({ field: { value, onChange } }) => (
+                  <UTextField
+                    value={value}
+                    onChange={onChange}
+                    textLabel={`${t("carMileage")}`}
+                  />
                 )}
               />
               <Controller
                 name="color"
                 control={control}
                 defaultValue={editColor ?? ""}
-                render={({ field }) => (
-                  <UTextField {...field} textLabel={`${t("color")}`} />
+                render={({ field: { value, onChange } }) => (
+                  <UTextField
+                    value={value}
+                    onChange={onChange}
+                    textLabel={`${t("color")}`}
+                  />
                 )}
               />
 
@@ -252,10 +291,14 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     message: `${t("messagesField.numberOwners.message")}`,
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
+                render={({
+                  field: { value, onChange },
+                  fieldState: { error },
+                }) => (
                   <UTextField
                     require
-                    {...field}
+                    value={value}
+                    onChange={onChange}
                     type="number"
                     error={!!error}
                     helperText={error ? error.message : undefined}
@@ -268,8 +311,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 name="accidents"
                 control={control}
                 defaultValue={idCar ? editAccidents : ""}
-                render={({ field }) => (
-                  <UTextField {...field} textLabel={`${t("accidents")}`} />
+                render={({ field: { value, onChange } }) => (
+                  <UTextField
+                    value={value}
+                    onChange={onChange}
+                    textLabel={`${t("accidents")}`}
+                  />
                 )}
               />
             </div>
@@ -277,10 +324,11 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
               name="problems"
               control={control}
               defaultValue={editProblems ?? ""}
-              render={({ field }) => (
+              render={({ field: { value, onChange } }) => (
                 <UTextField
                   multiline
-                  {...field}
+                  value={value}
+                  onChange={onChange}
                   textLabel={`${t("problem")}`}
                 />
               )}

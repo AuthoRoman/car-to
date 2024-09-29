@@ -1,7 +1,7 @@
 import styles from "./CarService.module.scss";
 import NoCarList from "../../components/NoCarList/NoCarList";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
-import { useCarService } from "./CarService";
+import { useCarService } from "./hooks/CarServiceHook";
 import { CarsTable } from "./CarsTable";
 import { Popups } from "./CarsServicePopups";
 import { useTranslation } from "react-i18next";
