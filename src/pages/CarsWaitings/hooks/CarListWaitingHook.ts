@@ -68,7 +68,6 @@ export const useCarListWaitingHook = () => {
 
   useEffect(() => {
     findCar(filterWord);
-    console.log("findCar(filterWord)");
   }, [cars, filterWord]);
 
   const deleteCar = useCallback(
@@ -84,10 +83,6 @@ export const useCarListWaitingHook = () => {
     setPopupFixCar(false);
     dispatch(setNewCar(EMPTY_CAR));
   };
-
-  useEffect(() => {
-    console.log(currentCar);
-  }, [currentCar, setNewCar]);
 
   const getInfocar = (car: ICar) => {
     dispatch(setNewCar(car));
@@ -127,7 +122,7 @@ export const useCarListWaitingHook = () => {
 
   const findCar = (filterWord: string) => {
     const rand = Math.random() * 20;
-    console.log("find");
+
     dispatch(
       findCarWaiting({
         id: rand,

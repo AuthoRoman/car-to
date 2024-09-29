@@ -77,10 +77,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     };
 
     if (idCar === 0) {
-      console.log("create");
-
       const { data: thisCarNew } = await createCarWaiting(thisCar);
-      console.log(thisCarNew);
       await dispatch(addCarsInWaiting(thisCarNew as ICar)); //в mokky.dev autoincrement (((
     } else {
       await updateCarWaiting(thisCar);
@@ -89,7 +86,6 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     setNewCar(EMPTY_CAR);
     closeVisible(false);
   }
-  console.log(idCar);
   return (
     <div>
       <div className={styles.createCardPopup}>

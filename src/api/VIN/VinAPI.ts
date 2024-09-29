@@ -150,23 +150,22 @@ const modelYears: { [key: string]: string } = {
   "9": "2009",
 };
 
-const vehicleAttributes : {[key:string] : {[key:string] :string}}= {
-  "bodyType":{
-    "A": 'Седан',
-    "B": "Хэтчбек",
-    "C": 'Купе',
-    "D": "Кабриолет",
-    "E": 'Минивэн',
-    "F": "Кроссовер",
-    "G": 'Внедорожник',
-    "H": "Пикап",
-    "J": 'Лимузин',
-    "K": "Фургон",
-    "L": 'Универсал',
-    "M": "Спортивный автомобиль",
+const vehicleAttributes: { [key: string]: { [key: string]: string } } = {
+  bodyType: {
+    A: "Седан",
+    B: "Хэтчбек",
+    C: "Купе",
+    D: "Кабриолет",
+    E: "Минивэн",
+    F: "Кроссовер",
+    G: "Внедорожник",
+    H: "Пикап",
+    J: "Лимузин",
+    K: "Фургон",
+    L: "Универсал",
+    M: "Спортивный автомобиль",
   },
-  "engineType":{
-    
+  engineType: {
     "1": "Бензиновый",
     "2": "Дизельный",
     "3": "Электрический",
@@ -176,54 +175,51 @@ const vehicleAttributes : {[key:string] : {[key:string] :string}}= {
     "7": "Этаноловый",
     "8": "Двухтопливный",
   },
-  "transmissionType": {
-    "A" : "Механическая",
-    "B" : "Автоматическая",
-    "C" : "Роботизированная",
-    "D" : "Вариатор",
-    "E" : "Секвентальная",
-    "F" : "Полуавтоматическая",
-    "G" : "Бесступенчатая",
-     
+  transmissionType: {
+    A: "Механическая",
+    B: "Автоматическая",
+    C: "Роботизированная",
+    D: "Вариатор",
+    E: "Секвентальная",
+    F: "Полуавтоматическая",
+    G: "Бесступенчатая",
   },
-  "safetySystem" : {
+  safetySystem: {
     "1": "ABS",
-    "2" : 'ESP',
-    "3": 'Airbags',
+    "2": "ESP",
+    "3": "Airbags",
     "4": "Система контроля давления в шинах",
     "5": "Система помощи при торможении",
     "6": "Антипробуксовочная система",
     "7": "Система помощи при старте на подъеме",
     "8": "Система контроля слепых зон",
   },
-
-}
-const assemblyPlants :{[key:string] : string} = {
-  "A" : "Австралия",
-  "B" : "Бельгия",
-  "C" : "Китай",
-  "D" : "Германия",
-  "E" : "Испания",
-  "F" : "Франция",
-  "G" : "Великобритания",
-  "H" : "Корея",
-  "J" : "Япония",
-  "K" : "США",
-  "L" : "Россия",
-  "M" : "Таиланд",
-  "N" : "Турция",
-  "P" : "Филиппины",
-  "R" : "Слованкия",
-  "S" : "Швеция",
-  "T" : "Чехия",
-  "U" : "Украина",
-  "V" : "Вьетнам",
-  "W" : "Индия",
-  "X" : "Мексика",
-  "Y" : "Словения",
-  "Z" : "Южная Африка",
-  
-}
+};
+const assemblyPlants: { [key: string]: string } = {
+  A: "Австралия",
+  B: "Бельгия",
+  C: "Китай",
+  D: "Германия",
+  E: "Испания",
+  F: "Франция",
+  G: "Великобритания",
+  H: "Корея",
+  J: "Япония",
+  K: "США",
+  L: "Россия",
+  M: "Таиланд",
+  N: "Турция",
+  P: "Филиппины",
+  R: "Слованкия",
+  S: "Швеция",
+  T: "Чехия",
+  U: "Украина",
+  V: "Вьетнам",
+  W: "Индия",
+  X: "Мексика",
+  Y: "Словения",
+  Z: "Южная Африка",
+};
 
 function decodeVIN(vin: string): VINInfo | null {
   if (vin.length !== 17) {
@@ -237,26 +233,24 @@ function decodeVIN(vin: string): VINInfo | null {
   const vehicleAttributesPart =
     vin.substring(3, 8) ||
     "Неизвестная детализация по характеристикам автомобиля";
-    const bodyType = vehicleAttributes.bodyType[vehicleAttributesPart[0]] || 'Неизвестный тип кузова'
-    const engineType = vehicleAttributes.engineType[vehicleAttributesPart[1]] || 'Неизвестный тип двигателя'
-    const transmissionType = vehicleAttributes.transmissionType[vehicleAttributesPart[2]] || 'Неизвестный тип трансмиссии'
-    const safetySystem = vehicleAttributes.safetySystem[vehicleAttributesPart[3]] || 'Неизвестная система безопасности автомобиля'
-           
+  const bodyType =
+    vehicleAttributes.bodyType[vehicleAttributesPart[0]] ||
+    "Неизвестный тип кузова";
+  const engineType =
+    vehicleAttributes.engineType[vehicleAttributesPart[1]] ||
+    "Неизвестный тип двигателя";
+  const transmissionType =
+    vehicleAttributes.transmissionType[vehicleAttributesPart[2]] ||
+    "Неизвестный тип трансмиссии";
+  const safetySystem =
+    vehicleAttributes.safetySystem[vehicleAttributesPart[3]] ||
+    "Неизвестная система безопасности автомобиля";
+
   const checkDigit = vin[8] || "Неизвестный контрольный номер";
   const modelYear = modelYears[vin[9]] || "Неизвестный год";
   const assemblyPlant = assemblyPlants[vin[10]] || "Неизвестное место";
   const serialNumber = vin.substring(11) || "Неизвестный сирийный номер";
 
-  console.log(
-    region,
-    country,
-    manufacturer,
-    vehicleAttributes,
-    checkDigit,
-    modelYear,
-    assemblyPlant,
-    serialNumber
-  );
   return {
     region,
     country,

@@ -38,7 +38,7 @@ const ServicePopup: React.FC<{
         : currentDate.getMonth()
     }.${currentDate.getFullYear()}`;
     const data = decodeVIN(VIN);
-    console.log(data);
+
     if (data) {
       const thisCar = {
         id: car.id,
@@ -65,7 +65,7 @@ const ServicePopup: React.FC<{
       closeWithNextStadyCar();
     }
     if (!data) {
-      console.log("no data");
+      alert("no data");
     }
   }
 
