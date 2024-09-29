@@ -4,7 +4,7 @@ import {
   DeleteButtonCarHandler,
   ICar,
   NextHandlerPop,
-} from "../../../pages/CarsWaitings/types";
+} from "../../../../pages/CarsWaitings/types";
 import { TFunction } from "i18next";
 
 const renderWaitingsCarTableRow = (

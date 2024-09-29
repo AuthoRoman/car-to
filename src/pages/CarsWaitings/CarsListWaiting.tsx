@@ -1,4 +1,4 @@
-import NoCarList from "../../components/NoCarList/NoCarList";
+import NoCarList from "../../components/shared/NoCarList/NoCarList";
 
 import styles from "./CarsListWaiting.module.scss";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";

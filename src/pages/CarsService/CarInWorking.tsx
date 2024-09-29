@@ -1,5 +1,5 @@
 import styles from "./CarService.module.scss";
-import NoCarList from "../../components/NoCarList/NoCarList";
+import NoCarList from "../../components/shared/NoCarList/NoCarList";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarService } from "./hooks/CarServiceHook";
 import { CarsTable } from "./CarsTable";

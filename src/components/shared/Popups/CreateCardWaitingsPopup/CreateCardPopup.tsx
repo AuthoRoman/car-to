@@ -1,21 +1,24 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
+import {
+  useTypedDispatch,
+  useTypedSelector,
+} from "../../../../state/hooks/hooks";
 
 import styles from "./CreateCardpopup.module.scss";
-import UTextField from "../../ui/UTextField/UTextField";
+import UTextField from "../../../ui/UTextField/UTextField";
 import { Controller, useForm } from "react-hook-form";
 import {
   addCarsInWaiting,
   editCarWaiting,
-} from "../../../state/slices/CarsInWaitingsSlice";
-import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
-import { ICar } from "../../../pages/CarsWaitings/types";
+} from "../../../../state/slices/CarsInWaitingsSlice";
+import { carsWaitingAPI } from "../../../../pages/CarsWaitings/api/carsWaitingAPI";
+import { ICar } from "../../../../pages/CarsWaitings/types";
 import { useTranslation } from "react-i18next";
-import UTextFieldPhone from "../../ui/UTextField/UTextFieldPhone";
-import resetCurrentCar from "../../../pages/CarsWaitings/utils/resetCurrentCar";
-import { setNewCar } from "../../../state/slices/CurrentCarSlice";
-import { EMPTY_CAR } from "../../../pages/CarsWaitings/constants/EMPTY_CAR";
+import UTextFieldPhone from "../../../ui/UTextField/UTextFieldPhone";
+import resetCurrentCar from "../../../../pages/CarsWaitings/utils/resetCurrentCar";
+import { setNewCar } from "../../../../state/slices/CurrentCarSlice";
+import { EMPTY_CAR } from "../../../../pages/CarsWaitings/constants/EMPTY_CAR";
 
 interface IEditAndCreatePopupProps {
   closeVisible: (paramVisible: boolean) => void;

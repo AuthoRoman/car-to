@@ -7,9 +7,9 @@ import { SortState } from "./DataTable";
 
 import { CARS_SERVICE_ITEMS } from "./constants/carsServiceItems";
 import { CARS_FINISH_ITEMS } from "./constants/carsFinishItems";
-import { ICar } from "../../pages/CarsWaitings/types";
-import { cardFinish } from "../../pages/CarFinish/types";
-import { cardService } from "../../pages/CarsService/types";
+import { ICar } from "../../../pages/CarsWaitings/types";
+import { cardFinish } from "../../../pages/CarFinish/types";
+import { cardService } from "../../../pages/CarsService/types";
 
 interface IDataTableRowProps<T> {
   handlerChangeDefaultState: (prop: keyof SortState<T>) => void;

@@ -1,7 +1,7 @@
 import React from "react";
-import ServicePopup from "../../components/Popups/ServicePopup/ServicePopup";
-import InfoWaitingsCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
-import CreateCardPopup from "../../components/Popups/CreateCardWaitingsPopup/CreateCardPopup";
+import ServicePopup from "../../components/shared/Popups/ServicePopup/ServicePopup";
+import InfoWaitingsCars from "../../components/shared/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
+import CreateCardPopup from "../../components/shared/Popups/CreateCardWaitingsPopup/CreateCardPopup";
 import { useTypedSelector } from "../../state/hooks/hooks";
 
 interface ICarsListWaitingsPopupsProps {

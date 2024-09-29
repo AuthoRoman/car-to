@@ -3,16 +3,16 @@ import { Button, TextField } from "@mui/material";
 
 import styles from "./ServicePopup.module.scss";
 
-import decodeVIN from "../../../api/VIN/VinAPI";
+import decodeVIN from "../../../../api/VIN/VinAPI";
 
-import { addServiceCar } from "../../../state/slices/ServiceCarSlice";
-import { useTypedDispatch } from "../../../state/hooks/hooks";
+import { addServiceCar } from "../../../../state/slices/ServiceCarSlice";
+import { useTypedDispatch } from "../../../../state/hooks/hooks";
 
-import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
-import { cardService } from "../../../pages/CarsService/types";
-import { deleteWaitingCar } from "../../../state/slices/CarsInWaitingsSlice";
-import { carsWaitingAPI } from "../../../pages/CarsWaitings/api/carsWaitingAPI";
-import { ICar } from "../../../pages/CarsWaitings/types";
+import { carsServiceAPI } from "../../../../pages/CarsService/api/CarsServiceAPI";
+import { cardService } from "../../../../pages/CarsService/types";
+import { deleteWaitingCar } from "../../../../state/slices/CarsInWaitingsSlice";
+import { carsWaitingAPI } from "../../../../pages/CarsWaitings/api/carsWaitingAPI";
+import { ICar } from "../../../../pages/CarsWaitings/types";
 
 const ServicePopup: React.FC<{
   closeVisible: (parampopup: boolean) => void;

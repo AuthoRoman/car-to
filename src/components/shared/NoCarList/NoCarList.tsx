@@ -1,5 +1,5 @@
 import React from "react";
-import NoCarImage from "../../assets/images/carNo.png";
+import NoCarImage from "../../../assets/images/carNo.png";
 import styles from "./NoCarList.module.scss";
 import { useTranslation } from "react-i18next";
 

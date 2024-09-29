@@ -1,5 +1,5 @@
 import React from "react";
-import { UnificatorPropsInfoCar } from "../../../../state/types";
+import { UnificatorPropsInfoCar } from "../../../../../state/types";
 
 import styles from "./InfoPopupCars.module.scss";
 import { Button } from "@mui/material";
@@ -7,7 +7,7 @@ import ListPointInfo from "../ListPoint/ListPointInfo";
 import {
   getLocaleCarInfo,
   localCarInfo,
-} from "../../../../core/utils/localeInfoCar";
+} from "../../../../../core/utils/localeInfoCar";
 import { useTranslation } from "react-i18next";
 
 const InfoWaitingsCars: React.FC<{

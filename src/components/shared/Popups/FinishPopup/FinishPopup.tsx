@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import styles from "./FinishPopup.module.scss";
-import { deleteServiceCar } from "../../../state/slices/ServiceCarSlice";
-import { carsServiceAPI } from "../../../pages/CarsService/api/CarsServiceAPI";
-import { carFinishAPI } from "../../../pages/CarFinish/api/CarFinishAPI";
-import { cardService } from "../../../pages/CarsService/types";
-import { cardFinish } from "../../../pages/CarFinish/types";
-import { addFinishCar } from "../../../state/slices/FinishCarSlice";
+import { deleteServiceCar } from "../../../../state/slices/ServiceCarSlice";
+import { carsServiceAPI } from "../../../../pages/CarsService/api/CarsServiceAPI";
+import { carFinishAPI } from "../../../../pages/CarFinish/api/CarFinishAPI";
+import { cardService } from "../../../../pages/CarsService/types";
+import { cardFinish } from "../../../../pages/CarFinish/types";
+import { addFinishCar } from "../../../../state/slices/FinishCarSlice";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;

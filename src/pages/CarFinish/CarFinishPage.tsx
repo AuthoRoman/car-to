@@ -1,7 +1,7 @@
 import styles from "./CarFinishPage.module.scss";
 
-import NoCarList from "../../components/NoCarList/NoCarList";
-import InfoPopupCars from "../../components/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
+import NoCarList from "../../components/shared/NoCarList/NoCarList";
+import InfoPopupCars from "../../components/shared/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarFinishHook } from "./hooks/CarFinishHook";
 import CarFinishTable from "./CarFinishTable";

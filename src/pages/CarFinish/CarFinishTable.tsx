@@ -2,7 +2,7 @@ import React from "react";
 
 import { SortStateTypeFinishCars } from "./hooks/CarFinishHook";
 
-import DataTable from "../../components/customDataTable/DataTable";
+import DataTable from "../../components/shared/customDataTable/DataTable";
 import { cardFinish, DeleteHandlerFinishCar } from "./types";
 
 interface ICarFinishTable {

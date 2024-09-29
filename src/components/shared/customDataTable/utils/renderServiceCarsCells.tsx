@@ -3,7 +3,7 @@ import React from "react";
 import {
   cardService,
   FunSetCurrentCar,
-} from "../../../pages/CarsService/types";
+} from "../../../../pages/CarsService/types";
 
 const renderServiceCarsCells = (
   car: cardService,

@@ -3,7 +3,7 @@ import React from "react";
 import {
   cardFinish,
   DeleteHandlerFinishCar,
-} from "../../../pages/CarFinish/types";
+} from "../../../../pages/CarFinish/types";
 
 const renderFinishCarsCells = (
   car: cardFinish,

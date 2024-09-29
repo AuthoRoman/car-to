@@ -2,22 +2,25 @@ import React from "react";
 import DataTableContainer from "./DataTableContainter";
 import { Table, TableBody, TableRow } from "@mui/material";
 import DataTableHead from "./DataTableHead";
-import { SortStateTypeWaitingCars } from "../../pages/CarsWaitings/hooks/CarListWaitingHook";
+import { SortStateTypeWaitingCars } from "../../../pages/CarsWaitings/hooks/CarListWaitingHook";
 
-import { SortStateType } from "../../pages/CarsService/hooks/CarServiceHook";
-import { SortStateTypeFinishCars } from "../../pages/CarFinish/hooks/CarFinishHook";
+import { SortStateType } from "../../../pages/CarsService/hooks/CarServiceHook";
+import { SortStateTypeFinishCars } from "../../../pages/CarFinish/hooks/CarFinishHook";
 import renderWaitingsCarTableRow from "./utils/renderWaitingsCarsCells";
 import {
   DeleteButtonCarHandler,
   ICar,
   NextHandlerPop,
-} from "../../pages/CarsWaitings/types";
-import { cardService, FunSetCurrentCar } from "../../pages/CarsService/types";
+} from "../../../pages/CarsWaitings/types";
+import {
+  cardService,
+  FunSetCurrentCar,
+} from "../../../pages/CarsService/types";
 import renderServiceCarsCells from "./utils/renderServiceCarsCells";
 import {
   cardFinish,
   DeleteHandlerFinishCar,
-} from "../../pages/CarFinish/types";
+} from "../../../pages/CarFinish/types";
 import renderFinishCarsCells from "./utils/renderFinishCarsCells";
 import { useTranslation } from "react-i18next";
 
