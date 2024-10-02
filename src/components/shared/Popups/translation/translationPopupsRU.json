@@ -1,0 +1,51 @@
+{
+  "createCarPopup": {
+    "application": "Заявление на обслуживание",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "phone": "Телефон",
+    "email": "Электронная почта",
+    "VIN": "VIN",
+    "registered": "Зарегистрирована",
+    "NumberOwners": "Количество владельцев",
+    "carNumber": "Номера автомобиля",
+    "carMileage": "Пробег автомобиля",
+    "color": "Цвет",
+    "accidents": "Аварии",
+    "problem": "Ваша проблема",
+
+    "messagesField": {
+      "required": "Поле обязательно к заполнению",
+      "phone": {
+        "required": "Введите номер телефона",
+        "message": "Введите номер до конца"
+      },
+      "email": {
+        "required": "Введите почту",
+        "message": "Введите корректную электронную почту"
+      },
+      "VIN": {
+        "message": "Введите семнадцатизначный номер VIN"
+      },
+      "carNumber": {
+        "required": "Введите номер авто",
+        "message": "Введите шестизначный номер авто"
+      },
+      "numberOwners": {
+        "required": "Введите число владельцев",
+        "message": "Введите положительное, корректное число владельцев"
+      }
+    }
+  },
+  "ServicePopup": {
+    "title": "Name of the mechanic who took the car for service",
+    "inputPlaceholder": "Name"
+  },
+  "FinishPopup": {
+    "title": "Имя мастера, проводившего обслуживание - ",
+    "firstSubTitle": "Были проведены следующие работы:",
+    "firstPlaceholder": "Работы которые были проведены",
+    "recommendations": "Рекомендации",
+    "secondPlaceholder": "Кукомендации по дальнейему использованию авто"
+  }
+}

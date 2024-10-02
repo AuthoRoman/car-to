@@ -5,13 +5,13 @@ import ruCoreTranslations from "./translation/ru.json";
 import ruWaitingCars from "./pages/CarsWaitings/translation/localeCarsWaitingRU.json";
 import ruServiceCars from "./pages/CarsService/translation/localeCarsServiceRU.json";
 import ruFinishCars from "./pages/CarFinish/translation/localeCarsFinishRU.json";
-import ruCreatePopup from "./components/shared/Popups/CreateCardWaitingsPopup/translation/createCarPopupRU.json";
+import ruTranslatePopups from "./components/shared/Popups/translation/translationPopupsRU.json";
 
 import enCoreTranslations from "./translation/en.json";
 import enWaitingCars from "./pages/CarsWaitings/translation/localeCarsWaitingEN.json";
 import enServiceCars from "./pages/CarsService/translation/localeCarsServiceEN.json";
 import enFinishCars from "./pages/CarFinish/translation/localeCarsFinishEN.json";
-import enCreatePopup from "./components/shared/Popups/CreateCardWaitingsPopup/translation/createCarPopupEN.json";
+import enTranslatePopups from "./components/shared/Popups/translation/translationPopupsEN.json";
 
 const resources = {
   en: {
@@ -19,14 +19,14 @@ const resources = {
     translateWaitCar: enWaitingCars,
     translateServiceCar: enServiceCars,
     translateFinishCar: enFinishCars,
-    translateCreatePopup: enCreatePopup,
+    translatePopups: enTranslatePopups,
   },
   ru: {
     translation: ruCoreTranslations,
     translateWaitCar: ruWaitingCars,
     translateServiceCar: ruServiceCars,
     translateFinishCar: ruFinishCars,
-    translateCreatePopup: ruCreatePopup,
+    translatePopups: ruTranslatePopups,
   },
 };
 

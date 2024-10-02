@@ -48,7 +48,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     problems: editProblems,
   } = useTypedSelector((state) => state.currentCar);
 
-  const { t } = useTranslation(["translateCreatePopup", "translation"]);
+  const { t } = useTranslation(["translatePopups", "translation"]);
 
   async function submitForm(data: FormType) {
     const IdKey = Math.round(Math.random() * 1000);
@@ -89,11 +89,12 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
     setNewCar(EMPTY_CAR);
     closeVisible(false);
   }
+
   return (
     <div>
       <div className={styles.createCardPopup}>
         <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
-          <h1>{t("application")}</h1>
+          <h1>{t("createCarPopup.application")}</h1>
           <div className={styles.formInfo}>
             <div className={styles.form_clientInfo}>
               <Controller
@@ -101,7 +102,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? editFirstNameOwner : ""}
                 rules={{
-                  required: `${t("messagesField.required")}`,
+                  required: `${t("createCarPopup.messagesField.required")}`,
                 }}
                 render={({
                   field: { value, onChange },
@@ -113,7 +114,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("firstName")}`}
+                    textLabel={`${t("createCarPopup.firstName")}`}
                   />
                 )}
               />
@@ -122,7 +123,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? editSecondNameOwner : ""}
                 rules={{
-                  required: `${t("messagesField.required")}`,
+                  required: `${t("createCarPopup.messagesField.required")}`,
                 }}
                 render={({
                   field: { value, onChange },
@@ -134,7 +135,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     onChange={onChange}
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("lastName")}`}
+                    textLabel={`${t("createCarPopup.lastName")}`}
                   />
                 )}
               />
@@ -143,10 +144,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? editPhone : ""}
                 rules={{
-                  required: `${t("messagesField.phone.required")}`,
+                  required: `${t("createCarPopup.messagesField.phone.required")}`,
                   minLength: {
                     value: 16,
-                    message: `${t("messagesField.phone.message")}`,
+                    message: `${t("createCarPopup.messagesField.phone.message")}`,
                   },
                 }}
                 render={({
@@ -160,7 +161,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     maxLength="16"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("phone")}`}
+                    textLabel={`${t("createCarPopup.phone")}`}
                   />
                 )}
               />
@@ -169,10 +170,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? editEmail : ""}
                 rules={{
-                  required: `${t("messagesField.email.required")}`,
+                  required: `${t("createCarPopup.messagesField.email.required")}`,
                   pattern: {
                     value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: `${t("messagesField.email.message")}`,
+                    message: `${t("createCarPopup.messagesField.email.message")}`,
                   },
                 }}
                 render={({
@@ -186,7 +187,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     error={!!error}
                     helperText={error ? error.message : undefined}
                     type="email"
-                    textLabel={`${t("email")}`}
+                    textLabel={`${t("createCarPopup.email")}`}
                   />
                 )}
               />
@@ -198,10 +199,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? VINcar : ""}
                 rules={{
-                  required: `${t("messagesField.required")}`,
+                  required: `${t("createCarPopup.messagesField.required")}`,
                   minLength: {
                     value: 17,
-                    message: `${t("messagesField.VIN.message")}`,
+                    message: `${t("createCarPopup.messagesField.VIN.message")}`,
                   },
                 }}
                 render={({
@@ -215,7 +216,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     maxLength="17"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("VIN")}`}
+                    textLabel={`${t("createCarPopup.VIN")}`}
                   />
                 )}
               />
@@ -227,7 +228,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   <UTextField
                     value={value}
                     onChange={onChange}
-                    textLabel={`${t("registered")}`}
+                    textLabel={`${t("createCarPopup.registered")}`}
                   />
                 )}
               />
@@ -236,10 +237,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={editCarNumber ?? ""}
                 rules={{
-                  required: `${t("messagesField.carNumber.required")}`,
+                  required: `${t("createCarPopup.messagesField.carNumber.required")}`,
                   minLength: {
                     value: 6,
-                    message: `${t("messagesField.carNumber.message")}`,
+                    message: `${t("createCarPopup.messagesField.carNumber.message")}`,
                   },
                 }}
                 render={({
@@ -253,7 +254,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     maxLength="6"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("carNumber")}`}
+                    textLabel={`${t("createCarPopup.carNumber")}`}
                   />
                 )}
               />
@@ -265,7 +266,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   <UTextField
                     value={value}
                     onChange={onChange}
-                    textLabel={`${t("carMileage")}`}
+                    textLabel={`${t("createCarPopup.carMileage")}`}
                   />
                 )}
               />
@@ -277,7 +278,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   <UTextField
                     value={value}
                     onChange={onChange}
-                    textLabel={`${t("color")}`}
+                    textLabel={`${t("createCarPopup.color")}`}
                   />
                 )}
               />
@@ -287,10 +288,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 control={control}
                 defaultValue={!!idCar ? editNumberOwners : 1}
                 rules={{
-                  required: `${t("messagesField.numberOwners.required")}`,
+                  required: `${t("createCarPopup.messagesField.numberOwners.required")}`,
                   pattern: {
                     value: /^([1-9][0-9]{0,1})$/,
-                    message: `${t("messagesField.numberOwners.message")}`,
+                    message: `${t("createCarPopup.messagesField.numberOwners.message")}`,
                   },
                 }}
                 render={({
@@ -304,7 +305,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                     type="number"
                     error={!!error}
                     helperText={error ? error.message : undefined}
-                    textLabel={`${t("NumberOwners")}`}
+                    textLabel={`${t("createCarPopup.NumberOwners")}`}
                   />
                 )}
               />
@@ -317,7 +318,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   <UTextField
                     value={value}
                     onChange={onChange}
-                    textLabel={`${t("accidents")}`}
+                    textLabel={`${t("createCarPopup.accidents")}`}
                   />
                 )}
               />
@@ -331,7 +332,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   multiline
                   value={value}
                   onChange={onChange}
-                  textLabel={`${t("problem")}`}
+                  textLabel={`${t("createCarPopup.problem")}`}
                 />
               )}
             />

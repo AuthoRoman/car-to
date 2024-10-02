@@ -10,7 +10,7 @@ import { CarsTable } from "./CarsTableWaitingsCar";
 import { useTranslation } from "react-i18next";
 
 const CarsListWaiting = () => {
-  const { t } = useTranslation("translateWaitCar");
+  const { t } = useTranslation(["translateWaitCar", "translation"]);
   const {
     deleteCar,
     close,
@@ -75,7 +75,7 @@ const CarsListWaiting = () => {
             <div className={styles.tableWaitngList__findForm}>
               <SearchInput
                 onChange={handlerFindWord}
-                textLabel="Поиск: номер авто/имя фамилия"
+                textLabel={t("translation:search.carsWaiting")}
               />
               <ButtonPlus onClick={openPopupCreateCars} />
             </div>

@@ -6,6 +6,7 @@
     "inService": "Cars are serviced",
     "inFinish": "Cars that have been serviced"
   },
+  "actions": "Actions",
   "buttons": {
     "add": "Add",
     "edit": "Edit",
@@ -18,6 +19,7 @@
   "carInfo": {
     "firstNameOwner": "First name",
     "secondNameOwner": "Last name",
+    "fullNameOwner": "Full name",
     "tel": "Phone of owner",
     "numberOwners": "Number of car owners",
     "carNumber": "Car number",
@@ -26,6 +28,7 @@
     "VIN": "VIN number of the car",
     "accidents": "Car accidents",
     "carMileage": "Used car",
+    "manufacturer": "Manufacturer",
     "registration": "The car is registered",
     "checkDigit": "Vehicle control number",
     "country": "The car is assembled in the country",
@@ -40,5 +43,11 @@
     "problems": "Car Problems",
     "workOncar": "The work that was carried out",
     "recomm": "Recommendations"
+  },
+
+  "search": {
+    "carsWaiting": "Search: Car number / first name last name",
+    "carsService": "Search: master name",
+    "carsFinish": "Search: master name"
   }
 }

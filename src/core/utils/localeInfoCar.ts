@@ -1,6 +1,7 @@
 export enum localCarInfo {
   firstNameOwner = "carInfo.firstNameOwner",
   secondNameOwner = "carInfo.secondNameOwner",
+  fullNameOwner = "carInfo.fullNameOwner",
   tel = "carInfo.tel",
   numberOwners = "carInfo.numberOwners",
   carNumber = "carInfo.carNumber",
@@ -9,6 +10,7 @@ export enum localCarInfo {
   VIN = "carInfo.VIN",
   accidents = "carInfo.accidents",
   carMileage = "carInfo.carMileage",
+  manufacturer = "carInfo.manufacturer",
   registration = "carInfo.registration",
   checkDigit = "carInfo.checkDigit",
   country = "carInfo.country",

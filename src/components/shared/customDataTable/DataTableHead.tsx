@@ -1,15 +1,20 @@
 import { TableCell, TableHead, TableRow } from "@mui/material";
 import React from "react";
-import { CARS_IN_WAITING_ITEMS } from "./constants/carsInWaitingItems";
+import { CARS_IN_WAITING_ITEMS } from "../../../pages/CarsWaitings/constants/carsInWaitingItems";
 import TableCellWithSort from "./TableCellWithSort";
 
 import { SortState } from "./DataTable";
 
-import { CARS_SERVICE_ITEMS } from "./constants/carsServiceItems";
-import { CARS_FINISH_ITEMS } from "./constants/carsFinishItems";
+import { CARS_SERVICE_ITEMS } from "../../../pages/CarsService/constants/carsServiceItems";
+import { CARS_FINISH_ITEMS } from "../../../pages/CarFinish/constants/carsFinishItems";
 import { ICar } from "../../../pages/CarsWaitings/types";
 import { cardFinish } from "../../../pages/CarFinish/types";
 import { cardService } from "../../../pages/CarsService/types";
+import { useTranslation } from "react-i18next";
+import {
+  getLocaleCarInfo,
+  localCarInfo,
+} from "../../../core/utils/localeInfoCar";
 
 interface IDataTableRowProps<T> {
   handlerChangeDefaultState: (prop: keyof SortState<T>) => void;
@@ -26,6 +31,7 @@ const DataTableHead = <T,>({
 }: IDataTableRowProps<
   T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
 >) => {
+  const { t } = useTranslation("translation");
   return (
     <TableHead>
       <TableRow>
@@ -33,7 +39,9 @@ const DataTableHead = <T,>({
           CARS_IN_WAITING_ITEMS.map((car, index) => (
             <TableCellWithSort
               key={index}
-              title={car.title}
+              title={t(
+                getLocaleCarInfo(car.title as keyof typeof localCarInfo),
+              )}
               state={
                 sortState[
                   car.defaultName as keyof SortState<
@@ -63,7 +71,9 @@ const DataTableHead = <T,>({
           CARS_SERVICE_ITEMS.map((car, index) => (
             <TableCellWithSort
               key={index}
-              title={car.title}
+              title={t(
+                getLocaleCarInfo(car.title as keyof typeof localCarInfo),
+              )}
               state={
                 sortState[
                   car.defaultName as keyof SortState<
@@ -93,7 +103,9 @@ const DataTableHead = <T,>({
           CARS_FINISH_ITEMS.map((car, index) => (
             <TableCellWithSort
               key={index}
-              title={car.title}
+              title={t(
+                getLocaleCarInfo(car.title as keyof typeof localCarInfo),
+              )}
               state={
                 sortState[
                   car.defaultName as keyof SortState<
@@ -119,7 +131,7 @@ const DataTableHead = <T,>({
               }
             />
           ))}
-        <TableCell align="center">Действие </TableCell>
+        <TableCell align="center">{t("actions")}</TableCell>
       </TableRow>
     </TableHead>
   );
