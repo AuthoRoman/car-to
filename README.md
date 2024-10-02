@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Vite](https://vitejs.dev/). with Redux/TypeScript
 
+The project used the following tools: Typescript, RTK, RTK Query, React-Hook-Form.
+
 ## Available Scripts
 
 In the project directory, you can run:
