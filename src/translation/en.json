@@ -12,7 +12,10 @@
     "edit": "Edit",
     "cancel": "Cancel",
     "delete": "Delete",
+    "send": "Send",
     "sendService": "Send for service",
+    "complete": "Complete",
+    "completeService": "Complete service",
     "save": "Save"
   },
 

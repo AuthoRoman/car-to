@@ -38,14 +38,14 @@
     }
   },
   "ServicePopup": {
-    "title": "Name of the mechanic who took the car for service",
-    "inputPlaceholder": "Name"
+    "title": "Имя мастера взявшего автомобиль на обслуживание",
+    "inputPlaceholder": "Имя"
   },
   "FinishPopup": {
     "title": "Имя мастера, проводившего обслуживание - ",
     "firstSubTitle": "Были проведены следующие работы:",
     "firstPlaceholder": "Работы которые были проведены",
     "recommendations": "Рекомендации",
-    "secondPlaceholder": "Кукомендации по дальнейему использованию авто"
+    "secondPlaceholder": "Рекомендации по дальнейему использованию авто"
   }
 }

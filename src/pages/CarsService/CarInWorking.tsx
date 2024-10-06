@@ -48,7 +48,7 @@ const CarinWorking: React.FC = () => {
           <div className={styles.tableService}>
             <SearchInput
               onChange={handlerFindWord}
-              textLabel="Поиск: имя мастера"
+              textLabel={t("translation:search.carsService")}
             />
             <CarsTable
               filteredCars={filteredCars}

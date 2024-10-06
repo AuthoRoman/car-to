@@ -4,10 +4,12 @@ import {
   cardService,
   FunSetCurrentCar,
 } from "../../../../pages/CarsService/types";
+import { TFunction } from "i18next";
 
 const renderServiceCarsCells = (
   car: cardService,
   funSetCurrentCar: FunSetCurrentCar,
+  t: TFunction<string, undefined>,
 ) => {
   return (
     <>
@@ -35,7 +37,7 @@ const renderServiceCarsCells = (
             }}
             variant="contained"
           >
-            Завершить обслуживание
+            {t("buttons.completeService")}
           </Button>
         </div>
       </TableCell>

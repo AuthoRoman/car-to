@@ -10,6 +10,7 @@ import { carFinishAPI } from "../../../../pages/CarFinish/api/CarFinishAPI";
 import { cardService } from "../../../../pages/CarsService/types";
 import { cardFinish } from "../../../../pages/CarFinish/types";
 import { addFinishCar } from "../../../../state/slices/FinishCarSlice";
+import { useTranslation } from "react-i18next";
 
 interface IFinishPopupProps {
   togglePopup: (toggleParam: boolean) => void;
@@ -47,13 +48,17 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
 
   const carCurr = { ...car, recomm, workOncar };
 
+  const { t } = useTranslation(["translatePopups", "translation"]);
+
   return (
     <div className={styles.finishPopup}>
       <div className={styles.finishForm}>
-        <span>Имя мастера, проводившего обслуживание - {car?.nameMaster} </span>
+        <span>
+          {t("FinishPopup.title")} {car?.nameMaster}{" "}
+        </span>
 
         <div className={styles.finishPopup__inner} id="my-helper-text">
-          Были проведены следующие работы:
+          {t("FinishPopup.firstSubTitle")}
           <TextField
             color="primary"
             onChange={(e) => setWorkOnCar(e.target.value)}
@@ -63,10 +68,12 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
 
               backgroundColor: "white",
             }}
-            placeholder="Работы, которые были проведены"
+            placeholder={t("FinishPopup.firstPlaceholder")}
             multiline
           />
-          <div style={{ margin: "13px 0 0 0" }}>Рекомендации:</div>
+          <div style={{ margin: "13px 0 0 0" }}>
+            {t("FinishPopup.recommendations")}
+          </div>
           <TextField
             color="primary"
             onChange={(e) => setRecomm(e.target.value)}
@@ -76,7 +83,7 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
 
               backgroundColor: "white",
             }}
-            placeholder="Рекомендации по дальнейшему использованию авто"
+            placeholder={t("FinishPopup.secondPlaceholder")}
             multiline
           />
           <Button
@@ -89,7 +96,7 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
               color: "#7975F8",
             }}
           >
-            Отмена
+            {t("translation:buttons.cancel")}
           </Button>
           <Button
             onClick={addCarFinish}
@@ -105,7 +112,7 @@ const FinishPopup: React.FC<IFinishPopupProps> = ({ togglePopup, car }) => {
             }}
             variant="contained"
           >
-            Выполнено
+            {t("translation:buttons.complete")}
           </Button>
         </div>
       </div>

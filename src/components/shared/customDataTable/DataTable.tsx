@@ -91,13 +91,14 @@ const DataTable = <T extends object>({
               {"nameMaster" in car &&
                 !("recomm" in car) &&
                 funSetCurrentCar &&
-                renderServiceCarsCells(car as cardService, funSetCurrentCar)}
+                renderServiceCarsCells(car as cardService, funSetCurrentCar, t)}
               {/**TAB 3 RENDER TABLE */}
               {"recomm" in car &&
                 deleteHandlerFinishCar &&
                 renderFinishCarsCells(
                   car as cardFinish,
                   deleteHandlerFinishCar,
+                  t,
                 )}
             </TableRow>
           ))}

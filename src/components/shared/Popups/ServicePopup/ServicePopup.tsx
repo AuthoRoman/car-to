@@ -13,6 +13,8 @@ import { cardService } from "../../../../pages/CarsService/types";
 import { deleteWaitingCar } from "../../../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI } from "../../../../pages/CarsWaitings/api/carsWaitingAPI";
 import { ICar } from "../../../../pages/CarsWaitings/types";
+import { useTranslation } from "react-i18next";
+import { getLocaleCarInfo } from "../../../../core/utils/localeInfoCar";
 
 const ServicePopup: React.FC<{
   closeVisible: (parampopup: boolean) => void;
@@ -69,6 +71,8 @@ const ServicePopup: React.FC<{
     }
   }
 
+  const { t } = useTranslation(["translatePopups", "translation"]);
+
   return (
     <div>
       <div className={styles.createCardPopup}>
@@ -77,7 +81,7 @@ const ServicePopup: React.FC<{
           className={styles.form}
           action=""
         >
-          <h1>Имя мастера взявшего автомобиль на обслуживание</h1>
+          <h1>{t("ServicePopup.title")}</h1>
 
           <TextField
             value={nameMaster}
@@ -87,7 +91,7 @@ const ServicePopup: React.FC<{
               backgroundColor: "white",
             }}
             className={styles.inputPhoneCustom}
-            placeholder="Имя"
+            placeholder={t("ServicePopup.inputPlaceholder")}
             color="primary"
           />
 
@@ -98,7 +102,7 @@ const ServicePopup: React.FC<{
                 color: "var(--default-color-button)",
               }}
             >
-              Отмена
+              {t("translation:buttons.cancel")}
             </Button>
             <Button
               disabled={!nameMaster.trim().length}
@@ -114,7 +118,7 @@ const ServicePopup: React.FC<{
               }}
               variant="contained"
             >
-              Отправить
+              {t("translation:buttons.send")}
             </Button>
           </div>
         </form>

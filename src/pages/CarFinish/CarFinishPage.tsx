@@ -22,7 +22,7 @@ export default function CarFinishComponent() {
     deleteHandler,
   } = useCarFinishHook();
 
-  const { t } = useTranslation("translateFinishCar");
+  const { t } = useTranslation(["translateFinishCar", "transaltion"]);
 
   return (
     <div>
@@ -42,7 +42,7 @@ export default function CarFinishComponent() {
               <div>
                 <SearchInput
                   onChange={handlerFindWord}
-                  textLabel="Поиск: имя мастера"
+                  textLabel={t("translation:search.carsFinish")}
                 />
               </div>
               <CarFinishTable

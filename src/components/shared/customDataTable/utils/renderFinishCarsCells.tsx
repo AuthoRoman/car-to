@@ -4,10 +4,12 @@ import {
   cardFinish,
   DeleteHandlerFinishCar,
 } from "../../../../pages/CarFinish/types";
+import { TFunction } from "i18next";
 
 const renderFinishCarsCells = (
   car: cardFinish,
   deleteHandler: DeleteHandlerFinishCar,
+  t: TFunction<string, undefined>,
 ) => {
   return (
     <>
@@ -46,7 +48,7 @@ const renderFinishCarsCells = (
             }}
             variant="contained"
           >
-            Удалить
+            {t("buttons.delete")}
           </Button>
         </div>
       </TableCell>
