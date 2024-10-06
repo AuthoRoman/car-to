@@ -43,7 +43,7 @@ interface DataTableProps<T> {
   typeCar: "ICar" | "cardService" | "cardFinish";
 }
 
-const DataTable = <T extends object>({
+const DataTable = <T extends ICar | cardService | cardFinish>({
   typeCar,
   handleServicePop,
 
@@ -55,9 +55,7 @@ const DataTable = <T extends object>({
   funSetCurrentCar,
   deleteHandler,
   deleteHandlerFinishCar,
-}: DataTableProps<
-  T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
->) => {
+}: DataTableProps<T>) => {
   const { t } = useTranslation<string>("translation");
   return (
     <DataTableContainer>

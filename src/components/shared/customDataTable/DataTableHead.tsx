@@ -23,14 +23,12 @@ interface IDataTableRowProps<T> {
   typeCar: string;
 }
 
-const DataTableHead = <T,>({
+const DataTableHead = <T extends ICar | cardService | cardFinish>({
   typeCar,
   handlerChangeDefaultState,
   sortState,
   upStateSort,
-}: IDataTableRowProps<
-  T extends ICar ? ICar : T extends cardFinish ? cardFinish : cardService
->) => {
+}: IDataTableRowProps<T>) => {
   const { t } = useTranslation("translation");
   return (
     <TableHead>
@@ -43,27 +41,11 @@ const DataTableHead = <T,>({
                 getLocaleCarInfo(car.title as keyof typeof localCarInfo),
               )}
               state={
-                sortState[
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >
-                ] as boolean
+                sortState[car.defaultName as keyof SortState<T>] as boolean
               }
               arrowState={upStateSort}
               onClick={() =>
-                handlerChangeDefaultState(
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >,
-                )
+                handlerChangeDefaultState(car.defaultName as keyof SortState<T>)
               }
             />
           ))}
@@ -75,27 +57,11 @@ const DataTableHead = <T,>({
                 getLocaleCarInfo(car.title as keyof typeof localCarInfo),
               )}
               state={
-                sortState[
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >
-                ] as boolean
+                sortState[car.defaultName as keyof SortState<T>] as boolean
               }
               arrowState={upStateSort}
               onClick={() =>
-                handlerChangeDefaultState(
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >,
-                )
+                handlerChangeDefaultState(car.defaultName as keyof SortState<T>)
               }
             />
           ))}
@@ -107,27 +73,11 @@ const DataTableHead = <T,>({
                 getLocaleCarInfo(car.title as keyof typeof localCarInfo),
               )}
               state={
-                sortState[
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >
-                ] as boolean
+                sortState[car.defaultName as keyof SortState<T>] as boolean
               }
               arrowState={upStateSort}
               onClick={() =>
-                handlerChangeDefaultState(
-                  car.defaultName as keyof SortState<
-                    T extends ICar
-                      ? ICar
-                      : T extends cardFinish
-                        ? cardFinish
-                        : cardService
-                  >,
-                )
+                handlerChangeDefaultState(car.defaultName as keyof SortState<T>)
               }
             />
           ))}
