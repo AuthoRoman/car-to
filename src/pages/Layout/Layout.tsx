@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import useChangeLang from "./hooks/useChangeLang";
 import { useTranslation } from "react-i18next";
+import ThemeSwitcher from "../../core/components/ThemeSwitcher";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -115,6 +116,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             position: "absolute",
           }}
         >
+          <ThemeSwitcher />
           <FormControl size="small" fullWidth>
             <InputLabel id="demo-select-small-label">
               {t("language")}

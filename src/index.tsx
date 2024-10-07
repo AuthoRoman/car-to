@@ -6,7 +6,8 @@ import { setupStore } from "./state/slices";
 
 import "./i18n";
 import { Suspense } from "react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, CssBaseline } from "@mui/material";
+import { ThemeContextProvider } from "./core/contexts/ThemeContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -15,7 +16,10 @@ const store = setupStore();
 root.render(
   <Provider store={store}>
     <Suspense fallback={<CircularProgress />}>
-      <App />
+      <ThemeContextProvider>
+        <CssBaseline />
+        <App />
+      </ThemeContextProvider>
     </Suspense>
   </Provider>,
 );
