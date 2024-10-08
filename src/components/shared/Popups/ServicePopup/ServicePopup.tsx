@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Paper } from "@mui/material";
 
 import styles from "./ServicePopup.module.scss";
 
@@ -78,49 +78,57 @@ const ServicePopup: React.FC<{
       <div className={styles.createCardPopup}>
         <form
           onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
-          className={styles.form}
           action=""
         >
-          <h1>{t("ServicePopup.title")}</h1>
-
-          <TextField
-            value={nameMaster}
-            onChange={(e) => setNameMaster(e.target.value)}
+          <Paper
             sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "15px",
               borderRadius: "5px",
-              backgroundColor: "white",
-            }}
-            className={styles.inputPhoneCustom}
-            placeholder={t("ServicePopup.inputPlaceholder")}
-            color="primary"
-          />
+              padding: "35px",
 
-          <div className={styles.form__footer}>
-            <Button
-              onClick={() => closeVisible(false)}
-              sx={{
-                color: "var(--default-color-button)",
-              }}
-            >
-              {t("translation:buttons.cancel")}
-            </Button>
-            <Button
-              disabled={!nameMaster.trim().length}
-              onClick={() =>
-                submitForm(VIN, nameMaster, problems ? problems : "")
-              }
-              sx={{
-                backgroundColor: "var(--default-color-button)",
-                transition: "var(--default-transition)",
-                "&:hover": {
-                  background: "var(--default-color-button-hover)",
-                },
-              }}
-              variant="contained"
-            >
-              {t("translation:buttons.send")}
-            </Button>
-          </div>
+              height: "fit-content",
+              width: "500px",
+            }}
+          >
+            <h1>{t("ServicePopup.title")}</h1>
+
+            <TextField
+              value={nameMaster}
+              onChange={(e) => setNameMaster(e.target.value)}
+              className={styles.inputPhoneCustom}
+              placeholder={t("ServicePopup.inputPlaceholder")}
+              color="primary"
+            />
+
+            <div className={styles.form__footer}>
+              <Button
+                onClick={() => closeVisible(false)}
+                sx={{
+                  color: "var(--default-color-button)",
+                }}
+              >
+                {t("translation:buttons.cancel")}
+              </Button>
+              <Button
+                disabled={!nameMaster.trim().length}
+                onClick={() =>
+                  submitForm(VIN, nameMaster, problems ? problems : "")
+                }
+                sx={{
+                  backgroundColor: "var(--default-color-button)",
+                  transition: "var(--default-transition)",
+                  "&:hover": {
+                    background: "var(--default-color-button-hover)",
+                  },
+                }}
+                variant="contained"
+              >
+                {t("translation:buttons.send")}
+              </Button>
+            </div>
+          </Paper>
         </form>
       </div>
     </div>

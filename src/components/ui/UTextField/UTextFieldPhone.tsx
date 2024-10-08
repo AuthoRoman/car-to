@@ -17,9 +17,6 @@ const UTextFieldPhone: React.FC<UTextFieldProps> = ({
       size="small"
       value={value as string}
       onChange={onChange as () => string}
-      sx={{
-        backgroundColor: "white",
-      }}
       error={error}
       helperText={helperText}
       label={textLabel}

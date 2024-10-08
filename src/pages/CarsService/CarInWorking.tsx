@@ -43,7 +43,7 @@ const CarinWorking: React.FC = () => {
       )}
 
       {/* Если машины есть */}
-      {cars && cars.length && (
+      {cars && !!cars.length && (
         <div className={styles.containerTable}>
           <div className={styles.tableService}>
             <SearchInput

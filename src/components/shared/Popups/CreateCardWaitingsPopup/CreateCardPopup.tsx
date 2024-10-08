@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import {
   useTypedDispatch,
   useTypedSelector,
@@ -16,7 +16,6 @@ import { carsWaitingAPI } from "../../../../pages/CarsWaitings/api/carsWaitingAP
 import { ICar } from "../../../../pages/CarsWaitings/types";
 import { useTranslation } from "react-i18next";
 import UTextFieldPhone from "../../../ui/UTextField/UTextFieldPhone";
-import resetCurrentCar from "../../../../pages/CarsWaitings/utils/resetCurrentCar";
 import { setNewCar } from "../../../../state/slices/CurrentCarSlice";
 import { EMPTY_CAR } from "../../../../pages/CarsWaitings/constants/EMPTY_CAR";
 
@@ -93,276 +92,288 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
   return (
     <div>
       <div className={styles.createCardPopup}>
-        <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
-          <h1>{t("createCarPopup.application")}</h1>
-          <div className={styles.formInfo}>
-            <div className={styles.form_clientInfo}>
-              <Controller
-                name="firstNameOwner"
-                control={control}
-                defaultValue={!!idCar ? editFirstNameOwner : ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.required")}`,
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.firstName")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="secondNameOwner"
-                control={control}
-                defaultValue={!!idCar ? editSecondNameOwner : ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.required")}`,
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.lastName")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="tel"
-                control={control}
-                defaultValue={!!idCar ? editPhone : ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.phone.required")}`,
-                  minLength: {
-                    value: 16,
-                    message: `${t("createCarPopup.messagesField.phone.message")}`,
-                  },
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextFieldPhone
-                    require
-                    value={value}
-                    onChange={onChange}
-                    maxLength="16"
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.phone")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="email"
-                control={control}
-                defaultValue={!!idCar ? editEmail : ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.email.required")}`,
-                  pattern: {
-                    value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                    message: `${t("createCarPopup.messagesField.email.message")}`,
-                  },
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    type="email"
-                    textLabel={`${t("createCarPopup.email")}`}
-                  />
-                )}
-              />
-            </div>
-
-            <div className={styles.form__carInfo}>
-              <Controller
-                name="VIN"
-                control={control}
-                defaultValue={!!idCar ? VINcar : ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.required")}`,
-                  minLength: {
-                    value: 17,
-                    message: `${t("createCarPopup.messagesField.VIN.message")}`,
-                  },
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    maxLength="17"
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.VIN")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="registration"
-                control={control}
-                defaultValue={!!idCar ? editRegistration : ""}
-                render={({ field: { value, onChange } }) => (
-                  <UTextField
-                    value={value}
-                    onChange={onChange}
-                    textLabel={`${t("createCarPopup.registered")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="carNumber"
-                control={control}
-                defaultValue={editCarNumber ?? ""}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.carNumber.required")}`,
-                  minLength: {
-                    value: 6,
-                    message: `${t("createCarPopup.messagesField.carNumber.message")}`,
-                  },
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    maxLength="6"
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.carNumber")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="carMileage"
-                control={control}
-                defaultValue={!!idCar ? editCarMileage : ""}
-                render={({ field: { value, onChange } }) => (
-                  <UTextField
-                    value={value}
-                    onChange={onChange}
-                    textLabel={`${t("createCarPopup.carMileage")}`}
-                  />
-                )}
-              />
-              <Controller
-                name="color"
-                control={control}
-                defaultValue={editColor ?? ""}
-                render={({ field: { value, onChange } }) => (
-                  <UTextField
-                    value={value}
-                    onChange={onChange}
-                    textLabel={`${t("createCarPopup.color")}`}
-                  />
-                )}
-              />
-
-              <Controller
-                name="numberOwners"
-                control={control}
-                defaultValue={!!idCar ? editNumberOwners : 1}
-                rules={{
-                  required: `${t("createCarPopup.messagesField.numberOwners.required")}`,
-                  pattern: {
-                    value: /^([1-9][0-9]{0,1})$/,
-                    message: `${t("createCarPopup.messagesField.numberOwners.message")}`,
-                  },
-                }}
-                render={({
-                  field: { value, onChange },
-                  fieldState: { error },
-                }) => (
-                  <UTextField
-                    require
-                    value={value}
-                    onChange={onChange}
-                    type="number"
-                    error={!!error}
-                    helperText={error ? error.message : undefined}
-                    textLabel={`${t("createCarPopup.NumberOwners")}`}
-                  />
-                )}
-              />
-
-              <Controller
-                name="accidents"
-                control={control}
-                defaultValue={!!idCar ? editAccidents : ""}
-                render={({ field: { value, onChange } }) => (
-                  <UTextField
-                    value={value}
-                    onChange={onChange}
-                    textLabel={`${t("createCarPopup.accidents")}`}
-                  />
-                )}
-              />
-            </div>
-            <Controller
-              name="problems"
-              control={control}
-              defaultValue={editProblems ?? ""}
-              render={({ field: { value, onChange } }) => (
-                <UTextField
-                  multiline
-                  value={value}
-                  onChange={onChange}
-                  textLabel={`${t("createCarPopup.problem")}`}
+        <form
+          style={{ backgroundColor: "theme.palette.background.paper" }}
+          onSubmit={handleSubmit(submitForm)}
+        >
+          <Paper
+            sx={{
+              padding: "35px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "30px 10px",
+            }}
+          >
+            <h1>{t("createCarPopup.application")}</h1>
+            <div className={styles.formInfo}>
+              <div className={styles.form_clientInfo}>
+                <Controller
+                  name="firstNameOwner"
+                  control={control}
+                  defaultValue={!!idCar ? editFirstNameOwner : ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.required")}`,
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.firstName")}`}
+                    />
+                  )}
                 />
-              )}
-            />
-          </div>
+                <Controller
+                  name="secondNameOwner"
+                  control={control}
+                  defaultValue={!!idCar ? editSecondNameOwner : ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.required")}`,
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.lastName")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="tel"
+                  control={control}
+                  defaultValue={!!idCar ? editPhone : ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.phone.required")}`,
+                    minLength: {
+                      value: 16,
+                      message: `${t("createCarPopup.messagesField.phone.message")}`,
+                    },
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextFieldPhone
+                      require
+                      value={value}
+                      onChange={onChange}
+                      maxLength="16"
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.phone")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue={!!idCar ? editEmail : ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.email.required")}`,
+                    pattern: {
+                      value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                      message: `${t("createCarPopup.messagesField.email.message")}`,
+                    },
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      type="email"
+                      textLabel={`${t("createCarPopup.email")}`}
+                    />
+                  )}
+                />
+              </div>
 
-          <div className={styles.form__footer}>
-            <Button
-              onClick={() => closeVisible(false)}
-              sx={{
-                color: "#705AF8",
-              }}
-            >
-              {t("translation:buttons.cancel")}
-            </Button>
-            <Button
-              type="submit"
-              sx={{
-                backgroundColor: "var(--default-color-button)",
-                transition: "var(--default-transition)",
-                "&:hover": {
-                  background: "var(--default-color-button-hover)",
-                },
-              }}
-              variant="contained"
-            >
-              {VINcar
-                ? `${t("translation:buttons.save")}`
-                : `${t("translation:buttons.add")}`}
-            </Button>
-          </div>
+              <div className={styles.form__carInfo}>
+                <Controller
+                  name="VIN"
+                  control={control}
+                  defaultValue={!!idCar ? VINcar : ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.required")}`,
+                    minLength: {
+                      value: 17,
+                      message: `${t("createCarPopup.messagesField.VIN.message")}`,
+                    },
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      maxLength="17"
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.VIN")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="registration"
+                  control={control}
+                  defaultValue={!!idCar ? editRegistration : ""}
+                  render={({ field: { value, onChange } }) => (
+                    <UTextField
+                      value={value}
+                      onChange={onChange}
+                      textLabel={`${t("createCarPopup.registered")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="carNumber"
+                  control={control}
+                  defaultValue={editCarNumber ?? ""}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.carNumber.required")}`,
+                    minLength: {
+                      value: 6,
+                      message: `${t("createCarPopup.messagesField.carNumber.message")}`,
+                    },
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      maxLength="6"
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.carNumber")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="carMileage"
+                  control={control}
+                  defaultValue={!!idCar ? editCarMileage : ""}
+                  render={({ field: { value, onChange } }) => (
+                    <UTextField
+                      value={value}
+                      onChange={onChange}
+                      textLabel={`${t("createCarPopup.carMileage")}`}
+                    />
+                  )}
+                />
+                <Controller
+                  name="color"
+                  control={control}
+                  defaultValue={editColor ?? ""}
+                  render={({ field: { value, onChange } }) => (
+                    <UTextField
+                      value={value}
+                      onChange={onChange}
+                      textLabel={`${t("createCarPopup.color")}`}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="numberOwners"
+                  control={control}
+                  defaultValue={!!idCar ? editNumberOwners : 1}
+                  rules={{
+                    required: `${t("createCarPopup.messagesField.numberOwners.required")}`,
+                    pattern: {
+                      value: /^([1-9][0-9]{0,1})$/,
+                      message: `${t("createCarPopup.messagesField.numberOwners.message")}`,
+                    },
+                  }}
+                  render={({
+                    field: { value, onChange },
+                    fieldState: { error },
+                  }) => (
+                    <UTextField
+                      require
+                      value={value}
+                      onChange={onChange}
+                      type="number"
+                      error={!!error}
+                      helperText={error ? error.message : undefined}
+                      textLabel={`${t("createCarPopup.NumberOwners")}`}
+                    />
+                  )}
+                />
+
+                <Controller
+                  name="accidents"
+                  control={control}
+                  defaultValue={!!idCar ? editAccidents : ""}
+                  render={({ field: { value, onChange } }) => (
+                    <UTextField
+                      value={value}
+                      onChange={onChange}
+                      textLabel={`${t("createCarPopup.accidents")}`}
+                    />
+                  )}
+                />
+              </div>
+              <Controller
+                name="problems"
+                control={control}
+                defaultValue={editProblems ?? ""}
+                render={({ field: { value, onChange } }) => (
+                  <UTextField
+                    multiline
+                    value={value}
+                    onChange={onChange}
+                    textLabel={`${t("createCarPopup.problem")}`}
+                  />
+                )}
+              />
+            </div>
+
+            <div className={styles.form__footer}>
+              <Button
+                onClick={() => closeVisible(false)}
+                sx={{
+                  color: "#705AF8",
+                }}
+              >
+                {t("translation:buttons.cancel")}
+              </Button>
+              <Button
+                type="submit"
+                sx={{
+                  backgroundColor: "var(--default-color-button)",
+                  transition: "var(--default-transition)",
+                  "&:hover": {
+                    background: "var(--default-color-button-hover)",
+                  },
+                }}
+                variant="contained"
+              >
+                {VINcar
+                  ? `${t("translation:buttons.save")}`
+                  : `${t("translation:buttons.add")}`}
+              </Button>
+            </div>
+          </Paper>
         </form>
       </div>
     </div>

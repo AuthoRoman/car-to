@@ -2,7 +2,7 @@ import React from "react";
 import { UnificatorPropsInfoCar } from "../../../../../state/types";
 
 import styles from "./InfoPopupCars.module.scss";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import ListPointInfo from "../ListPoint/ListPointInfo";
 import {
   getLocaleCarInfo,
@@ -34,7 +34,7 @@ const InfoWaitingsCars: React.FC<{
   return (
     <div>
       <div onClick={closeInfoCar!} className={styles.InfoWaitingPopup}>
-        <div
+        <Paper
           onClick={(e) => e.stopPropagation()}
           className={styles.InfoWaitingForm}
         >
@@ -91,7 +91,7 @@ const InfoWaitingsCars: React.FC<{
           ) : (
             ""
           )}
-        </div>
+        </Paper>
       </div>
     </div>
   );
