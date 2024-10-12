@@ -107,7 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         <Box
           sx={{
-            minWidth: 210,
+            minWidth: 310,
             gap: "5px 5px",
             justifyContent: "flex-end",
             display: "flex",

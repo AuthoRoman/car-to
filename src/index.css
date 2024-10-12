@@ -19,6 +19,7 @@ ul {
 }
 
 :root {
+  --default-background-color-black: #212121;
   --default-color-button: #705af8;
   --default-color-button-hover: #7975f8;
   --default-transition: all 0.8s;

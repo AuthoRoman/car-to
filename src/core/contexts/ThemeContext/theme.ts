@@ -28,7 +28,7 @@ export const themDark: Theme = createTheme({
     },
     action: {
       active: "#fff",
-      hover: "#fff",
+      hover: "#909090",
       selected: "#909090",
       disabled: "#909090",
       disabledBackground: "#BCBCBC",
@@ -43,7 +43,7 @@ export const themDark: Theme = createTheme({
     },
 
     background: {
-      default: "#212121",
+      default: "var(--default-background-color-black)",
       paper: "#424242",
     },
   },
