@@ -31,8 +31,10 @@ export type SortStateTypeWaitingCars = {
 export const useCarListWaitingHook = () => {
   const dispatch = useTypedDispatch();
   const currentCar = useTypedSelector((state) => state.currentCar);
-  const cars = useTypedSelector((state) => state.cars.cars);
-  const filteredCars = useTypedSelector((state) => state.cars.filteredItems);
+  const cars = useTypedSelector((state) => state.cars?.cars || []);
+  const filteredCars = useTypedSelector(
+    (state) => state.cars?.filteredItems || [],
+  );
 
   const [sortState, setSortState] = useState<SortStateTypeWaitingCars>({
     defaultStateSortFullName: true,
