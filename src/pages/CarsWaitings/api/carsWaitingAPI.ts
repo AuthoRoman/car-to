@@ -24,6 +24,7 @@ export const carsWaitingSchema = z.array(carWaitingSchema);
 export const carsWaitingAPI = createApi({
   reducerPath: "carsWaitingAPI",
   baseQuery: fetchBaseQuery({ baseUrl: "https://16143fe3895a0193.mokky.dev" }),
+
   tagTypes: ["carsWaiting"],
   endpoints: (build) => ({
     fetchWaitingsCars: build.query<ICar[], string>({
@@ -51,7 +52,7 @@ export const carsWaitingAPI = createApi({
     }),
     deleteWaitingCar: build.mutation<ICar, number>({
       query: (id) => ({
-        url: `/carsInWaiting/${id}`, //в mokky.dev autoincrement (((
+        url: `/carsInWaiting/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["carsWaiting"],

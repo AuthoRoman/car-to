@@ -16,7 +16,6 @@ export const ThemeContextProvider: React.FC<React.PropsWithChildren> = ({
   )
     ? IThemeMode.DARK
     : IThemeMode.LIGHT;
-  console.log(theme);
 
   useEffect(() => {
     const themeLoaded = _getThemeModefromStorage();

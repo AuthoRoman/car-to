@@ -4,8 +4,8 @@ import styles from "./CarsListWaiting.module.scss";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import ButtonPlus from "../../components/ui/ButtonPlus/ButtonPlus";
 import { useCarListWaitingHook } from "./hooks/CarListWaitingHook";
-import CarsListWaitingsPopups from "./CarsListWaitingsPopups";
-import { CarsTable } from "./CarsTableWaitingsCar";
+import CarsListWaitingsPopups from "./components/CarsListWaitingsPopups";
+import { CarsTable } from "./components/CarsTableWaitingsCar";
 
 import { useTranslation } from "react-i18next";
 

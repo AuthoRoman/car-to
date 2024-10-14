@@ -52,5 +52,10 @@
     "carsWaiting": "Search: Car number / first name last name",
     "carsService": "Search: master name",
     "carsFinish": "Search: master name"
+  },
+  "theme": {
+    "dark": "Dark theme",
+    "light": "Light theme",
+    "system": "System theme"
   }
 }

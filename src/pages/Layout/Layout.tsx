@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
 
   const currentTab = location.pathname;
-
+  console.log(currentTab);
   const handlerChange = (e: React.SyntheticEvent, newValue: string) => {
     navigate(newValue);
   };
@@ -73,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label={`${t("layout.inWaiting")}`}
-            value="/car-to/"
+            value="/car-to"
           />
           <Tab
             sx={{
@@ -107,7 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         <Box
           sx={{
-            minWidth: 210,
+            minWidth: 310,
             gap: "5px 5px",
             justifyContent: "flex-end",
             display: "flex",

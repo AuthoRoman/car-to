@@ -1,9 +1,9 @@
 // Компонент для отображения таблицы автомобилей
 
-import { SortStateTypeWaitingCars } from "./hooks/CarListWaitingHook";
+import { SortStateTypeWaitingCars } from "../hooks/CarListWaitingHook";
 
-import DataTable from "../../components/shared/customDataTable/DataTable";
-import { DeleteButtonCarHandler, ICar } from "./types";
+import DataTable from "../../../components/shared/customDataTable/DataTable";
+import { DeleteButtonCarHandler, ICar } from "../types";
 
 interface ICarTableProps {
   filteredCars: ICar[];
