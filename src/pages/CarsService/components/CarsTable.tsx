@@ -1,8 +1,8 @@
 // Компонент для отображения таблицы автомобилей
 
-import { SortStateType } from "./hooks/CarServiceHook";
-import DataTable from "../../components/shared/customDataTable/DataTable";
-import { cardService } from "./types";
+import { SortStateType } from "../hooks/CarServiceHook";
+import DataTable from "../../../components/shared/customDataTable/DataTable";
+import { cardService } from "../types";
 
 interface ICarTableProps {
   filteredCars: cardService[];

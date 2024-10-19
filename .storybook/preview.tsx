@@ -7,17 +7,19 @@ import { initialize, mswLoader } from "msw-storybook-addon";
 import { ThemeContextProvider } from "../src/core/contexts/ThemeContext/index";
 import { setupStore } from "../src/state/slices/index";
 import "loki/configure-react";
+
+import "../src/index.css";
+
 initialize({
   onUnhandledRequest: "bypass", // Пропускать неперехваченные запросы, чтобы избежать ошибок
 });
 
 const store = setupStore();
 
-const withProviders: Decorator = (Story) => (
+const withProviders: Decorator = (Story, { parameters }) => (
   <Provider store={store}>
     <ThemeContextProvider>
-      <CssBaseline />
-      <Story />
+      <Story {...parameters} />
     </ThemeContextProvider>
   </Provider>
 );

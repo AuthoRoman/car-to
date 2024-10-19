@@ -12,8 +12,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/car-to" element={<CarsListWaiting />} />
-          <Route path="/car-to/inwork" element={<CarinWorking />} />
-          <Route path="/car-to/finish" element={<CarFinishComponent />} />
+          <Route path="/inwork" element={<CarinWorking />} />
+          <Route path="/finish" element={<CarFinishComponent />} />
         </Routes>
       </Layout>
     </BrowserRouter>

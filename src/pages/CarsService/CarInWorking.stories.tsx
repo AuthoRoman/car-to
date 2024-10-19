@@ -1,69 +1,69 @@
-import App from "../../App";
-import CarsListWaiting from "./CarsListWaiting";
+import CarInWorking from "./CarInWorking";
 import { Meta, StoryObj } from "@storybook/react";
 import {
   reactRouterParameters,
   withRouter,
 } from "storybook-addon-remix-react-router";
 import Layout from "../Layout/Layout";
+
 import {
-  mockedCarsWaitingRequests,
-  mockedCarsWaitingRequestsEmptyData,
-} from "../../../.storybook/mockedData/carsWaiting/requests";
+  mockedCarsServiceRequests,
+  mockedCarsServiceRequestsEmptyData,
+} from "../../../.storybook/mockedData/CarsService/requests";
 
 const meta = {
-  title: "pages/CarsWaitings",
-  component: App,
-  excludeStories: ["CarsInWaitingsSlice"],
+  title: "pages/CarInWorking",
+  component: CarInWorking,
+  excludeStories: ["ServiceCarSlice"],
   args: {},
   argTypes: {},
   parameters: {
     docs: {
       description: {
-        component: "CarsListWaiting",
+        component: "CarInWorking",
       },
     },
   },
-} satisfies Meta<typeof CarsListWaiting>;
+} satisfies Meta<typeof CarInWorking>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const CarsListWaitingStory: Story = {
+export const CarInWorkingStory: Story = {
   args: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "car-to" },
+      routing: { path: "inwork" },
     }),
     msw: {
-      handlers: mockedCarsWaitingRequests,
+      handlers: mockedCarsServiceRequests,
     },
   },
 
   render: () => (
     <Layout>
-      <CarsListWaiting />
+      <CarInWorking />
     </Layout>
   ),
 };
 
-export const CarsListWaitingStoryEmpty: Story = {
+export const CarInWorkingStoryEmpty: Story = {
   args: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "car-to" },
+      routing: { path: "inwork" },
     }),
     msw: {
-      handlers: mockedCarsWaitingRequestsEmptyData,
+      handlers: mockedCarsServiceRequestsEmptyData,
     },
   },
 
   render: () => (
     <Layout>
-      <CarsListWaiting />
+      <CarInWorking />
     </Layout>
   ),
 };

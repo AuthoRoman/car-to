@@ -2,8 +2,8 @@ import styles from "./CarService.module.scss";
 import NoCarList from "../../components/shared/NoCarList/NoCarList";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarService } from "./hooks/CarServiceHook";
-import { CarsTable } from "./CarsTable";
-import { Popups } from "./CarsServicePopups";
+import { CarsTable } from "./components/CarsTable";
+import { Popups } from "./components/CarsServicePopups";
 import { useTranslation } from "react-i18next";
 
 const CarinWorking: React.FC = () => {

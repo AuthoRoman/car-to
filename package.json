@@ -2,6 +2,17 @@
   "homepage": "https://AuthoRoman.github.io/car-to",
   "name": "car-to",
   "version": "0.1.0",
+  "loki": {
+    "configurations": {
+      "desktop": {
+        "target": "chrome.docker",
+        "width": 1920,
+        "height": 1080,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      }
+    }
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -14,12 +25,14 @@
     "@mui/material": "^5.15.20",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-data-grid": "^7.8.0",
+    "@mui/x-date-pickers": "^7.20.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@storybook/addon-themes": "^8.3.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
+    "dayjs": "^1.11.13",
     "eslint-plugin-react-refresh": "^0.4.11",
     "i18next": "^23.15.1",
     "i18next-browser-languagedetector": "^8.0.0",
@@ -51,7 +64,8 @@
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "loki-test": "loki test"
+    "loki-test": "loki test",
+    "loki:update": "loki approve"
   },
   "eslintConfig": {
     "extends": [

@@ -4,7 +4,7 @@ import NoCarList from "../../components/shared/NoCarList/NoCarList";
 import InfoPopupCars from "../../components/shared/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import SearchInput from "../../components/ui/SearchInput/SearchInput";
 import { useCarFinishHook } from "./hooks/CarFinishHook";
-import CarFinishTable from "./CarFinishTable";
+import CarFinishTable from "./components/CarFinishTable";
 import { useTranslation } from "react-i18next";
 
 export default function CarFinishComponent() {

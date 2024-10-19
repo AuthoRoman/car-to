@@ -1,5 +1,5 @@
 import App from "../../App";
-import CarsListWaiting from "./CarsListWaiting";
+import CarFinishPage from "./CarFinishPage";
 import { Meta, StoryObj } from "@storybook/react";
 import {
   reactRouterParameters,
@@ -7,63 +7,63 @@ import {
 } from "storybook-addon-remix-react-router";
 import Layout from "../Layout/Layout";
 import {
-  mockedCarsWaitingRequests,
-  mockedCarsWaitingRequestsEmptyData,
-} from "../../../.storybook/mockedData/carsWaiting/requests";
+  mockedCarsFinishRequests,
+  mockedCarsFinishRequestsEmptyData,
+} from "../../../.storybook/mockedData/CarsFinish/requests";
 
 const meta = {
-  title: "pages/CarsWaitings",
-  component: App,
-  excludeStories: ["CarsInWaitingsSlice"],
+  title: "pages/CarFinish",
+  component: CarFinishPage,
+  excludeStories: ["FinishCarSlice"],
   args: {},
   argTypes: {},
   parameters: {
     docs: {
       description: {
-        component: "CarsListWaiting",
+        component: "CarFinishPage",
       },
     },
   },
-} satisfies Meta<typeof CarsListWaiting>;
+} satisfies Meta<typeof CarFinishPage>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const CarsListWaitingStory: Story = {
+export const CarFinishStory: Story = {
   args: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "car-to" },
+      routing: { path: "finish" },
     }),
     msw: {
-      handlers: mockedCarsWaitingRequests,
+      handlers: mockedCarsFinishRequests,
     },
   },
 
   render: () => (
     <Layout>
-      <CarsListWaiting />
+      <CarFinishPage />
     </Layout>
   ),
 };
 
-export const CarsListWaitingStoryEmpty: Story = {
+export const CarFinishStoryEmpty: Story = {
   args: {},
   decorators: [withRouter],
   parameters: {
     reactRouter: reactRouterParameters({
-      routing: { path: "car-to" },
+      routing: { path: "finish" },
     }),
     msw: {
-      handlers: mockedCarsWaitingRequestsEmptyData,
+      handlers: mockedCarsFinishRequestsEmptyData,
     },
   },
 
   render: () => (
     <Layout>
-      <CarsListWaiting />
+      <CarFinishPage />
     </Layout>
   ),
 };

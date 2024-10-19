@@ -1,7 +1,7 @@
-import FinishPopup from "../../components/shared/Popups/FinishPopup/FinishPopup";
-import InfoWaitingsCars from "../../components/shared/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
+import FinishPopup from "../../../components/shared/Popups/FinishPopup/FinishPopup";
+import InfoWaitingsCars from "../../../components/shared/Popups/InfoAboutCarsPopup/InfoPopupCar/InfoPopupCars";
 import React from "react";
-import { cardService } from "./types";
+import { cardService } from "../types";
 
 interface IPopupsProps {
   isOpen: boolean;

@@ -87,7 +87,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label={`${t("layout.inService")}`}
-            value="/car-to/inwork"
+            value="/inwork"
           />
           <Tab
             sx={{
@@ -101,7 +101,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               },
             }}
             label={`${t("layout.inFinish")}`}
-            value="/car-to/finish"
+            value="/finish"
           />
         </Tabs>
 
