@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "storybook-addon-remix-react-router",
     "@storybook/addon-styling",
-    "storybook-msw-addon",
+    "msw-storybook-addon",
     "loki/configure-react",
   ],
   framework: {
