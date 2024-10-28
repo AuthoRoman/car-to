@@ -6,15 +6,14 @@ import eslintReactRefresh from "eslint-plugin-react-refresh";
 import prettierPlugin from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
 export default tseslint.config(
   {
     plugins: {
-      plugin: react - hooks - unreliable - deps / recommended,
       "@typescript-eslint": tseslint.plugin,
       react: eslintReact,
       "react-refresh": eslintReactRefresh,
       prettier: prettierPlugin,
+      "react-hooks": eslintReact,
     },
   },
   {
@@ -65,6 +64,10 @@ export default tseslint.config(
         { endOfLine: "auto" },
         { usePrettierrc: true },
       ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/no-unused-expressions": "off",
+
       "padding-line-between-statements": [
         "error",
         { blankLine: "always", prev: "function", next: "function" },

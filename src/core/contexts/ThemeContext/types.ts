@@ -5,6 +5,7 @@ export enum IThemeMode {
 }
 
 export interface IThemeContext {
+  isMobile: boolean;
   themeMode: IThemeMode;
   switchTheme: (mode: IThemeMode) => void;
 }

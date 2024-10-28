@@ -5,7 +5,7 @@ import {
   reactRouterParameters,
   withRouter,
 } from "storybook-addon-remix-react-router";
-import Layout from "../Layout/Layout";
+import Layout from "../../core/components/Layout/Layout";
 import {
   mockedCarsWaitingRequests,
   mockedCarsWaitingRequestsEmptyData,

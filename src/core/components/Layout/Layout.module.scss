@@ -1,0 +1,42 @@
+@mixin scrollMedia($widthBlock) {
+  overflow-x: scroll;
+  display: inline-block;
+  width: $widthBlock;
+}
+
+.navList {
+  display: flex;
+  justify-content: space-around;
+}
+
+.navList__item {
+  padding: 5px;
+  border: 2px solid #382274;
+  border-radius: 5px;
+  color: white;
+  transition: all 0.8s;
+  background-color: #382274;
+}
+
+.navList__item:hover {
+  cursor: pointer;
+  background-color: #e68d1a;
+  border: 2px solid #e68d1a74;
+}
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  .navLayuout {
+    @include scrollMedia($widthBlock: 600px);
+  }
+}
+
+@media screen and (max-width: 589px) {
+  .navLayuout {
+    @include scrollMedia($widthBlock: 400px);
+  }
+}

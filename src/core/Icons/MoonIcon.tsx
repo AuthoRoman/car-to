@@ -1,5 +1,5 @@
 import * as React from "react";
-const MoonIcon = (props: any) => (
+const MoonIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={16}

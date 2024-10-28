@@ -10,6 +10,13 @@
         "height": 1080,
         "deviceScaleFactor": 1,
         "mobile": false
+      },
+      "mobile": {
+        "target": "chrome.docker",
+        "width": 975,
+        "height": 800,
+        "deviceScaleFactor": 2,
+        "mobile": true
       }
     }
   },
@@ -24,6 +31,7 @@
     "@mui/lab": "^5.0.0-alpha.170",
     "@mui/material": "^5.15.20",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/styles": "^6.1.5",
     "@mui/x-data-grid": "^7.8.0",
     "@mui/x-date-pickers": "^7.20.0",
     "@reduxjs/toolkit": "^2.2.7",
@@ -59,7 +67,7 @@
     "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . ",
     "preview": "vite preview",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
@@ -107,6 +115,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-storybook": "^0.9.0",
     "gh-pages": "^6.1.1",
     "globals": "^15.9.0",

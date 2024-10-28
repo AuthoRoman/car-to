@@ -53,7 +53,7 @@ const CarsListWaiting = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              width: "100vw",
+              width: "100%",
             }}
           >
             <div
@@ -61,12 +61,15 @@ const CarsListWaiting = () => {
                 display: "flex",
                 justifyContent: "center",
                 width: "100%",
-                marginLeft: "65px",
+                marginLeft: "64px",
               }}
             >
               <NoCarList text={t("noCarWaitingsCar")} />
             </div>
-            <ButtonPlus onClick={() => openPopupCreateCars()} height="55px" />
+            <ButtonPlus
+              onClick={() => openPopupCreateCars()}
+              height="var(--buttonplus-height-withoutcar)"
+            />
           </div>
         )}
 

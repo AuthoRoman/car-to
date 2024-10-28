@@ -1,3 +1,4 @@
+// index.tsx
 import { createContext, useEffect, useState } from "react";
 import { IThemeContext, IThemeMode } from "./types";
 import { Theme, ThemeProvider, useMediaQuery } from "@mui/material";
@@ -10,12 +11,13 @@ export const ThemeContextProvider: React.FC<React.PropsWithChildren> = ({
 }) => {
   const [themeMode, setThemeMode] = useState<IThemeMode>(IThemeMode.LIGHT);
   const [theme, setTheme] = useState<Theme>(themeLight);
-
   const SYSTEM_THEME: Exclude<IThemeMode, IThemeMode.SYSTEM> = useMediaQuery(
     "(prefers-color-scheme: dark)",
   )
     ? IThemeMode.DARK
     : IThemeMode.LIGHT;
+
+  const isMobile = useMediaQuery("(max-width: 1200px)");
 
   useEffect(() => {
     const themeLoaded = _getThemeModefromStorage();
@@ -66,12 +68,7 @@ export const ThemeContextProvider: React.FC<React.PropsWithChildren> = ({
   };
 
   return (
-    <ThemeContext.Provider
-      value={{
-        themeMode,
-        switchTheme,
-      }}
-    >
+    <ThemeContext.Provider value={{ themeMode, switchTheme, isMobile }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );

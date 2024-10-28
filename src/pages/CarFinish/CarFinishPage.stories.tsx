@@ -1,11 +1,10 @@
-import App from "../../App";
 import CarFinishPage from "./CarFinishPage";
 import { Meta, StoryObj } from "@storybook/react";
 import {
   reactRouterParameters,
   withRouter,
 } from "storybook-addon-remix-react-router";
-import Layout from "../Layout/Layout";
+import Layout from "../../core/components/Layout/Layout";
 import {
   mockedCarsFinishRequests,
   mockedCarsFinishRequestsEmptyData,
