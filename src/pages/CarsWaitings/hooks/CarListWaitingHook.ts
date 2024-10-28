@@ -6,6 +6,7 @@ import {
   addCarsInWaiting,
   deleteWaitingCar,
   findCarWaiting,
+  resetStateCars,
   sortCarEmailDown,
   sortCarEmailUp,
   sortCarFirstnameOwnerDown,
@@ -17,7 +18,7 @@ import {
 } from "../../../state/slices/CarsInWaitingsSlice";
 import { carsWaitingAPI, carsWaitingSchema } from "../api/carsWaitingAPI";
 import { ICar } from "../types";
-import resetCurrentCar from "../utils/resetCurrentCar";
+
 import { setNewCar } from "../../../state/slices/CurrentCarSlice";
 import { EMPTY_CAR } from "../constants/EMPTY_CAR";
 
@@ -61,6 +62,7 @@ export const useCarListWaitingHook = () => {
 
   useEffect(() => {
     (async () => {
+      dispatch(resetStateCars());
       const carsDB = carsWaitingSchema.parse((await getCars("")).data);
       if (carsDB && cars.length == 0) {
         carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));

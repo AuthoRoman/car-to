@@ -12,6 +12,10 @@ export const carsInWaitingSlice = createSlice({
   initialState,
 
   reducers: {
+    resetStateCars(state) {
+      state.cars = [];
+      state.filteredItems = [];
+    },
     addCarsInWaiting(state: ICarsState<ICar>, action: PayloadAction<ICar>) {
       state.cars.push(action.payload);
     },
@@ -86,6 +90,7 @@ export const carsInWaitingSlice = createSlice({
 
 export const {
   addCarsInWaiting,
+  resetStateCars,
   deleteWaitingCar,
   editCarWaiting,
   findCarWaiting,
