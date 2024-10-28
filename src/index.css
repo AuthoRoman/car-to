@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 code {
@@ -23,5 +24,9 @@ ul {
   --default-color-button: #705af8;
   --default-color-button-hover: #7975f8;
   --default-transition: all 0.8s;
+  --default-border-radius: 4px;
+  --circle-border-radius: 25px;
   --default-opacity: 0.2s;
+  --buttonplus-height-withoutcar: 55px;
+  --buttonplus-height-withcar: 38px;
 }
