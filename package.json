@@ -76,13 +76,6 @@
     "loki-test": "loki test",
     "loki:update": "loki approve"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:storybook/recommended"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
