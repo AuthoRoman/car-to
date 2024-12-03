@@ -29,7 +29,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
 
   const currentTab = location.pathname;
-  console.log(currentTab);
   const handlerChange = (e: React.SyntheticEvent, newValue: string) => {
     navigate(newValue);
   };
@@ -48,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "end",
         flexDirection: { lg: "column", xs: "row" },
         transition: "var(--default-transition)",
         gap: "15px",
@@ -61,9 +60,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           display: "flex",
           alignItems: "baseline",
           gap: "15px 15px",
-          transition: "var(--default-transition)",
+
           width: { xs: open ? "400px" : "200px", lg: "100%" },
-          margin: "0 auto",
+          justifyContent: "end",
         }}
       >
         <MainDrawer open={open} setOpen={setOpen}>
@@ -72,13 +71,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               display: "flex",
               justifyContent: "center",
               paddingTop: "55px",
-              transition: "var(--default-transition)",
-
-              width: {
-                xs: open ? "280px" : "140px",
-                md: open ? "280px" : "140px",
-                lg: "100%",
-              },
             }}
             orientation={isMobile ? "vertical" : "horizontal"}
             value={currentTab}
@@ -132,10 +124,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Tabs>
           <Box
             sx={{
-              display: isMobile ? "flex" : "none",
-              gap: "25px",
-              flexDirection: "column",
-              width: "100%",
+              display: "flex",
+              gap: "15px",
+              justifyContent: !isMobile ? "center" : "",
+              flexDirection: isMobile ? "column" : "row",
+              width: !isMobile ? 500 : "100%",
+              marginRight: "110px",
               alignItems: "center",
             }}
           >
@@ -159,45 +153,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <MenuItem value={"ru"}>RU</MenuItem>
                 <MenuItem value={"en"}>EN</MenuItem>
               </Select>
-            </FormControl>{" "}
+            </FormControl>
             <ThemeSwitcher />
           </Box>
         </MainDrawer>
-        <Box
-          sx={{
-            minWidth: 310,
-            gap: "5px 5px",
-            justifyContent: "flex-end",
-            display: "flex",
-            right: "120px",
-            top: "10px",
-            padding: "0px",
-            alignItems: "center",
-            position: "absolute",
-          }}
-        >
-          <Box sx={{ display: isMobile ? "none" : "flex", gap: "25px 25px" }}>
-            <ThemeSwitcher />
-            <FormControl size="small" fullWidth>
-              <InputLabel id="demo-select-small-label">
-                {t("language")}
-              </InputLabel>
-              <Select
-                sx={{ width: "100px" }}
-                labelId="demo-select-small-label"
-                id="demo-select-small"
-                value={lang}
-                label={t("language")}
-                onChange={(e) =>
-                  handlerChangeLang(e.target.value as "ru" | "en")
-                }
-              >
-                <MenuItem value={"ru"}>RU</MenuItem>
-                <MenuItem value={"en"}>EN</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Box>
       </Box>
       <main style={{ width: "100%" }}>{children}</main>
     </Box>
