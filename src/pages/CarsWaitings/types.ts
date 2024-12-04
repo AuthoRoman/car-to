@@ -11,13 +11,13 @@ export interface ICar {
   firstNameOwner: string;
   secondNameOwner: string;
   numberOwners: number;
-  color: string;
-  carMileage: string;
+  color?: string;
+  carMileage?: string;
   carNumber: string;
-  registration: string;
-  accidents: string;
+  registration?: string;
+  accidents?: string;
   date?: string;
-  problems: string;
+  problems?: string;
 }
 
 export type DeleteButtonCarHandler = (

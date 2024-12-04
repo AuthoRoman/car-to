@@ -41,6 +41,7 @@ export default tseslint.config(
   {
     files: ["/*.{ts,tsx}"],
     rules: {
+      "@typescript-eslint/ no-unused-expressions": "off",
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
       "react-refresh/only-export-components": [

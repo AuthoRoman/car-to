@@ -6,6 +6,7 @@ import {
   NextHandlerPop,
 } from "../../../../pages/CarsWaitings/types";
 import { TFunction } from "i18next";
+import UButton from "../../../ui/UButton/UButton";
 
 const renderWaitingsCarTableRow = (
   car: ICar,
@@ -33,19 +34,10 @@ const renderWaitingsCarTableRow = (
           <Button onClick={(event) => deleteCar?.(event, car)} color="warning">
             {`${t("buttons.delete")}`}
           </Button>
-          <Button
+          <UButton
             onClick={(event) => handleServicePop?.(event, car.VIN, car)}
-            sx={{
-              backgroundColor: "var(--default-color-button)",
-              transition: "var(--default-transition)",
-              "&:hover": {
-                background: "var(--default-color-button-hover)",
-              },
-            }}
-            variant="contained"
-          >
-            {`${t("buttons.sendService")}`}
-          </Button>
+            text={`${t("buttons.sendService")}`}
+          />
         </div>
       </TableCell>
     </>

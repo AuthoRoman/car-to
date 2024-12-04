@@ -43,7 +43,6 @@ export const useCarService = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenServiceInfo, setIsOpenServiceInfo] = useState(false);
 
-  //sort
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState(false);
 
@@ -53,16 +52,12 @@ export const useCarService = () => {
     (async () => {
       const carsDB = carsServiceSchema.parse((await getCarsService("")).data);
       if (carsDB && cars.length == 0) {
-        // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addServiceCar(x)));
       }
     })();
-    // Обновил зависимости
   }, [cars.length]);
 
   useEffect(() => {
-    // Cars может и не быть, нужна проверка
-    // Не нужно запускать filterWord всегда, нужна проверка на длину
     findCar(filterWord);
   }, [cars, filterWord]);
 
@@ -95,7 +90,6 @@ export const useCarService = () => {
     [],
   );
 
-  // Упростили логику работы с состоянием сортировки, путем мержа логики
   const dispatchSortAction = (prop: keyof typeof sortState) => {
     switch (prop) {
       case "nameMaster":
@@ -127,7 +121,6 @@ export const useCarService = () => {
     }
   };
 
-  // Упростили логику переключения сортировок
   const handlerChangeDefaultState = (prop: keyof typeof sortState) => {
     setSortState((prevState) => {
       const newState = prevState;
@@ -146,7 +139,6 @@ export const useCarService = () => {
     dispatchSortAction(prop);
   };
 
-  // Упростили логику работы с состоянием
   const handlerChangeStateSort = () => {
     setUpStateSort((prevState) => !prevState);
   };

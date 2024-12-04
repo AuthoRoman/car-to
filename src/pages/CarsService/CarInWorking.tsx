@@ -5,6 +5,9 @@ import { useCarService } from "./hooks/CarServiceHook";
 import { CarsTable } from "./components/CarsTable";
 import { Popups } from "./components/CarsServicePopups";
 import { useTranslation } from "react-i18next";
+import { Box } from "@mui/material";
+import { handleOnExportExcel } from "../CarsWaitings/utils/handleOnExportExcel";
+import UButton from "../../components/ui/UButton/UButton";
 
 const CarinWorking: React.FC = () => {
   const {
@@ -46,10 +49,17 @@ const CarinWorking: React.FC = () => {
       {cars && !!cars.length && (
         <div className={styles.containerTable}>
           <div className={styles.tableService}>
-            <SearchInput
-              onChange={handlerFindWord}
-              textLabel={t("translation:search.carsService")}
-            />
+            <Box sx={{ display: "flex" }}>
+              <SearchInput
+                onChange={handlerFindWord}
+                textLabel={t("translation:search.carsService")}
+              />
+              <UButton
+                onClick={() => handleOnExportExcel(filteredCars)}
+                text={"Get To Excel"}
+              />
+            </Box>
+
             <CarsTable
               filteredCars={filteredCars}
               sortState={sortState}

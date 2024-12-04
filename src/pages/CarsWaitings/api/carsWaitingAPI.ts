@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, ZodType } from "zod";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICar } from "../types";
 
@@ -10,14 +10,14 @@ const carWaitingSchema = z.object({
   firstNameOwner: z.string(),
   secondNameOwner: z.string(),
   numberOwners: z.number(),
-  color: z.string(),
+  color: z.string().optional(),
   carMileage: z.string(),
   carNumber: z.string(),
-  registration: z.string(),
-  accidents: z.string(),
+  registration: z.string().optional(),
+  accidents: z.string().optional(),
   date: z.string().optional(),
-  problems: z.string(),
-});
+  problems: z.string().optional(),
+}) satisfies ZodType<ICar>;
 
 export const carsWaitingSchema = z.array(carWaitingSchema);
 

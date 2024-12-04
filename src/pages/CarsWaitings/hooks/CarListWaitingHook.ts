@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useTypedDispatch, useTypedSelector } from "../../../state/hooks/hooks";
@@ -6,7 +7,6 @@ import {
   addCarsInWaiting,
   deleteWaitingCar,
   findCarWaiting,
-  resetStateCars,
   sortCarEmailDown,
   sortCarEmailUp,
   sortCarFirstnameOwnerDown,
@@ -50,11 +50,8 @@ export const useCarListWaitingHook = () => {
   const [isOpenPopupEdit, setisOpenPopupEdit] = useState<boolean>(false);
   const [PopupFixCar, setPopupFixCar] = useState<boolean>(false);
 
-  //sort
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState<boolean>(false);
-
-  //EditCars options
 
   const [deleteData] = carsWaitingAPI.useDeleteWaitingCarMutation();
   const [getCars, { isLoading }] =
@@ -62,7 +59,6 @@ export const useCarListWaitingHook = () => {
 
   useEffect(() => {
     (async () => {
-      dispatch(resetStateCars());
       const carsDB = carsWaitingSchema.parse((await getCars("")).data);
       if (carsDB && cars.length == 0) {
         carsDB.forEach((x) => dispatch(addCarsInWaiting(x)));
@@ -177,7 +173,6 @@ export const useCarListWaitingHook = () => {
     }
   };
 
-  // Упростили логику переключения сортировок
   const handlerChangeDefaultState = (prop: keyof typeof sortState) => {
     setSortState((prevState) => {
       const newState = prevState;
@@ -196,7 +191,6 @@ export const useCarListWaitingHook = () => {
     dispatchSortAction(prop);
   };
 
-  // Упростили логику работы с состоянием
   const handlerChangeStateSort = () => {
     setUpStateSort((prevState) => !prevState);
   };

@@ -80,10 +80,10 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
 
     if (idCar === 0) {
       const { data: thisCarNew } = await createCarWaiting(thisCar);
-      await dispatch(addCarsInWaiting(thisCarNew as ICar)); //в mokky.dev autoincrement (((
+      dispatch(addCarsInWaiting(thisCarNew as ICar)); //в mokky.dev autoincrement (((
     } else {
       await updateCarWaiting(thisCar);
-      await dispatch(editCarWaiting(thisCar));
+      dispatch(editCarWaiting(thisCar));
     }
     setNewCar(EMPTY_CAR);
     closeVisible(false);
@@ -236,7 +236,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   defaultValue={idCar ? editRegistration : ""}
                   render={({ field: { value, onChange } }) => (
                     <UTextField
-                      value={value}
+                      value={value ?? ""}
                       onChange={onChange}
                       textLabel={`${t("createCarPopup.registered")}`}
                     />
@@ -274,7 +274,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   defaultValue={idCar ? editCarMileage : ""}
                   render={({ field: { value, onChange } }) => (
                     <UTextField
-                      value={value}
+                      value={value ?? ""}
                       onChange={onChange}
                       textLabel={`${t("createCarPopup.carMileage")}`}
                     />
@@ -286,7 +286,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   defaultValue={editColor ?? ""}
                   render={({ field: { value, onChange } }) => (
                     <UTextField
-                      value={value}
+                      value={value ?? ""}
                       onChange={onChange}
                       textLabel={`${t("createCarPopup.color")}`}
                     />
@@ -326,7 +326,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                   defaultValue={idCar ? editAccidents : ""}
                   render={({ field: { value, onChange } }) => (
                     <UTextField
-                      value={value}
+                      value={value ?? ""}
                       onChange={onChange}
                       textLabel={`${t("createCarPopup.accidents")}`}
                     />
@@ -340,7 +340,7 @@ const CreateCardPopup: React.FC<IEditAndCreatePopupProps> = ({
                 render={({ field: { value, onChange } }) => (
                   <UTextField
                     multiline
-                    value={value}
+                    value={value ?? ""}
                     onChange={onChange}
                     textLabel={`${t("createCarPopup.problem")}`}
                   />
