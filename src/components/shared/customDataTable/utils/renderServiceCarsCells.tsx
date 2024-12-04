@@ -1,10 +1,11 @@
-import { TableCell, Button } from "@mui/material";
+import { TableCell } from "@mui/material";
 import React from "react";
 import {
   cardService,
   FunSetCurrentCar,
 } from "../../../../pages/CarsService/types";
 import { TFunction } from "i18next";
+import UButton from "../../../ui/UButton/UButton";
 
 const renderServiceCarsCells = (
   car: cardService,
@@ -26,19 +27,10 @@ const renderServiceCarsCells = (
             alignItems: " center",
           }}
         >
-          <Button
+          <UButton
             onClick={(event) => funSetCurrentCar?.(event, car)}
-            sx={{
-              backgroundColor: "var(--default-color-button)",
-              transition: "var(--default-transition)",
-              "&:hover": {
-                background: "var(--default-color-button-hover)",
-              },
-            }}
-            variant="contained"
-          >
-            {t("buttons.completeService")}
-          </Button>
+            text={t("buttons.completeService")}
+          />
         </div>
       </TableCell>
     </>

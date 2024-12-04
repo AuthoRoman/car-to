@@ -1,5 +1,3 @@
-// Компонент для отображения таблицы автомобилей
-
 import { SortStateTypeWaitingCars } from "../hooks/CarListWaitingHook";
 
 import DataTable from "../../../components/shared/customDataTable/DataTable";

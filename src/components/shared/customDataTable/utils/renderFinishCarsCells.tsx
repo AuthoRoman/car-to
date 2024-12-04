@@ -1,10 +1,11 @@
-import { TableCell, Button } from "@mui/material";
+import { TableCell } from "@mui/material";
 import React from "react";
 import {
   cardFinish,
   DeleteHandlerFinishCar,
 } from "../../../../pages/CarFinish/types";
 import { TFunction } from "i18next";
+import UButton from "../../../ui/UButton/UButton";
 
 const renderFinishCarsCells = (
   car: cardFinish,
@@ -37,19 +38,10 @@ const renderFinishCarsCells = (
             alignItems: "center",
           }}
         >
-          <Button
+          <UButton
             onClick={(event) => deleteHandler?.(event, car)}
-            sx={{
-              backgroundColor: "var(--default-color-button)",
-              transition: "var(--default-transition)",
-              "&:hover": {
-                background: "var(--default-color-button-hover)",
-              },
-            }}
-            variant="contained"
-          >
-            {t("buttons.delete")}
-          </Button>
+            text={t("buttons.delete")}
+          />
         </div>
       </TableCell>
     </>

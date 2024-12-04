@@ -16,7 +16,6 @@ export type Color =
 
 export type LocalInRussianKeys = keyof typeof localCarInfo;
 
-//GloablStateTypes
 export interface ICarsState<T> {
   cars: T[];
   filteredItems: T[];
@@ -26,7 +25,7 @@ export interface IAction<T> {
   type: string;
   payload?: T;
 }
-//////
+
 export enum typesOfActionsCar {
   ADD_CAR = "ADD_CAR",
   EDIT_CAR = "EDIT_CAR",
@@ -42,8 +41,6 @@ export enum typesOfActionsCar {
   DELETE_CAR = "DELETE_CAR",
 }
 
-////Service
-
 export enum serviceCarTypesAction {
   SORT_SERVICE_CAR_CAR_NAME_MASTER_UP = "SORT_SERVICE_CAR_CAR_NAME_MASTER_UP",
   SORT_SERVICE_CAR_CAR_MANUFACTURER_UP = "SORT_SERVICE_CAR_CAR_MANUFACTURER_UP",
@@ -58,7 +55,6 @@ export enum serviceCarTypesAction {
   DELETE_SERVICE_CAR = "DELETE_SERVICE_CAR",
 }
 
-////Finish
 export enum finishCarTypesAction {
   ADD_FINISH_CAR = "ADD_FINISH_CAR",
   FIND_FINISH_CAR = "FIND_FINISH_CAR",

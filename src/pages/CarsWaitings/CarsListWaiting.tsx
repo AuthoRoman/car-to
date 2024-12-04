@@ -8,6 +8,8 @@ import CarsListWaitingsPopups from "./components/CarsListWaitingsPopups";
 import { CarsTable } from "./components/CarsTableWaitingsCar";
 
 import { useTranslation } from "react-i18next";
+import { handleOnExportExcel } from "./utils/handleOnExportExcel";
+import UButton from "../../components/ui/UButton/UButton";
 
 const CarsListWaiting = () => {
   const { t } = useTranslation(["translateWaitCar", "translation"]);
@@ -81,6 +83,10 @@ const CarsListWaiting = () => {
                 textLabel={t("translation:search.carsWaiting")}
               />
               <ButtonPlus onClick={openPopupCreateCars} />
+              <UButton
+                onClick={() => handleOnExportExcel(filteredCars)}
+                text={"Get To Excel"}
+              />
             </div>
 
             <CarsTable

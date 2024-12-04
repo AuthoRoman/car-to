@@ -15,8 +15,8 @@ import {
   sortFinishCarWorkDown,
   sortFinishCarWorkUp,
 } from "../../../state/slices/FinishCarSlice";
-import { carFinishAPI, carsFinishSchema } from ".././api/CarFinishAPI";
-import { cardFinish } from ".././types";
+import { carFinishAPI, carsFinishSchema } from "../api/CarFinishAPI";
+import { cardFinish } from "../types";
 
 export type SortStateTypeFinishCars = {
   defaultStateSortNameMaster: boolean;
@@ -43,7 +43,6 @@ export const useCarFinishHook = () => {
   const [currentCar, setCurrentCar] = useState<cardFinish>();
   const [isOpen, setIsOpen] = useState(false);
 
-  //sort
   const [filterWord, setFilterWord] = useState("");
   const [upStateSort, setUpStateSort] = useState(false);
   const [getStoreData] = carFinishAPI.useLazyFetchCarsFinishQuery();
@@ -53,16 +52,12 @@ export const useCarFinishHook = () => {
     (async () => {
       const carsDB = carsFinishSchema.parse((await getStoreData("")).data);
       if (carsDB && cars.length == 0) {
-        // Массив не возвращается, поэтому можно использовать forEach
         carsDB.forEach((x) => dispatch(addFinishCar(x)));
       }
     })();
-    // Обновил зависимости
   }, []);
 
   useEffect(() => {
-    // Cars может и не быть, нужна проверка
-    // Не нужно запускать filterWord всегда, нужна проверка на длину
     findCar(filterWord);
   }, [cars, filterWord]);
 
@@ -104,7 +99,7 @@ export const useCarFinishHook = () => {
     await dispatch(deleteFinishCar(car));
     await deleteData(car.id);
   };
-  // Упростили логику работы с состоянием сортировки, путем мержа логики
+
   const dispatchSortAction = (prop: keyof typeof sortState) => {
     switch (prop) {
       case "defaultStateSortNameMaster":
@@ -136,7 +131,6 @@ export const useCarFinishHook = () => {
     }
   };
 
-  // Упростили логику переключения сортировок
   const handlerChangeDefaultState = (prop: keyof typeof sortState) => {
     setSortState((prevState) => {
       const newState = prevState;
@@ -155,7 +149,6 @@ export const useCarFinishHook = () => {
     dispatchSortAction(prop);
   };
 
-  // Упростили логику работы с состоянием
   const handlerChangeStateSort = () => {
     setUpStateSort((prevState) => !prevState);
   };
