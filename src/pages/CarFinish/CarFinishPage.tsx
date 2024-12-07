@@ -41,7 +41,7 @@ export default function CarFinishComponent() {
         ) : (
           <div className={styles.withcar}>
             <div className={styles.tableFinish}>
-              <div>
+              <div className={styles.tableWrap}>
                 <SearchInput
                   onChange={handlerFindWord}
                   textLabel={t("translation:search.carsFinish")}
