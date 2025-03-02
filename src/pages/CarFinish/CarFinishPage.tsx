@@ -7,7 +7,7 @@ import { useCarFinishHook } from "./hooks/CarFinishHook";
 import CarFinishTable from "./components/CarFinishTable";
 import { useTranslation } from "react-i18next";
 import { handleOnExportExcel } from "../CarsWaitings/utils/handleOnExportExcel";
-import UButton from "../../components/ui/UButton/UButton";
+import { SmallPrimary } from "../../components/ui/SmallPrimary/SmallPrimary";
 
 export default function CarFinishComponent() {
   const {
@@ -46,9 +46,9 @@ export default function CarFinishComponent() {
                   onChange={handlerFindWord}
                   textLabel={t("translation:search.carsFinish")}
                 />
-                <UButton
+                <SmallPrimary
+                  text={t("translation:buttons.saveToExcel")}
                   onClick={() => handleOnExportExcel(filteredCars)}
-                  text={"Get To Excel"}
                 />
               </div>
               <CarFinishTable

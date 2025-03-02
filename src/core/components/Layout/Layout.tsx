@@ -128,8 +128,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               gap: "15px",
               justifyContent: !isMobile ? "center" : "",
               flexDirection: isMobile ? "column" : "row",
-              width: !isMobile ? 500 : "100%",
-              marginRight: "110px",
+              width: !isMobile ? 300 : "100%",
+              marginRight: "-110px",
               alignItems: "center",
             }}
           >

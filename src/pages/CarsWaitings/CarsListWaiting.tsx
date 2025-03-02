@@ -9,7 +9,7 @@ import { CarsTable } from "./components/CarsTableWaitingsCar";
 
 import { useTranslation } from "react-i18next";
 import { handleOnExportExcel } from "./utils/handleOnExportExcel";
-import UButton from "../../components/ui/UButton/UButton";
+import { SmallPrimary } from "../../components/ui/SmallPrimary/SmallPrimary";
 
 const CarsListWaiting = () => {
   const { t } = useTranslation(["translateWaitCar", "translation"]);
@@ -83,9 +83,9 @@ const CarsListWaiting = () => {
                 textLabel={t("translation:search.carsWaiting")}
               />
               <ButtonPlus onClick={openPopupCreateCars} />
-              <UButton
+              <SmallPrimary
+                text={t("translation:buttons.saveToExcel")}
                 onClick={() => handleOnExportExcel(filteredCars)}
-                text={"Get To Excel"}
               />
             </div>
 

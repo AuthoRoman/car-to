@@ -7,7 +7,7 @@ import { Popups } from "./components/CarsServicePopups";
 import { useTranslation } from "react-i18next";
 import { Box } from "@mui/material";
 import { handleOnExportExcel } from "../CarsWaitings/utils/handleOnExportExcel";
-import UButton from "../../components/ui/UButton/UButton";
+import { SmallPrimary } from "../../components/ui/SmallPrimary/SmallPrimary";
 
 const CarinWorking: React.FC = () => {
   const {
@@ -38,25 +38,23 @@ const CarinWorking: React.FC = () => {
         closeInfoCar={closeInfoCar}
       />
 
-      {/* Если нет машин */}
       {!cars.length && (
         <div className={styles.inServicPage}>
           <NoCarList text={`${t("noCarService")}`} />
         </div>
       )}
 
-      {/* Если машины есть */}
       {cars && !!cars.length && (
         <div className={styles.containerTable}>
           <div className={styles.tableService}>
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", gap: "5px" }}>
               <SearchInput
                 onChange={handlerFindWord}
                 textLabel={t("translation:search.carsService")}
               />
-              <UButton
+              <SmallPrimary
+                text={t("translation:buttons.saveToExcel")}
                 onClick={() => handleOnExportExcel(filteredCars)}
-                text={"Get To Excel"}
               />
             </Box>
 

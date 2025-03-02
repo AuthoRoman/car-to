@@ -16,7 +16,8 @@
     "sendService": "Send for service",
     "complete": "Complete",
     "completeService": "Complete service",
-    "save": "Save"
+    "save": "Save",
+    "saveToExcel": "Save in Excel"
   },
 
   "carInfo": {

@@ -16,7 +16,8 @@
     "sendService": "Отправить на обслуживание",
     "complete": "Завершить",
     "completeService": "Завершить обслуживание",
-    "save": "Сохранить"
+    "save": "Сохранить",
+    "saveToExcel": "Сохранить в Excel"
   },
 
   "carInfo": {

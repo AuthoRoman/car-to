@@ -1,23 +1,24 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, ButtonProps } from "@mui/material";
 
-interface IProps {
+interface IProps extends ButtonProps {
   text: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const UButton: React.FC<IProps> = ({ text, onClick, ...props }) => {
+const UButton: React.FC<IProps> = ({ text, sx = {}, ...props }) => {
   return (
     <Button
-      sx={{
-        backgroundColor: "var(--default-color-button)",
-        transition: "var(--default-transition)",
-        "&:hover": {
-          background: "var(--default-color-button-hover)",
+      sx={[
+        {
+          backgroundColor: "var(--default-color-button)",
+          transition: "var(--default-transition)",
+          "&:hover": {
+            background: "var(--default-color-button-hover)",
+          },
         },
-      }}
+        sx as object,
+      ]}
       variant="contained"
-      onClick={onClick}
       {...props}
     >
       {text}
