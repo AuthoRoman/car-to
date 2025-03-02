@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           gap: "15px 15px",
 
           width: { xs: open ? "400px" : "200px", lg: "100%" },
-          justifyContent: "end",
+          justifyContent: "center",
         }}
       >
         <MainDrawer open={open} setOpen={setOpen}>
